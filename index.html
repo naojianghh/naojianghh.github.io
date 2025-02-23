@@ -69,6 +69,109 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-buuctf-solutions" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/23/buuctf-solutions/" class="article-date">
+  <time class="dt-published" datetime="2025-02-23T05:13:36.000Z" itemprop="datePublished">2025-02-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/23/buuctf-solutions/">buuctf_solutions</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p>
+<p><img src="/../images/buuctf-solutions/1732106594993.png" alt="1732106594993"></p>
+<p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p>
+<p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p>
+<p> 而有些却不能，这个时候就需要自己把字符串<strong>倒过来</strong>，比如我们在伪代码看到的 str 是 <strong>SLCDN</strong> ，可实际用这个字符串的时候应该用 <strong>NDCLS</strong> 同理，<strong>wodah</strong> 改成 <strong>hadow</strong> 然后继续分析代码<img src="/../images/buuctf-solutions/1732106686344.png" alt="1732106686344"></p>
+<h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p>
+<p><img src="/../images/buuctf-solutions/1732173119194.png" alt="1732173119194"></p>
+<p> 2、输入指令：cd lib，进入lib目录，再输入启动指令：java -jar jadx-gui-1.4.4.jar </p>
+<p><img src="/../images/buuctf-solutions/1732173147984.png" alt="1732173147984"></p>
+<p><img src="/../images/buuctf-solutions/1732173163869.png" alt="1732173163869"></p>
+<p><img src="/../images/buuctf-solutions/1732173182539.png" alt="1732173182539"></p>
+<h1 id="BJDCTF2020-JustRE"><a href="#BJDCTF2020-JustRE" class="headerlink" title="[BJDCTF2020]JustRE"></a>[BJDCTF2020]JustRE</h1><p> 遵循这个原则，有main函数找main函数，没有main函数找敏感字符串，拖入ida32之后<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8F%8D%E7%BC%96%E8%AF%91&spm=1001.2101.3001.7020">反编译</a>，你会得到。 </p>
+<p><img src="/../images/buuctf-solutions/1732175940643.png" alt="1732175940643"></p>
+<p>但是点了一圈，发现没有什么可用的地方，那么就去寻找字符串，ida的使用方法，f5</p>
+<p>反编译，shift+f12<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">查找字符串</a>，之后你发现了一个类似于flag的东西。</p>
+<p><img src="/../images/buuctf-solutions/1732175972276.png" alt="1732175972276"></p>
+<p> 之后继续下一步，双击跟过去，跳转到了这个页面。 </p>
+<p><img src="/../images/buuctf-solutions/1732176002120.png" alt="1732176002120"></p>
+<p>  在光标在那上面的时候，ctrl + x，会进行交叉使用列表，跳转回对应在哪个汇编的位置。 </p>
+<p><img src="/../images/buuctf-solutions/1732176023422.png" alt="1732176023422"></p>
+<p>会跳转到所在的汇编的位置。</p>
+<p><img src="/../images/buuctf-solutions/1732176048530.png" alt="1732176048530"></p>
+<p>之后反编译进去 ，会发现一句话。</p>
+<p><img src="/../images/buuctf-solutions/1732176067574.png" alt="1732176067574"></p>
+<p>上一个语句应该是代表点击次数如果等于19999的话就输出flag。</p>
+<h1 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h1><p>前言：学习笔记。(不是为了做题而做题，reverse和pwn都需要深入学习。)</p>
+<p>常规思路： 下载 解压 查壳 </p>
+<p><img src="/../images/buuctf-solutions/1732716250731.png" alt="1732716250731"></p>
+<p>32bit&gt;&gt;&gt;32位 IDA Pro打开</p>
+<p>常规：先查找字符串【东点西看】&gt;&gt;&gt;再进入main函数【这题是winmain】&gt;&gt;&gt;WIN32编程写的。</p>
+<p>查找字符串</p>
+<p><img src="/../images/buuctf-solutions/1732716275389.png" alt="1732716275389"></p>
+<p>WinMain：</p>
+<p><img src="/../images/buuctf-solutions/1732716290804.png" alt="1732716290804"></p>
+<p>可疑参数：</p>
+<p>跟进去看看</p>
+<p><img src="/../images/buuctf-solutions/1732716306445.png" alt="1732716306445"></p>
+<p>哎不想看，先直接看反。。。【截图不完。。直接和分析一起看吧。】</p>
+<p>分析：<br>第一部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716331424.png" alt="1732716331424"></p>
+<p>第二部分：</p>
+<p>对于v7数组的范围：(这样看应该更简单些):【汇编中，连续的地址引用一般都是数组】</p>
+<p><img src="/../images/buuctf-solutions/1732716374438.png" alt="1732716374438"></p>
+<p><img src="/../images/buuctf-solutions/1732716343787.png" alt="1732716343787"></p>
+<p>sub_4010F0(v7, 0, 10)：（如何还原:C伪代码&gt;&gt;&gt;C语言）&gt;&gt;&gt;涨经验了。<br>关键点：类型确定[是char类型&gt;&gt;&gt;【1】还是int类型【4】、数组寻址原理、C代码风格等等。。]</p>
+<p>还原并运行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _DWORD char</span></span><br><span class="line"><span class="type">int</span> __cdecl <span class="title function_">sub_4010F0</span><span class="params">(<span class="type">char</span> * a1, <span class="type">int</span> a2, <span class="type">int</span> a3)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> result; <span class="comment">// eax</span></span><br><span class="line">	<span class="type">int</span> i; <span class="comment">// esi</span></span><br><span class="line">	<span class="type">int</span> v5; <span class="comment">// ecx</span></span><br><span class="line">	<span class="type">int</span> v6; <span class="comment">// edx</span></span><br><span class="line"> </span><br><span class="line">	result = a3;</span><br><span class="line">	<span class="keyword">for</span> (i = a2; i &lt;= a3; a2 = i)</span><br><span class="line">	&#123;</span><br><span class="line">		v5 = i;</span><br><span class="line">		v6 = *(_DWORD *)(i + a1);</span><br><span class="line">		<span class="keyword">if</span> (a2 &lt; result &amp;&amp; i &lt; result)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">do</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (v6 &gt; *(_DWORD *)(a1 +result))</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					++i;</span><br><span class="line">					*(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + result);</span><br><span class="line">					<span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					<span class="keyword">while</span> (*(_DWORD *)(a1 + i) &lt;= v6)</span><br><span class="line">					&#123;</span><br><span class="line">						<span class="keyword">if</span> (++i &gt;= result)</span><br><span class="line">							<span class="keyword">goto</span> LABEL_13;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					v5 = i;</span><br><span class="line">					*(_DWORD *)(a1 + result) = *(_DWORD *)( i + a1);</span><br><span class="line">				&#125;</span><br><span class="line">				--result;</span><br><span class="line">			&#125; <span class="keyword">while</span> (i &lt; result);</span><br><span class="line">		&#125;</span><br><span class="line">	LABEL_13:</span><br><span class="line">		*(_DWORD *)(a1 + result) = v6;</span><br><span class="line">		sub_4010F0(a1, a2, i - <span class="number">1</span>);</span><br><span class="line">		result = a3;</span><br><span class="line">		++i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> v7[] = &#123; <span class="number">90</span>,<span class="number">74</span>,<span class="number">83</span>,<span class="number">69</span>,<span class="number">67</span>,<span class="number">97</span>,<span class="number">78</span>,<span class="number">72</span>,<span class="number">51</span>,<span class="number">110</span>,<span class="number">103</span>,<span class="number">0</span>&#125;;</span><br><span class="line"> </span><br><span class="line">	sub_4010F0(v7, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, v7);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<p><img src="/../images/buuctf-solutions/1732716471728.png" alt="1732716471728"></p>
+<p>说明&gt;&gt;&gt;</p>
+<p>①sub_4010F0对v7进行了重新排序。</p>
+<p>②v7 &#x3D; “3CEHJNSZagn”;【变形后的值】</p>
+<p>第三部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716496205.png" alt="1732716496205"></p>
+<p>第四部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716516696.png" alt="1732716516696"></p>
+<p>大意：</p>
+<p>当它条件全部成立且String长度为8[已知] &gt;&gt;&gt;猜测 String&#x3D; flag{}       </p>
+<p>v4 v5 加密后的值 是 ak1w 和V1Ax【在线解密就行 C实现挺困难的。。】</p>
+<p>【猜测是base64，不知道就直接使用 随波逐流 &gt;&gt;&gt;一键解码 0.0】</p>
+<p>眼睛看得肉疼，直接写C脚本：</p>
+<p>对比发现，只有base64中连续含有WP&gt;&gt;&gt;说明base64加密猜测正确。</p>
+<p>最终String结果顺序:</p>
+<p><img src="/../images/buuctf-solutions/1732716547588.png" alt="1732716547588"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/23/buuctf-solutions/" data-id="cm7h6dr7q0003h43cg20p5jr2" data-title="buuctf_solutions" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-I-chun-qiu" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/23/I-chun-qiu/" class="article-date">
@@ -124,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/23/I-chun-qiu/" data-id="cm7h66tyg0000pc3c3qbjhtst" data-title="I_chun_qiu" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/23/I-chun-qiu/" data-id="cm7h6dr7l0000h43c7arz416i" data-title="I_chun_qiu" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -211,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/23/Pointer-Topic/" data-id="cm7h66tyi0001pc3cde4g161q" data-title="Pointer_Topic" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/23/Pointer-Topic/" data-id="cm7h6dr7p0002h43c2kbw5h1k" data-title="Pointer_Topic" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -698,7 +801,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/23/c-notes/" data-id="cm7h66tyk0002pc3c54k5csya" data-title="c_notes" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/23/c-notes/" data-id="cm7h6dr7p0001h43c0uxibc4n" data-title="c_notes" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1275,7 +1378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/23/cgg-notes/" data-id="cm7h66tyk0003pc3c5kna73g6" data-title="cgg_notes" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/23/cgg-notes/" data-id="cm7h6dr7q0004h43c5pe31iuh" data-title="cgg_notes" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1316,6 +1419,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/02/23/buuctf-solutions/">buuctf_solutions</a>
+          </li>
         
           <li>
             <a href="/2025/02/23/I-chun-qiu/">I_chun_qiu</a>
