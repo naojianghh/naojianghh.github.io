@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #ff7d73">
+                <a href="/tags/ctf/" style="color: #00a596">
                     ctf
                 </a>
             </span>
@@ -195,7 +195,10 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p>
+        <p> buuctf 上的一些错题</p>
+<span id="more"></span> 
+
+<h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p>
 <p><img src="/../images/buuctf-solutions/1732106594993.png" alt="1732106594993"></p>
 <p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p>
 <p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p>
