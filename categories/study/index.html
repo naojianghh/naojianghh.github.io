@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>I_chun_qiu | 小白脑浆糊的进化之旅</title>
+    <title>Categories: 学习 | 小白脑浆糊的进化之旅</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,10 +37,6 @@
 
 
 <script src="/js/lib/preview.js"></script>
-
-
-
-
 
 
 
@@ -155,20 +151,14 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>I_chun_qiu</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/2/23
-        </span>
+            <div id="archives">
+    
+    <div class="categories-tags">
         
-        <span class="category">
-            <a href="/categories/study/">
+        
+        
+        <span>
+            <a href="/categories/study/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -177,61 +167,172 @@
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            
-            <span class="tag">
-                
-                <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #00bcd4">
-                    学习
-                </a>
-            </span>
-            
+        
+        
+        
+        <span>
+            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                题解
+            </a>
         </span>
+        
         
     </div>
     
-    <div class="content" v-pre>
-        <h1 id="IDA基础操作"><a href="#IDA基础操作" class="headerlink" title="IDA基础操作"></a>IDA基础操作</h1><h2 id="IDA插件安装"><a href="#IDA插件安装" class="headerlink" title="IDA插件安装"></a>IDA插件安装</h2><p><img src="/../images/I-chun-qiu/1738665569455.png" alt="1738665569455"></p>
-<h2 id="IDA打开方式"><a href="#IDA打开方式" class="headerlink" title="IDA打开方式"></a>IDA打开方式</h2><p><img src="/../images/I-chun-qiu/1738665679539.png" alt="1738665679539"></p>
-<p><strong>可以先用32打开文件，如果报错，再用64打开文件</strong></p>
-<h2 id="IDA常用窗口"><a href="#IDA常用窗口" class="headerlink" title="IDA常用窗口"></a>IDA常用窗口</h2><p><img src="/../images/I-chun-qiu/1738665790119.png" alt="1738665790119"></p>
-<h3 id="函数列表窗口"><a href="#函数列表窗口" class="headerlink" title="函数列表窗口"></a>函数列表窗口</h3><p><img src="/../images/I-chun-qiu/1738666061089.png" alt="1738666061089"></p>
-<p><strong>在函数列表中可按 Ctrl + F 来调出函数搜索窗口，双击函数名可在主视图跳转到对应函数的代码</strong></p>
-<h3 id="IDA-View窗口"><a href="#IDA-View窗口" class="headerlink" title="IDA-View窗口"></a>IDA-View窗口</h3><p><strong>可按G键，或在jump功能中点击jump to address来进行地址导航</strong></p>
-<h3 id="伪代码窗口"><a href="#伪代码窗口" class="headerlink" title="伪代码窗口"></a>伪代码窗口</h3><p><strong>按反斜杠键进行注释，按x键查看交叉引用</strong></p>
-<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p><strong>程序引用的其他第三方函数</strong></p>
-<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p><strong>程序动态数据导出的函数，默认start为最初始的执行函数</strong></p>
-<h2 id="IDA操作实例"><a href="#IDA操作实例" class="headerlink" title="IDA操作实例"></a>IDA操作实例</h2><p><strong>在终端启动PowerShell，将执行文件托入可避免程序在我们未阅读完回显时就自动关闭</strong></p>
-<p><img src="/../images/I-chun-qiu/1738667322612.png" alt="1738667322612"></p>
-<p><strong>可在伪代码页面中选中函数并按N键为其重命名</strong></p>
-<h3 id="定位main函数"><a href="#定位main函数" class="headerlink" title="定位main函数"></a>定位main函数</h3><p><img src="/../images/I-chun-qiu/1738667427818.png" alt="1738667427818"></p>
-<p><strong>在IDA-View窗口中可选中字符串，再按U键来解除字符串，也可按A键来重新组成字符串</strong></p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="/../images/I-chun-qiu/1738667810659.png" alt="1738667810659"></p>
-<h1 id="RC4加密算法"><a href="#RC4加密算法" class="headerlink" title="RC4加密算法"></a>RC4加密算法</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738668071519.png" alt="1738668071519"></p>
-<h2 id="加密过程概述"><a href="#加密过程概述" class="headerlink" title="加密过程概述"></a>加密过程概述</h2><p><img src="/../images/I-chun-qiu/1738668264391.png" alt="1738668264391"></p>
-<p><img src="/../images/I-chun-qiu/1738668597694.png" alt="1738668597694"></p>
-<p><img src="/../images/I-chun-qiu/1738668622779.png" alt="1738668622779"></p>
-<p><strong>注：mod为取模</strong></p>
-<h2 id="特征识别"><a href="#特征识别" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738668934155.png" alt="1738668934155"></p>
-<h2 id="常见魔改及处理方法"><a href="#常见魔改及处理方法" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738668984958.png" alt="1738668984958"></p>
-<h1 id="TEA加密算法"><a href="#TEA加密算法" class="headerlink" title="TEA加密算法"></a>TEA加密算法</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738670241877.png" alt="1738670241877"></p>
-<h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p><img src="/../images/I-chun-qiu/1738670316411.png" alt="1738670316411"></p>
-<h2 id="特征识别-1"><a href="#特征识别-1" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738670451740.png" alt="1738670451740"></p>
-<p><strong>注：左移4等于乘16</strong></p>
-<h2 id="常见魔改及处理方法-1"><a href="#常见魔改及处理方法-1" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738670560542.png" alt="1738670560542"></p>
-<p><img src="/../images/I-chun-qiu/1738670608311.png" alt="1738670608311"></p>
-
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2025/2/23</div>
+            <a href="/2025/02/23/I-chun-qiu/">
+                <h3>I_chun_qiu</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/study/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        学习
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #03a9f4">
+                            学习
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
     </div>
     
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2025/2/23</div>
+            <a href="/2025/02/23/cgg-notes/">
+                <h3>cgg_notes</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/study/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        学习
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #ffa2c4">
+                            学习
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
+    </div>
     
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2025/2/23</div>
+            <a href="/2025/02/23/c-notes/">
+                <h3>c_notes</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/study/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        学习
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #ff7d73">
+                            学习
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
+    </div>
     
-    
-    
-    
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2025/2/23</div>
+            <a href="/2025/02/23/Pointer-Topic/">
+                <h3>Pointer_Topic</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/study/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        学习
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #00a596">
+                            学习
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
+    </div>
     
 </div>
 
@@ -263,12 +364,6 @@
         
     </div>
     <script src="/js/main.js"></script>
-    
-    
-
-
-
-
     
 </body>
 </html>
