@@ -1,0 +1,4041 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>小白脑浆糊的进化之旅</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="小白脑浆糊的进化之旅" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小白脑浆糊的进化之旅</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小白脑浆糊的进化之旅</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.jpg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>小白脑浆糊的进化之旅</h1>
+                <h3></h3>
+                <h5>Welcome to My Blog</h5>
+            </div>
+        </span>
+    </div>
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/2025/02/23/buuctf-solutions/">
+        <h2 class="post-title">buuctf_solutions</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p>
+<p><img src="/../images/buuctf-solutions/1732106594993.png" alt="1732106594993"></p>
+<p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p>
+<p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p>
+<p> 而有些却不能，这个时候就需要自己把字符串<strong>倒过来</strong>，比如我们在伪代码看到的 str 是 <strong>SLCDN</strong> ，可实际用这个字符串的时候应该用 <strong>NDCLS</strong> 同理，<strong>wodah</strong> 改成 <strong>hadow</strong> 然后继续分析代码<img src="/../images/buuctf-solutions/1732106686344.png" alt="1732106686344"></p>
+<h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p>
+<p><img src="/../images/buuctf-solutions/1732173119194.png" alt="1732173119194"></p>
+<p> 2、输入指令：cd lib，进入lib目录，再输入启动指令：java -jar jadx-gui-1.4.4.jar </p>
+<p><img src="/../images/buuctf-solutions/1732173147984.png" alt="1732173147984"></p>
+<p><img src="/../images/buuctf-solutions/1732173163869.png" alt="1732173163869"></p>
+<p><img src="/../images/buuctf-solutions/1732173182539.png" alt="1732173182539"></p>
+<h1 id="BJDCTF2020-JustRE"><a href="#BJDCTF2020-JustRE" class="headerlink" title="[BJDCTF2020]JustRE"></a>[BJDCTF2020]JustRE</h1><p> 遵循这个原则，有main函数找main函数，没有main函数找敏感字符串，拖入ida32之后<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8F%8D%E7%BC%96%E8%AF%91&spm=1001.2101.3001.7020">反编译</a>，你会得到。 </p>
+<p><img src="/../images/buuctf-solutions/1732175940643.png" alt="1732175940643"></p>
+<p>但是点了一圈，发现没有什么可用的地方，那么就去寻找字符串，ida的使用方法，f5</p>
+<p>反编译，shift+f12<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">查找字符串</a>，之后你发现了一个类似于flag的东西。</p>
+<p><img src="/../images/buuctf-solutions/1732175972276.png" alt="1732175972276"></p>
+<p> 之后继续下一步，双击跟过去，跳转到了这个页面。 </p>
+<p><img src="/../images/buuctf-solutions/1732176002120.png" alt="1732176002120"></p>
+<p>  在光标在那上面的时候，ctrl + x，会进行交叉使用列表，跳转回对应在哪个汇编的位置。 </p>
+<p><img src="/../images/buuctf-solutions/1732176023422.png" alt="1732176023422"></p>
+<p>会跳转到所在的汇编的位置。</p>
+<p><img src="/../images/buuctf-solutions/1732176048530.png" alt="1732176048530"></p>
+<p>之后反编译进去 ，会发现一句话。</p>
+<p><img src="/../images/buuctf-solutions/1732176067574.png" alt="1732176067574"></p>
+<p>上一个语句应该是代表点击次数如果等于19999的话就输出flag。</p>
+<h1 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h1><p>前言：学习笔记。(不是为了做题而做题，reverse和pwn都需要深入学习。)</p>
+<p>常规思路： 下载 解压 查壳 </p>
+<p><img src="/../images/buuctf-solutions/1732716250731.png" alt="1732716250731"></p>
+<p>32bit&gt;&gt;&gt;32位 IDA Pro打开</p>
+<p>常规：先查找字符串【东点西看】&gt;&gt;&gt;再进入main函数【这题是winmain】&gt;&gt;&gt;WIN32编程写的。</p>
+<p>查找字符串</p>
+<p><img src="/../images/buuctf-solutions/1732716275389.png" alt="1732716275389"></p>
+<p>WinMain：</p>
+<p><img src="/../images/buuctf-solutions/1732716290804.png" alt="1732716290804"></p>
+<p>可疑参数：</p>
+<p>跟进去看看</p>
+<p><img src="/../images/buuctf-solutions/1732716306445.png" alt="1732716306445"></p>
+<p>哎不想看，先直接看反。。。【截图不完。。直接和分析一起看吧。】</p>
+<p>分析：<br>第一部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716331424.png" alt="1732716331424"></p>
+<p>第二部分：</p>
+<p>对于v7数组的范围：(这样看应该更简单些):【汇编中，连续的地址引用一般都是数组】</p>
+<p><img src="/../images/buuctf-solutions/1732716374438.png" alt="1732716374438"></p>
+<p><img src="/../images/buuctf-solutions/1732716343787.png" alt="1732716343787"></p>
+<p>sub_4010F0(v7, 0, 10)：（如何还原:C伪代码&gt;&gt;&gt;C语言）&gt;&gt;&gt;涨经验了。<br>关键点：类型确定[是char类型&gt;&gt;&gt;【1】还是int类型【4】、数组寻址原理、C代码风格等等。。]</p>
+<p>还原并运行：</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define _DWORD char
+int __cdecl sub_4010F0(char * a1, int a2, int a3)
+&#123;
+    int result; // eax
+    int i; // esi
+    int v5; // ecx
+    int v6; // edx
+ 
+    result = a3;
+    for (i = a2; i &lt;= a3; a2 = i)
+    &#123;
+        v5 = i;
+        v6 = *(_DWORD *)(i + a1);
+        if (a2 &lt; result &amp;&amp; i &lt; result)
+        &#123;
+            do
+            &#123;
+                if (v6 &gt; *(_DWORD *)(a1 +result))
+                &#123;
+                    if (i &gt;= result)
+                        break;
+                    ++i;
+                    *(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + result);
+                    if (i &gt;= result)
+                        break;
+                    while (*(_DWORD *)(a1 + i) &lt;= v6)
+                    &#123;
+                        if (++i &gt;= result)
+                            goto LABEL_13;
+                    &#125;
+                    if (i &gt;= result)
+                        break;
+                    v5 = i;
+                    *(_DWORD *)(a1 + result) = *(_DWORD *)( i + a1);
+                &#125;
+                --result;
+            &#125; while (i &lt; result);
+        &#125;
+    LABEL_13:
+        *(_DWORD *)(a1 + result) = v6;
+        sub_4010F0(a1, a2, i - 1);
+        result = a3;
+        ++i;
+    &#125;
+    return result;
+&#125;
+int main()
+&#123;
+    char v7[] = &#123; 90,74,83,69,67,97,78,72,51,110,103,0&#125;;
+ 
+    sub_4010F0(v7, 0, 10);
+    printf(&quot;%s&quot;, v7);
+    return 0;
+&#125;
+</code></pre>
+<p>得到：</p>
+<p><img src="/../images/buuctf-solutions/1732716471728.png" alt="1732716471728"></p>
+<p>说明&gt;&gt;&gt;</p>
+<p>①sub_4010F0对v7进行了重新排序。</p>
+<p>②v7 &#x3D; “3CEHJNSZagn”;【变形后的值】</p>
+<p>第三部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716496205.png" alt="1732716496205"></p>
+<p>第四部分：</p>
+<p><img src="/../images/buuctf-solutions/1732716516696.png" alt="1732716516696"></p>
+<p>大意：</p>
+<p>当它条件全部成立且String长度为8[已知] &gt;&gt;&gt;猜测 String&#x3D; flag{}       </p>
+<p>v4 v5 加密后的值 是 ak1w 和V1Ax【在线解密就行 C实现挺困难的。。】</p>
+<p>【猜测是base64，不知道就直接使用 随波逐流 &gt;&gt;&gt;一键解码 0.0】</p>
+<p>眼睛看得肉疼，直接写C脚本：</p>
+<p>对比发现，只有base64中连续含有WP&gt;&gt;&gt;说明base64加密猜测正确。</p>
+<p>最终String结果顺序:</p>
+<p><img src="/../images/buuctf-solutions/1732716547588.png" alt="1732716547588"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/ctf-%E9%A2%98%E8%A7%A3/" style="color: #00a596">ctf | 题解</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/buuctf-solutions/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2025/02/23/I-chun-qiu/">
+        <h2 class="post-title">I_chun_qiu</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="IDA基础操作"><a href="#IDA基础操作" class="headerlink" title="IDA基础操作"></a>IDA基础操作</h1><h2 id="IDA插件安装"><a href="#IDA插件安装" class="headerlink" title="IDA插件安装"></a>IDA插件安装</h2><p><img src="/../images/I-chun-qiu/1738665569455.png" alt="1738665569455"></p>
+<h2 id="IDA打开方式"><a href="#IDA打开方式" class="headerlink" title="IDA打开方式"></a>IDA打开方式</h2><p><img src="/../images/I-chun-qiu/1738665679539.png" alt="1738665679539"></p>
+<p><strong>可以先用32打开文件，如果报错，再用64打开文件</strong></p>
+<h2 id="IDA常用窗口"><a href="#IDA常用窗口" class="headerlink" title="IDA常用窗口"></a>IDA常用窗口</h2><p><img src="/../images/I-chun-qiu/1738665790119.png" alt="1738665790119"></p>
+<h3 id="函数列表窗口"><a href="#函数列表窗口" class="headerlink" title="函数列表窗口"></a>函数列表窗口</h3><p><img src="/../images/I-chun-qiu/1738666061089.png" alt="1738666061089"></p>
+<p><strong>在函数列表中可按 Ctrl + F 来调出函数搜索窗口，双击函数名可在主视图跳转到对应函数的代码</strong></p>
+<h3 id="IDA-View窗口"><a href="#IDA-View窗口" class="headerlink" title="IDA-View窗口"></a>IDA-View窗口</h3><p><strong>可按G键，或在jump功能中点击jump to address来进行地址导航</strong></p>
+<h3 id="伪代码窗口"><a href="#伪代码窗口" class="headerlink" title="伪代码窗口"></a>伪代码窗口</h3><p><strong>按反斜杠键进行注释，按x键查看交叉引用</strong></p>
+<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p><strong>程序引用的其他第三方函数</strong></p>
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p><strong>程序动态数据导出的函数，默认start为最初始的执行函数</strong></p>
+<h2 id="IDA操作实例"><a href="#IDA操作实例" class="headerlink" title="IDA操作实例"></a>IDA操作实例</h2><p><strong>在终端启动PowerShell，将执行文件托入可避免程序在我们未阅读完回显时就自动关闭</strong></p>
+<p><img src="/../images/I-chun-qiu/1738667322612.png" alt="1738667322612"></p>
+<p><strong>可在伪代码页面中选中函数并按N键为其重命名</strong></p>
+<h3 id="定位main函数"><a href="#定位main函数" class="headerlink" title="定位main函数"></a>定位main函数</h3><p><img src="/../images/I-chun-qiu/1738667427818.png" alt="1738667427818"></p>
+<p><strong>在IDA-View窗口中可选中字符串，再按U键来解除字符串，也可按A键来重新组成字符串</strong></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="/../images/I-chun-qiu/1738667810659.png" alt="1738667810659"></p>
+<h1 id="RC4加密算法"><a href="#RC4加密算法" class="headerlink" title="RC4加密算法"></a>RC4加密算法</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738668071519.png" alt="1738668071519"></p>
+<h2 id="加密过程概述"><a href="#加密过程概述" class="headerlink" title="加密过程概述"></a>加密过程概述</h2><p><img src="/../images/I-chun-qiu/1738668264391.png" alt="1738668264391"></p>
+<p><img src="/../images/I-chun-qiu/1738668597694.png" alt="1738668597694"></p>
+<p><img src="/../images/I-chun-qiu/1738668622779.png" alt="1738668622779"></p>
+<p><strong>注：mod为取模</strong></p>
+<h2 id="特征识别"><a href="#特征识别" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738668934155.png" alt="1738668934155"></p>
+<h2 id="常见魔改及处理方法"><a href="#常见魔改及处理方法" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738668984958.png" alt="1738668984958"></p>
+<h1 id="TEA加密算法"><a href="#TEA加密算法" class="headerlink" title="TEA加密算法"></a>TEA加密算法</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738670241877.png" alt="1738670241877"></p>
+<h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p><img src="/../images/I-chun-qiu/1738670316411.png" alt="1738670316411"></p>
+<h2 id="特征识别-1"><a href="#特征识别-1" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738670451740.png" alt="1738670451740"></p>
+<p><strong>注：左移4等于乘16</strong></p>
+<h2 id="常见魔改及处理方法-1"><a href="#常见魔改及处理方法-1" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738670560542.png" alt="1738670560542"></p>
+<p><img src="/../images/I-chun-qiu/1738670608311.png" alt="1738670608311"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #ffa2c4">学习</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/I-chun-qiu/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2025/02/23/Pointer-Topic/">
+        <h2 class="post-title">Pointer_Topic</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="指针基础"><a href="#指针基础" class="headerlink" title="指针基础"></a>指针基础</h1><p><img src="/../images/Pointer-Topic/1728113354254.png" alt="1728113354254"></p>
+<p><strong>带*类型的宽度均为4</strong></p>
+<h1 id="指针运算"><a href="#指针运算" class="headerlink" title="指针运算"></a>指针运算</h1><p><img src="/../images/Pointer-Topic/1728115779656.png" alt="1728115779656"></p>
+<p><img src="/../images/Pointer-Topic/1728116129664.png" alt="1728116129664"></p>
+<p><img src="/../images/Pointer-Topic/1728116392067.png" alt="1728116392067"></p>
+<img src="../images/Pointer-Topic/1728132948425.png" alt="1728132948425"  />
+
+<p><img src="/../images/Pointer-Topic/1728133210279.png" alt="1728133210279"></p>
+<p><img src="/../images/Pointer-Topic/1728136502045.png" alt="1728136502045"></p>
+<pre><code class="c">typedef struct Student
+&#123;
+    int x;
+    int y;
+&#125;;
+
+void Test()
+&#123;
+    Student***** s;
+    s = (Student*****)100;
+    s++; //104
+    printf(&quot;%d\n&quot;, s);
+    s = s + 2; //112
+    printf(&quot;%d\n&quot;, s);
+    s = s - 3; //100
+    printf(&quot;%d\n&quot;, s);
+&#125;
+
+void Test2()
+&#123;
+    Student**** s1;
+    Student**** s2;
+    int x;
+    s1 = (Student****)200;
+    s2 = (Student****)100;
+    x = s1 - s2; //25
+    printf(&quot;%d\n&quot;, x);
+
+&#125;
+
+void Test3()
+&#123;
+    Student* s;
+    s = (Student*)100;
+    s++; //108
+    printf(&quot;%d\n&quot;, s);
+    s = s + 2; //124
+    printf(&quot;%d\n&quot;, s);
+    s = s - 3; //100
+    printf(&quot;%d\n&quot;, s);
+
+&#125;
+
+void Test4()
+&#123;
+    Student* s1;
+    Student* s2;
+    int x;
+    s1 = (Student*)200;
+    s2 = (Student*)100;
+    x = s1 - s2; //12.5 (12)
+    printf(&quot;%d\n&quot;, x);
+&#125;
+</code></pre>
+<h1 id="多级指针"><a href="#多级指针" class="headerlink" title="多级指针"></a>多级指针</h1><pre><code class="c">*p == p[]
+
+*(p + 0) == p[0]
+
+*(p + 1) == p[1]
+
+*( *(p + 0) + 0) == p[0] [0]
+
+*( *(p + 1) + 2) == p[1] [2]
+
+</code></pre>
+<p><img src="/../images/Pointer-Topic/1728389878637.png" alt="1728389878637"></p>
+<h1 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h1><pre><code class="c">char* px[]
+//类似二维数组
+//其中&quot;*&quot;表示最后一个“ [] ”
+</code></pre>
+<pre><code class="c">#include &lt;stdio.h&gt;
+
+int main()
+&#123;
+    char* a[] = &#123; &quot;hello&quot;,&quot;world&quot; &#125;;
+    printf(&quot;%c&quot;,*(*(a + 0) + 1));
+    return 0;
+&#125;
+
+//输出结果为e
+</code></pre>
+<h1 id="数组指针"><a href="#数组指针" class="headerlink" title="数组指针"></a>数组指针</h1><pre><code class="c">char (*px) [5]
+*(*(px + 4) + 3) // 1 * 4 * 5 + 3 * 1 == 23
+int (*px) [5]
+*(*(px + 2) + 2) // 4 * 5 * 2 + 2 * 4 == 48
+</code></pre>
+<p><strong>用int（4字节）类型指针取char（1字节）类型数组是一次取4个数 且 输出为倒序</strong></p>
+<h1 id="多维数组指针"><a href="#多维数组指针" class="headerlink" title="多维数组指针"></a>多维数组指针</h1><h2 id="二维"><a href="#二维" class="headerlink" title="二维"></a>二维</h2><p><img src="/../images/Pointer-Topic/1728473292014.png" alt="1728473292014"></p>
+<pre><code class="c">char (*py)[2][3]
+*(*(*(py + 2) + 3) + 4) //x * 1 * 2 * 3(类型字节和数组宽度【2】【3】相乘) + y * 1 * 3(类型字节和数组宽度“【3】”相乘) + z * 1(类型字节)
+ 2 * 1 * 2 * 3 + 3 * 1 * 3 + 4 * 1 = 25
+</code></pre>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+char memory[] =
+&#123;
+    0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x07,0x09,
+    0x00,0x20,0x10,0x03,0x03,0x0C,0x00,0x00,0x44,0x00,
+    0x00,0x33,0x00,0x47,0x0C,0x0E,0x00,0x0D,0x00,0x11,
+    0x00,0x00,0x00,0x02,0x64,0x00,0x00,0x00,0xAA,0x00,
+    0x00,0x00,0x64,0x10,0x00,0x00,0x00,0x00,0x00,0x00,
+    0x00,0x00,0x02,0x00,0x74,0x0F,0x41,0x00,0x00,0x00,
+    0x01,0x00,0x00,0x00,0x05,0x00,0x00,0x00,0x0A,0x00,
+    0x00,0x02,0x57,0x4F,0x57,0x00,0x06,0x08,0x00,0x00,
+    0x00,0x00,0x00,0x64,0x00,0x0F,0x00,0x00,0x0D,0x00,
+    0x00,0x00,0x23,0x00,0x00,0x64,0x00,0x00,0x64,0x00
+&#125;;
+int main() &#123;
+    int(*p)[2][3] = (int(*)[2][3])memory;
+    printf(&quot;%x&quot;, *(*(*(p + 1) + 1) + 1));
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+//*(*(*(p + 1) + 1) + 1) = 40
+//打印结果为10640000
+</code></pre>
+<p><strong>多维的情况与二维相似</strong></p>
+<h1 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h1><pre><code class="c">#include&lt;stdio.h&gt;
+int main ()&#123;
+    struct student &#123;
+        char name[50];
+        int age;
+    &#125;;
+
+    struct student Person;
+    strcpy(Person.name,&quot;yiyi&quot;);
+    Person.age = 18;
+    printf(&quot;%s\n&quot;,Person.name);
+    printf(&quot;%d\n&quot;,Person.age);
+    
+    struct student* p = &amp;Person;
+    printf(&quot;%s\n&quot;,p-&gt;name);
+    printf(&quot;%d\n&quot;,p-&gt;age);
+    return 0;
+&#125;
+</code></pre>
+<h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><p><strong>不能 ++ – 相减 可以比较大小</strong></p>
+<p><strong>可赋函数</strong></p>
+<img src="../images/Pointer-Topic/1728476007607.png" alt="1728476007607" style="zoom: 67%;" />
+
+
+
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int main() 
+&#123;
+    int a[] = &#123; 9,8,7,6,5,4,3,2,1 &#125;;
+    void (*psort)(int*,int*);
+    psort = sort;
+    psort(a, a + 9);
+    for (int i = 0; i &lt; sizeof(a) / sizeof(a[0]); i++) &#123;
+        cout &lt;&lt; a[i] &lt;&lt; endl;
+    &#125;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h1 id="返回类型为指针的函数"><a href="#返回类型为指针的函数" class="headerlink" title="返回类型为指针的函数"></a>返回类型为指针的函数</h1><pre><code class="c">int* pFun (int a,int b)
+&#123;
+    int ret = 0;
+    return ret;
+&#125;
+//返回类型为  int*
+</code></pre>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><pre><code class="c">#include&lt;stdio.h&gt;
+char memory[] =
+&#123;
+    0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x07,0x09,
+    0x00,0x20,0x10,0x03,0x03,0x0C,0x00,0x00,0x44,0x00,
+    0x00,0x33,0x00,0x47,0x0C,0x0E,0x00,0x0D,0x00,0x11,
+    0x00,0x00,0x00,0x02,0x64,0x00,0x00,0x00,0xAA,0x00,
+    0x00,0x00,0x64,0x10,0x00,0x00,0x00,0x00,0x00,0x00,
+    0x00,0x00,0x02,0x00,0x74,0x0F,0x41,0x00,0x00,0x00,
+    0x01,0x00,0x00,0x00,0x05,0x00,0x00,0x00,0x0A,0x00,
+    0x00,0x02,0x57,0x4F,0x57,0x00,0x06,0x08,0x00,0x00,
+    0x00,0x00,0x00,0x64,0x00,0x0F,0x00,0x00,0x0D,0x00,
+    0x00,0x00,0x23,0x00,0x00,0x64,0x00,0x00,0x64,0x00
+&#125;;
+int same(char* s1, char* s2)
+&#123;
+    char ret = 0;
+    for (char i = 0; i &lt; 3; i++) &#123;
+        if (*(s1 + i) != *(s2 + i)) &#123;
+            ret = 0;
+            break;
+        &#125;
+        if (*(s1 + i) == *(s2 + i)) &#123;
+            ret = 1;
+        &#125;
+    &#125;
+    return ret;
+&#125;
+
+void Find()
+&#123;
+    char index = 0;
+    char name[4];
+    name[3] = &#39;\0&#39;;
+    char key[4] = &quot;WOW&quot;;
+    char memorysize = sizeof(memory) / sizeof(memory[0]);
+    while (index &lt; memorysize - 2) &#123;
+        name[0] = *(memory + index);
+        name[1] = *(memory + index + 1);
+        name[2] = *(memory + index + 2);
+        if (same(name, key) == 1) &#123;
+            printf(&quot;%p\n&quot;, &amp;memory[index]);
+        &#125;
+        index++;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    Find();
+    printf(&quot;%p&quot;, &amp;memory);
+    return 0;
+&#125;
+</code></pre>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #ffa2c4">学习</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/Pointer-Topic/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2025/02/23/c-notes/">
+        <h2 class="post-title">c_notes</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h1><pre><code class="c">#include&lt;stdio.h&gt;
+
+int main()
+
+&#123;
+
+​    return 0;
+
+&#125;   //所有代码必备
+
+printf(&quot;&quot;)   //输出引号内的内容
+
+\n   //换行
+
+int   //整形(整数)
+
+%d   //代表计算结果
+
+​      例:print(&quot;%d&quot;,13+12)
+
+​           输出25
+</code></pre>
+<h1 id="基础语句"><a href="#基础语句" class="headerlink" title="基础语句"></a>基础语句</h1><p>运算符:+(加),-(减),*(乘),&#x2F;(除),%(取余),&#x3D;</p>
+<p>定义变量:  int(类型)  xxx(变量名称&#x2F;&#x2F; 只能由字母，数字，下划线组成，并且第一个位置只能为字母或下划线，一些C语言的关键字也不能作为变量名称)  &#x3D;(赋值运算符)  0(初始值)  </p>
+<p>&#x2F;&#x2F;将右边的值赋给左边的变量</p>
+<p>变量输入(scanf):</p>
+<p>scanf(“%d,%d”,&amp;a,&amp;b);   &#x2F;&#x2F;输入a，b的值</p>
+<p>注意!!!   scanf 中的引号内所有符号都要输入一个值</p>
+<p>​              例:   scanf(“%d,%d”,&amp;a,&amp;b);</p>
+<p>​                      运行输值时要输入3,4   &#x2F;&#x2F;“，”一定要输进去</p>
+<p>定义常量:  const int xxx(常量名称) &#x3D; 100(赋值)  &#x2F;&#x2F;常量后续更改不了</p>
+<p>int a &#x3D; 0;   &#x2F;&#x2F;赋予a初始值</p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>计算时间差:</p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+
+int main()
+&#123;
+    int hour1,minute1;
+    int hour2,minute2;
+    printf(&quot;请输入第一时间的几时几分&quot;); 
+    scanf(&quot;%d%d&quot;,&amp;hour1,&amp;minute1);
+    printf(&quot;请输入第二时间的几时几分&quot;);
+    scanf(&quot;%d%d&quot;,&amp;hour2,&amp;minute2);
+    int t1 = hour1 *60 + minute1;
+    int t2 = hour2 *60 + minute2;
+    int t = t2 - t1;
+    printf(&quot;时差为%d时%d分&quot;,t/60,t%60);
+    return 0;
+&#125;
+</code></pre>
+<h1 id="小数"><a href="#小数" class="headerlink" title="小数"></a>小数</h1><p>浮点型(小数):  %d改成%f,并在整数运算中加入小数</p>
+<p>​                     例：printf(“%f”,7&#x2F;12)</p>
+<p> 运用double(双精度)输入小数时:scanf(“%lf”,&amp;a)</p>
+<p>float(单精度)</p>
+<p>C语言运算具有优先级(与平常差不多)</p>
+<h1 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h1><p>交换两个变量:a &#x3D; 4 ,b &#x3D;5</p>
+<p>​                        t &#x3D; a</p>
+<p>​                        a &#x3D; b</p>
+<p>​                        b &#x3D; t</p>
+<p>复合赋值:a +&#x3D; 1   &#x2F;&#x2F;a &#x3D; a + 1   &#x2F;&#x2F;其他运算符类推 </p>
+<p>递增(减)运算符:a++(后置递增)   ++a(前置递增  )</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20213739.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt; 
+int main()
+&#123;
+    int time1 = 0;
+    int time2 = 0;
+    printf(&quot;请输入四或三位数来表示时间&quot;);
+    scanf(&quot;%d&quot;,&amp;time1);
+    printf(&quot;请输入流逝的时间（分钟）&quot;);
+    scanf(&quot;%d&quot;,&amp;time2);
+    int t2 = 0,t1 = 0;
+    t2 = (time1/100)*60 + time1%100 + time2;
+    t1 = (t2/60)*100 + t2%60;
+    printf(&quot;%d&quot;,t1);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20213727.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int b = 0;
+    printf(&quot;请输入长度(cm)&quot;);
+    scanf(&quot;%d&quot;,&amp;b);
+    double a;
+    int foot,inch;
+    a = (b/100.0)/0.3048;
+    foot = (a * 12)/12;  
+    inch = (a - foot)*12;
+    printf(&quot;%d英尺 %d英寸&quot;,foot,inch);
+    return 0; 
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20213810.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    printf(&quot;请输入一个三位数&quot;);
+    int a = 0;
+    scanf(&quot;%d&quot;,&amp;a);
+    int b = a/100;
+    int c = (a%10)*100;
+    int d = a%100 - a%10;
+    printf(&quot;这三位数的逆序为:%d\n&quot;,b+c+d);
+    return 0;
+     
+&#125;
+</code></pre>
+<p>十六进制:</p>
+<p>printf(“%x”,x)   &#x2F;&#x2F;以十六进制的方式输出一个十进制的数</p>
+<p>一个数前加上”0x”表示这个数为十六进制的数</p>
+<p> <img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20213757.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    printf(&quot;请输入错误输出BCD数&quot;);
+    int a = 0;
+    scanf(&quot;%d&quot;,&amp;a);
+    printf(&quot;%d&quot;,a/16*10+a%16);
+    return 0;
+&#125;
+
+#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int x = 0;
+    scanf(&quot;%d&quot;,&amp;x);
+    printf(&quot;%x&quot;,x);
+    return 0;
+&#125;
+</code></pre>
+<p>&#x2F;&#x2F;BCD数是用一个字节来表示的两位十进制数，一个字节有8bit，每4bit表示十进制的一位，即用八位的二进制数来表示两位的十进制数。</p>
+<p>&#x2F;&#x2F;小明误解将BCD数当二进制输出十进制的18，又18的二进制为0001 0010，其中前四位表示十进制两位数的十，后四位表示个位，即该BCD数为12.</p>
+<h1 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h1><p>if条件语句:</p>
+<p> if (关系条件) {</p>
+<p>​       符合该条件的后续执行程序</p>
+<p>} else {                        &#x2F;&#x2F;否则</p>
+<p>​       不符合if条件后执行的程序</p>
+<p>}</p>
+<p>若if(else)后不加”{}”则if(else)关系条件执行到下一个分号</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20224941.png" style="zoom: 33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20202340.png" style="zoom:33%;" />
+
+<p>注意:else if后面跟的条件要不满足if后跟的条件</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-10%20213428.png" style="zoom:33%;" />                        
+
+<p> 关系运算符优先级比算术运算地，比赋值运算低，其中相等和不相等的优先级比其他关系运算符更低</p>
+<p>关系运算只有两种结果</p>
+<p>1  表示成立        0   表示不成立 </p>
+<h1 id="switch-case语句"><a href="#switch-case语句" class="headerlink" title="switch-case语句"></a>switch-case语句</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20201742.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20201756.png"></p>
+<p>注意:case表示进入执行程序的位置</p>
+<h1 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20200902.png"></p>
+<p>注意：while语句是先判断是否符合循环条件再进入循环</p>
+<p>do - while语句是先进入循环再判断是否符合循环条件,且do - while 结束要加”;”</p>
+<h1 id="rand"><a href="#rand" class="headerlink" title="rand()"></a>rand()</h1><p>随机数:</p>
+<p> 每次召唤一次rand()就得到一个随机的整数</p>
+<p>rand()使用方式:</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20203209.png" style="zoom: 50%;" />
+
+<h1 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20202914.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;time.h&gt; 
+int main()
+&#123;
+    srand(time(0));
+    int a = rand()%100 + 1;
+    int x;
+    int n = 0;
+    do&#123;
+        scanf(&quot;%d&quot;,&amp;x);
+        n++;
+        if (x &gt; a)&#123;
+            printf(&quot;偏大了\n&quot;);			
+        &#125; else if (x &lt; a)&#123;
+            printf(&quot;偏小了\n&quot;);
+        &#125;
+    &#125;while(x != a);
+    printf(&quot;恭喜你答对了\n&quot;);
+    printf(&quot;你猜了%d次\n&quot;,n);
+    return 0;
+
+&#125;
+</code></pre>
+<p>注意:用a%100可以每次得到一个100以内的正整数</p>
+<p>求平均值(当输入-1时表示退出):</p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+
+int main()
+&#123;
+    int x,b = 0;
+    int n = 0;
+    scanf(&quot;%d&quot;,&amp;x);
+    while (x != -1 )&#123;
+        b = b + x;
+        n++;
+        scanf(&quot;%d&quot;,&amp;x);
+    &#125;
+    printf(&quot;%f  %d  %d\n&quot;,1.0*b/n,b,n);
+    return 0;
+&#125;
+</code></pre>
+<p>任意数的逆序:</p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+
+int main()                                                                                                                                                 
+&#123;
+    int a,b,c = 1,n = 0;
+    scanf(&quot;%d&quot;,&amp;a);
+    do&#123; 
+        c = c * 10;
+    &#125;while(a % c != a);
+    do&#123;
+        b = a % 10;
+        a = a / 10;
+        c = c / 10;
+        n = b * c + n;	
+    &#125;while(c != 1);`
+    printf(&quot;%d&quot;,n);
+    return 0;
+&#125;
+</code></pre>
+<p>标答:</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-12%20221145.png"></p>
+<h1 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20213914.png" style="zoom:25%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20214003.png" style="zoom:25%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20214535.png" style="zoom:25%;" />
+
+<p>注意:当满足一定条件时for循环条件可省</p>
+<p>例:<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20215618.png" style="zoom:33%;" /></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20220415.png" style="zoom:33%;" />
+
+<h1 id=""><a href="#" class="headerlink" title=""></a><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20220542.png" style="zoom: 50%;" /><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-13%20220703.png"></h1><h1 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h1><p>判断素合数:</p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int x,i = 2,d,a = 0;
+    scanf(&quot;%d&quot;,&amp;x);
+    for (i = 2;i &lt; x;i++)&#123;
+        d = x % i;
+        if (d == 0)&#123;
+            a = 1;
+        &#125; 
+    &#125;
+    if (a == 1)&#123;
+        printf(&quot;是合数&quot;);
+    &#125; else &#123;
+        printf(&quot;是素数&quot;);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="break和continue语句"><a href="#break和continue语句" class="headerlink" title="break和continue语句"></a>break和<strong>continue</strong>语句</h1><p>break:在循环中如果有”break”那就会跳出循环</p>
+<p>例:<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-15%20195231.png" style="zoom:25%;" /></p>
+<p>continue:跳过循环这一轮剩下的语句进入下一轮(用法与break一样) </p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-15%20195641.png" style="zoom:33%;" />
+
+<h1 id="嵌套的循环"><a href="#嵌套的循环" class="headerlink" title="嵌套的循环"></a><strong>嵌套的循环</strong></h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20205455-1726742503702.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int x = 0,one,two,five;
+    scanf(&quot;%d&quot;,&amp;x);
+    for(one = 1;one &lt; 100 ; one++)&#123;
+        for(two = 1;two * 2 &lt; 100 ;two++)&#123;
+            for(five = 1;five * 5 &lt; 100 ;five++)&#123;
+                if (one + two * 2 + five * 5 == x * 10)&#123;
+                    printf(&quot;%d个一角，%d个两角，%d个五角可以组成%d元\n&quot;,one,two,five,x);
+                &#125;
+            &#125;
+        &#125;
+    &#125; 
+    return 0;
+&#125;
+
+
+</code></pre>
+<h1 id="goto语句"><a href="#goto语句" class="headerlink" title="goto语句"></a>goto语句</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20204256-1726742529608.png" style="zoom:33%;" />
+
+<p>goto out跳出所有循环,break只能跳出一个循环</p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int x = 0,one,two,five;
+    scanf(&quot;%d&quot;,&amp;x);
+    for(one = 1;one &lt; 100 ; one++)&#123;
+        for(two = 1;two * 2 &lt; 100 ;two++)&#123;
+            for(five = 1;five * 5 &lt; 100 ;five++)&#123;
+                if (one + two * 2 + five * 5 == x * 10)&#123;
+                    printf(&quot;%d个一角，%d个两角，%d个五角可以组成%d元\n&quot;,one,two,five,x);
+                goto out;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+out : 
+    return 0;
+&#125;
+
+# 前n项求和&amp;练习
+</code></pre>
+<h1 id="练习-4"><a href="#练习-4" class="headerlink" title="练习"></a>练习</h1><h2 id="前n项求和"><a href="#前n项求和" class="headerlink" title="前n项求和"></a>前n项求和</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20205715.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n,i;
+    double s = 0;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(i = 1;i &lt;= n;i++)&#123;
+        s = s +1.0 / i;
+    &#125;
+    printf(&quot;%f&quot;,s);
+    return 0;
+&#125;
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20205734.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n,i,sign = 1;
+    double s = 0;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(i = 1;i &lt;= n;i++)&#123;
+        s = s + sign * 1.0 / i;
+        sign *= -1;
+    &#125;
+    printf(&quot;%f&quot;,s);
+    return 0;
+&#125;&lt;img src=&quot;C语言笔记.assets/屏幕截图 2024-09-18 215916.png&quot; style=&quot;zoom:33%;&quot; /&gt;
+</code></pre>
+<h2 id="正序分解整数"><a href="#正序分解整数" class="headerlink" title="正序分解整数"></a>正序分解整数</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20215916.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int c = 1,x;
+    scanf(&quot;%d&quot;,&amp;x);
+    while(x % c != x)&#123;
+        c = c * 10;	
+    &#125;
+    do&#123;
+        c /= 10;
+        printf(&quot;%d &quot;,x / c);
+        x = x % c;
+    &#125;while(c != 1);
+    return 0;
+&#125;
+
+错解:
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20220546.png" style="zoom:33%;" />
+
+<p>注意:先将数逆序再将数分解,但是如果输入700,输出的结果只为7(700逆序后为7)</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-18%20223155.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int i,a,b,n;
+    scanf(&quot;%d&quot;,&amp;a);
+    scanf(&quot;%d&quot;,&amp;b);
+    for(i = a ;i &gt;= 1;i--)&#123;
+        if(a % i == 0)&#123;
+            for(n = b;n &gt;= 1;n--)&#123;
+                if(b % n == 0)&#123;
+                &#125;
+                    if(i == n)&#123;
+                        printf(&quot;%d&quot;,i);
+                    goto out;
+            &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+out :
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20183220.png"></p>
+<h3 id="求最大公约数方法"><a href="#求最大公约数方法" class="headerlink" title="求最大公约数方法"></a>求最大公约数方法</h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20184408.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20185129.png" style="zoom: 50%;" />
+
+<h1 id="练习-5"><a href="#练习-5" class="headerlink" title="练习"></a>练习</h1><h2 id="整数集"><a href="#整数集" class="headerlink" title="整数集"></a>整数集</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20193414.png" style="zoom: 50%;" />
+
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20201619.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt; 
+int main()
+&#123;
+    int a,i,j,k;
+    int c = 0; 
+    scanf(&quot;%d&quot;,&amp;a);
+    i = a;
+    while(i &lt;= a +3)&#123;
+        j = a;
+        while(j &lt;= a+3)&#123;
+            k = a;
+            while(k &lt;= a+3)&#123;
+                if (i != j)&#123;
+                    if (i != k)&#123;
+                        if (j != k)&#123;
+                            printf(&quot;%d%d%d&quot;,i,j,k);
+                            c++;
+                            if(c == 6)&#123;
+                                printf(&quot;\n&quot;);
+                                c = 0;
+                            &#125; else &#123;
+                                printf(&quot; &quot;);
+                            &#125;
+                        &#125;
+                    &#125;
+                &#125;
+                k++;
+            &#125;
+            j++;
+        &#125;
+        i++;
+    &#125;
+    return 0;
+&#125; 
+</code></pre>
+<h2 id="水仙花数"><a href="#水仙花数" class="headerlink" title="水仙花数"></a>水仙花数</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20202004.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    int first = 1,i = 1;
+    while(i &lt; n)&#123;
+        first *= 10;
+        i ++; 
+    &#125;
+    i = first;
+    while(i &lt; first * 10)&#123;
+        int t = i;
+        int s = 0;
+        do &#123;
+            int b = 1;
+            int a = t % 10;
+            int c = 1;
+            t /= 10;
+            while(b &lt;= n)&#123;
+            c *= a;
+            b ++; 
+            &#125;
+        s += c; 
+        &#125;while(t != 0);
+        if (s == i)&#123;
+            printf(&quot;%d\n&quot;,i);
+        &#125;
+        i ++;
+    &#125;	
+    return 0;
+&#125; 
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20212939.png" style="zoom: 33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20213008.png" style="zoom:33%;" />
+
+<h2 id="打印九九口诀表"><a href="#打印九九口诀表" class="headerlink" title="打印九九口诀表"></a>打印九九口诀表</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20213252.png" style="zoom:25%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int i = 1,j = 1;
+    for(j = 1;j &lt;= 9;j ++)&#123;
+        for(i = 1;i &lt;= 9;i ++)&#123;
+            if (i &lt;= j)&#123;
+                printf(&quot;%d * %d = %d&quot;,i,j,i * j);
+                if (i * j &lt; 10)&#123;
+                    printf(&quot;   &quot;);
+                &#125; else &#123;
+                    printf(&quot;  &quot;);
+                &#125;
+                &#125;
+            &#125;
+        printf(&quot;\n&quot;);
+        &#125;
+    return 0;
+&#125;
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-19%20221918.png" style="zoom:33%;" />
+
+<h2 id="统计素数并求和"><a href="#统计素数并求和" class="headerlink" title="统计素数并求和"></a>统计素数并求和</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-21%20204710.png" style="zoom:33%;" />
+
+
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n,m,sign = 0, s = 0,a = 0;
+    scanf(&quot;%d&quot;,&amp;n);
+    scanf(&quot;%d&quot;,&amp;m);
+    if (n &gt; m)&#123;
+        if (m = 1)&#123;
+            m = 2;
+        &#125;
+        int i = m ;
+        while (i &lt;= n)&#123;
+            int j = 2;
+            sign = 0;
+            while (j &lt; i)&#123;
+                if (i % j == 0)&#123;
+                    sign = 1;
+                &#125;
+                j ++;
+            &#125;
+            if (sign == 0)&#123;
+                s = s + i;
+                a ++;
+            &#125;
+            i ++;
+        &#125;	
+    &#125; else if (m &gt; n)&#123;
+        if (n == 1)&#123;
+            n = 2;
+        &#125;
+        int i = n ;
+        while (i &lt;= m)&#123;
+            int j = 2;
+            sign = 0;
+            while (j &lt; i)&#123;
+                if (i % j == 0)&#123;
+                    sign = 1;
+                &#125;
+                j ++;
+            &#125;
+            if (sign == 0)&#123;
+                s = s + i;
+                a ++;
+            &#125;
+            i ++;
+        &#125;	
+    &#125; 
+    printf(&quot;%d  %d&quot;,a,s);
+    return 0;
+&#125;
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-21%20214821.png" style="zoom:33%;" />
+
+<h2 id="前N项和"><a href="#前N项和" class="headerlink" title="前N项和"></a>前N项和</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-22%20224620.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n,i;
+    int a = 2, b = 1, t = 0;
+    double s = 0;
+    scanf_s(&quot;%d&quot;, &amp;n);
+    for (i = 1; i &lt;= n; i ++) &#123;
+        s = s + 1.0 * a  / b;
+        t = a;
+        a = a + b;
+        b = t;
+    &#125;
+    printf(&quot;%.2f&quot;, s);
+    return 0;
+&#125;
+</code></pre>
+<p>注意:visual studio中”scanf”要被”scanf_s”代替,或在顶行加上#define _CRT_SECURE_NO_WARNINGS和#pragma warning(disable:6031)</p>
+<p>int 定义类型的数有范围，超过该范围就会变成负数，应用更大范围的类型来表达如:double</p>
+<p>%f用%.2f表示精确到小数点后两位</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-22%20230945.png" style="zoom:33%;" />
+
+<h2 id="约分最简分式"><a href="#约分最简分式" class="headerlink" title="约分最简分式"></a>约分最简分式</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-22%20231112.png" style="zoom:33%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int a = 0, b = 0;
+    int i;
+    scanf_s(&quot;%d&quot;,&amp;a);
+    scanf_s(&quot;%d&quot;,&amp;b);
+    if (a &gt; b) &#123;
+        for (i = b; i &gt; 0; i--) &#123;
+            if (b % i == 0) &#123;
+                if (a % i == 0) &#123;
+                    printf(&quot;%d / %d = %d / %d&quot;, a, b, a / i, b / i);
+                    break;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    else if (b &gt; a) &#123;
+        for (i = a; i &gt; 0; i--) &#123;
+            if (a % i == 0) &#123;
+                if (b % i == 0) &#123;
+                    printf(&quot;%d / %d = %d / %d&quot;, a, b, a / i, b / i);
+                    break;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    else &#123;
+        printf(&quot;%d / %d = 1 / 1&quot;, a, b);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-22%20232825.png"></p>
+<h2 id="念数字"><a href="#念数字" class="headerlink" title="念数字"></a>念数字</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-22%20233536.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int n, b = 1, a = 0, c = 0;
+    scanf_s(&quot;%d&quot;, &amp;n);
+    if (n &gt; 0) &#123;
+        do &#123;
+            b = b * 10;
+            a = n / b;
+        &#125; while (a != 0);
+        do &#123;
+            c = n / (b / 10);
+            n = n % (b / 10);
+            b = b / 10;
+            if (c == 0) &#123;
+                printf(&quot;ling&quot;);
+            &#125;
+            else if (c == 1) &#123;
+                printf(&quot;yi&quot;);
+            &#125;
+            else if (c == 2) &#123;
+                printf(&quot;er&quot;);
+            &#125;
+            else if (c == 3) &#123;
+                printf(&quot;san&quot;);
+            &#125;
+            else if (c == 4) &#123;
+                printf(&quot;si&quot;);
+            &#125;
+            else if (c == 5) &#123;
+                printf(&quot;wu&quot;);
+            &#125;
+            else if (&quot;c == 6&quot;) &#123;
+                printf(&quot;liu&quot;);
+            &#125;
+            else if (c == 7) &#123;
+                printf(&quot;qi&quot;);
+            &#125;
+            else if (c == 8) &#123;
+                printf(&quot;ba&quot;);
+            &#125;
+            else &#123;
+                printf(&quot;jiu&quot;);
+            &#125;
+            if (n &gt; 0)&#123;
+            printf(&quot; &quot;);
+        &#125;
+        &#125; while (n != 0);
+    &#125;
+    else if (n &lt; 0) &#123;
+        n = -n;
+        printf(&quot;fu &quot;);
+        do &#123;
+            b = b * 10;
+            a = n / b;
+        &#125; while (a != 0);
+        do &#123;
+            c = n / (b / 10);
+            n = n % (b / 10);
+            b = b / 10;
+            if (c == 0) &#123;
+                printf(&quot;ling&quot;);
+            &#125;
+            else if (c == 1) &#123;
+                printf(&quot;yi&quot;);
+            &#125;
+            else if (c == 2) &#123;
+                printf(&quot;er&quot;);
+            &#125;
+            else if (c == 3) &#123;
+                printf(&quot;san&quot;);
+            &#125;
+            else if (c == 4) &#123;
+                printf(&quot;si&quot;);
+            &#125;
+            else if (c == 5) &#123;
+                printf(&quot;wu&quot;);
+            &#125;
+            else if (&quot;c == 6&quot;) &#123;
+                printf(&quot;liu&quot;);
+            &#125;
+            else if (c == 7) &#123;
+                printf(&quot;qi&quot;);
+            &#125;
+            else if (c == 8) &#123;
+                printf(&quot;ba&quot;);
+            &#125;
+            else &#123;
+                printf(&quot;jiu&quot;);
+            &#125;
+            if (n &gt; 0)&#123;
+            printf(&quot; &quot;);
+        &#125;
+        &#125; while (n != 0);
+    &#125;
+    else &#123;
+        printf(&quot;ling&quot;);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20000019.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20000036.png" style="zoom:33%;" />
+
+<h2 id="求a的连续和"><a href="#求a的连续和" class="headerlink" title="求a的连续和"></a>求a的连续和</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20001127.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int a,n,s = 0;
+    scanf_s(&quot;%d&quot;,&amp;a);
+    scanf_s(&quot;%d&quot;, &amp;n);
+    int t = a, i = 0;
+    do &#123;
+        s = s + a;
+        a = a * 10 + t;
+        i++;
+    &#125; while(i != n);
+    printf(&quot;%d&quot;, s);
+
+    return 0;
+&#125;
+</code></pre>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20211946.png" style="zoom:33%;" />
+
+<h1 id="C语言类型"><a href="#C语言类型" class="headerlink" title="C语言类型"></a>C语言类型</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20212606.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20212656.png" style="zoom:33%;" />
+
+<h1 id="sizeof"><a href="#sizeof" class="headerlink" title="sizeof"></a>sizeof</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20212758.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20212845.png"></p>
+<h1 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213010.png"></p>
+<h2 id="二进制的负数"><a href="#二进制的负数" class="headerlink" title="二进制的负数"></a>二进制的负数</h2><p>补码(对于一个字节):0 &#x3D; 0000 0000 , 1 &#x3D; 0000 0001</p>
+<p>-1 &#x3D; 0 - 1&#x3D; 1 0000 0000 - 0000 0001 &#x3D; 1111 1111</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213435.png" style="zoom:33%;" />
+
+ 
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213553.png" style="zoom:33%;" />
+
+<h2 id="整数越界"><a href="#整数越界" class="headerlink" title="整数越界"></a>整数越界</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213819.png" style="zoom:33%;" />
+
+<h2 id="整数的输入与输出"><a href="#整数的输入与输出" class="headerlink" title="整数的输入与输出"></a>整数的输入与输出</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213929.png"></p>
+<h3 id="八进制与十六进制"><a href="#八进制与十六进制" class="headerlink" title="八进制与十六进制"></a>八进制与十六进制</h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20214139.png" style="zoom:33%;" />
+
+<h1 id="unsigned"><a href="#unsigned" class="headerlink" title="unsigned"></a>unsigned</h1><p>取消输出的补码 (没有负数)</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20213629.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20214230.png"></p>
+<h1 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20214328.png"></p>
+<h2 id="浮点类型的输入与输出"><a href="#浮点类型的输入与输出" class="headerlink" title="浮点类型的输入与输出"></a>浮点类型的输入与输出</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20214415.png"></p>
+<p>%e 表示采用科学计数法</p>
+<p>%.xf 表示精确到小数点后x位(采用四舍五入 )</p>
+<h3 id="科学计数法"><a href="#科学计数法" class="headerlink" title="科学计数法"></a>科学计数法</h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-23%20214525.png" style="zoom:33%;" />
+
+<h2 id="浮点运算的精度"><a href="#浮点运算的精度" class="headerlink" title="浮点运算的精度"></a>浮点运算的精度</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20215122.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20215202.png"></p>
+<h1 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20215337.png"></p>
+<p>赋值时带’  ‘表示赋予字符,每个字符有对应的ASCII值</p>
+<h2 id="字符计算"><a href="#字符计算" class="headerlink" title="字符计算"></a>字符计算</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20220155.png"></p>
+<h1 id="逃逸字符"><a href="#逃逸字符" class="headerlink" title="逃逸字符"></a>逃逸字符</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20220913.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20220925.png" style="zoom:33%;" />
+
+<h2 id="b"><a href="#b" class="headerlink" title="\b"></a>\b</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20221540.png" style="zoom:150%;" />
+
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20221551.png"></p>
+<h2 id="t"><a href="#t" class="headerlink" title="\t"></a>\t</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20221911.png"></p>
+<p>对齐</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222031.png" style="zoom: 50%;" />
+
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222039.png"></p>
+<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><h2 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222248.png"></p>
+<p>如果整数和浮点在一起时，会自动转换为浮点</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222347.png"></p>
+<h2 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222629.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222753.png" style="zoom:33%;" />
+
+<h1 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20222939.png"></p>
+<p>真为1，假为0</p>
+<h1 id="fabs"><a href="#fabs" class="headerlink" title="fabs"></a>fabs</h1><p>表示绝对值:fabs()</p>
+<h1 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223118.png" style="zoom:33%;" />
+
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223228.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223336.png"></p>
+<h2 id="短路"><a href="#短路" class="headerlink" title="短路"></a>短路</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223524.png"></p>
+<h1 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223608.png"></p>
+<h2 id="优先级-1"><a href="#优先级-1" class="headerlink" title="优先级"></a>优先级</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223639.png"></p>
+<h1 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a>逗号运算符</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223741.png"></p>
+<p>逗号优先级最低</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-24%20223902.png"></p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20213701.png" style="zoom: 50%;" />
+
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20213753.png"></p>
+<p>void返回类型表示不返回值</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214741.png"></p>
+<p>调用函数</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214011.png"></p>
+<h2 id="函数返回"><a href="#函数返回" class="headerlink" title="函数返回"></a>函数返回</h2><p>如果调用函数需要一个结果，则需要用return返回</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214426.png" style="zoom:50%;" />
+
+<p>一般单一出口(一个函数只有一个return)</p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214540.png" style="zoom: 50%;" />
+
+<p>返回值:</p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214615.png"></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20214640.png" style="zoom:50%;" />
+
+<h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20215008.png"></p>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20215259.png"></p>
+<h2 id="本地变量"><a href="#本地变量" class="headerlink" title="本地变量"></a>本地变量</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20215356.png"></p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20215618.png"></p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p>当没有输入参数时要写成void  sum(void)</p>
+<h1 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h1><h2 id="自动类型转换-1"><a href="#自动类型转换-1" class="headerlink" title="自动类型转换"></a>自动类型转换</h2><p><img src="/../images/c-notes/1727528819224.png" alt="1727528819224"></p>
+<img src="../images/C%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/1727528871965.png" alt="1727528871965" style="zoom:33%;" />
+
+<h2 id="强制类型转换-1"><a href="#强制类型转换-1" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><img src="../images/c-notes/1727528913816.png" alt="1727528913816" style="zoom:33%;" />
+
+<img src="../images/c-notes/1727528967806.png" alt="1727528967806" style="zoom:33%;" />
+
+<img src="../images/c-notes/1727529009704.png" alt="1727529009704" style="zoom:33%;" />
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20160935.png"></p>
+<h2 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a>定义数组</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20160815.png"></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20161046.png" style="zoom: 50%;" />
+
+<h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20161154.png"></p>
+<h2 id="数组的集成初始化"><a href="#数组的集成初始化" class="headerlink" title="数组的集成初始化"></a>数组的集成初始化</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20161706.png"></p>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20161938.png"></p>
+<h2 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20162101.png" style="zoom:50%;" />
+
+<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20162142.png" style="zoom:50%;" />
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意!!"></a>注意!!</h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20162319.png" style="zoom:50%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20170435.png" style="zoom:50%;" />
+
+<p> 表示先将i赋给prime[count]，然后count再加1</p>
+<h2 id="练习-6"><a href="#练习-6" class="headerlink" title="练习"></a>练习</h2><p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20154431.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int number[100];
+    int x, i = 0;
+    scanf_s(&quot;%d&quot;, &amp;x);
+    while (x != -1) &#123;
+        number[i] = x;
+        scanf_s(&quot;%d&quot;, &amp;x);
+        i ++;
+    &#125;
+    int t = i ,sum = 0;
+    for (i = 0; i &lt; t; i ++) &#123;
+        sum += number[i];
+    &#125;
+    double pingjunshu = sum * 1.0 / t;
+    printf(&quot;%f\n&quot;, pingjunshu);
+    for (i = 0; i &lt; t; i ++) &#123;
+        if (number[i] &gt; pingjunshu) &#123;
+            printf(&quot;%d\n&quot;, number[i]);
+        &#125;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-25%20221753.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int count[10];
+    int x, i;
+    for (i = 0; i &lt; 10; i++) &#123;
+        count[i] = 0;
+    &#125;
+    scanf_s(&quot;%d&quot;, &amp;x);
+    while (x != -1) &#123;
+        for (i = 0; i &lt; 10; i++) &#123;
+            if (x == i) &#123;
+                count[i] ++;
+            &#125;
+        &#125;
+        scanf_s(&quot;%d&quot;, &amp;x);
+    &#125;
+    for (i = 0; i &lt; 10; i++) &#123;
+        printf(&quot;%d出现的次数为%d\n&quot;, i, count[i]);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20163056.png"></p>
+<pre><code class="c">#include&lt;stdio.h&gt;
+int search(int key, int a[], int length);
+
+int main ()
+&#123;
+    int a[] = &#123; 1,2,4,5,7,24,34,40 &#125;;
+    int x;
+    scanf_s(&quot;%d&quot;, &amp;x);
+    int length = sizeof(a) / sizeof(a[0]);
+    int loc = search(x,a,length);
+    if (loc == -1) &#123;
+        printf(&quot;不存在&quot;);
+    &#125;
+    else &#123;
+        printf(&quot;%d在数组a的第%d位上&quot;, x, loc);
+    &#125;
+    return 0;
+&#125;
+
+int search(int key, int a[], int length)
+&#123;
+    int i,ret;
+    for (i = 0; i &lt; length; i++) &#123;
+        if (a[i] == key) &#123;
+            ret = i + 1;
+            break;
+        &#125;
+        else &#123;
+            ret = -1;
+        &#125;
+    &#125;
+    return ret;
+&#125;
+
+</code></pre>
+<h3 id="输出100以内的素数"><a href="#输出100以内的素数" class="headerlink" title="输出100以内的素数"></a>输出100以内的素数</h3><pre><code class="c">#include&lt;stdio.h&gt;
+int isPrime(int i, int prime[],int count);
+
+int main()
+&#123;
+    int number = 100;
+    int prime[100] = &#123; 2 &#125;;
+    int i = 3;
+    int count = 1;
+    int cnt = 0;
+    for (i = 3; i &lt; number; i++) &#123;
+        if (isPrime(i,prime,count)) &#123;
+            prime[count++] = i;
+        &#125;
+    &#125;
+    for (cnt = 0;cnt &lt; count ; cnt ++)&#123;
+        printf(&quot;%d&quot;,prime[cnt]);
+        if((cnt + 1) % 5 == 0)&#123;
+            printf(&quot;\n&quot;);
+            
+
+        &#125; else &#123;
+            printf(&quot; \t&quot;);
+        &#125;
+    &#125;
+    return 0;
+
+&#125;
+
+int isPrime(int i, int prime[],int count)
+&#123;
+    int ret = 0;
+    int j;
+    for (j = 0; j &lt; count; j++) &#123;
+        if (i % prime[j] == 0) &#123;
+            ret = 0;
+            break;
+        &#125;
+        else &#123;
+            ret = 1;
+        &#125;
+    &#125;
+    return ret;
+&#125;
+</code></pre>
+<h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><img src="../images/c-notes/1728473306997.png" alt="1728473306997" style="zoom: 80%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-09-26%20195846.png" style="zoom:75%;" />
+
+<pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+&#123;
+    int board[3][3];  
+    int i, j;
+    int numofx = 0, numofo = 0;
+    int result = 0; 
+    for (i = 0; i &lt; 3; i++) &#123;
+        for (j = 0; j &lt; 3; j++) &#123;
+            scanf_s(&quot;%d&quot;, &amp;board[i][j]);
+        &#125;
+    &#125;
+    for (i = 0; i &lt; 3; i++) &#123;
+        for (j = 0; j &lt; 3; j++) &#123;
+            if (board[i][j] == 1) &#123;
+                numofx++;
+            &#125;
+            else &#123;
+                numofo++;
+            &#125;
+        &#125;
+        if (numofx == 3) &#123;
+            printf(&quot;x赢&quot;);
+            result = 1;
+            break;
+        &#125;
+        else if (numofo == 3) &#123;
+            printf(&quot;o赢 &quot;);
+            result = 1;
+            break;
+        &#125;
+    &#125;
+    for (j = 0; j &lt; 3; i++) &#123;
+        for (i = 0; i &lt; 3; i++) &#123;
+            if (board[i][j] == 1) &#123;
+                numofx++;
+            &#125;
+            else &#123;
+                numofo++;
+            &#125;
+        &#125;
+        if (numofx == 3) &#123;
+            printf(&quot;x赢&quot;);
+            result = 1;
+            break;
+        &#125;
+        else if (numofo == 3) &#123;
+            printf(&quot;o赢 &quot;);
+            result = 1;
+            break;
+        &#125;
+    &#125;
+    for (i = 0, j = 0; i &lt; 3 &amp;&amp; j &lt; 3; i++, j++) &#123;
+        if (board[i][j] == 1) &#123;
+            numofx++;
+        &#125;
+        else &#123;
+            numofo++;
+        &#125;
+    
+        if (numofx == 3) &#123;
+            printf(&quot;x赢&quot;);
+            result = 1;
+            break;
+        &#125;
+        else if (numofo == 3) &#123;
+            printf(&quot;o赢 &quot;);
+            result = 1;
+        	break;
+        &#125;
+    &#125;
+    for (i = 2, j = 0; i &gt;= 0 &amp;&amp; j &lt; 3; i--, j++) &#123;
+        if (board[i][j] == 1) &#123;
+            numofx++;
+        &#125;
+        else &#123;
+            numofo++;
+        &#125;
+
+        if (numofx == 3) &#123;
+            printf(&quot;x赢&quot;);
+            result = 1;
+            break;
+        &#125;
+        else if (numofo == 3) &#123;
+            printf(&quot;o赢 &quot;);
+            result = 1;
+            break;
+        &#125;
+    &#125;
+    if (result = 0)&#123;
+        printf(&quot;平局&quot;);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="取地址运算"><a href="#取地址运算" class="headerlink" title="取地址运算"></a>取地址运算</h2><h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符&amp;"></a>运算符&amp;</h3><img src="../images/c-notes/1727532035969.png" alt="1727532035969" style="zoom:33%;" />
+
+<p>用printf(“%p”,&amp;i);输出地址</p>
+<img src="../images/c-notes/1727532078972.png" alt="1727532078972" style="zoom:33%;" />
+
+<p>数组地址:</p>
+<p>a[] &#x3D; a &#x3D; a [0]</p>
+<p>a[1] &#x3D; a[0] + 4</p>
+<h2 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h2><img src="../images/c-notes/1727532944522.png" alt="1727532944522" style="zoom:33%;" />
+
+<p><img src="/../images/c-notes/1727533058097.png"></p>
+<img src="../images/c-notes/1727533177219-1740285397678.png" alt="1727533177219" style="zoom:33%;" />
+
+<img src="../images/c-notes/1727533193475.png" alt="1727533193475" style="zoom:33%;" />
+
+<h3 id="单目运算符"><a href="#单目运算符" class="headerlink" title="单目运算符 *"></a>单目运算符 *</h3><p><img src="/../images/c-notes/1727533359681.png" alt="1727533359681"></p>
+<h3 id="找出数组中的最大值和最小值"><a href="#找出数组中的最大值和最小值" class="headerlink" title="找出数组中的最大值和最小值"></a>找出数组中的最大值和最小值</h3><pre><code class="c">#include&lt;stdio.h&gt;
+void minmax(int a[], int* pmin, int* pmax, int len);
+int main ()
+&#123;
+    int a[] = &#123;1,123,3,2,345,13,545,412,3,123,12,3123,13,45,37&#125;;
+    int min, max,len;
+    minmax(a, &amp;min, &amp;max, sizeof(a) / sizeof(a[0]));
+    printf(&quot;min=%d,max=%d\n&quot;, min, max);
+    return 0;
+&#125;
+void minmax(int a[], int* min, int* max, int len)
+&#123;
+    *min = a[0];
+    *max = a[0];
+    int i;
+    for (i = 1; i &lt; len; i++) &#123;
+        if (a[i] &lt; *min) &#123;
+            *min = a[i];
+        &#125;
+        if (a[i] &gt; *max) &#123;
+            *max = a[i];
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="指针的应用"><a href="#指针的应用" class="headerlink" title="指针的应用"></a>指针的应用</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20154712-1728039591656.png" style="zoom:50%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20154725-1728039602794.png" style="zoom:50%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20154753-1728039625370.png" style="zoom:50%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20154804-1728039643497.png" style="zoom:50%;" />
+
+<h2 id="数组与指针"><a href="#数组与指针" class="headerlink" title="数组与指针"></a>数组与指针</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20155505-1728039694168.png" style="zoom:50%;" />
+
+
+
+<p><strong>数组是特殊的指针</strong></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20160252.png" style="zoom:50%;" />
+
+<h2 id="const与指针"><a href="#const与指针" class="headerlink" title="const与指针"></a>const与指针</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20190356-1728110535491.png" style="zoom:33%;" />
+
+
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20190551.png" style="zoom:33%;" />
+
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20190850.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20191001.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20191032.png" style="zoom:33%;" />
+
+<h2 id="指针运算"><a href="#指针运算" class="headerlink" title="指针运算"></a>指针运算</h2><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20193311.png" style="zoom:33%;" /></h3><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20193344.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20193416.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20193736-1728110706673.png" style="zoom:33%;" />
+
+<h2 id="0地址"><a href="#0地址" class="headerlink" title="0地址"></a>0地址</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20194305.png" style="zoom:33%;" />
+
+<h2 id="指针类型"><a href="#指针类型" class="headerlink" title="指针类型"></a>指针类型</h2><img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20194559.png" style="zoom:33%;" />
+
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-04%20194926.png" style="zoom:33%;" />
+
+<h1 id="动态内存分配"><a href="#动态内存分配" class="headerlink" title="动态内存分配"></a>动态内存分配</h1><img src="../images/c-notes/1728111371013.png" alt="1728111371013" style="zoom:33%;" />
+
+<p><img src="/../images/c-notes/1728111349953.png" alt="1728111349953"></p>
+<h2 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h2><img src="../images/c-notes/1728111409362.png" alt="1728111409362" style="zoom:33%;" />
+
+<p><img src="/../images/c-notes/1728111990160.png" alt="1728111990160"></p>
+<pre><code class="c">free(a);
+</code></pre>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><img src="../images/c-notes/1728544849886.png" alt="1728544849886" style="zoom:33%;" />
+
+<p><img src="/../images/c-notes/1728544870671.png" alt="1728544870671"></p>
+<p><img src="/../images/c-notes/1728544969665.png" alt="1728544969665"></p>
+<p><img src="/../images/c-notes/1728545010581.png" alt="1728545010581"></p>
+<h2 id="字符串变量"><a href="#字符串变量" class="headerlink" title="字符串变量"></a>字符串变量</h2><img src="../images/c-notes/1728544928455.png" alt="1728544928455" style="zoom:33%;" />
+
+<h2 id="字符串常量"><a href="#字符串常量" class="headerlink" title="字符串常量"></a>字符串常量</h2><p><img src="/../images/c-notes/1728545202996.png" alt="1728545202996"></p>
+<p><strong>指针改不了字符串 而 数组可以更改字符串</strong></p>
+<img src="../images/c-notes/1728545346143.png" alt="1728545346143" style="zoom: 50%;" />
+
+<p><img src="/../images/c-notes/1728545419325.png" alt="1728545419325"></p>
+<h2 id="字符串输入与输出"><a href="#字符串输入与输出" class="headerlink" title="字符串输入与输出"></a>字符串输入与输出</h2><p><img src="/../images/c-notes/1728545804815.png" alt="1728545804815"></p>
+<p><strong>输入输出字符串用 % s</strong></p>
+<p><strong>输入输出单个字符用 % c</strong></p>
+<p><img src="/../images/c-notes/1728545908776.png" alt="1728545908776"></p>
+<p><strong>最多读7个字符</strong></p>
+<p><img src="/../images/c-notes/1728545966709.png" alt="1728545966709"></p>
+<p><strong>从上一个scanf未读完的字符开始</strong></p>
+<p><img src="/../images/c-notes/1728546017939.png" alt="1728546017939"></p>
+<p><img src="/../images/c-notes/1728546133500.png" alt="1728546133500"></p>
+<h2 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h2><p><img src="/../images/c-notes/1728546875101.png" alt="1728546875101"></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-10%20155405.png" style="zoom: 67%;" />
+
+<p><strong>二维数组后一个“ [] “要写宽度</strong></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-10%20155415.png" style="zoom: 67%;" />
+
+<p><strong>其中”*”表示最后一个“ [] ”</strong></p>
+<img src="../images/c-notes/1728546807266.png" alt="1728546807266" style="zoom: 33%;" />
+
+<h2 id="单字符的输入与输出"><a href="#单字符的输入与输出" class="headerlink" title="单字符的输入与输出"></a>单字符的输入与输出</h2><p><img src="/../images/c-notes/1728547674526.png" alt="1728547674526"></p>
+<p><img src="/../images/c-notes/1728547777802.png" alt="1728547777802"></p>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><img src="../images/c-notes/1728548310966.png" alt="1728548310966" style="zoom:33%;" />
+
+<h3 id="strlen"><a href="#strlen" class="headerlink" title="strlen"></a>strlen</h3><img src="../images/c-notes/1728548358630.png" alt="1728548358630" style="zoom: 33%;" />
+
+<h3 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp"></a>strcmp</h3><img src="../images/c-notes/1728548710772.png" alt="1728548710772" style="zoom:33%;" />
+
+<p><strong>如果s1 !&#x3D; s2则输出s1 和 s2 不想等字符的差值</strong></p>
+<h3 id="strcpy"><a href="#strcpy" class="headerlink" title="strcpy"></a>strcpy</h3><p><img src="/../images/c-notes/1728549426176.png" alt="1728549426176"></p>
+<img src="../images/c-notes/1728549710586.png" alt="1728549710586" style="zoom: 67%;" />
+
+<h3 id="字符串搜索函数"><a href="#字符串搜索函数" class="headerlink" title="字符串搜索函数"></a>字符串搜索函数</h3><img src="../images/c-notes/1728550121324.png" alt="1728550121324" style="zoom:50%;" />
+
+<p><strong>返回指针，指向那个字符的地址</strong></p>
+<p><strong>第一个从左开始找</strong></p>
+<p><strong>第二个从右开始找</strong></p>
+<p><img src="/../images/c-notes/1728550410578.png" alt="1728550410578"></p>
+<p><strong>第二个函数忽略大小写</strong></p>
+<h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><p><img src="/../images/c-notes/1728550783505.png" alt="1728550783505"></p>
+<p><img src="/../images/c-notes/1728550904471.png" alt="1728550904471"></p>
+<img src="../images/c-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-10%20170227.png" style="zoom: 33%;" />
+
+<img src="../images/c-notes/1728550954868.png" alt="1728550954868" style="zoom:33%;" />
+
+<p><img src="/../images/c-notes/1728551084963.png" alt="1728551084963"></p>
+<p><img src="/../images/c-notes/1728551117511.png" alt="1728551117511"></p>
+<p><strong>red &#x3D; 1,yellow &#x3D; 2,green &#x3D; 5</strong></p>
+<p><img src="/../images/c-notes/1728551202961.png" alt="1728551202961"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #ff7d73">学习</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/c-notes/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2025/02/23/cgg-notes/">
+        <h2 class="post-title">cgg_notes</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="c-基本要求"><a href="#c-基本要求" class="headerlink" title="c++基本要求"></a>c++基本要求</h1><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+int main ()
+&#123;
+    cout &lt;&lt; &quot;hello C++&quot; &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p><strong>单行注释:&#x2F;&#x2F;</strong></p>
+<p><strong>多行注释:&#x2F;* ……. *&#x2F;</strong></p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><pre><code class="c++">int(类型) a(变量名) = 10(初始值);
+</code></pre>
+<h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><p><strong>定义:记录程序中不可修改的数据</strong></p>
+<h2 id="定义常量方式"><a href="#定义常量方式" class="headerlink" title="定义常量方式"></a>定义常量方式</h2><p><strong>宏常量</strong></p>
+<pre><code class="c++">#define 常量名 常量值 
+
+#define day 7
+</code></pre>
+<p><strong>const修饰的变量</strong></p>
+<pre><code class="c++">const 类型 常量名 = 常量值;
+
+const int day = 7;
+
+cant &lt;&lt; &quot;一种一共有：&quot; &lt;&lt; day &lt;&lt; &quot;天&quot; &lt;&lt; endl;
+</code></pre>
+<h1 id="c-关键字-标识符"><a href="#c-关键字-标识符" class="headerlink" title="c++关键字(标识符)"></a>c++关键字(标识符)</h1><p><img src="/../images/cgg-notes/1728648671136.png" alt="1728648671136"></p>
+<h1 id="标识符命名规则"><a href="#标识符命名规则" class="headerlink" title="标识符命名规则"></a>标识符命名规则</h1><p><img src="/../images/cgg-notes/1728648768629.png" alt="1728648768629"></p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p><img src="/../images/cgg-notes/1728651299146.png" alt="1728651299146"></p>
+<h2 id="sizeof关键字"><a href="#sizeof关键字" class="headerlink" title="sizeof关键字"></a>sizeof关键字</h2><p><img src="/../images/cgg-notes/1728651360263.png" alt="1728651360263"></p>
+<h2 id="实型-浮点型"><a href="#实型-浮点型" class="headerlink" title="实型(浮点型)"></a>实型(浮点型)</h2><p><img src="/../images/cgg-notes/1728651436645.png" alt="1728651436645"></p>
+<p><strong>注意：用float时赋值的数后要加f</strong></p>
+<h2 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h2><p><img src="/../images/cgg-notes/1728651513153.png" alt="1728651513153"></p>
+<p><strong>char 字符 只为单个 且 要用单引号</strong></p>
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p><img src="/../images/cgg-notes/1728651621531.png" alt="1728651621531"></p>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><h3 id="c风格字符串"><a href="#c风格字符串" class="headerlink" title="c风格字符串"></a>c风格字符串</h3><p><img src="/../images/cgg-notes/1728651708484.png" alt="1728651708484"></p>
+<h3 id="c-风格字符串"><a href="#c-风格字符串" class="headerlink" title="c++风格字符串"></a>c++风格字符串</h3><p><img src="/../images/cgg-notes/1728651795935.png" alt="1728651795935"></p>
+<p><strong>注意：要包含string头文件</strong></p>
+<p>布尔数据类型 bool</p>
+<p><img src="/../images/cgg-notes/1728651852075.png" alt="1728651852075"></p>
+<h1 id="数据的输入"><a href="#数据的输入" class="headerlink" title="数据的输入"></a>数据的输入</h1><p><img src="/../images/cgg-notes/1728651927686.png" alt="1728651927686"></p>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><p><img src="/../images/cgg-notes/1728651996340.png" alt="1728651996340"></p>
+<p><img src="/../images/cgg-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-11%20210613.png"></p>
+<p><img src="/../images/cgg-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-11%20210559.png"></p>
+<p><strong>前置递增和后置递增区别</strong></p>
+<p><img src="/../images/cgg-notes/1728652053948.png" alt="1728652053948"></p>
+<h1 id="程序流程结构"><a href="#程序流程结构" class="headerlink" title="程序流程结构"></a>程序流程结构</h1><p><strong>if</strong></p>
+<p><strong>while</strong></p>
+<p><strong>for</strong></p>
+<p><strong>switch</strong></p>
+<p><strong>和C语言一样</strong></p>
+<h2 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h2><p> <img src="/../images/cgg-notes/1728652494423.png" alt="1728652494423"></p>
+<h2 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h2><h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p><img src="/../images/cgg-notes/1728652569659.png" alt="1728652569659"></p>
+<h3 id="continue"><a href="#continue" class="headerlink" title="continue"></a>continue</h3><p><img src="/../images/cgg-notes/1728652630606.png" alt="1728652630606"></p>
+<h3 id="goto"><a href="#goto" class="headerlink" title="goto"></a>goto</h3><p><img src="/../images/cgg-notes/1728652689026.png" alt="1728652689026"></p>
+<p><img src="/../images/cgg-notes/1728652706923.png" alt="1728652706923"></p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><img src="/../images/cgg-notes/1728652882896.png" alt="1728652882896"></p>
+<p><img src="/../images/cgg-notes/1728652913002.png" alt="1728652913002"></p>
+<p><img src="/../images/cgg-notes/1728653007620.png" alt="1728653007620"></p>
+<p><strong>类似c语言</strong></p>
+<h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><p><img src="/../images/cgg-notes/1728653132986.png" alt="1728653132986"></p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p><img src="/../images/cgg-notes/1728653235312.png" alt="1728653235312"></p>
+<p><strong>和C一样</strong></p>
+<h2 id="函数常见样式"><a href="#函数常见样式" class="headerlink" title="函数常见样式"></a>函数常见样式</h2><p><img src="/../images/cgg-notes/1728653612848.png" alt="1728653612848"></p>
+<h2 id="函数分文件编写"><a href="#函数分文件编写" class="headerlink" title="函数分文件编写"></a>函数分文件编写</h2><p><img src="/../images/cgg-notes/1728653738687.png" alt="1728653738687"></p>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><img src="/../images/cgg-notes/1728654241274.png" alt="1728654241274"></p>
+<h3 id="源文件"><a href="#源文件" class="headerlink" title="源文件"></a>源文件</h3><p><img src="/../images/cgg-notes/1728654309593.png" alt="1728654309593"></p>
+<h3 id="使用其他文件函数"><a href="#使用其他文件函数" class="headerlink" title="使用其他文件函数"></a>使用其他文件函数</h3><p><img src="/../images/cgg-notes/1728654369706.png" alt="1728654369706"></p>
+<p><strong>包含头文件</strong></p>
+<h1 id="指针-类似C"><a href="#指针-类似C" class="headerlink" title="指针(类似C)"></a>指针(类似C)</h1><p><img src="/../images/cgg-notes/1728655012510.png" alt="1728655012510"></p>
+<h2 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h2><p><img src="/../images/cgg-notes/1728655085281.png" alt="1728655085281"></p>
+<p><img src="/../images/cgg-notes/1728655098943.png" alt="1728655098943"></p>
+<p><img src="/../images/cgg-notes/1728655270292.png" alt="1728655270292"></p>
+<h2 id="野指针"><a href="#野指针" class="headerlink" title="野指针"></a>野指针</h2><p><img src="/../images/cgg-notes/1728655364959.png" alt="1728655364959"></p>
+<p><strong>没向系统申请的地址</strong></p>
+<p> <img src="/../images/cgg-notes/1728655506142.png" alt="1728655506142"></p>
+<p><img src="/../images/cgg-notes/1728655539530.png" alt="1728655539530"></p>
+<h2 id="const修饰指针"><a href="#const修饰指针" class="headerlink" title="const修饰指针"></a>const修饰指针</h2><p><img src="/../images/cgg-notes/1728655595373.png" alt="1728655595373"></p>
+<p><img src="/../images/cgg-notes/1728656213819.png" alt="1728656213819"></p>
+<p><img src="/../images/cgg-notes/1728656182562.png" alt="1728656182562"></p>
+<p><img src="/../images/cgg-notes/1728656271459.png" alt="1728656271459"></p>
+<h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><h2 id="结构体基本概念"><a href="#结构体基本概念" class="headerlink" title="结构体基本概念"></a>结构体基本概念</h2><p><img src="/../images/cgg-notes/1728806278108.png" alt="1728806278108"></p>
+<h2 id="结构体定义和使用"><a href="#结构体定义和使用" class="headerlink" title="结构体定义和使用"></a>结构体定义和使用</h2><p><img src="/../images/cgg-notes/1728806313919.png" alt="1728806313919"></p>
+<p><img src="/../images/cgg-notes/1728806585081.png" alt="1728806585081"></p>
+<h2 id="结构体数组"><a href="#结构体数组" class="headerlink" title="结构体数组"></a>结构体数组</h2><p><img src="/../images/cgg-notes/1728806928970.png" alt="1728806928970"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+#include&lt;string&gt;
+struct Student
+&#123;
+    string name;
+    int age;
+    int score;
+&#125;;
+int main()
+&#123;
+    struct Student stuArray[3] =
+    &#123;
+        &#123;&quot;张三&quot;,18,100&#125;,
+        &#123;&quot;李四&quot;,28,99&#125;,
+        &#123;&quot;王五&quot;,38,66&#125;
+    &#125;;
+    stuArray[2].score = 80;
+    for (int i = 0; i &lt; 3; i++) &#123;
+        cout &lt;&lt; stuArray[i].name &lt;&lt;&quot; &quot; &lt;&lt; stuArray[i].age &lt;&lt;&quot; &quot; &lt;&lt; stuArray[i].score &lt;&lt; endl;
+    &#125;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h2><p><img src="/../images/cgg-notes/1728808286722.png" alt="1728808286722"></p>
+<img src="../images/C++%E7%AC%94%E8%AE%B0/1728808297096.png" alt="1728808297096" style="zoom: 50%;" />
+
+<p><img src="/../images/cgg-notes/1728808311214.png" alt="1728808311214"></p>
+<h2 id="结构体嵌套结构体"><a href="#结构体嵌套结构体" class="headerlink" title="结构体嵌套结构体"></a>结构体嵌套结构体</h2><p><img src="/../images/cgg-notes/1728808414154.png" alt="1728808414154"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+#include&lt;string&gt;
+struct Student
+&#123;
+    string name;
+    int age;
+    int score;
+&#125;;
+struct teacher
+&#123;
+    int id;
+    string name;
+    int age;
+    struct Student stu;
+&#125;;
+
+
+int main()
+&#123;
+    struct Student stuArray[3] =
+    &#123;
+        &#123;&quot;张三&quot;,18,100&#125;,
+        &#123;&quot;李四&quot;,28,99&#125;,
+        &#123;&quot;王五&quot;,38,66&#125;
+    &#125;;
+    stuArray[2].score = 80;
+    struct teacher liming&#123;
+        &#123;1234&#125;,
+        &#123;&quot;李明&quot;&#125;,
+        &#123;50&#125;,
+        &#123;stuArray[0]&#125;
+    &#125;;
+    cout &lt;&lt; liming.name &lt;&lt;&quot; &quot;&lt;&lt; liming.stu.name &lt;&lt;&quot; &quot;&lt;&lt;liming.stu.score &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="结构体做函数参数"><a href="#结构体做函数参数" class="headerlink" title="结构体做函数参数"></a>结构体做函数参数</h2><p><img src="/../images/cgg-notes/1728809331855.png" alt="1728809331855"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+#include&lt;string&gt;
+struct Student
+&#123;
+    string name;
+    int age;
+    int score;
+&#125;;
+struct teacher
+&#123;
+    int id;
+    string name;
+    int age;
+    struct Student stu;
+&#125;;
+void printTeacher(struct teacher* t)
+&#123;
+    cout &lt;&lt; t-&gt;name &lt;&lt; &quot; &quot; &lt;&lt; t-&gt;stu.name &lt;&lt; &quot; &quot; &lt;&lt; t-&gt;stu.score &lt;&lt; &quot;\n&quot; &lt;&lt; endl;
+&#125;
+
+
+int main()
+&#123;
+    struct Student stuArray[3] =
+    &#123;
+        &#123;&quot;张三&quot;,18,100&#125;,
+        &#123;&quot;李四&quot;,28,99&#125;,
+        &#123;&quot;王五&quot;,38,66&#125;
+    &#125;;
+    stuArray[2].score = 80;
+    struct teacher liming&#123;
+        &#123;1234&#125;,
+        &#123;&quot;李明&quot;&#125;,
+        &#123;50&#125;,
+        &#123;stuArray[0]&#125;
+    &#125;;
+    cout &lt;&lt; liming.name &lt;&lt;&quot; &quot;&lt;&lt; liming.stu.name &lt;&lt;&quot; &quot;&lt;&lt;liming.stu.score &lt;&lt;&quot;\n&quot; &lt;&lt; endl;
+    printTeacher(&amp;liming);
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="结构体const"><a href="#结构体const" class="headerlink" title="结构体const"></a>结构体const</h2><p><img src="/../images/cgg-notes/1728810039118.png" alt="1728810039118"></p>
+<p><strong>函数地址传递时防止更改变量的值</strong></p>
+<p><img src="/../images/cgg-notes/1728812099502.png" alt="1728812099502"></p>
+<h3 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+struct student &#123;
+    int name;
+    int score;
+&#125;;
+
+struct teacher &#123;
+    string name;
+    struct student stu[5];
+&#125;;
+void give(struct teacher* t, struct student* s)
+&#123;
+    int k = 0;
+    for (int i = 0; i &lt; 3; i++) &#123;
+        for (int j = 0; j &lt; 5; j++) &#123;
+            
+            t[i].stu[j] = s[k];
+            k++;
+        &#125;
+    &#125;
+&#125;
+int main()
+&#123;
+    int i;
+    struct student s[15];
+    for (i = 0; i &lt; 15; i++) &#123;
+        s[i].name = i + 1;
+        s[i].score = rand()%60 + 40;
+    &#125;
+    struct teacher t[3]&#123;
+        &#123;&quot;Lili&quot;&#125;,
+        &#123;&quot;Sam&quot;&#125;,
+        &#123;&quot;Dave&quot;&#125;
+    &#125;;
+    give(t, s);
+    for (i = 0; i &lt; 3; i++) &#123;
+        cout &lt;&lt; t[i].name&lt;&lt; endl;
+        for (int j = 0; j &lt; 5; j++) &#123;
+            cout &lt;&lt;&quot;student&quot; &lt;&lt; t[i].stu[j].name &lt;&lt; &quot;\t &quot; &lt;&lt; t[i].stu[j].score &lt;&lt; endl;
+        &#125;
+    &#125;
+    
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+#include&lt;string&gt;
+struct hero &#123;
+    string name;
+    int age;
+    string sex;
+&#125;;
+int main()
+&#123;
+    struct hero member[5]&#123;
+        &#123;&quot;刘备&quot;,23,&quot;男&quot;&#125;,
+        &#123;&quot;关羽&quot;,22,&quot;男&quot;&#125;,
+        &#123;&quot;张飞&quot;,20,&quot;男&quot;&#125;,
+        &#123;&quot;赵云&quot;,21,&quot;男&quot;&#125;,
+        &#123;&quot;貂蝉&quot;,19,&quot;女&quot;&#125;
+    &#125;;
+    int i;
+    for (i = 0; i &lt; 5; i++) &#123;
+        for (int j = i + 1; j &lt; 5 ;  j++) &#123;
+            if (member[i].age &gt; member[j].age) &#123;
+                struct hero temp = member[i];
+                member[i] = member[j];
+                member[j] = temp;
+            &#125;
+        &#125;
+    &#125;
+    for (i = 0; i &lt; 5; i++) &#123;
+        cout &lt;&lt; member[i].name &lt;&lt; &quot; &quot; &lt;&lt; member[i].age &lt;&lt; &quot; &quot; &lt;&lt; member[i].sex &lt;&lt; &quot;\n&quot; &lt;&lt; endl;
+    &#125;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h1 id="通讯管理系统"><a href="#通讯管理系统" class="headerlink" title="通讯管理系统"></a>通讯管理系统</h1><img src="../images/C++%E7%AC%94%E8%AE%B0/1728819007737.png" alt="1728819007737" style="zoom:150%;" />
+
+<h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+#include&quot;add.h&quot;
+#include&quot;present.h&quot;
+#include&quot;remove.h&quot;
+#include&quot;find.h&quot;
+#include&quot;modify.h&quot;
+#include&quot;allremove.h&quot;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+
+int main()
+&#123;
+    cout &lt;&lt; &quot;1：添加联系人\n2：展示所有联系人\n3：删除联系人\n4：查找联系人\n5：修改联系人信息\n6:清空联系人\n0：退出系统\n&quot; &lt;&lt; endl;
+    int type;
+    cin &gt;&gt; type;
+    struct person Person[1000];
+    for (int i = 0; i &lt; 1000; i++) &#123;
+        Person[i].number = 0;
+        Person[i].name = &quot;无&quot;;
+        Person[i].age = 0;
+        Person[i].sex = &quot;无&quot;;
+        Person[i].address = &quot;无&quot;;
+    &#125;
+    while (type != 0) &#123;
+        switch (type) &#123;
+        case 1:
+            add(Person);
+            break;
+        case 2:
+            present(Person);
+            break;
+        case 3:
+            remove(Person);
+            break;
+        case 4:
+            find(Person);
+            break;
+        case 5:
+            modify(Person);
+            break;
+        case 6:
+            allremove(Person);
+            break;
+        &#125;
+        cin &gt;&gt; type;
+    &#125;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="add函数"><a href="#add函数" class="headerlink" title="add函数"></a>add函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void add(struct person* Person)
+&#123;
+    int i;
+    for (i = 0; i &lt; 1000; i++) &#123;
+        if (Person[i].number == 0) &#123;
+            cout &lt;&lt; &quot;姓名:&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].name;
+            cout &lt;&lt; &quot;性别：（男，女）&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].sex;
+            cout &lt;&lt; &quot;年龄：&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].age;
+            cout &lt;&lt; &quot;号码&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].number;
+            cout &lt;&lt; &quot;地址&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].address;
+            break;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="present函数"><a href="#present函数" class="headerlink" title="present函数"></a>present函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void present(struct person* Person)
+&#123;
+    for (int i = 0; i &lt; 1000; i++) &#123;
+        if (Person[0].number == 0) &#123;
+            cout &lt;&lt; &quot;空&quot; &lt;&lt; endl;
+        &#125;
+        if (Person[i].number == 0) &#123;
+            break;
+        &#125;
+        cout &lt;&lt; &quot;姓名:&quot; &lt;&lt; Person[i].name &lt;&lt;&quot;\t&quot; &lt;&lt; &quot;性别：&quot;
+            &lt;&lt; Person[i].sex &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;年龄：&quot; &lt;&lt; Person[i].age &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;号码：&quot; &lt;&lt; Person[i].number &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;地址：&quot; &lt;&lt; Person[i].address &lt;&lt; &quot;\n&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="remove函数"><a href="#remove函数" class="headerlink" title="remove函数"></a>remove函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void remove(struct person* Person)
+&#123;
+    string name;
+    cout &lt;&lt; &quot;请输入要删除联系人的名字：&quot; &lt;&lt; endl;
+    cin &gt;&gt; name;
+    for (int i = 0; i &lt; 1000;  i++) &#123;
+        if (name == Person[i].name) &#123;
+            Person[i].number = 0;
+            Person[i].name = &quot;无&quot;;
+            Person[i].age = 0;
+            Person[i].sex = &quot;无&quot;;
+            Person[i].address = &quot;无&quot;;
+            break;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="find函数"><a href="#find函数" class="headerlink" title="find函数"></a>find函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void find(struct person* Person)
+&#123;
+    string name;
+    cout &lt;&lt; &quot;请输入要查找的联系人&quot; &lt;&lt; endl;
+    cin &gt;&gt; name;
+    int ret = 0;
+    for (int i = 0; i &lt; 1000; i++) &#123;
+        
+        if (name == Person[i].name) &#123;
+            cout &lt;&lt; &quot;姓名:&quot; &lt;&lt; Person[i].name &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;性别：&quot;
+                &lt;&lt; Person[i].sex &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;年龄：&quot; &lt;&lt; Person[i].age &lt;&lt; &quot;\t&quot; 
+                &lt;&lt; &quot;号码：&quot; &lt;&lt; Person[i].number 
+                &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;地址：&quot; 
+                &lt;&lt; Person[i].address &lt;&lt; &quot;\n&quot; &lt;&lt; endl;
+            ret = 1;
+            break;
+        &#125;
+    &#125;
+    if (ret == 0) &#123;
+        cout &lt;&lt; &quot;查无此人&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="modify函数"><a href="#modify函数" class="headerlink" title="modify函数"></a>modify函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void modify(struct person* Person)
+&#123;
+    string name;
+    cout &lt;&lt; &quot;请输入要修改信息的联系人&quot; &lt;&lt; endl;
+    cin &gt;&gt; name;
+    int ret = 0;
+    for (int i = 0; i &lt; 1000; i++) &#123;
+        if (name == Person[i].name) &#123;
+            cout &lt;&lt; &quot;姓名:&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].name;
+            cout &lt;&lt; &quot;性别：（男，女）&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].sex;
+            cout &lt;&lt; &quot;年龄：&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].age;
+            cout &lt;&lt; &quot;号码&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].number;
+            cout &lt;&lt; &quot;地址&quot; &lt;&lt; endl;
+            cin &gt;&gt; Person[i].address;
+            ret = 1;
+            break;
+        &#125;
+    &#125;
+    if (ret == 0) &#123;
+        cout &lt;&lt; &quot;查无此人&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="allremove函数"><a href="#allremove函数" class="headerlink" title="allremove函数"></a>allremove函数</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+struct person &#123;
+    string name;
+    string sex;
+    int age;
+    long long number;
+    string address;
+&#125;;
+void allremove(struct person* Person)
+&#123;
+    for (int i = 0; i &lt; 1000; i++) &#123;
+        Person[i].number = 0;
+        Person[i].name = &quot;无&quot;;
+        Person[i].age = 0;
+        Person[i].sex = &quot;无&quot;;
+        Person[i].address = &quot;无&quot;;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="内存分区模型"><a href="#内存分区模型" class="headerlink" title="内存分区模型"></a>内存分区模型</h1><p><img src="/../images/cgg-notes/1728990629086.png" alt="1728990629086"></p>
+<h2 id="代码区"><a href="#代码区" class="headerlink" title="代码区"></a>代码区</h2><p><img src="/../images/cgg-notes/1728991030036.png" alt="1728991030036"></p>
+<h2 id="全局区"><a href="#全局区" class="headerlink" title="全局区"></a>全局区</h2><p><img src="/../images/cgg-notes/1728991304420.png" alt="1728991304420"></p>
+<img src="../images/C++%E7%AC%94%E8%AE%B0/1728991644098.png" alt="1728991644098" style="zoom:50%;" />
+
+<img src="../images/C++%E7%AC%94%E8%AE%B0/1728995366466.png" alt="1728995366466" style="zoom:50%;" />
+
+<p><img src="/../images/cgg-notes/1728991857851.png" alt="1728991857851"></p>
+<p><img src="/../images/cgg-notes/1728992274655.png" alt="1728992274655"></p>
+<p><img src="/../images/cgg-notes/1728992299960.png" alt="1728992299960"></p>
+<h2 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h2><p><img src="/../images/cgg-notes/1728992412126.png" alt="1728992412126"></p>
+<p><img src="/../images/cgg-notes/1728992677500.png" alt="1728992677500"></p>
+<p><img src="/../images/cgg-notes/1728992753823.png" alt="1728992753823"></p>
+<h2 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h2><p><img src="/../images/cgg-notes/1728992877360.png" alt="1728992877360"></p>
+<p><img src="/../images/cgg-notes/1728993134869.png" alt="1728993134869"></p>
+<h3 id="new操作符"><a href="#new操作符" class="headerlink" title="new操作符"></a>new操作符</h3><p><img src="/../images/cgg-notes/1728993347167.png" alt="1728993347167"></p>
+<p><img src="/../images/cgg-notes/1728993666859.png" alt="1728993666859"></p>
+<p><img src="/../images/cgg-notes/1728993779763.png" alt="1728993779763"></p>
+<p><strong>new返回的是地址</strong> </p>
+<p><img src="/../images/cgg-notes/1728993919318.png" alt="1728993919318"></p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p><img src="/../images/cgg-notes/1728994024878.png" alt="1728994024878"></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p><img src="/../images/cgg-notes/1728994311673.png" alt="1728994311673"></p>
+<p><img src="/../images/cgg-notes/1728994439236.png" alt="1728994439236"></p>
+<h2 id="引用做函数参数"><a href="#引用做函数参数" class="headerlink" title="引用做函数参数"></a>引用做函数参数</h2><p><img src="/../images/cgg-notes/1728994533078.png" alt="1728994533078"></p>
+<p><img src="/../images/cgg-notes/1728994763744.png" alt="1728994763744"></p>
+<h2 id="引用做函数的返回值"><a href="#引用做函数的返回值" class="headerlink" title="引用做函数的返回值"></a>引用做函数的返回值</h2><p><img src="/../images/cgg-notes/1728995023221.png" alt="1728995023221"></p>
+<p><img src="/../images/cgg-notes/1728995733672.png" alt="1728995733672"></p>
+<h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p><img src="/../images/cgg-notes/1728995824059.png" alt="1728995824059"></p>
+<p><img src="/../images/cgg-notes/1728995950673.png" alt="1728995950673"></p>
+<h2 id="常量引用"><a href="#常量引用" class="headerlink" title="常量引用"></a>常量引用</h2><p><img src="/../images/cgg-notes/1728996136814.png" alt="1728996136814"></p>
+<p><img src="/../images/cgg-notes/1728996372178.png" alt="1728996372178"></p>
+<h1 id="函数提高"><a href="#函数提高" class="headerlink" title="函数提高"></a>函数提高</h1><h2 id="函数默认参数"><a href="#函数默认参数" class="headerlink" title="函数默认参数"></a>函数默认参数</h2><p><img src="/../images/cgg-notes/1729424853591.png" alt="1729424853591"></p>
+<p><img src="/../images/cgg-notes/1729424944195.png" alt="1729424944195"></p>
+<p><img src="/../images/cgg-notes/1729424961396.png" alt="1729424961396"></p>
+<p><strong>有默认值时可以少写参数</strong> </p>
+<p><img src="/../images/cgg-notes/1729425051673.png" alt="1729425051673"></p>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><p><img src="/../images/cgg-notes/1729425253969.png" alt="1729425253969"></p>
+<p><img src="/../images/cgg-notes/1729425309907.png" alt="1729425309907"></p>
+<p><img src="/../images/cgg-notes/1729425450102.png" alt="1729425450102"></p>
+<p><strong>俩个位置只能有一个默认参数</strong></p>
+<h2 id="函数占位参数"><a href="#函数占位参数" class="headerlink" title="函数占位参数"></a>函数占位参数</h2><p><img src="/../images/cgg-notes/1729425898101.png" alt="1729425898101"></p>
+<p><img src="/../images/cgg-notes/1729425915622.png" alt="1729425915622"></p>
+<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p><img src="/../images/cgg-notes/1729426433237.png" alt="1729426433237"></p>
+<p> <img src="/../images/cgg-notes/1729426775359.png" alt="1729426775359"></p>
+<p><strong>返回值不同不能进行函数重载</strong></p>
+<h3 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h3><p><img src="/../images/cgg-notes/1729427043296.png" alt="1729427043296"></p>
+<p><img src="/../images/cgg-notes/1729427158822.png" alt="1729427158822"></p>
+<p><strong>变量调用int   常量调用const int</strong></p>
+<p><img src="/../images/cgg-notes/1729427523872.png" alt="1729427523872"></p>
+<p><strong>调用func2（10）出错</strong></p>
+<p><img src="/../images/cgg-notes/1729427620254.png" alt="1729427620254"></p>
+<h1 id="类和对象（重要！！）"><a href="#类和对象（重要！！）" class="headerlink" title="类和对象（重要！！）"></a>类和对象（重要！！）</h1><p><img src="/../images/cgg-notes/1729427760302.png" alt="1729427760302"></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p><img src="/../images/cgg-notes/1729427801019.png" alt="1729427801019"></p>
+<p><img src="/../images/cgg-notes/1729427892933.png" alt="1729427892933"></p>
+<p>   <img src="/../images/cgg-notes/1729428577075.png" alt="1729428577075"></p>
+<p> <img src="/../images/cgg-notes/1729428614394.png" alt="1729428614394"></p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+class student
+&#123;
+public :
+    string m_name;
+    int m_id;
+    void showstudent() &#123;
+        cout &lt;&lt; &quot;姓名：&quot; &lt;&lt; m_name &lt;&lt; &quot;\n学号：&quot; &lt;&lt; m_id &lt;&lt; endl;
+
+    &#125;
+&#125;;
+int main()
+&#123;
+    student s1;
+    s1.m_name = &quot;张三&quot;;
+    s1.m_id = 123;
+    s1.showstudent();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+class student
+&#123;
+public :
+    string m_name;  //属性
+    int m_id;
+    
+    void setname(string name) &#123;  //行为
+        m_name = name;
+    &#125;
+    void showstudent() &#123;
+        cout &lt;&lt; &quot;姓名：&quot; &lt;&lt; m_name &lt;&lt; &quot;\n学号：&quot; &lt;&lt; m_id &lt;&lt; endl;
+
+    &#125;
+&#125;;
+int main()
+&#123;
+    student s1;
+    s1.setname(&quot;张三&quot;);
+    s1.m_id = 123;
+    s1.showstudent();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="封装访问权限"><a href="#封装访问权限" class="headerlink" title="封装访问权限"></a>封装访问权限</h2><p><img src="/../images/cgg-notes/1729604180958.png" alt="1729604180958"></p>
+<p><img src="/../images/cgg-notes/1729604403141.png" alt="1729604403141"></p>
+<p><strong>class的大括号内为类内</strong></p>
+<p><img src="/../images/cgg-notes/1729604628061.png" alt="1729604628061"></p>
+<p><img src="/../images/cgg-notes/1729604666183.png" alt="1729604666183"></p>
+<h2 id="class和struct的区别"><a href="#class和struct的区别" class="headerlink" title="class和struct的区别"></a>class和struct的区别</h2><p><img src="/../images/cgg-notes/1729606670697.png" alt="1729606670697"></p>
+<h2 id="私有成员属性（自己设置读写）"><a href="#私有成员属性（自己设置读写）" class="headerlink" title="私有成员属性（自己设置读写）"></a>私有成员属性（自己设置读写）</h2><p><img src="/../images/cgg-notes/1729606901511.png" alt="1729606901511"></p>
+<p><strong>自己控制读写权限</strong></p>
+<p><img src="/../images/cgg-notes/1729607399388.png" alt="1729607399388"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+class Person
+&#123;
+public:
+    void setname(string name) &#123;
+        Name = name;
+    &#125;
+    string getname() &#123;
+        return Name;
+    &#125;
+    int getage() &#123;
+        return Age;
+    &#125;
+    void setidol(string idol) &#123;
+        Idol = idol;
+    &#125;
+private:
+    string Name;
+    int Age = 18;
+    string Idol;
+&#125;;
+int main ()
+&#123;
+    Person p;
+    p.setname(&quot;张三&quot;);
+    cout &lt;&lt; p.getname() &lt;&lt; endl;
+    cout &lt;&lt; p.getage() &lt;&lt; endl;
+    p.setidol(&quot;李明&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1729608316045.png" alt="1729608316045"></p>
+<p><strong>加上限制条件</strong></p>
+<h2 id="作业-1"><a href="#作业-1" class="headerlink" title="作业"></a>作业</h2><h3 id="设计立方体类"><a href="#设计立方体类" class="headerlink" title="设计立方体类"></a>设计立方体类</h3><p><img src="/../images/cgg-notes/1729608488219.png" alt="1729608488219"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Cube
+&#123;
+private:
+    int L;
+    int W;
+    int H;
+public:
+    int area() &#123;
+        return 2 * (L * W + L * H + W * H);
+    &#125;
+    int volume() &#123;
+        return L * W * H;
+    &#125;
+    int getL() &#123;
+        return L;
+    &#125;
+    int getW() &#123;
+        return W;
+    &#125;
+    int getH() &#123;
+        return H;
+    &#125;
+    void setL(int l) &#123;
+        L = l;
+    &#125;
+    void setW(int w) &#123;
+        W = w;
+    &#125;
+    void setH(int h) &#123;
+        H = h;
+    &#125;
+    bool isSame_1(Cube&amp; c, Cube&amp; c2) &#123;
+        if (c.H == c2.H &amp;&amp; c.W == c.W &amp;&amp; c.L == c2.L) &#123;
+            return true;
+        &#125;
+        else &#123;
+            return false;
+        &#125;
+    &#125;
+&#125;;
+bool isSame(Cube&amp; c, Cube&amp; c2) &#123;
+    if (c.getH() == c2.getH() &amp;&amp; c.getW() == c.getW() &amp;&amp; c.getL() == c2.getL()) &#123;
+        return true;
+    &#125;
+    else &#123;
+        return false;
+    &#125;
+&#125;
+int main() 
+&#123;
+    Cube c;
+    c.setL(3);
+    c.setW(4);
+    c.setH(5);
+    cout &lt;&lt; &quot;面积：&quot; &lt;&lt; c.area() &lt;&lt; &quot; 体积：&quot; &lt;&lt; c.volume() &lt;&lt; endl;
+    Cube c2;
+    c2.setL(3);
+    c2.setW(4);
+    c2.setH(5);
+    cout &lt;&lt; &quot;全局函数&quot; &lt;&lt; isSame(c, c2) &lt;&lt; endl;
+    cout &lt;&lt; &quot;类内函数&quot; &lt;&lt; c.isSame_1(c, c2) &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1729689156084.png" alt="1729689156084"></p>
+<pre><code class="c++">
+</code></pre>
+<h1 id="对象的初始化和清理"><a href="#对象的初始化和清理" class="headerlink" title="对象的初始化和清理"></a>对象的初始化和清理</h1><h2 id="构造函数和析构函数"><a href="#构造函数和析构函数" class="headerlink" title="构造函数和析构函数"></a>构造函数和析构函数</h2><p><img src="/../images/cgg-notes/1729689349373.png"></p>
+<p><img src="/../images/cgg-notes/1729689563790.png" alt="1729689563790"></p>
+<pre><code class="c++">//构造函数和析构函数
+#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person() &#123;
+        cout &lt;&lt; &quot;1&quot; &lt;&lt; endl;
+    &#125;
+    ~Person() &#123;
+        cout &lt;&lt; &quot;2&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+void text() &#123;
+    Person p;
+&#125;
+int main()
+&#123;
+    Person p;
+    text();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+//有输出结果，并且为；
+//1
+//1
+//2
+//如果析构函数写在main函数，则不会输出;
+</code></pre>
+<p><img src="/../images/c++%E7%AC%94%E8%AE%B0/1729690015624-1740280875137.png" alt="1729690015624"></p>
+<h2 id="构造函数的分类及调用"><a href="#构造函数的分类及调用" class="headerlink" title="构造函数的分类及调用"></a>构造函数的分类及调用</h2><p><img src="/../images/cgg-notes/1729690391656.png" alt="1729690391656"></p>
+<p><img src="/../images/cgg-notes/1729690784325.png" alt="1729690784325"></p>
+<p><strong>无参构造函数又称默认构造函数</strong></p>
+<p><img src="/../images/cgg-notes/1729692939166.png" alt="1729692939166"></p>
+<p><img src="/../images/cgg-notes/1729693248457.png" alt="1729693248457"></p>
+<p><img src="/../images/cgg-notes/1729693360064.png" alt="1729693360064"></p>
+<p><img src="/../images/cgg-notes/1729693426058.png" alt="1729693426058"></p>
+<p> <img src="/../images/cgg-notes/1729693503531.png" alt="1729693503531"></p>
+<p><img src="/../images/cgg-notes/1729693607453.png" alt="1729693607453"></p>
+<p><img src="/../images/cgg-notes/1729693689586.png" alt="1729693689586"></p>
+<p><img src="/../images/cgg-notes/1729693865535.png" alt="1729693865535"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person(int age) &#123;
+        m_Age = age;
+        cout &lt;&lt; &quot;p的年龄为：&quot; &lt;&lt; m_Age &lt;&lt; endl;
+    &#125;
+    //有参构造函数
+    Person(const Person &amp;p) &#123;
+        cout &lt;&lt; &quot;拷贝构造函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    //拷贝构造函数
+    ~Person() &#123;
+        cout &lt;&lt; this &lt;&lt; &quot;的析构函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    int m_Age;
+&#125;;
+void text() &#123;
+    Person p(10);//Person p = 10    Person p = Person(10)
+    Person p1(p);//Person p1 = p    Person p1 = Person(p)
+    cout &lt;&lt; &amp;p &lt;&lt; endl;
+    cout &lt;&lt; &amp;p1 &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    text();
+    
+
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730122691429.png" alt="1730122691429"></p>
+<h2 id="拷贝构造函数的调用时机"><a href="#拷贝构造函数的调用时机" class="headerlink" title="拷贝构造函数的调用时机"></a>拷贝构造函数的调用时机</h2><p><img src="/../images/cgg-notes/1729947335597.png" alt="1729947335597"></p>
+<p><img src="/../images/cgg-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-26%20210755.png"></p>
+<p><img src="/../images/cgg-notes/1729948195996.png" alt="1729948195996"></p>
+<p><img src="/../images/cgg-notes/1729948323526.png" alt="1729948323526"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person(int age) &#123;
+        m_Age = age;
+        cout &lt;&lt; &quot;p的年龄为：&quot; &lt;&lt; m_Age &lt;&lt; endl;
+    &#125;
+    //有参构造函数
+    Person(const Person &amp;p) &#123;
+        cout &lt;&lt; &quot;拷贝构造函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    //拷贝构造函数
+    ~Person() &#123;
+        cout &lt;&lt; this &lt;&lt; &quot;的析构函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    int m_Age;
+&#125;;
+
+Person dowork() &#123;
+    Person p1 = 20;
+    return p1;
+&#125;
+
+void text() &#123;
+    Person p(10);	
+    dowork();
+    //Person p2(dowork());
+    cout &lt;&lt; &amp;p &lt;&lt; endl;
+    //cout &lt;&lt; &amp;p2 &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    text();
+    
+
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730123707305.png" alt="1730123707305"></p>
+<h2 id="构造函数调用规则"><a href="#构造函数调用规则" class="headerlink" title="构造函数调用规则"></a>构造函数调用规则</h2><p><img src="/../images/cgg-notes/1729948509142.png" alt="1729948509142"></p>
+<p><img src="/../images/cgg-notes/1729948520967.png" alt="1729948520967"></p>
+<p><img src="/../images/cgg-notes/1729948873314.png" alt="1729948873314"></p>
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><p><img src="/../images/cgg-notes/1729949338960.png" alt="1729949338960"></p>
+<p><img src="/../images/cgg-notes/1729950370988.png" alt="1729950370988"></p>
+<p><strong>new操作符返回的是指针</strong></p>
+<p><img src="/../images/cgg-notes/1729949686275.png" alt="1729949686275"></p>
+<p><img src="/../images/cgg-notes/1729949968020.png" alt="1729949968020"></p>
+<p><img src="/../images/cgg-notes/1729949996903.png"></p>
+<p><img src="/../images/cgg-notes/1729950171437.png" alt="1729950171437"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person(int age,int height) &#123;
+        m_Age = age;
+        m_Height = new int(height);
+    &#125;
+    //有参构造函数
+    Person(const Person &amp;p) &#123;
+        cout &lt;&lt; &quot;拷贝构造函数的调用&quot; &lt;&lt; endl;
+        m_Age = p.m_Age;
+        m_Height = new int(*p.m_Height);
+    &#125;
+    //拷贝构造函数
+    ~Person() &#123;
+        if (m_Height != NULL) &#123;
+            delete m_Height;
+            m_Height = NULL;
+        &#125;
+        cout &lt;&lt; this &lt;&lt; &quot;的析构函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    int m_Age;
+    int* m_Height;
+&#125;;
+
+
+void text() &#123;
+    Person p(10, 180);
+    Person p1(p);
+    Person p2(p);
+    cout &lt;&lt; p.m_Age &lt;&lt; &quot; &quot; &lt;&lt; *p.m_Height &lt;&lt; endl;
+    cout &lt;&lt; p1.m_Age &lt;&lt; &quot; &quot; &lt;&lt; *p1.m_Height &lt;&lt; endl;
+    cout &lt;&lt; p2.m_Age &lt;&lt; &quot; &quot; &lt;&lt; *p2.m_Height &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    text();
+    
+
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730124390295.png" alt="1730124390295"></p>
+<h2 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h2><p><img src="/../images/cgg-notes/1729950489032.png" alt="1729950489032"></p>
+<p><img src="/../images/cgg-notes/1729950717888.png" alt="1729950717888"></p>
+<p><img src="/../images/cgg-notes/1729950803644.png" alt="1729950803644"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    Person(int age, int height) :m_Age(age), m_Height(height)
+    &#123;
+        
+    &#125;
+    //有参构造函数
+    Person(const Person &amp;p) &#123;
+        cout &lt;&lt; &quot;拷贝构造函数的调用&quot; &lt;&lt; endl;
+        m_Age = p.m_Age;
+        m_Height = p.m_Height;
+    &#125;
+    //拷贝构造函数
+    ~Person() &#123;
+        
+        cout &lt;&lt; this &lt;&lt; &quot;的析构函数的调用&quot; &lt;&lt; endl;
+    &#125;
+    int m_Age;
+    int m_Height;
+&#125;;
+
+
+void text() &#123;
+    Person p(10,180);
+    Person p1(p);
+    Person p2(p);
+    cout &lt;&lt; p.m_Age &lt;&lt; &quot; &quot; &lt;&lt; p.m_Height &lt;&lt; endl;
+    cout &lt;&lt; p1.m_Age &lt;&lt; &quot; &quot; &lt;&lt; p1.m_Height &lt;&lt; endl;
+    cout &lt;&lt; p2.m_Age &lt;&lt; &quot; &quot; &lt;&lt; p2.m_Height &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    text();
+    
+
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730124934790.png" alt="1730124934790"></p>
+<h2 id="类对象作为类成员"><a href="#类对象作为类成员" class="headerlink" title="类对象作为类成员"></a>类对象作为类成员</h2><p><img src="/../images/cgg-notes/1729950966927.png" alt="1729950966927"></p>
+<p><img src="/../images/cgg-notes/1729950979248.png" alt="1729950979248"></p>
+<p><img src="/../images/cgg-notes/1729951369486.png" alt="1729951369486"></p>
+<p><img src="/../images/cgg-notes/1729951590707.png" alt="1729951590707"></p>
+<p><img src="/../images/cgg-notes/1729951677841.png" alt="1729951677841"></p>
+<h2 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h2><h3 id="变量-1"><a href="#变量-1" class="headerlink" title="变量"></a>变量</h3><p><img src="/../images/cgg-notes/1729951796931.png" alt="1729951796931"></p>
+<p><img src="/../images/cgg-notes/1729952003288.png" alt="1729952003288"></p>
+<p><img src="/../images/cgg-notes/1729952136564.png" alt="1729952136564"></p>
+<p><strong>类外初始化</strong></p>
+<p><img src="/../images/cgg-notes/1729952331851.png" alt="1729952331851"></p>
+<p><img src="/../images/cgg-notes/1729952430056.png" alt="1729952430056"></p>
+<p><img src="/../images/cgg-notes/1729952466207.png"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Person
+&#123;
+public:
+    static int m_A;
+&#125;;
+int Person::m_A = 100;
+
+
+void text() &#123;
+    Person p;
+    Person p1;
+    cout &lt;&lt; p.m_A &lt;&lt; endl;
+    cout &lt;&lt; p1.m_A &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+    text();
+    
+
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730125138235.png" alt="1730125138235"></p>
+<h3 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h3><p><img src="/../images/cgg-notes/1729952605899.png" alt="1729952605899"></p>
+<p><strong>两种访问方式</strong></p>
+<p><img src="/../images/cgg-notes/1729952704366.png" alt="1729952704366"></p>
+<p><img src="/../images/cgg-notes/1729952807269.png" alt="1729952807269"></p>
+<p><img src="/../images/cgg-notes/1729952967697.png" alt="1729952967697"></p>
+<h1 id="C-对象模型和this指针"><a href="#C-对象模型和this指针" class="headerlink" title="C++对象模型和this指针"></a>C++对象模型和this指针</h1><h2 id="成员变量和成员函数分开储存"><a href="#成员变量和成员函数分开储存" class="headerlink" title="成员变量和成员函数分开储存"></a>成员变量和成员函数分开储存</h2><p><img src="/../images/cgg-notes/1730119235067.png" alt="1730119235067"></p>
+<p><img src="/../images/cgg-notes/1730119583570.png" alt="1730119583570"></p>
+<pre><code class="c++">//此时  sizeof(p) == 4
+</code></pre>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p><img src="/../images/cgg-notes/1730119671480.png" alt="1730119671480"></p>
+<p><img src="/../images/cgg-notes/1730119680579.png" alt="1730119680579"></p>
+<p><img src="/../images/cgg-notes/1730119953444.png" alt="1730119953444"></p>
+<p><img src="/../images/cgg-notes/1730119972144.png" alt="1730119972144"></p>
+<p>&#96;</p>
+<p><img src="/../images/cgg-notes/1730120347630.png" alt="1730120347630"></p>
+<p><img src="/../images/cgg-notes/1730120378007.png" alt="1730120378007"></p>
+<p><strong>函数返回类型要为引用类型，若没有”&amp;”返回的是一个拷贝变量</strong></p>
+<h2 id="空指针调成员函数"><a href="#空指针调成员函数" class="headerlink" title="空指针调成员函数"></a>空指针调成员函数</h2><p><img src="/../images/cgg-notes/1730120737973.png" alt="1730120737973"></p>
+<p><img src="/../images/cgg-notes/1730121168089.png" alt="1730121168089"></p>
+<p><strong>在m_Age(成员变量)前总会默认加一个this-&gt;</strong></p>
+<p><img src="/../images/cgg-notes/1730121116106.png" alt="1730121116106"></p>
+<p><strong>调用第一个函数正常</strong></p>
+<p><strong>调用第二个函数出错</strong></p>
+<p><img src="/../images/cgg-notes/1730121002131.png" alt="1730121002131"></p>
+<p><strong>改进：</strong></p>
+<p><img src="/../images/cgg-notes/1730121045811.png" alt="1730121045811"></p>
+<h2 id="const修饰成员函数"><a href="#const修饰成员函数" class="headerlink" title="const修饰成员函数"></a>const修饰成员函数</h2><p><img src="/../images/cgg-notes/1730121266649.png" alt="1730121266649"></p>
+<h3 id="常函数"><a href="#常函数" class="headerlink" title="常函数"></a>常函数</h3><p><strong>this指针是一个指针常量，只能指向一个变量</strong></p>
+<p><strong>但可以改变存储在该变量的值</strong></p>
+<p><img src="/../images/cgg-notes/1730121389715.png" alt="1730121389715"></p>
+<p><img src="/../images/cgg-notes/1730121585985.png"></p>
+<p><strong>加上const之后就无法修改指针指向的值</strong></p>
+<p><img src="/../images/cgg-notes/1730121628027.png" alt="1730121628027"></p>
+<p><strong>特殊变量</strong></p>
+<p><img src="/../images/cgg-notes/1730121696553.png" alt="1730121696553"></p>
+<h3 id="常对象"><a href="#常对象" class="headerlink" title="常对象"></a>常对象</h3><p><img src="/../images/cgg-notes/1730121860120.png" alt="1730121860120"></p>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p><img src="/../images/cgg-notes/1730291974193.png" alt="1730291974193"></p>
+<p><img src="/../images/cgg-notes/1730291980369.png" alt="1730291980369"></p>
+<h3 id="全局函数做友元"><a href="#全局函数做友元" class="headerlink" title="全局函数做友元"></a>全局函数做友元</h3><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+class Building 
+&#123;
+    friend void test01(Building* building);
+public:
+    Building () &#123;
+        m_SittingRoom = &quot;A大厅&quot;;
+        m_Room = &quot;201室&quot;;
+    &#125;
+public:
+    string m_SittingRoom;
+private:
+    string m_Room;
+&#125;;
+
+void test01(Building* building) &#123;
+    cout &lt;&lt; &quot;大厅：&quot; &lt;&lt; building-&gt;m_SittingRoom &lt;&lt; endl;
+    cout &lt;&lt; &quot;卧室：&quot; &lt;&lt; building-&gt;m_Room &lt;&lt; endl;
+&#125;
+
+void test() &#123;
+    Building building;
+    test01(&amp;building);
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730292889200.png" alt="1730292889200"></p>
+<p><img src="/../images/cgg-notes/1730292906856.png" alt="1730292906856"></p>
+<h3 id="类做友元"><a href="#类做友元" class="headerlink" title="类做友元"></a>类做友元</h3><p><img src="/../images/cgg-notes/1730293165950.png" alt="1730293165950"></p>
+<p><img src="/../images/cgg-notes/1730293477179.png" alt="1730293477179"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+class Building 
+&#123;
+    friend class GoodGay;
+public:
+    Building () &#123;
+        m_SittingRoom = &quot;A大厅&quot;;
+        m_Room = &quot;201室&quot;;
+    &#125;
+public:
+    string m_SittingRoom;
+private:
+    string m_Room;
+&#125;;
+
+class GoodGay
+&#123;
+public:
+    GoodGay();
+    void visit();
+    Building* visitBuilding;
+
+&#125;;
+
+GoodGay::GoodGay() &#123;
+    visitBuilding = new Building;
+&#125;
+
+void GoodGay::visit() &#123;
+    cout &lt;&lt;&quot;去大厅：&quot; &lt;&lt; visitBuilding-&gt;m_SittingRoom &lt;&lt; endl;
+    cout &lt;&lt; &quot;去卧室：&quot; &lt;&lt; visitBuilding-&gt;m_Room &lt;&lt; endl;
+&#125;
+
+void test() &#123;
+    GoodGay zhang;
+    zhang.visit();
+    
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h3 id="成员函数做友元"><a href="#成员函数做友元" class="headerlink" title="成员函数做友元"></a>成员函数做友元</h3><p><img src="/../images/cgg-notes/1730295905319.png" alt="1730295905319"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+
+class Building;
+
+class GoodGay
+&#123;
+public:
+    GoodGay();
+    void visit();
+    Building* visitBuilding;
+
+&#125;;
+
+class Building 
+&#123;
+    
+public:
+    friend void GoodGay::visit();
+    Building () &#123;
+        m_SittingRoom = &quot;A大厅&quot;;
+        m_Room = &quot;201室&quot;;
+    &#125;
+public:
+    string m_SittingRoom;
+private:
+    string m_Room;
+&#125;;
+
+
+
+GoodGay::GoodGay() &#123;
+    visitBuilding = new Building;
+&#125;
+
+void GoodGay::visit() &#123;
+    cout &lt;&lt;&quot;去大厅：&quot; &lt;&lt;visitBuilding-&gt;m_SittingRoom &lt;&lt; endl;
+    cout &lt;&lt; &quot;去卧室：&quot; &lt;&lt;visitBuilding-&gt;m_Room &lt;&lt; endl;
+&#125;
+
+void test() &#123;
+    GoodGay zhang;
+    zhang.visit();
+    
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="运算符重载（重要！！）"><a href="#运算符重载（重要！！）" class="headerlink" title="运算符重载（重要！！）"></a>运算符重载（重要！！）</h2><p><img src="/../images/cgg-notes/1730378975547.png" alt="1730378975547"></p>
+<h3 id="加号运算符重载"><a href="#加号运算符重载" class="headerlink" title="加号运算符重载"></a>加号运算符重载</h3><p><strong>（可以更换为其他符号（+，-，*，&#x2F;）</strong></p>
+<p><img src="/../images/cgg-notes/1730379000731.png" alt="1730379000731"></p>
+<p><img src="/../images/cgg-notes/1730379547066.png" alt="1730379547066"></p>
+<p><img src="/../images/cgg-notes/1730379534449.png" alt="1730379534449"></p>
+<p><img src="/../images/cgg-notes/1730379683189.png" alt="1730379683189"></p>
+<p><img src="/../images/cgg-notes/1730379918247.png" alt="1730379918247"></p>
+<p><img src="/../images/cgg-notes/1730379963630.png" alt="1730379963630"></p>
+<p><img src="/../images/cgg-notes/1730380103971.png" alt="1730380103971"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Person 
+&#123;
+public:
+    /*Person operator+ (Person&amp; p) &#123;
+        Person temp;
+        temp.m_A = this-&gt;m_A + p.m_A;
+        temp.m_B = this-&gt;m_B + p.m_B;
+        return temp;
+    &#125;*/
+
+    int m_A;
+    int m_B;
+&#125;;
+
+Person operator+ (Person p1, Person p2) &#123;
+    Person temp;
+    temp.m_A = p1.m_A + p2.m_A;
+    temp.m_B = p1.m_B + p2.m_B;
+    return temp;
+&#125;
+
+Person operator+ (Person p, int num) &#123;
+    Person temp;
+    temp.m_A = p.m_A + num;
+    temp.m_B = p.m_B + num;
+    return temp;
+&#125;
+
+void test() 
+&#123;
+    Person p1;
+    Person p2;
+    p1.m_A = 10;
+    p1.m_B = 10;
+    p2.m_A = 10;
+    p2.m_B = 10;
+    Person p3 = p1 + p2;
+    cout &lt;&lt; p3.m_A &lt;&lt; endl;
+    cout &lt;&lt; p3.m_B &lt;&lt; endl;
+    p3 = p3 + 20;
+    cout &lt;&lt; p3.m_A &lt;&lt; endl;
+    cout &lt;&lt; p3.m_B &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730381432616.png" alt="1730381432616"></p>
+<h3 id="左移运算符重载"><a href="#左移运算符重载" class="headerlink" title="左移运算符重载"></a>左移运算符重载</h3><p><img src="/../images/cgg-notes/1730381661148.png" alt="1730381661148"></p>
+<p><img src="/../images/cgg-notes/1730382040909.png" alt="1730382040909"></p>
+<p><img src="/../images/cgg-notes/1730382319734.png" alt="1730382319734"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Person 
+&#123;
+    friend ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p);
+public:
+    Person(int a, int b) &#123;
+        this-&gt;m_A = a;
+        this-&gt;m_B = b;
+    &#125;
+private:
+
+    int m_A;
+    int m_B;
+&#125;;
+
+ostream &amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p) 
+&#123;
+    cout &lt;&lt; p.m_A &lt;&lt; &quot; &quot; &lt;&lt; p.m_B;
+    return cout;
+&#125;
+
+void test() 
+&#123;
+    Person p(10, 10);
+    cout &lt;&lt; p &lt;&lt;&quot; hello world!&quot; &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h3 id="递增运算符重载"><a href="#递增运算符重载" class="headerlink" title="递增运算符重载"></a>递增运算符重载</h3><p><img src="/../images/cgg-notes/1730551116656.png" alt="1730551116656"></p>
+<h4 id="前置递增"><a href="#前置递增" class="headerlink" title="前置递增"></a>前置递增</h4><p><img src="/../images/cgg-notes/1730551797556.png" alt="1730551797556"></p>
+<h4 id="后置递增"><a href="#后置递增" class="headerlink" title="后置递增"></a>后置递增</h4><p><img src="/../images/cgg-notes/1730552134434.png" alt="1730552134434"></p>
+<p><img src="/../images/cgg-notes/1730552268845.png" alt="1730552268845"></p>
+<p><strong>后置递增要返回值，因为temp是局部函数的类，函数运行完之后会自动释放掉</strong></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Person
+&#123;
+    friend ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p);
+public:
+    Person(int a, int b) &#123;
+        this-&gt;m_A = a;
+        this-&gt;m_B = b;
+    &#125;
+    Person&amp; operator++()
+    &#123;
+        this-&gt;m_A++;
+        this-&gt;m_B++;
+        return *this;
+    &#125;
+    Person&amp; operator++(int)
+    &#123;
+        Person temp = *this;
+        this-&gt;m_A++;
+        this-&gt;m_B++;
+        return temp;
+    &#125;
+    Person&amp; operator--()
+    &#123;
+        this-&gt;m_A--;
+        this-&gt;m_B--;
+        return *this;
+    &#125;
+    Person&amp; operator--(int)
+    &#123;
+        Person temp = *this;
+        this-&gt;m_A--;
+        this-&gt;m_B--;
+        return temp;
+    &#125;
+private:
+
+    int m_A;
+    int m_B;
+&#125;;
+
+ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p)
+&#123;
+    cout &lt;&lt; p.m_A &lt;&lt; &quot; &quot; &lt;&lt; p.m_B;
+    return cout;
+&#125;
+
+
+
+void test()
+&#123;
+    Person p(10, 10);
+    cout &lt;&lt; ++p &lt;&lt; &quot; hello world!&quot; &lt;&lt; endl;
+    cout &lt;&lt; --p &lt;&lt; &quot; hello world!&quot; &lt;&lt; endl;
+    cout &lt;&lt; p++ &lt;&lt; &quot; hello world!&quot; &lt;&lt; endl;
+    cout &lt;&lt; p-- &lt;&lt; &quot; hello world!&quot; &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730554328087.png" alt="1730554328087"></p>
+<h3 id="赋值运算符重载"><a href="#赋值运算符重载" class="headerlink" title="赋值运算符重载"></a>赋值运算符重载</h3><p><img src="/../images/cgg-notes/1730554024676.png" alt="1730554024676"></p>
+<p><strong>堆区代码需要程序员手动开辟，手动释放（在类中用析构函数释放）</strong></p>
+<p><img src="/../images/cgg-notes/1730554866664.png" alt="1730554866664"></p>
+<p><img src="/../images/cgg-notes/1730554832585.png" alt="1730554832585"></p>
+<p><strong>编译器默认提供的赋值运算符为浅拷贝</strong>、</p>
+<p><img src="/../images/cgg-notes/1730555087118.png" alt="1730555087118"></p>
+<img src="../images/C++%E7%AC%94%E8%AE%B0/1730555138118.png" alt="1730555138118" style="zoom: 50%;" />
+
+<p><img src="/../images/cgg-notes/1730555293792.png" alt="1730555293792"></p>
+<p><img src="/../images/cgg-notes/1730555307793.png" alt="1730555307793"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Person
+&#123;
+    friend ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p);
+public:
+    Person(int a, int b) &#123;
+        m_A = new int(a);
+        m_B = new int(b);
+    &#125;
+    Person&amp; operator= (Person &amp;p) &#123;
+        if (m_A != NULL) &#123;
+            delete m_A;
+            m_A = NULL;
+        &#125;
+        if (m_B != NULL) &#123;
+            delete m_B;
+            m_B = NULL;
+        &#125;
+        m_A = new int(*p.m_A);
+        m_B = new int(*p.m_B);
+        return *this;
+    &#125;
+    ~Person() &#123;
+        if (m_A != NULL) &#123;
+            delete m_A;
+            m_A = NULL;
+        &#125;
+        if (m_B != NULL) &#123;
+            delete m_B;
+            m_B = NULL;
+        &#125;
+    &#125;
+private:
+    int* m_A;
+    int* m_B;
+&#125;;
+
+ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p)
+&#123;
+    cout &lt;&lt; *p.m_A &lt;&lt; &quot; &quot; &lt;&lt; *p.m_B;
+    return cout;
+&#125;
+
+
+
+void test()
+&#123;
+    Person p(10, 10);
+    Person p1(20, 20);
+    Person p2(30, 30);
+    p2 = p1 = p;
+    cout &lt;&lt; p2 &lt;&lt; &quot; &quot; &lt;&lt; p1 &lt;&lt; &quot; &quot; &lt;&lt; p &lt;&lt; endl;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730556546984.png" alt="1730556546984"></p>
+<h3 id="关系运算符重载"><a href="#关系运算符重载" class="headerlink" title="关系运算符重载"></a>关系运算符重载</h3><p><img src="/../images/cgg-notes/1730722935426.png" alt="1730722935426"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+class Person
+&#123;
+    friend ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p);
+    friend bool operator== (Person &amp;p1, Person &amp;p2);
+    friend bool operator!= (Person &amp;p1, Person &amp;p2);
+public:
+    Person(int a, int b) &#123;
+        m_A = new int(a);
+        m_B = new int(b);
+    &#125;
+    Person&amp; operator= (Person&amp; p) &#123;
+        if (m_A != NULL) &#123;
+            delete m_A;
+            m_A = NULL;
+        &#125;
+        if (m_B != NULL) &#123;
+            delete m_B;
+            m_B = NULL;
+        &#125;
+        m_A = new int(*p.m_A);
+        m_B = new int(*p.m_B);
+        return *this;
+    &#125;
+    ~Person() &#123;
+        if (m_A != NULL) &#123;
+            delete m_A;
+            m_A = NULL;
+        &#125;
+        if (m_B != NULL) &#123;
+            delete m_B;
+            m_B = NULL;
+        &#125;
+    &#125;
+private:
+    int* m_A;
+    int* m_B;
+&#125;;
+
+bool operator== (Person &amp;p1, Person &amp;p2) &#123;
+    if (*p1.m_A == *p2.m_A &amp;&amp; *p1.m_B == *p2.m_B) &#123;
+        return true;
+    &#125;
+    else return false;
+&#125;
+
+bool operator!= (Person &amp;p1,Person &amp;p2) &#123;
+    if (*p1.m_A == *p2.m_A &amp;&amp; *p1.m_B == *p2.m_B) &#123;
+        return false;
+    &#125;
+    else return true;
+&#125;
+
+ostream&amp; operator&lt;&lt; (ostream&amp; cout, Person&amp; p)
+&#123;
+    cout &lt;&lt; *p.m_A &lt;&lt; &quot; &quot; &lt;&lt; *p.m_B;
+    return cout;
+&#125;
+
+
+
+void test()
+&#123;
+    Person p(10, 10);
+    Person p1(20, 20);
+    Person p2(30, 30);
+    p2 = p1 = p;
+    cout &lt;&lt; p &lt;&lt; &quot; &quot; &lt;&lt; p1 &lt;&lt; &quot; &quot; &lt;&lt; p2 &lt;&lt; &quot; &quot; &lt;&lt; endl;
+    if (p1 == p2 &amp;&amp; p == p2) &#123;
+        cout &lt;&lt;&quot;相等&quot; &lt;&lt; endl;
+    &#125;
+    else &#123;
+        cout &lt;&lt; &quot;不相等&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<h3 id="函数调用运算符重载（仿函数）"><a href="#函数调用运算符重载（仿函数）" class="headerlink" title="函数调用运算符重载（仿函数）"></a>函数调用运算符重载（仿函数）</h3><p><img src="/../images/cgg-notes/1730723914749.png" alt="1730723914749"></p>
+<p><img src="/../images/cgg-notes/1730723929110.png" alt="1730723929110"></p>
+<p><img src="/../images/cgg-notes/1730724485494.png" alt="1730724485494"></p>
+<p><img src="/../images/cgg-notes/1730724462284.png" alt="1730724462284"></p>
+<p><img src="/../images/cgg-notes/1730724641559.png" alt="1730724641559"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+class Myprint
+&#123;
+public:
+    void operator() (string test) &#123;
+        cout &lt;&lt; test &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class Myadd
+&#123;
+public:
+    int operator() (int num1, int num2) &#123;
+        return num1 + num2;
+    &#125;
+&#125;;
+
+void test1() 
+&#123;
+    Myprint myprint;
+    myprint(&quot;hello world&quot;);
+    Myadd myadd;
+    int ret = myadd(100, 100);
+    cout &lt;&lt; ret &lt;&lt; endl;
+    cout &lt;&lt; Myadd()(20, 12) &lt;&lt; endl;
+&#125;
+
+int main() 
+&#123;
+    test1();
+    system(&quot;pause&quot;);
+    return 0;
+
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730724692666.png" alt="1730724692666"></p>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p><img src="/../images/cgg-notes/1730724813071.png" alt="1730724813071"></p>
+<h2 id="继承方式"><a href="#继承方式" class="headerlink" title="继承方式"></a>继承方式</h2><p><img src="/../images/cgg-notes/1730724894279.png" alt="1730724894279"></p>
+<p><img src="/../images/cgg-notes/1730724908108.png" alt="1730724908108"></p>
+<h2 id="继承中的对象模型"><a href="#继承中的对象模型" class="headerlink" title="继承中的对象模型"></a>继承中的对象模型</h2><p><img src="/../images/cgg-notes/1730724950015.png" alt="1730724950015"></p>
+<p><img src="/../images/cgg-notes/1730724967229.png" alt="1730724967229"></p>
+<p><img src="/../images/cgg-notes/1730724999922.png" alt="1730724999922"></p>
+<p><img src="/../images/cgg-notes/1730725024664.png" alt="1730725024664"></p>
+<h3 id="VS-开发人员命令提示符-操作方式"><a href="#VS-开发人员命令提示符-操作方式" class="headerlink" title="VS 开发人员命令提示符 操作方式"></a>VS 开发人员命令提示符 操作方式</h3><p><strong>一，</strong></p>
+<p><strong>打开VS开发人员命令提示符</strong></p>
+<p><img src="/../images/cgg-notes/1730725270770.png" alt="1730725270770"></p>
+<p><strong>二，</strong></p>
+<p><strong>打开文件所在文件夹</strong></p>
+<p><img src="/../images/cgg-notes/1730725642826.png" alt="1730725642826"></p>
+<p><img src="/../images/cgg-notes/1730725681204.png" alt="1730725681204"></p>
+<p><strong>复制文件路径</strong></p>
+<p><strong>三，</strong></p>
+<p><strong>返回开发人员命令提示符，并转换盘符</strong></p>
+<p><img src="/../images/cgg-notes/1730725873774.png" alt="1730725873774"></p>
+<p><strong>打出要转的硬盘，加上冒号，最后打上回车（文件所在硬盘）</strong></p>
+<p><strong>四，</strong></p>
+<p><img src="/../images/cgg-notes/1730726086883.png" alt="1730726086883"></p>
+<p><strong>输入cd表示跳转路径（打完后要加空格），之后加上之前复制的路径，并打上回车</strong></p>
+<p><strong>五，</strong></p>
+<p><strong>输入dir</strong></p>
+<p><img src="/../images/cgg-notes/1730726131194.png" alt="1730726131194"></p>
+<p><strong>六，</strong></p>
+<p><strong>输入指令 “cl &#x2F;d1 reportSingleClassLayout<em>Son</em>(要查看的类名) “文件名称（按Tab补全）” ”</strong></p>
+<p><img src="/../images/cgg-notes/1730726442087.png" alt="1730726442087"></p>
+<p><img src="/../images/cgg-notes/1730726459403.png" alt="1730726459403"></p>
+<h2 id="继承中的构造与析构"><a href="#继承中的构造与析构" class="headerlink" title="继承中的构造与析构"></a>继承中的构造与析构</h2><p><img src="/../images/cgg-notes/1730888622529.png" alt="1730888622529"></p>
+<h2 id="继承中同名成员处理"><a href="#继承中同名成员处理" class="headerlink" title="继承中同名成员处理"></a>继承中同名成员处理</h2><h3 id="同名成员属性"><a href="#同名成员属性" class="headerlink" title="同名成员属性"></a>同名成员属性</h3><p><img src="/../images/cgg-notes/1730892898795.png" alt="1730892898795"></p>
+<h3 id="同名成员函数"><a href="#同名成员函数" class="headerlink" title="同名成员函数"></a>同名成员函数</h3><p><img src="/../images/cgg-notes/1730893084086.png" alt="1730893084086"></p>
+<p><img src="/../images/cgg-notes/1730893183413.png" alt="1730893183413"></p>
+<p><strong>包括父类重载的函数</strong></p>
+<p><img src="/../images/cgg-notes/1730893214187.png" alt="1730893214187"></p>
+<h2 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="headerlink" title="同名静态成员的处理方式"></a>同名静态成员的处理方式</h2><p><img src="/../images/cgg-notes/1730893355315.png" alt="1730893355315"></p>
+<h3 id="变量-2"><a href="#变量-2" class="headerlink" title="变量"></a>变量</h3><p><img src="/../images/cgg-notes/1730893672879.png" alt="1730893672879"></p>
+<h3 id="函数-2"><a href="#函数-2" class="headerlink" title="函数"></a>函数</h3><p><img src="/../images/cgg-notes/1730893957385.png" alt="1730893957385"></p>
+<p><img src="/../images/cgg-notes/1730894015252.png" alt="1730894015252"></p>
+<h2 id="多继承语法"><a href="#多继承语法" class="headerlink" title="多继承语法"></a>多继承语法</h2><p><img src="/../images/cgg-notes/1730894074787.png" alt="1730894074787"></p>
+<p><img src="/../images/cgg-notes/1730894207930.png" alt="1730894207930"></p>
+<p><img src="/../images/cgg-notes/1730894572174.png" alt="1730894572174"></p>
+<h2 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h2><p><img src="/../images/cgg-notes/1730894698655.png" alt="1730894698655"></p>
+<p><img src="/../images/cgg-notes/1730894791631.png" alt="1730894791631"></p>
+<p><img src="/../images/cgg-notes/1730895356552.png" alt="1730895356552"></p>
+<img src="../images/C++%E7%AC%94%E8%AE%B0/1730895515367.png" alt="1730895515367" style="zoom: 150%;" />
+
+<p><img src="/../images/cgg-notes/1730895733571.png" alt="1730895733571"></p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p><img src="/../images/cgg-notes/1730965780912.png" alt="1730965780912"></p>
+<h2 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h2><p><strong>父类的引用可以直接指向子类的对象（不需要强制类型转换）</strong></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class Animal
+&#123;
+public:
+    void speak()
+    &#123;
+        cout &lt;&lt; &quot;动物在说话&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class Cat :public Animal
+&#123;
+public:
+    void speak()
+    &#123;
+        cout &lt;&lt; &quot;小猫在说话&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+void doSpeak(Animal&amp; animal)
+&#123;
+    animal.speak();
+&#125;
+
+void test() &#123;
+    Cat cat;
+    doSpeak(cat);
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730968480296.png" alt="1730968480296"></p>
+<p><img src="/../images/cgg-notes/1730968613582.png" alt="1730968613582"></p>
+<pre><code class="c++">class  Animal
+&#123;
+public:
+    virtual void speak()
+    &#123;
+        cout &lt;&lt; &quot;动物在说话&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+</code></pre>
+<p><img src="/../images/cgg-notes/1730968678131.png" alt="1730968678131"></p>
+<p><img src="/../images/cgg-notes/1730968894706.png" alt="1730968894706"></p>
+<p><strong>子类的virtual关键字可写可不写</strong></p>
+<p><img src="/../images/cgg-notes/1730968932015.png" alt="1730968932015"></p>
+<p><img src="/../images/cgg-notes/1730968943233.png" alt="1730968943233"></p>
+<pre><code class="c++">void doSpeak(Animal&amp; animal)
+&#123;
+    animal.speak();
+&#125;
+
+void test() &#123;
+    Cat cat;
+    doSpeak(cat);
+&#125;
+</code></pre>
+<h2 id="多态深入剖析-多态底层原理"><a href="#多态深入剖析-多态底层原理" class="headerlink" title="多态深入剖析(多态底层原理)"></a>多态深入剖析(多态底层原理)</h2><img src="../images/C++%E7%AC%94%E8%AE%B0/1730969888454.png" alt="1730969888454" style="zoom:200%;" />
+
+<p><img src="/../images/cgg-notes/1730970013367.png" alt="1730970013367"></p>
+<p><strong>虚函数重写前</strong></p>
+<p><img src="/../images/cgg-notes/1730970129234.png" alt="1730970129234"></p>
+<p><strong>虚函数重写后</strong></p>
+<p><img src="/../images/cgg-notes/1730970152146.png" alt="1730970152146"></p>
+<h2 id="多态案例——计算器类"><a href="#多态案例——计算器类" class="headerlink" title="多态案例——计算器类"></a>多态案例——计算器类</h2><p><img src="/../images/cgg-notes/1730970247153.png" alt="1730970247153"></p>
+<p><img src="/../images/cgg-notes/1730970646468.png" alt="1730970646468"></p>
+<p> <img src="/../images/cgg-notes/1730979471257.png" alt="1730979471257"></p>
+<p><img src="/../images/cgg-notes/1730979514264.png" alt="1730979514264"></p>
+<p><img src="/../images/cgg-notes/1730979586025.png" alt="1730979586025"></p>
+<p><strong>new出来的数据用完都要销毁掉</strong></p>
+<h2 id="纯虚函数和抽象类"><a href="#纯虚函数和抽象类" class="headerlink" title="纯虚函数和抽象类"></a>纯虚函数和抽象类</h2><p><img src="/../images/cgg-notes/1730979923890.png" alt="1730979923890"></p>
+<p><img src="/../images/cgg-notes/1730979979371.png" alt="1730979979371"></p>
+<p><img src="/../images/cgg-notes/1730979994047.png" alt="1730979994047"></p>
+<p><img src="/../images/cgg-notes/1730980028732.png"></p>
+<p><img src="/../images/cgg-notes/1730980123875.png" alt="1730980123875"></p>
+<p><img src="/../images/cgg-notes/1730980252759.png" alt="1730980252759"></p>
+<h2 id="多态案例2——制作饮品"><a href="#多态案例2——制作饮品" class="headerlink" title="多态案例2——制作饮品"></a>多态案例2——制作饮品</h2><p><img src="/../images/cgg-notes/1730980646291.png" alt="1730980646291"></p>
+<p><img src="/../images/cgg-notes/1730980660480.png" alt="1730980660480"></p>
+<h2 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h2><p><img src="/../images/cgg-notes/1730981378891.png" alt="1730981378891"></p>
+<p><img src="/../images/cgg-notes/1730981387439.png" alt="1730981387439"></p>
+<p><img src="/../images/cgg-notes/1730981876634.png" alt="1730981876634"></p>
+<p><strong>虚析构</strong></p>
+<p><img src="/../images/cgg-notes/1730981902209.png" alt="1730981902209"></p>
+<p><img src="/../images/cgg-notes/1730981907256.png" alt="1730981907256"></p>
+<p><strong>纯虚析构</strong></p>
+<p><strong>类内</strong></p>
+<p><img src="/../images/cgg-notes/1730981973493.png" alt="1730981973493"></p>
+<p><strong>类外</strong></p>
+<p><img src="/../images/cgg-notes/1730982126283.png" alt="1730982126283"></p>
+<p><strong>析构函数需要具体的代码实现</strong></p>
+<p><img src="/../images/cgg-notes/1730982158148.png" alt="1730982158148"></p>
+<p><img src="/../images/cgg-notes/1730982175418.png" alt="1730982175418"></p>
+<p><img src="/../images/cgg-notes/1730982256336.png" alt="1730982256336"></p>
+<p><img src="/../images/cgg-notes/1730982328718.png" alt="1730982328718"></p>
+<h2 id="多态案例3——电脑组装"><a href="#多态案例3——电脑组装" class="headerlink" title="多态案例3——电脑组装"></a>多态案例3——电脑组装</h2><pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+class CPU
+&#123;
+public:
+    virtual void calculate() = 0;
+&#125;;
+
+class VideoCard
+&#123;
+public:
+    virtual void display() = 0;
+&#125;;
+
+class Memmory
+&#123;
+public:
+    virtual void storage() = 0;
+&#125;;
+
+class Computer
+&#123;
+public:
+    Computer(CPU* cpu, VideoCard* vc, Memmory* mem) &#123;
+        this-&gt;m_cpu = cpu;
+        this-&gt;m_vc = vc;
+        this-&gt;m_mem = mem;
+    &#125;
+    ~Computer() &#123;
+        if (m_cpu != NULL) &#123;
+            delete m_cpu;
+            m_cpu = NULL;
+        &#125;
+        if (m_vc != NULL) &#123;
+            delete m_vc;
+            m_vc = NULL;
+        &#125;
+        if (m_mem != NULL) &#123;
+            delete m_mem;
+            m_mem = NULL;
+        &#125;
+    &#125;
+    void work() &#123;
+        m_cpu-&gt;calculate();
+        m_vc-&gt;display();
+        m_mem-&gt;storage();
+    &#125;
+private:
+    CPU* m_cpu;
+    VideoCard* m_vc;
+    Memmory* m_mem;
+&#125;;
+
+class intelCPU:public CPU
+&#123;
+public:
+    virtual void calculate() &#123;
+        cout &lt;&lt; &quot;intel的CPU开始计算了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class intelVideoCard :public VideoCard
+&#123;
+public:
+    virtual void display() &#123;
+        cout &lt;&lt; &quot;intel的显卡开始显示了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class intelMemmory :public Memmory
+&#123;
+public:
+    virtual void storage() &#123;
+        cout &lt;&lt; &quot;intel的存储条开始存储了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class LevonoCPU :public CPU
+&#123;
+public:
+    virtual void calculate() &#123;
+        cout &lt;&lt; &quot;Levono的CPU开始计算了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class LevonoVideoCard :public VideoCard
+&#123;
+public:
+    virtual void display() &#123;
+        cout &lt;&lt; &quot;Levono的显卡开始显示了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+class LevonoMemmory :public Memmory
+&#123;
+public:
+    virtual void storage() &#123;
+        cout &lt;&lt; &quot;Levono的存储条开始存储了！&quot; &lt;&lt; endl;
+    &#125;
+&#125;;
+
+void test()
+&#123;
+    //组装第一台电脑
+    Computer* computer1 = new Computer(new intelCPU, new intelVideoCard, new intelMemmory);
+    computer1-&gt;work();
+    delete computer1;
+    cout &lt;&lt; &quot;-------------------------------&quot; &lt;&lt; endl;
+    //组装第二台电脑
+    Computer* computer2 = new Computer(new LevonoCPU, new LevonoVideoCard, new LevonoMemmory);
+    computer2-&gt;work();
+    delete computer2;
+    cout &lt;&lt; &quot;-------------------------------&quot; &lt;&lt; endl;
+    //组装第三台电脑
+    Computer* computer3 = new Computer(new intelCPU, new LevonoVideoCard, new LevonoMemmory);
+    computer3-&gt;work();
+    delete computer3;
+&#125;
+
+int main()
+&#123;
+    test();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1731137860985.png" alt="1731137860985"></p>
+<h1 id="c-文件操作"><a href="#c-文件操作" class="headerlink" title="c++文件操作"></a>c++文件操作</h1><p><img src="/../images/cgg-notes/1731138062401.png" alt="1731138062401"></p>
+<p><img src="/../images/cgg-notes/1731138070940.png" alt="1731138070940"></p>
+<p><img src="/../images/cgg-notes/1731138095473.png" alt="1731138095473"></p>
+<h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><p><img src="/../images/cgg-notes/1731138269769.png" alt="1731138269769"></p>
+<p><img src="/../images/cgg-notes/1731138449265.png" alt="1731138449265"></p>
+<p><img src="/../images/cgg-notes/1731138546100.png" alt="1731138546100"></p>
+<p><strong>若不写出明确文件路径，则文件会被创建在与代码同级目录中</strong></p>
+<p><img src="/../images/cgg-notes/1731138941520.png" alt="1731138941520"></p>
+<p><img src="/../images/cgg-notes/1731138960042.png" alt="1731138960042"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+#include&lt;fstream&gt;
+
+void test1()
+&#123;
+    ofstream ofs(&quot;text1.txt&quot;,ios::out);
+    ofs &lt;&lt; &quot;名字：张三&quot; &lt;&lt; endl;
+    ofs &lt;&lt; &quot;年龄：18&quot; &lt;&lt; endl;
+    ofs.close();
+&#125;
+
+int main()
+&#123;
+    test1();
+    //test2();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1731141836852.png" alt="1731141836852"></p>
+<h2 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h2><p><img src="/../images/cgg-notes/1731139063282.png" alt="1731139063282"></p>
+<p><strong>读数据</strong></p>
+<p><img src="/../images/cgg-notes/1731140022011.png" alt="1731140022011"></p>
+<p><img src="/../images/cgg-notes/1731140053049.png" alt="1731140053049"></p>
+<p><img src="/../images/cgg-notes/1731140153517.png" alt="1731140153517"></p>
+<p><img src="/../images/cgg-notes/1731140240231.png" alt="1731140240231"></p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+#include&lt;fstream&gt;
+#include&lt;string&gt;
+void test1()
+&#123;
+    ofstream ofs(&quot;text1.txt&quot;,ios::out);
+    ofs &lt;&lt; &quot;名字：张三&quot; &lt;&lt; endl;
+    ofs &lt;&lt; &quot;年龄：18&quot; &lt;&lt; endl;
+    ofs.close();
+&#125;
+
+void test2() &#123;
+    ifstream ifs(&quot;text1.txt&quot;, ios::in);
+    //第一种
+    //char a[64] = &#123; 0 &#125;;
+    //while (ifs &gt;&gt; a) &#123;
+    //	cout &lt;&lt; a &lt;&lt; endl;
+    //&#125;
+    // 第二种
+    //char a[64] = &#123; 0 &#125;;
+    //while (ifs.getline(a, sizeof(a))) &#123;
+    //	cout &lt;&lt; a &lt;&lt; endl;
+    //&#125;
+    // 第三种
+    //string a;
+    //while (getline(ifs, a)) &#123;
+    //	cout &lt;&lt; a &lt;&lt; endl;
+    //&#125;
+    //第四种
+    char a;
+    while ((a = ifs.get())!= EOF) &#123;
+        cout &lt;&lt; a;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    //test1();
+    test2();
+    system(&quot;pause&quot;);
+    return 0;
+&#125;
+</code></pre>
+<p><img src="/../images/cgg-notes/1731142103395.png" alt="1731142103395"></p>
+<h2 id="二进制方式写文件"><a href="#二进制方式写文件" class="headerlink" title="二进制方式写文件"></a>二进制方式写文件</h2><p><img src="/../images/cgg-notes/1731140397069.png" alt="1731140397069"></p>
+<p><img src="/../images/cgg-notes/1731140410298.png" alt="1731140410298"></p>
+<p><img src="/../images/cgg-notes/1731140729136.png" alt="1731140729136"></p>
+<p><strong>第二步和第三步可以合体</strong></p>
+<p><img src="/../images/cgg-notes/1731140834058.png" alt="1731140834058"></p>
+<h2 id="二进制方式读文件"><a href="#二进制方式读文件" class="headerlink" title="二进制方式读文件"></a>二进制方式读文件</h2><p><img src="/../images/cgg-notes/1731141165394.png" alt="1731141165394"></p>
+<p><strong>读文件一般要判断文件是否打开成功</strong></p>
+<p><strong>用is_open函数判断</strong></p>
+<p><img src="/../images/cgg-notes/1731141348147.png" alt="1731141348147"></p>
+<h1 id="职工管理系统"><a href="#职工管理系统" class="headerlink" title="职工管理系统"></a>职工管理系统</h1><p><img src="/../images/cgg-notes/1731219032108.png" alt="1731219032108"></p>
+<p><img src="/c++%E7%AC%94%E8%AE%B0.assets/1731219073248.png" alt="1731219073248"></p>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><p><img src="/../images/cgg-notes/1731929256164.png" alt="1731929256164"></p>
+<h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><p><img src="/../images/cgg-notes/1731929649409.png" alt="1731929649409"></p>
+<p><img src="/../images/cgg-notes/1731929670871.png" alt="1731929670871"></p>
+<p><img src="/../images/cgg-notes/1731930205904.png" alt="1731930205904"></p>
+<p><img src="/../images/cgg-notes/1731930407572.png" alt="1731930407572"></p>
+<h3 id="函数模板注意事项"><a href="#函数模板注意事项" class="headerlink" title="函数模板注意事项"></a>函数模板注意事项</h3><p><img src="/../images/cgg-notes/1731930669846.png" alt="1731930669846"></p>
+<p><img src="/../images/cgg-notes/1731930769145.png" alt="1731930769145"></p>
+<p><img src="/../images/cgg-notes/1731930973145.png" alt="1731930973145"></p>
+<h3 id="普通函数与函数模板的区别"><a href="#普通函数与函数模板的区别" class="headerlink" title="普通函数与函数模板的区别"></a>普通函数与函数模板的区别</h3><p><img src="/../images/cgg-notes/1731931898810.png" alt="1731931898810"></p>
+<p><img src="/../images/cgg-notes/1731932116060.png" alt="1731932116060"></p>
+<p><strong>普通函数将c的char类型隐式转换成int类型</strong></p>
+<p><img src="/../images/cgg-notes/1731932235718.png" alt="1731932235718"></p>
+<p><strong>函数模板自动类型推导无法进行类型隐式转换</strong></p>
+<p><img src="/../images/cgg-notes/1731932289013.png" alt="1731932289013"></p>
+<p><strong>显示指定类型可以</strong></p>
+<h3 id="普通函数与函数模板条用规则（重载）"><a href="#普通函数与函数模板条用规则（重载）" class="headerlink" title="普通函数与函数模板条用规则（重载）"></a>普通函数与函数模板条用规则（重载）</h3><p><img src="/../images/cgg-notes/1731932447568.png" alt="1731932447568"></p>
+<p><img src="/../images/cgg-notes/1731932828284.png"></p>
+<p><img src="/../images/cgg-notes/1731932981427.png" alt="1731932981427"></p>
+<p><img src="/../images/cgg-notes/1731933136721.png" alt="1731933136721"></p>
+<p><img src="/../images/cgg-notes/1731933088437.png" alt="1731933088437"></p>
+<p><strong>直接调用模板函数，不用做类型隐式转换</strong></p>
+<h3 id="模板的局限性"><a href="#模板的局限性" class="headerlink" title="模板的局限性"></a>模板的局限性</h3><p><img src="/../images/cgg-notes/1731933400429.png" alt="1731933400429"></p>
+<p><img src="/../images/cgg-notes/1731933411395.png" alt="1731933411395"></p>
+<p><img src="/../images/cgg-notes/1731933427670.png" alt="1731933427670"></p>
+<h4 id="模板重载"><a href="#模板重载" class="headerlink" title="模板重载"></a>模板重载</h4><p><img src="/../images/cgg-notes/1731933997156.png" alt="1731933997156"></p>
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><p><img src="/../images/cgg-notes/1731934251963.png" alt="1731934251963"></p>
+<p><img src="/../images/cgg-notes/1731934294260.png" alt="1731934294260"></p>
+<p><img src="/../images/cgg-notes/1731934419616.png" alt="1731934419616"></p>
+<p><img src="/../images/cgg-notes/1731934513521.png" alt="1731934513521"></p>
+<h3 id="类模板与函数模板区别"><a href="#类模板与函数模板区别" class="headerlink" title="类模板与函数模板区别"></a>类模板与函数模板区别</h3><p><img src="/../images/cgg-notes/1731934792812.png" alt="1731934792812"></p>
+<p><img src="/../images/cgg-notes/1731935000829.png" alt="1731935000829"></p>
+<p><img src="/../images/cgg-notes/1731935016105.png" alt="1731935016105"></p>
+<p><img src="/../images/cgg-notes/1731935053598.png" alt="1731935053598"></p>
+<p><img src="/../images/cgg-notes/1731935135414.png" alt="1731935135414"></p>
+<p><img src="/../images/cgg-notes/1731935190689.png" alt="1731935190689"></p>
+<h3 id="类模板成员函数创建时机"><a href="#类模板成员函数创建时机" class="headerlink" title="类模板成员函数创建时机"></a>类模板成员函数创建时机</h3><p><img src="/../images/cgg-notes/1732448126230.png" alt="1732448126230"></p>
+<p><img src="/../images/cgg-notes/1732448151371.png" alt="1732448151371"></p>
+<p><img src="/../images/cgg-notes/1732448174923.png" alt="1732448174923"></p>
+<h3 id="类模板对象做函数参数"><a href="#类模板对象做函数参数" class="headerlink" title="类模板对象做函数参数"></a>类模板对象做函数参数</h3><p><img src="/../images/cgg-notes/1732448237794.png" alt="1732448237794"></p>
+<p><img src="/../images/cgg-notes/1732448495728.png" alt="1732448495728"></p>
+<p><img src="/../images/cgg-notes/1732448636100.png" alt="1732448636100"></p>
+<p><img src="/../images/cgg-notes/1732448935061.png" alt="1732448935061"></p>
+<h3 id="类模板与继承"><a href="#类模板与继承" class="headerlink" title="类模板与继承"></a>类模板与继承</h3><p><img src="/../images/cgg-notes/1732451732405.png" alt="1732451732405"></p>
+<p><img src="/../images/cgg-notes/1732451767334.png" alt="1732451767334"></p>
+<p><img src="/../images/cgg-notes/1732451788803.png" alt="1732451788803"></p>
+<p><img src="/../images/cgg-notes/1732452064508.png" alt="1732452064508"></p>
+<p><img src="/../images/cgg-notes/1732451800500.png" alt="1732451800500"></p>
+<h3 id="类模板成员函数类外实现"><a href="#类模板成员函数类外实现" class="headerlink" title="类模板成员函数类外实现"></a>类模板成员函数类外实现</h3><p><img src="/../images/cgg-notes/1732452639892.png" alt="1732452639892"></p>
+<p><img src="/../images/cgg-notes/1732452471076.png" alt="1732452471076"></p>
+<p><img src="/../images/cgg-notes/1732452605556.png" alt="1732452605556"></p>
+<h3 id="类模板分文件编写"><a href="#类模板分文件编写" class="headerlink" title="类模板分文件编写"></a>类模板分文件编写</h3><p><img src="/../images/cgg-notes/1732452751923.png" alt="1732452751923"></p>
+<p><strong>一般不使用第一种方法直接包含源码</strong></p>
+<p><strong>方法二是写同一在头文件</strong></p>
+<h3 id="类模板与友元"><a href="#类模板与友元" class="headerlink" title="类模板与友元"></a>类模板与友元</h3><p><img src="/../images/cgg-notes/1732453602989.png" alt="1732453602989"></p>
+<p><img src="/../images/cgg-notes/1732454337677.png" alt="1732454337677"></p>
+<p><img src="/../images/cgg-notes/1732454405534.png" alt="1732454405534"></p>
+<p><img src="/../images/cgg-notes/1732454574412.png" alt="1732454574412"></p>
+<p><img src="/../images/cgg-notes/1732454618917.png" alt="1732454618917"></p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #03a9f4">学习</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/cgg-notes/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
+    
+    <span class="current">1</span>
+    
+    
+    
+    
+</div>
+
+    </div>
+    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">脑浆糊</div>
+        <div class="description">
+            <p>这个博主很懒~是真的懒~~<br>…</p>
+
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+    </div>
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 小白脑浆糊的进化之旅
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+</body>
+</html>
