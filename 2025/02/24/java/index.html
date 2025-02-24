@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: 题解 | 小白脑浆糊的进化之旅</title>
+    <title>java | 小白脑浆糊的进化之旅</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,14 +155,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>java</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/24
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/study/" style="background: #ff7d73">
+        <span class="category">
+            <a href="/categories/study/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -167,58 +177,58 @@
         </span>
         
         
-        
-        <span>
-            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #00a596">
+                    学习
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/2/23</div>
-            <a href="/2025/02/23/buuctf-solutions/">
-                <h3>buuctf_solutions</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/ctf/" style="color: #00bcd4">
-                            ctf
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>安卓逆向基础</p>
+<span id="more"></span> 
+
+<h1 id="cmd与环境变量"><a href="#cmd与环境变量" class="headerlink" title="cmd与环境变量"></a>cmd与环境变量</h1><p><img src="/../images/java/1740393417191.png" alt="1740393417191"></p>
+<h2 id="cmd基本操作"><a href="#cmd基本操作" class="headerlink" title="cmd基本操作"></a>cmd基本操作</h2><p><strong>dir：展现当前目录</strong></p>
+<p><strong>cd：转目录</strong></p>
+<p><strong>cd  .. ：</strong> <strong>转上级目录</strong></p>
+<p><strong>输入“D: ”  ：转到D盘</strong></p>
+<p><strong>按Tab键可以补全文件命</strong></p>
+<p><strong>右键复制粘贴</strong></p>
+<p><strong>按上下键可以选择之前执行过的命令</strong></p>
+<p><strong>cmd可以直接运行文件</strong></p>
+<h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><ul>
+<li><strong>定义</strong>：相对路径是相对于当前工作目录或当前文件所在位置来表示文件或目录位置的路径。它不包含从文件系统根目录开始的完整路径信息，而是基于当前位置来描述目标的位置。相对路径使用 “.”（表示当前目录）、“..”（表示上级目录）以及文件名或目录名来构建路径。</li>
+<li><strong>示例</strong>：假设当前工作目录是<code>C:\Users\John\Documents</code>，如果要访问<code>Documents</code>目录下的<code>Projects</code>文件夹中的<code>file.txt</code>文件，相对路径可以表示为<code>Projects/file.txt</code>。如果要访问当前目录的上一级目录中的<code>Images</code>文件夹，相对路径可以写成<code>../Images</code>。</li>
+</ul>
+<h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><ul>
+<li><strong>定义</strong>：绝对路径是从文件系统的根目录开始，完整地指定文件或目录在整个文件系统中的位置的路径。它包含了从根目录到目标文件或目录的所有目录层次信息，具有唯一性和确定性，无论在什么环境下，绝对路径都能准确地定位到目标文件或目录。</li>
+<li><strong>示例</strong>：在 Windows 系统中，例如<code>C:\Users\John\Documents\Projects\file.txt</code>就是一个绝对路径，它明确地指出了<code>file.txt</code>文件位于<code>C</code>盘的<code>Users</code>文件夹下的<code>John</code>文件夹中的<code>Documents</code>文件夹的<code>Projects</code>文件夹内。在 Linux 系统中，<code>/home/user/Documents/file.txt</code>也是一个绝对路径，从根目录 “&#x2F;” 开始，依次指定了各个目录层级直到目标文件。</li>
+</ul>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><ul>
+<li><strong>用户变量</strong>：是针对特定用户设置的变量，只对当前用户的环境和应用程序起作用，不同用户的用户变量相互独立，可用于存储该用户特有的配置信息等。</li>
+<li><strong>系统变量</strong>：是对整个系统所有用户都有效的变量，用于存储系统级的配置信息和参数，为系统和所有用户的应用程序提供通用的设置和数据。</li>
+<li><strong>环境变量作用</strong>：在环境变量中，Path 用于指定可执行文件的搜索路径。当在命令行或程序中执行一个命令或启动一个程序时，系统会按照 Path 中指定的路径顺序去查找对应的可执行文件，以便能够找到并运行它们，而无需用户输入完整路径。</li>
+</ul>
+<h1 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h1><p><img src="/../images/java/1740407096683.png" alt="1740407096683"></p>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -250,6 +260,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>

@@ -1,3 +1,4 @@
+http://example.com/2025/02/24/java/
 http://example.com/2025/02/23/Pointer-Topic/
 http://example.com/2025/02/23/I-chun-qiu/
 http://example.com/2025/02/23/buuctf-solutions/
