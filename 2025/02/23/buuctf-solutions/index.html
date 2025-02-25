@@ -203,7 +203,7 @@
 <p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p>
 <p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p>
 <p> 而有些却不能，这个时候就需要自己把字符串<strong>倒过来</strong>，比如我们在伪代码看到的 str 是 <strong>SLCDN</strong> ，可实际用这个字符串的时候应该用 <strong>NDCLS</strong> 同理，<strong>wodah</strong> 改成 <strong>hadow</strong> 然后继续分析代码<img src="/../images/buuctf-solutions/1732106686344.png" alt="1732106686344"></p>
-<h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p>
+<h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p>
 <p><img src="/../images/buuctf-solutions/1732173119194.png" alt="1732173119194"></p>
 <p> 2、输入指令：cd lib，进入lib目录，再输入启动指令：java -jar jadx-gui-1.4.4.jar </p>
 <p><img src="/../images/buuctf-solutions/1732173147984.png" alt="1732173147984"></p>
