@@ -185,8 +185,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #00a596">
-                    学习
+                <a href="/tags/java/" style="color: #00a596">
+                    java
                 </a>
             </span>
             
@@ -239,6 +239,331 @@
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p><img src="/../images/java/1740462178975.png" alt="1740462178975"></p>
 <h1 id="java语言基础组成"><a href="#java语言基础组成" class="headerlink" title="java语言基础组成"></a>java语言基础组成</h1><p><img src="/../images/java/1740462493599.png" alt="1740462493599"></p>
 <h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><img src="/../images/java/1740462613227.png" alt="1740462613227"></p>
+<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p><img src="/../images/java/1740575654215.png" alt="1740575654215"></p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p><img src="/../images/java/1740575933497.png" alt="1740575933497"></p>
+<p><img src="/../images/java/1740575960520.png" alt="1740575960520"></p>
+<p><strong>类似C</strong></p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p><img src="/../images/java/1740576109560.png" alt="1740576109560"></p>
+<p><strong>与C不同点：</strong></p>
+<p>有新的 byte</p>
+<p>布尔型为  boolean</p>
+<p>只有  long  没有  long long</p>
+<p>且  char  占两个字节，并可以存中文 </p>
+<h3 id="整数型"><a href="#整数型" class="headerlink" title="整数型"></a>整数型</h3><p><img src="/../images/java/1740576334165.png" alt="1740576334165"></p>
+<p><strong>一字节  &#x3D;  8bit</strong></p>
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p><img src="/../images/java/1740576618037.png" alt="1740576618037"></p>
+<p><strong>注意：</strong></p>
+<p><img src="/../images/java/1740576763880.png" alt="1740576763880"></p>
+<p><img src="/../images/java/1740576774228.png" alt="1740576774228"></p>
+<p><strong>加入运算会影响精度</strong></p>
+<h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p><img src="/../images/java/1740577000379.png" alt="1740577000379"></p>
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p><img src="/../images/java/1740577893027.png" alt="1740577893027"></p>
+<h3 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h3><p><img src="/../images/java/1740577927233.png" alt="1740577927233"></p>
+<p><img src="/../images/java/1740578765536.png" alt="1740578765536"></p>
+<p><img src="/../images/java/1740578776537.png" alt="1740578776537"></p>
+<p><strong>若运算类型含有字符串那么每个变量类型都转为字符串</strong></p>
+<p><strong>字符串相加代表字符串连接</strong></p>
+<p><img src="/../images/java/1740578924545.png" alt="1740578924545"></p>
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p><img src="/../images/java/1740578980886.png" alt="1740578980886"></p>
+<h2 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h2><ul>
+<li><strong>关键字</strong>：是 Java 语言事先定义好的，具有特殊意义的标识符 ，用于表示一种数据类型、程序的结构等，是编译器和程序员的约定。程序员通过关键字告知编译器声明的变量类型、类、方法特性等信息。例如，<code>int</code>用于声明整数类型变量，<code>class</code>用于声明一个类，<code>if</code>用于条件语句等。关键字不能用作变量名、方法名、类名、包名和参数，并且一律用小写字母标识。Java 定义的关键字包括<code>abstract</code>、<code>assert</code>、<code>boolean</code>、<code>break</code> 等。</li>
+<li><strong>保留字</strong>：通常指未来可能会作为关键字使用的一些单词， 目前在 Java 中没有实际的作用，但为了语言的扩展性和兼容性而保留。比如<code>goto</code>、<code>const</code> 以及<code>future</code>、<code>generic</code>、<code>operator</code>、<code>outer</code>、<code>rest</code>、<code>var</code>等，它们也不能作为标识符使用。此外，<code>null</code>、<code>true</code>、<code>false</code>虽常被认为是保留字，但更准确说是文字，包含 Java 定义的值，同样不可作为标识符 。</li>
+</ul>
+<h2 id="标志符"><a href="#标志符" class="headerlink" title="标志符"></a>标志符</h2><p><img src="/../images/java/1740579835980.png" alt="1740579835980"></p>
+<p><strong>说白了就是自己取的名字</strong></p>
+<p><strong>大驼峰（PascalCase）</strong>：</p>
+<ul>
+<li><strong>定义</strong>：每个单词首字母大写，无分隔符。</li>
+<li><strong>用处</strong>：用于类名、接口名等。</li>
+</ul>
+<p><strong>小驼峰（camelCase）</strong>：</p>
+<ul>
+<li><strong>定义</strong>：首个单词首字母小写，后续单词首字母大写，无分隔符。</li>
+<li><strong>用处</strong>：用于变量名、方法名等。</li>
+</ul>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p><img src="/../images/java/1740580424234.png" alt="1740580424234"></p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p><strong>类似C</strong></p>
+<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><p><img src="/../images/java/1740580531413.png" alt="1740580531413"></p>
+<h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><p><img src="/../images/java/1740580829536.png" alt="1740580829536"></p>
+<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><p><img src="/../images/java/1740580977369.png" alt="1740580977369"></p>
+<h3 id="三元运算符（三目运算）"><a href="#三元运算符（三目运算）" class="headerlink" title="三元运算符（三目运算）"></a>三元运算符（三目运算）</h3><p><img src="/../images/java/1740581133882.png" alt="1740581133882"></p>
+<h3 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h3><p><img src="/../images/java/1740581183917.png" alt="1740581183917"></p>
+<h3 id="进制与位运算符"><a href="#进制与位运算符" class="headerlink" title="进制与位运算符"></a>进制与位运算符</h3><p><strong>常见的位运算符介绍：</strong></p>
+<ol>
+<li><strong>按位与（&amp;）</strong>：将两个数的二进制位进行比较，只有对应位都为 1 时，结果位才为 1，否则为 0。比如，5（二进制 0101）&amp; 3（二进制 0011）的结果是 1（二进制 0001）。常用于清零某些位，或者获取特定位的值。</li>
+<li><strong>按位或（|）</strong>：对两个数的二进制位进行比较，只要对应位中有一个为 1，结果位就为 1，只有都为 0 时结果位才为 0。例如，5（二进制 0101）| 3（二进制 0011）的结果是 7（二进制 0111）。可用于设置某些位。</li>
+<li><strong>按位异或（^）</strong>：比较两个数的二进制位，如果对应位不同，结果为 1；如果相同，结果为 0。比如，5（二进制 0101）^ 3（二进制 0011）的结果是 6（二进制 0110） 。可用于交换两个数的值等场景，无需额外变量。</li>
+<li><strong>按位取反（~）</strong>：将一个数的每个二进制位进行反转，0 变 1，1 变 0。例如，~5（二进制 0101）的结果是 - 6（二进制 1010，补码表示）。因为 Java 中整数以补码形式存储，取反后要按补码规则转换为对应数值。</li>
+<li><strong>左移（&lt;&lt;）</strong>：将二进制数向左移动指定的位数，空缺的位置补 0。左移 n 位相当于乘以 2 的 n 次方。比如，5（二进制 0101）&lt;&lt; 1 的结果是 10（二进制 1010） 。</li>
+<li><strong>有符号右移（&gt;&gt;）</strong>：将二进制数向右移动指定的位数，对于负数，符号位（最高位）会被补充到空缺的位中。正数右移 n 位相当于除以 2 的 n 次方（向下取整）。比如，5（二进制 0101）&gt;&gt; 1 的结果是 2（二进制 0010） 。</li>
+<li><strong>无符号右移（&gt;&gt;&gt;）</strong>：将二进制数向右移动指定的位数，不考虑符号位，所有空缺的位都用 0 补充。比如，5（二进制 0101）&gt;&gt;&gt; 1 的结果是 2（二进制 0010） ，常用于处理无符号数，如位图处理等场景。</li>
+</ol>
+<p><strong>位运算符有以下特点：</strong></p>
+<ul>
+<li><strong>运算高效</strong>：直接在硬件级别进行操作，比算术运算符速度更快。</li>
+<li><strong>位移运算与乘除关系</strong>：左移一位相当于乘以 2，移动 n 位相当于乘以 2 的 n 次方；有符号右移一位相当于除以 2，移动 n 位相当于除以 2 的 n 次方（但负数右移时要注意符号位的处理） 。</li>
+</ul>
+<h4 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h4><p><img src="/../images/java/1740581486078.png" alt="1740581486078"></p>
+<h4 id="Hex编码（十六进制编码）"><a href="#Hex编码（十六进制编码）" class="headerlink" title="Hex编码（十六进制编码）"></a>Hex编码（十六进制编码）</h4><p><strong>定义</strong></p>
+<p>Hex 编码，即十六进制编码（Hexadecimal Encoding），是一种用十六进制数字来表示二进制数据的编码方式。在计算机领域，二进制数据是最基础的表现形式，但由于二进制数书写起来过长且不易阅读，而十六进制能更简洁、方便地表示二进制数据，所以被广泛应用。十六进制使用 0 - 9 和 A - F（或 a - f）这 16 个符号来表示数值，其中 A - F 分别对应十进制的 10 - 15。</p>
+<p><strong>原理</strong></p>
+<p>一个字节（Byte）由 8 位（bit）二进制数组成，其取值范围是从 00000000 到 11111111。而每 4 位二进制数可以用一个十六进制数字来表示，因为 4 位二进制数能表示的最大十进制数是 15（二进制 1111），正好对应十六进制的 F。所以一个字节的二进制数据可以用两个十六进制数字来表示。</p>
+<p>例如，二进制数 10101100 可以拆分为 1010 和 1100 两部分，1010 对应的十进制数是 10，十六进制表示为 A；1100 对应的十进制数是 12，十六进制表示为 C。因此，二进制数 10101100 用十六进制编码后就是 AC。</p>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p><strong>类似C</strong></p>
+<h3 id="if-语句"><a href="#if-语句" class="headerlink" title="if 语句"></a>if 语句</h3><p><img src="/../images/java/1740582597341.png" alt="1740582597341"></p>
+<h3 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h3><p><img src="/../images/java/1740582682860.png" alt="1740582682860"></p>
+<h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h3><p><img src="/../images/java/1740582715108.png" alt="1740582715108"></p>
+<h3 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h3><p><img src="/../images/java/1740582753580.png" alt="1740582753580"></p>
+<h3 id="break-与-continue"><a href="#break-与-continue" class="headerlink" title="break 与 continue"></a>break 与 continue</h3><p><img src="/../images/java/1740582794617.png" alt="1740582794617"></p>
+<p><img src="/../images/java/1740583059079.png" alt="1740583059079"></p>
+<p><strong>给循环起名字b</strong></p>
+<p>在<strong>嵌套循环</strong>中， break 和 continue 的作用如下：</p>
+<p><strong>break</strong></p>
+<p> break 语句用于跳出当前所在的循环体，即仅跳出包含该 break 的最内层循环，而不是整个嵌套循环结构。示例代码如下：</p>
+<pre><code class="python">for i in range(3):
+    for j in range(3):
+        if j == 1:
+            break
+        print(i, j)
+</code></pre>
+<p>上述代码中，当 j 等于1时， break 会使程序跳出内层 for 循环，继续执行外层 for 循环的下一次迭代，因此不会输出 (0, 1) 、 (1, 1) 、 (2, 1) 。</p>
+<p><strong>continue</strong></p>
+<p> continue 语句用于跳过当前循环的剩余语句，直接开始下一次循环迭代，同样只作用于当前所在的循环层。示例代码如下：</p>
+<pre><code class="python">for i in range(3):
+    for j in range(3):
+        if j == 1:
+            continue
+        print(i, j)
+</code></pre>
+<p>在这段代码中，当 j 等于1时， continue 会跳过当前内层循环中 print(i, j) 这一语句，直接进入下一次内层循环，即不会输出 (0, 1) 、 (1, 1) 、 (2, 1) ，但会继续执行其他情况。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p><strong>java 数组并不方便，因此后续使用集合</strong></p>
+<p><img src="/../images/java/1740583194527.png" alt="1740583194527"></p>
+<p><img src="/../images/java/1740583249256.png" alt="1740583249256"></p>
+<p><strong>这样也可</strong></p>
+<p><img src="/../images/java/1740583361466.png" alt="1740583361466"></p>
+<h3 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h3><p><img src="/../images/java/1740583501523.png" alt="1740583501523"></p>
+<p><img src="/../images/java/1740583564661.png" alt="1740583564661"></p>
+<h3 id="值传递与引用传递"><a href="#值传递与引用传递" class="headerlink" title="值传递与引用传递"></a>值传递与引用传递</h3><p><img src="/../images/java/1740661241136.png" alt="1740661241136"></p>
+<p><img src="/../images/java/1740661272806.png" alt="1740661272806"></p>
+<p><strong>将 ints1 赋值给 ints2 是引用传递（c中指针传递，传递首地址）</strong></p>
+<p><img src="/../images/java/1740661334644.png" alt="1740661334644"></p>
+<p><img src="/../images/java/1740661407623.png" alt="1740661407623"></p>
+<p><strong>int[] ints1 是在栈中开辟内存</strong></p>
+<p><strong>ints1 &#x3D; new int[5]  是在堆开辟5个空间再将首地址赋值给ints1</strong></p>
+<h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><p><img src="/../images/java/1740661996604.png" alt="1740661996604"></p>
+<p><img src="/../images/java/1740663595068.png" alt="1740663595068"></p>
+<p><img src="/../images/java/1740663631786.png" alt="1740663631786"></p>
+<p>加入元素</p>
+<p><img src="/../images/java/1740663703428.png" alt="1740663703428"></p>
+<p>反转元素</p>
+<p><img src="/../images/java/1740663950519.png" alt="1740663950519"></p>
+<p><img src="/../images/java/1740663967066.png" alt="1740663967066"></p>
+<p><img src="/../images/java/1740663997184.png" alt="1740663997184"></p>
+<h2 id="java帮助文档的查阅"><a href="#java帮助文档的查阅" class="headerlink" title="java帮助文档的查阅"></a>java帮助文档的查阅</h2><p><img src="/../images/java/1740662612177.png" alt="1740662612177"></p>
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><p><img src="/../images/java/1740664064218.png" alt="1740664064218"></p>
+<p><strong>新建文件来定义类，因为一个文件只能有一个共有类（其他方面类似C++）</strong></p>
+<p><strong>定义变量也和C++不同</strong></p>
+<p><img src="/../images/java/1740664988967.png" alt="1740664988967"></p>
+<p><img src="/../images/java/1740665144280.png" alt="1740665144280"></p>
+<p><strong>右键类可以并点击Constructor可以让idea自动帮助构建构造函数</strong></p>
+<p><img src="/../images/java/1740665298800.png" alt="1740665298800"></p>
+<p><img src="/../images/java/1740665385855.png" alt="1740665385855"></p>
+<h3 id="方法的定义和调用"><a href="#方法的定义和调用" class="headerlink" title="方法的定义和调用"></a>方法的定义和调用</h3><p><img src="/../images/java/1740665811671.png" alt="1740665811671"></p>
+<p><strong>类内定义函数</strong></p>
+<p><img src="/../images/java/1740666090677.png" alt="1740666090677"></p>
+<p><strong>类外只能调用非静态（非static）的函数</strong></p>
+<h3 id="方法的返回值和参数"><a href="#方法的返回值和参数" class="headerlink" title="方法的返回值和参数"></a>方法的返回值和参数</h3><p><img src="/../images/java/1740666644568.png" alt="1740666644568"></p>
+<h3 id="方法传参机制"><a href="#方法传参机制" class="headerlink" title="方法传参机制"></a>方法传参机制</h3><p><img src="/../images/java/1740722611662.png" alt="1740722611662"></p>
+<p> <strong>Java 的参数传递机制</strong></p>
+<p>Java 采用的是值传递（Pass - by - Value）机制。这意味着当你将一个变量作为参数传递给一个函数时，实际上传递的是该变量的值的副本，而不是变量本身。对于基本数据类型，传递的是其值的副本；对于引用数据类型，传递的是引用（内存地址）的副本。</p>
+<p>String 传递时，在函数中赋值一个新字符串时，是在堆区另外开出空间来存储新字符串，并将字符串地址赋值给 String 变量，当函数结束后释放出新字符串的空间，String 变量获得原字符串地址。</p>
+<p><strong>java代码示例</strong></p>
+<pre><code class="java">public class StringPassingExample &#123;
+    public static void main(String[] args) &#123;
+        String original = &quot;Hello&quot;;
+        System.out.println(&quot;调用 changeString 方法前: &quot; + original);
+        changeString(original);
+        System.out.println(&quot;调用 changeString 方法后: &quot; + original);
+    &#125;
+
+    public static void changeString(String str) &#123;
+        str = &quot;World&quot;;
+        System.out.println(&quot;方法内部修改后的 str: &quot; + str);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><strong>调用 <code>changeString</code> 方法前</strong>：在 <code>main</code> 方法中，定义了一个 <code>String</code> 变量 <code>original</code>，其值为 <code>&quot;Hello&quot;</code>。</li>
+<li><strong>调用 <code>changeString</code> 方法时</strong>：将 <code>original</code> 作为参数传递给 <code>changeString</code> 方法。此时，传递的是 <code>original</code> 引用的副本，即该副本指向 <code>&quot;Hello&quot;</code> 这个字符串对象在内存中的地址。</li>
+<li>**方法内部修改 <code>str</code>**：在 <code>changeString</code> 方法内部，将 <code>str</code> 赋值为 <code>&quot;World&quot;</code>。由于 <code>String</code> 是不可变的，这实际上是让 <code>str</code> 这个引用副本指向了一个新的 <code>&quot;World&quot;</code> 字符串对象，而原来的 <code>&quot;Hello&quot;</code> 字符串对象并没有被修改，<code>original</code> 仍然指向 <code>&quot;Hello&quot;</code>。</li>
+<li><strong>调用 <code>changeString</code> 方法后</strong>：在 <code>main</code> 方法中输出 <code>original</code>，其值仍然是 <code>&quot;Hello&quot;</code>，说明 <code>original</code> 本身没有受到 <code>changeString</code> 方法内部操作的影响。</li>
+</ul>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><p><img src="/../images/java/1740805529328.png" alt="1740805529328"></p>
+<p><strong>定义</strong></p>
+<ul>
+<li><strong>实例属性</strong>：也称为对象属性，是属于类的每个实例（对象）的属性。每个对象都有自己独立的实例属性副本，这些属性的值可以在不同对象之间有所不同。实例属性在类中定义，但不使用 <code>static</code> 关键字修饰。</li>
+<li><strong>类属性</strong>：也称为静态属性，是属于类本身的属性，而不是属于某个特定的对象。类属性在所有该类的实例之间共享，即无论创建多少个该类的对象，类属性都只有一个副本。类属性使用 <code>static</code> 关键字修饰。</li>
+</ul>
+<pre><code class="java">public class Animal &#123;
+    // 实例属性
+    private String name;
+    private int age;
+
+    // 类属性
+    private static int population;
+
+    public Animal(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+        // 每次创建一个新的 Animal 对象时，增加种群数量
+        population++;
+    &#125;
+
+    // 获取实例属性 name
+    public String getName() &#123;
+        return name;
+    &#125;
+
+    // 获取实例属性 age
+    public int getAge() &#123;
+        return age;
+    &#125;
+
+    // 获取类属性 population
+    public static int getPopulation() &#123;
+        return population;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><strong>实例属性</strong>：在上述代码中，<code>name</code> 和 <code>age</code> 是实例属性，因为它们没有使用 <code>static</code> 关键字修饰。每个 <code>Animal</code> 对象都有自己的 <code>name</code> 和 <code>age</code> 值，这些值可以在创建对象时通过构造函数进行初始化，并且可以在不同对象之间不同。</li>
+<li><strong>类属性</strong>：<code>population</code> 是类属性，因为它使用了 <code>static</code> 关键字修饰。<code>population</code> 记录了创建的 <code>Animal</code> 对象的总数，所有 <code>Animal</code> 对象共享这个属性。每当创建一个新的 <code>Animal</code> 对象时，<code>population</code> 的值就会增加 1。</li>
+</ul>
+<p><strong>定义</strong></p>
+<ul>
+<li><strong>对象方法（实例方法）</strong>：是属于类的每个实例（对象）的方法，不使用 <code>static</code> 关键字修饰。每个对象都有自己独立的方法调用副本，这些方法可以访问和操作对象的实例属性。</li>
+<li><strong>类方法（静态方法）</strong>：是属于类本身的方法，使用 <code>static</code> 关键字修饰。类方法不依赖于类的任何实例，它可以在不创建对象的情况下直接通过类名调用。</li>
+</ul>
+<pre><code class="java">public class Calculator &#123;
+    // 实例属性
+    private int num;
+
+    // 构造函数，用于初始化实例属性
+    public Calculator(int num) &#123;
+        this.num = num;
+    &#125;
+
+    // 对象方法（实例方法）
+    public int add(int other) &#123;
+        return this.num + other;
+    &#125;
+
+    // 类方法（静态方法）
+    public static int multiply(int a, int b) &#123;
+        return a * b;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><strong>对象方法</strong>：在上述代码中，<code>add</code> 方法是对象方法，因为它没有使用 <code>static</code> 关键字修饰。<code>add</code> 方法可以访问和操作对象的实例属性 <code>num</code>，它需要通过对象来调用。</li>
+<li><strong>类方法</strong>：<code>multiply</code> 方法是类方法，因为它使用了 <code>static</code> 关键字修饰。<code>multiply</code> 方法不依赖于类的任何实例，它只接受传入的参数进行计算，不需要访问对象的实例属性，可以直接通过类名调用。</li>
+</ul>
+<p><strong>调用方式</strong></p>
+<ul>
+<li><strong>对象方法</strong>：必须通过类的实例（对象）来调用。例如，<code>calculator.add(3)</code> 是通过 <code>calculator</code> 对象来调用 <code>add</code> 方法。</li>
+<li><strong>类方法</strong>：可以直接通过类名调用，也可以通过对象调用（但不推荐，因为这可能会引起混淆）。例如，<code>Calculator.multiply(4, 6)</code> 是通过类名 <code>Calculator</code> 直接调用 <code>multiply</code> 方法。</li>
+</ul>
+<p><strong>访问权限</strong></p>
+<ul>
+<li><p><strong>对象方法</strong>：可以访问和修改对象的实例属性，也可以调用其他对象方法和类方法。</p>
+</li>
+<li><p><strong>类方法</strong>：不能直接访问对象的实例属性和调用对象方法，因为类方法不依赖于任何对象。但类方法可以访问和修改类属性，也可以调用其他类方法。</p>
+</li>
+</ul>
+<p>引用类型比较一般用equals</p>
+<p><img src="/../images/java/1740807781357.png" alt="1740807781357"></p>
+<p>比较存放内容</p>
+<p><img src="/../images/java/1740808183985.png" alt="1740808183985"></p>
+<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p><img src="/../images/java/1740808501147.png" alt="1740808501147"></p>
+<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p><img src="/../images/java/1740809043333.png" alt="1740809043333"></p>
+<p><img src="/../images/java/1740809320928.png" alt="1740809320928"></p>
+<p><img src="/../images/java/1740809256927.png" alt="1740809256927"></p>
+<p>可变参数只能有一个并且必须放在最后一个参数位置</p>
+<p>或者可以直接传入数组</p>
+<p><img src="/../images/java/1740809393666.png" alt="1740809393666"></p>
+<h3 id="构造器（构造函数）"><a href="#构造器（构造函数）" class="headerlink" title="构造器（构造函数）"></a>构造器（构造函数）</h3><p><img src="/../images/java/1740809605223.png" alt="1740809605223"></p>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p><img src="/../images/java/1740828827015.png" alt="1740828827015"></p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><img src="/../images/java/1740829859933.png" alt="1740829859933"></p>
+<h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><p><img src="/../images/java/1740830885877.png" alt="1740830885877"></p>
+<p> 在 Java 中，包（package）是一种对类和接口等进行组织和管理的机制，它有助于避免命名冲突、便于代码的维护和共享。 </p>
+<p><strong>作用</strong></p>
+<ul>
+<li><strong>避免命名冲突</strong>：在大型项目中，可能会有很多类，如果都放在同一个命名空间下，很容易出现类名冲突的情况。通过将类放在不同的包中，可以确保不同包中的类即使名称相同也不会产生冲突。</li>
+<li><strong>便于代码组织和管理</strong>：将相关的类和接口放在同一个包中，能够使代码结构更加清晰，易于理解和维护。比如，所有与数据库操作相关的类可以放在一个名为<code>db</code>的包中，所有与用户界面相关的类可以放在<code>ui</code>包中。</li>
+<li><strong>控制访问权限</strong>：包可以控制类、方法和变量等的访问权限。在 Java 中，默认情况下，如果没有使用<code>public</code>、<code>private</code>或<code>protected</code>修饰符，那么类、方法和变量在同一个包内是可以访问的，而在包外则不能访问。</li>
+</ul>
+<p><strong>定义包</strong></p>
+<p>在 Java 源文件的开头使用<code>package</code>关键字来定义包。例如：</p>
+<pre><code class="java">package com.example.myapp;
+public class MyClass &#123;
+    // 类的内容
+&#125;
+</code></pre>
+<p>这表示<code>MyClass</code>类属于<code>com.example.myapp</code>包。需要注意的是，包名一般采用小写字母，且通常遵循域名倒置的规则，以确保唯一性。比如，如果你的网站域名是<code>example.com</code>，那么你的包名可以是<code>com.example</code>开头。</p>
+<p><strong>导入包</strong></p>
+<p>当需要使用其他包中的类时，需要使用<code>import</code>关键字导入包。例如：</p>
+<pre><code class="java">package com.example.main;
+import com.example.myapp.MyClass;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        MyClass myClass = new MyClass();
+    &#125;
+&#125;
+</code></pre>
+<p>也可以使用通配符<code>*</code>来导入整个包中的所有类：</p>
+<pre><code class="java">package com.example.main;
+import com.example.myapp.*;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        MyClass myClass = new MyClass();
+    &#125;
+&#125;
+</code></pre>
+<p>也可以不用import直接用包中的类（包内类与包外类重名时也只能这么用）：</p>
+<p><img src="/../images/java/1740832099375.png" alt="1740832099375"></p>
+<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><p><img src="/../images/java/1740842682147.png" alt="1740842682147"></p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p><img src="/../images/java/1740922314336.png" alt="1740922314336"></p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p><img src="/../images/java/1740922861761.png" alt="1740922861761"></p>
+<p><strong>继承的基本语法</strong></p>
+<p>在 Java 中，使用 <code>extends</code> 关键字来实现继承。以下是一个简单的示例：</p>
+<pre><code class="java">// 定义父类
+class Animal &#123;
+    String name;
+    public void eat() &#123;
+        System.out.println(name + &quot; 正在吃东西&quot;);
+    &#125;
+&#125;
+
+// 定义子类，继承自 Animal 类
+class Dog extends Animal &#123;
+    public void bark() &#123;
+        System.out.println(name + &quot; 正在汪汪叫&quot;);
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Dog dog = new Dog();
+        dog.name = &quot;旺财&quot;;
+        dog.eat();
+        dog.bark();
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>Dog</code> 类继承了 <code>Animal</code> 类，因此 <code>Dog</code> 类可以使用 <code>Animal</code> 类中定义的 <code>name</code> 属性和 <code>eat()</code> 方法，同时还可以有自己特有的方法 <code>bark()</code>。</p>
 
     </div>
     
