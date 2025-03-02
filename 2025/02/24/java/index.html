@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #00a596">
+                <a href="/tags/java/" style="color: #03a9f4">
                     java
                 </a>
             </span>
@@ -564,6 +564,85 @@ public class Main &#123;
 &#125;
 </code></pre>
 <p>在上述代码中，<code>Dog</code> 类继承了 <code>Animal</code> 类，因此 <code>Dog</code> 类可以使用 <code>Animal</code> 类中定义的 <code>name</code> 属性和 <code>eat()</code> 方法，同时还可以有自己特有的方法 <code>bark()</code>。</p>
+<p><strong>继承的特点</strong></p>
+<ol>
+<li><strong>单继承</strong>：Java 只支持单继承，即一个子类只能有一个直接父类。这有助于避免多继承带来的复杂问题，如菱形继承问题。不过，Java 支持多层继承，即一个子类可以有父类，父类还可以有自己的父类。</li>
+<li><strong>传递性</strong>：如果 <code>C</code> 类继承自 <code>B</code> 类，<code>B</code> 类继承自 <code>A</code> 类，那么 <code>C</code> 类就拥有 <code>B</code> 类和 <code>A</code> 类的所有可继承的属性和方法。</li>
+</ol>
+<p><strong>访问父类成员</strong></p>
+<p>在子类中，可以使用 <code>super</code> 关键字来访问父类的成员，包括属性和方法。例如：</p>
+<pre><code class="java">class Animal &#123;
+    String name = &quot;动物&quot;;
+    public void eat() &#123;
+        System.out.println(&quot;动物正在吃东西&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    String name = &quot;旺财&quot;;
+    public void showInfo() &#123;
+        // 访问父类的属性
+        System.out.println(super.name);
+        // 调用父类的方法
+        super.eat();
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Dog dog = new Dog();
+        dog.showInfo();
+    &#125;
+&#125;
+</code></pre>
+<p>在 <code>Dog</code> 类的 <code>showInfo()</code> 方法中，使用 <code>super.name</code> 访问了父类的 <code>name</code> 属性，使用 <code>super.eat()</code> 调用了父类的 <code>eat()</code> 方法。</p>
+<p><strong>方法重写（Override）</strong></p>
+<p>子类可以重写父类的方法，即子类提供与父类方法具有相同名称、参数列表和返回类型的方法实现。重写方法时，需要使用 <code>@Override</code> 注解来确保重写的正确性。例如：</p>
+<pre><code class="java">class Animal &#123;
+    public void makeSound() &#123;
+        System.out.println(&quot;动物发出声音&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;汪汪汪&quot;);
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Dog dog = new Dog();
+        dog.makeSound();
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>Dog</code> 类重写了 <code>Animal</code> 类的 <code>makeSound()</code> 方法，当调用 <code>dog.makeSound()</code> 时，会执行 <code>Dog</code> 类中重写后的方法。</p>
+<p><strong>构造方法的继承</strong></p>
+<p>子类不会继承父类的构造方法，但子类的构造方法中会默认调用父类的无参构造方法。如果父类没有无参构造方法，子类的构造方法中必须使用 <code>super()</code> 显式调用父类的有参构造方法。例如：</p>
+<pre><code class="java">class Animal &#123;
+    String name;
+    public Animal(String name) &#123;
+        this.name = name;
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    public Dog(String name) &#123;
+        // 显式调用父类的构造方法
+        super(name);
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Dog dog = new Dog(&quot;旺财&quot;);
+        System.out.println(dog.name);
+    &#125;
+&#125;
+</code></pre>
+<p>在 <code>Dog</code> 类的构造方法中，使用 <code>super(name)</code> 调用了父类 <code>Animal</code> 的构造方法，以初始化从父类继承的 <code>name</code> 属性。</p>
 
     </div>
     
