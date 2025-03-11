@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>java | 小白脑浆糊的进化之旅</title>
+    <title>java-notes | 小白脑浆糊的进化之旅</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -157,7 +157,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>java</h1>
+        <h1>java-notes</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -221,6 +221,79 @@
 <li><strong>环境变量作用</strong>：在环境变量中，Path 用于指定可执行文件的搜索路径。当在命令行或程序中执行一个命令或启动一个程序时，系统会按照 Path 中指定的路径顺序去查找对应的可执行文件，以便能够找到并运行它们，而无需用户输入完整路径。</li>
 </ul>
 <h1 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h1><p><img src="/../images/java/1740407096683.png" alt="1740407096683"></p>
+<h1 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h1><h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><p><img src="/../images/java/1741268784357.png" alt="1741268784357"></p>
+<h2 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h2><p><img src="/../images/java/1741269021214.png" alt="1741269021214"></p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p><img src="/../images/java/1741269364034.png" alt="1741269364034"></p>
+<p><img src="/../images/java/1741269706290.png" alt="1741269706290"></p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p><img src="/../images/java/1741269821892.png" alt="1741269821892"></p>
+<h2 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h2><p><img src="/../images/java/1741349945259.png" alt="1741349945259"></p>
+<h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><p>设置断点是调试的第一步，它可以让程序在指定的代码行暂停执行。</p>
+<ul>
+<li><strong>普通断点</strong>：在编辑器的行号旁边单击，会出现一个红色圆点，即设置了一个普通断点。当程序执行到这一行时，会暂停执行。例如，在以下代码中，在 <code>System.out.println(&quot;这是要调试的代码行&quot;);</code> 这一行的行号旁边单击设置断点：</li>
+</ul>
+<pre><code class="java">public class DebugExample &#123;
+    public static void main(String[] args) &#123;
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+        System.out.println(&quot;这是要调试的代码行&quot;);
+        System.out.println(&quot;两数之和为：&quot; + sum);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>条件断点</strong>：右键单击已经设置的普通断点，选择 “Edit Breakpoint”，在弹出的对话框中可以设置条件。只有当条件满足时，程序才会在该断点处暂停。比如，在上述代码中，如果想在 <code>sum</code> 等于 30 时暂停程序，可以在条件框中输入 <code>sum == 30</code>。</li>
+</ul>
+<h3 id="启动调试模式"><a href="#启动调试模式" class="headerlink" title="启动调试模式"></a>启动调试模式</h3><p>设置好断点后，需要以调试模式启动程序。在 IDEA 的工具栏中，找到绿色虫子图标（Debug），点击它或者使用快捷键（通常是 Shift + F9），程序会开始执行，当遇到断点时会暂停。</p>
+<h3 id="调试操作"><a href="#调试操作" class="headerlink" title="调试操作"></a>调试操作</h3><p>程序在断点处暂停后，可以使用以下操作来控制程序的执行和查看程序状态：</p>
+<ul>
+<li>单步执行<ul>
+<li><strong>Step Over（F8）</strong>：逐行执行代码，不会进入方法内部。如果当前行调用了一个方法，会直接执行完该方法并跳到下一行。</li>
+<li><strong>Step Into（F7）</strong>：如果当前行调用了一个方法，会进入该方法内部继续调试；如果是普通语句，则和 Step Over 效果相同。</li>
+<li><strong>Step Out（Shift + F8）</strong>：从当前方法中跳出，继续执行该方法调用处的下一行代码。</li>
+</ul>
+</li>
+<li><strong>查看变量值</strong>：在调试窗口的 “Variables” 面板中，可以查看当前作用域内的变量值。当程序暂停在断点处时，该面板会显示当前方法中所有变量的名称和值。</li>
+<li><strong>表达式求值</strong>：在调试窗口中，有一个 “Evaluate Expression” 按钮（通常是一个带有计算器图标的按钮），点击它可以输入表达式并计算其值。例如，可以输入变量名来查看变量的值，或者输入一个复杂的表达式进行计算。</li>
+</ul>
+<h3 id="其他类型的断点"><a href="#其他类型的断点" class="headerlink" title="其他类型的断点"></a>其他类型的断点</h3><ul>
+<li><strong>方法断点</strong>：在方法的声明行（方法名所在行）设置断点，当该方法被调用或者方法返回时，程序会暂停。方法断点用蓝色菱形表示。</li>
+<li><strong>字段断点</strong>：在类的字段声明行设置断点，当该字段被读取或者写入时，程序会暂停。字段断点用黄色圆点表示。</li>
+</ul>
+<h3 id="管理断点"><a href="#管理断点" class="headerlink" title="管理断点"></a>管理断点</h3><ul>
+<li><strong>禁用 &#x2F; 启用断点</strong>：右键单击断点，选择 “Disable Breakpoint” 可以禁用断点，再次右键单击选择 “Enable Breakpoint” 可以启用断点。禁用的断点不会影响程序的执行。</li>
+<li><strong>删除断点</strong>：直接单击断点（红色圆点）即可删除断点；也可以在 “Breakpoints” 窗口（通常可以通过 “View” -&gt; “Tool Windows” -&gt; “Breakpoints” 打开）中选择要删除的断点，然后按 Delete 键删除。</li>
+</ul>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="基本调试步骤"><a href="#基本调试步骤" class="headerlink" title="基本调试步骤"></a>基本调试步骤</h3><h4 id="1-设置断点"><a href="#1-设置断点" class="headerlink" title="1. 设置断点"></a>1. 设置断点</h4><p>断点是调试的关键，它能让程序在指定位置暂停执行，方便开发者查看程序状态。在 IDEA 中设置断点非常简单，只需在代码编辑器的行号旁边单击，出现红色圆点即表示成功设置断点。例如，在以下代码中，若想在 <code>sum</code> 变量计算完成后查看其值，可在 <code>System.out.println(&quot;两数之和为: &quot; + sum);</code> 这一行设置断点：</p>
+<pre><code class="java">public class DebugExample &#123;
+    public static void main(String[] args) &#123;
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+        System.out.println(&quot;两数之和为: &quot; + sum);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="2-启动调试模式"><a href="#2-启动调试模式" class="headerlink" title="2. 启动调试模式"></a>2. 启动调试模式</h4><p>设置好断点后，有两种方式启动调试模式：</p>
+<ul>
+<li>点击 IDEA 工具栏上的绿色虫子图标（Debug）。</li>
+<li>使用快捷键（通常是 <code>Shift + F9</code>）。</li>
+</ul>
+<p>启动调试模式后，程序会开始执行，当遇到设置的断点时会暂停。</p>
+<h3 id="常用调试操作"><a href="#常用调试操作" class="headerlink" title="常用调试操作"></a>常用调试操作</h3><h4 id="1-单步执行"><a href="#1-单步执行" class="headerlink" title="1. 单步执行"></a>1. 单步执行</h4><ul>
+<li><strong>StepOver（<code>F8</code>）</strong>：逐行执行代码，若当前行调用了方法，会直接执行完该方法并跳到下一行，不会进入方法内部。</li>
+<li><strong>Step Into（<code>F7</code>）</strong>：若当前行调用了方法，会进入该方法内部继续调试；若为普通语句，则和 <code>Step Over</code> 效果相同。</li>
+<li><strong>Step Out（<code>Shift + F8</code>）</strong>：从当前方法中跳出，继续执行该方法调用处的下一行代码。</li>
+</ul>
+<h4 id="2-查看变量值"><a href="#2-查看变量值" class="headerlink" title="2. 查看变量值"></a>2. 查看变量值</h4><p>程序暂停在断点处时，可在调试窗口的 “Variables” 面板中查看当前作用域内的变量值。该面板会实时显示变量的名称和值，方便开发者了解程序的运行状态。</p>
+<h4 id="3-表达式求值"><a href="#3-表达式求值" class="headerlink" title="3. 表达式求值"></a>3. 表达式求值</h4><p>点击调窗口中带有计算器图标的 “Evaluate Expression” 按钮，可输入表达式并计算其值。例如，输入变量名查看变量值，或输入复杂表达式进行计算。</p>
+<h3 id="断点类型"><a href="#断点类型" class="headerlink" title="断点类型"></a>断点类型</h3><h4 id="1-普通断点"><a href="#1-普通断点" class="headerlink" title="1. 普通断点"></a>1. 普通断点</h4><p>最常用的断点类型，在代码行号旁边单击即可设置，程序执行到该行时会暂停。</p>
+<h4 id="2-条件断点"><a href="#2-条件断点" class="headerlink" title="2. 条件断点"></a>2. 条件断点</h4><p>右键单击已设置的普通断点，选择 “Edit Breakpoint”，在弹出的对话框中设置条件。只有当条件满足时，程序才会在该断点处暂停。例如，在上述代码中，若想在 <code>sum</code> 等于 30 时暂停程序，可在条件框中输入 <code>sum == 30</code>。</p>
+<h4 id="3-方法断点"><a href="#3-方法断点" class="headerlink" title="3. 方法断点"></a>3. 方法断点</h4><p>在方法的声明行（方法名所在行）设置断点，当该方法被调用或者方法返回时，程序会暂停。方法断点用蓝色菱形表示。</p>
+<h4 id="4-字段断点"><a href="#4-字段断点" class="headerlink" title="4. 字段断点"></a>4. 字段断点</h4><p>在类的字段声明行设置断点，当该字段被读取或者写入时，程序会暂停。字段断点用黄色圆点表示。</p>
+<h3 id="高级调试技巧"><a href="#高级调试技巧" class="headerlink" title="高级调试技巧"></a>高级调试技巧</h3><h4 id="1-强制返回"><a href="#1-强制返回" class="headerlink" title="1. 强制返回"></a>1. 强制返回</h4><p>在调试过程中，若想提前结束当前方法的执行并返回指定值，可使用 “Force Return” 功能。在调试窗口中右键单击，选择 “Force Return”，然后输入要返回的值，程序会立即结束当前方法并返回该值。</p>
+<h4 id="2-多线程调试"><a href="#2-多线程调试" class="headerlink" title="2. 多线程调试"></a>2. 多线程调试</h4><p>若程序包含多个线程，IDEA 支持多线程调试。在调试窗口的 “Threads” 面板中，可以查看所有线程的状态，并选择要调试的线程。</p>
+<h4 id="3-日志断点"><a href="#3-日志断点" class="headerlink" title="3. 日志断点"></a>3. 日志断点</h4><p>在一些情况下，可能不需要暂停程序，只需在特定位置输出日志信息。可以使用日志断点，右键单击断点，在 “Log evaluated expression” 中输入要输出的日志信息，程序执行到该断点时会在控制台输出日志，但不会暂停。</p>
 <h1 id="java-语言特点"><a href="#java-语言特点" class="headerlink" title="java 语言特点"></a>java 语言特点</h1><p><img src="/../images/java/1740458407691.png" alt="1740458407691"></p>
 <h1 id="第一个java程序"><a href="#第一个java程序" class="headerlink" title="第一个java程序"></a>第一个java程序</h1><pre><code class="java">public class Hello &#123;
     public static void main (String[] args) &#123;
@@ -248,7 +321,7 @@
 <p>有新的 byte</p>
 <p>布尔型为  boolean</p>
 <p>只有  long  没有  long long</p>
-<p>且  char  占两个字节，并可以存中文 </p>
+<p>且  char  占两个字节，并可以存中文</p>
 <h3 id="整数型"><a href="#整数型" class="headerlink" title="整数型"></a>整数型</h3><p><img src="/../images/java/1740576334165.png" alt="1740576334165"></p>
 <p><strong>一字节  &#x3D;  8bit</strong></p>
 <h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p><img src="/../images/java/1740576618037.png" alt="1740576618037"></p>
@@ -536,7 +609,7 @@ public class Main &#123;
 <p><img src="/../images/java/1740832099375.png" alt="1740832099375"></p>
 <h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><p><img src="/../images/java/1740842682147.png" alt="1740842682147"></p>
 <h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p><img src="/../images/java/1740922314336.png" alt="1740922314336"></p>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p><strong>按 Ctrl + h 可以在idea中看到类的继承关系</strong></p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p><strong>按 <code>Ctrl + h</code>可以在idea中看到类的继承关系</strong></p>
 <p><img src="/../images/java/1740922861761.png" alt="1740922861761"></p>
 <p><strong>继承的基本语法</strong></p>
 <p>在 Java 中，使用 <code>extends</code> 关键字来实现继承。以下是一个简单的示例：</p>
@@ -644,6 +717,2019 @@ public class Main &#123;
 &#125;
 </code></pre>
 <p>在 <code>Dog</code> 类的构造方法中，使用 <code>super(name)</code> 调用了父类 <code>Animal</code> 的构造方法，以初始化从父类继承的 <code>name</code> 属性。</p>
+<h4 id="父类构造器"><a href="#父类构造器" class="headerlink" title="父类构造器"></a>父类构造器</h4><p><img src="/../images/java/1740923961213.png" alt="1740923961213"></p>
+<h4 id="super"><a href="#super" class="headerlink" title="super()"></a>super()</h4><p><img src="/../images/java/1740924652916.png" alt="1740924652916"></p>
+<p> 需注意的是，<code>super()</code> 调用父类构造方法的语句必须是子类构造方法中的第一条语句。 </p>
+<h4 id="方法重写"><a href="#方法重写" class="headerlink" title="方法重写"></a>方法重写</h4><p><img src="/../images/java/1741005932153.png" alt="1741005932153"></p>
+<h5 id="定义和基本语法"><a href="#定义和基本语法" class="headerlink" title="定义和基本语法"></a>定义和基本语法</h5><p>方法重写是指在子类中定义一个与父类中具有相同名称、参数列表和返回类型的方法。子类通过重写父类的方法，可以提供自己的实现逻辑。其基本语法如下：</p>
+<pre><code class="java">// 父类
+class Parent &#123;
+    public void display() &#123;
+        System.out.println(&quot;这是父类的 display 方法&quot;);
+    &#125;
+&#125;
+
+// 子类
+class Child extends Parent &#123;
+    @Override
+    public void display() &#123;
+        System.out.println(&quot;这是子类重写后的 display 方法&quot;);
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Child child = new Child();
+        child.display(); 
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>Child</code> 类重写了 <code>Parent</code> 类的 <code>display</code> 方法。当调用 <code>child.display()</code> 时，会执行子类中重写后的方法。</p>
+<h5 id="重写规则"><a href="#重写规则" class="headerlink" title="重写规则"></a>重写规则</h5><ol>
+<li><strong>方法签名必须相同</strong>：方法名、参数列表必须与父类中被重写的方法完全一致。</li>
+<li><strong>返回类型必须兼容</strong>：子类重写方法的返回类型必须与父类被重写方法的返回类型相同，或者是其子类型（从 Java 5 开始支持协变返回类型）。 </li>
+<li><strong>访问修饰符限制</strong>：子类重写方法的访问修饰符不能比父类被重写方法的访问修饰符更严格。例如，如果父类方法是 <code>public</code> 的，子类重写方法不能是 <code>protected</code> 或 <code>private</code> 的。 </li>
+<li><strong>异常抛出限制</strong>：子类重写方法抛出的异常不能比父类被重写方法抛出的异常更宽泛。即子类重写方法可以不抛出异常，或者抛出与父类相同的异常，或者抛出父类异常的子类异常。</li>
+</ol>
+<h5 id="Override-注解"><a href="#Override-注解" class="headerlink" title="@Override 注解"></a><code>@Override</code> 注解</h5><p><code>@Override</code> 是 Java 中的一个注解，用于显式地表明一个方法是重写父类的方法。虽然这个注解不是必需的，但使用它可以让编译器进行检查，如果方法不符合重写规则，编译器会报错，有助于避免一些潜在的错误。例如：</p>
+<pre><code class="java">class Parent &#123;
+    public void test() &#123;
+        System.out.println(&quot;父类的 test 方法&quot;);
+    &#125;
+&#125;
+
+class Child extends Parent &#123;
+    // 若此处方法名拼写错误，使用 @Override 注解编译器会报错
+    @Override
+    public void test() &#123;
+        System.out.println(&quot;子类重写的 test 方法&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="调用父类被重写的方法"><a href="#调用父类被重写的方法" class="headerlink" title="调用父类被重写的方法"></a>调用父类被重写的方法</h5><p>在子类的重写方法中，可以使用 <code>super</code> 关键字来调用父类被重写的方法。例如：</p>
+<pre><code class="java">class Parent &#123;
+    public void show() &#123;
+        System.out.println(&quot;父类的 show 方法&quot;);
+    &#125;
+&#125;
+
+class Child extends Parent &#123;
+    @Override
+    public void show() &#123;
+        super.show(); 
+        System.out.println(&quot;子类重写的 show 方法&quot;);
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Child child = new Child();
+        child.show();
+    &#125;
+&#125;
+</code></pre>
+<p>在 <code>Child</code> 类的 <code>show</code> 方法中，使用 <code>super.show()</code> 调用了父类的 <code>show</code> 方法，然后再执行子类自己的逻辑。</p>
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p><img src="/../images/java/1741006598498.png" alt="1741006598498"></p>
+<p><img src="/../images/java/1741007322051.png" alt="1741007322051"></p>
+<h5 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h5><p><strong>定义</strong></p>
+<p>静态代码块是用花括号 <code>&#123;&#125;</code> 括起来的一段代码，但它使用 <code>static</code> 关键字修饰，并且直接定义在类中。示例如下：</p>
+<pre><code class="java">public class StaticBlockExample &#123;
+    // 静态代码块
+    static &#123;
+        System.out.println(&quot;这是静态代码块&quot;);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;这是 main 方法&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>执行时机</strong></p>
+<p>静态代码块在类被加载时执行，并且只执行一次。类的加载是在程序运行过程中，当第一次使用该类时（如创建对象、调用静态方法、访问静态属性等）由 Java 虚拟机（JVM）进行的操作。</p>
+<h5 id="普通代码块（实例代码块）"><a href="#普通代码块（实例代码块）" class="headerlink" title="普通代码块（实例代码块）"></a>普通代码块（实例代码块）</h5><p><strong>定义</strong></p>
+<p>普通代码块是用花括号 <code>&#123;&#125;</code> 括起来的一段代码，它没有任何修饰符，并且直接定义在类中，但不在任何方法内部。示例如下：</p>
+<pre><code class="java">public class InstanceBlockExample &#123;
+    // 普通代码块
+    &#123;
+        System.out.println(&quot;这是普通代码块&quot;);
+    &#125;
+
+    public InstanceBlockExample() &#123;
+        System.out.println(&quot;这是构造方法&quot;);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        InstanceBlockExample obj = new InstanceBlockExample();
+    &#125;
+&#125;
+</code></pre>
+<p><strong>执行时机</strong></p>
+<p>普通代码块会在创建对象时执行，并且在构造方法之前执行。如果创建多个对象，普通代码块会在每次创建对象时都执行一次。</p>
+<p><strong>使用场景</strong></p>
+<p>普通代码块常用于在创建对象时进行一些通用的初始化操作，这些操作可能在多个构造方法中都需要执行，将其放在普通代码块中可以避免代码重复。例如：</p>
+<pre><code class="java">public class Person &#123;
+    private String name;
+    private int age;
+
+    &#123;
+        // 初始化日志记录等操作
+        System.out.println(&quot;开始创建 Person 对象&quot;);
+    &#125;
+
+    public Person() &#123;
+        this.name = &quot;Unknown&quot;;
+        this.age = 0;
+    &#125;
+
+    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p><img src="/../images/java/1741180690729.png" alt="1741180690729"></p>
+<p><strong><code>instanceOf</code> 判断</strong></p>
+<p><img src="/../images/java/1741181812077.png" alt="1741181812077"></p>
+<p><strong>多态的概念</strong></p>
+<p>多态意味着一个对象可以有多种形态。具体来说，在程序运行时，同一个方法调用可以根据实际对象的类型产生不同的行为。多态通过将父类类型的引用指向子类对象，在调用方法时根据实际对象的类型来确定执行哪个子类的方法。</p>
+<p><strong>实现多态的条件</strong></p>
+<ol>
+<li><strong>继承关系</strong>：需要有父类和子类之间的继承关系。</li>
+<li><strong>方法重写</strong>：子类需要重写父类的方法，以实现不同的行为。</li>
+<li><strong>父类引用指向子类对象</strong>：使用父类类型的引用指向子类的对象，通过该引用调用重写的方法。</li>
+</ol>
+<p><strong>多态的实现方式</strong></p>
+<p><strong>1.基于继承的多态</strong></p>
+<p>通过子类继承父类，并重写父类的方法，然后使用父类引用指向子类对象来实现多态。</p>
+<pre><code class="java">// 定义父类 Animal
+class Animal &#123;
+    public void makeSound() &#123;
+        System.out.println(&quot;动物发出声音&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Dog，继承自 Animal
+class Dog extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;汪汪汪&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Cat，继承自 Animal
+class Cat extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;喵喵喵&quot;);
+    &#125;
+&#125;
+
+public class PolymorphismExample &#123;
+    public static void main(String[] args) &#123;
+        // 父类引用指向子类对象
+        Animal dog = new Dog();
+        Animal cat = new Cat();
+
+        // 调用重写的方法，实现多态
+        dog.makeSound(); 
+        cat.makeSound(); 
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong>：</p>
+<ul>
+<li><code>Animal</code> 是父类，包含一个 <code>makeSound</code> 方法。</li>
+<li><code>Dog</code> 和 <code>Cat</code> 是 <code>Animal</code> 的子类，分别重写了 <code>makeSound</code> 方法。</li>
+<li>在 <code>main</code> 方法中，使用 <code>Animal</code> 类型的引用指向 <code>Dog</code> 和 <code>Cat</code> 对象，调用 <code>makeSound</code> 方法时，根据实际对象的类型执行相应的方法。</li>
+</ul>
+<p><strong>2. 基于接口的多态</strong></p>
+<p>通过实现接口，不同的类可以实现相同的接口方法，然后使用接口类型的引用指向实现类的对象来实现多态。</p>
+<pre><code class="java">// 定义接口 Shape
+interface Shape &#123;
+    double area();
+&#125;
+
+// 定义实现类 Circle，实现 Shape 接口
+class Circle implements Shape &#123;
+    private double radius;
+
+    public Circle(double radius) &#123;
+        this.radius = radius;
+    &#125;
+
+    @Override
+    public double area() &#123;
+        return Math.PI * radius * radius;
+    &#125;
+&#125;
+
+// 定义实现类 Rectangle，实现 Shape 接口
+class Rectangle implements Shape &#123;
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) &#123;
+        this.length = length;
+        this.width = width;
+    &#125;
+
+    @Override
+    public double area() &#123;
+        return length * width;
+    &#125;
+&#125;
+
+public class InterfacePolymorphismExample &#123;
+    public static void main(String[] args) &#123;
+        // 接口引用指向实现类对象
+        Shape circle = new Circle(5);
+        Shape rectangle = new Rectangle(4, 6);
+
+        // 调用接口方法，实现多态
+        System.out.println(&quot;圆的面积: &quot; + circle.area());
+        System.out.println(&quot;矩形的面积: &quot; + rectangle.area());
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong>：</p>
+<ul>
+<li><code>Shape</code> 是一个接口，定义了一个抽象方法 <code>area</code>。</li>
+<li><code>Circle</code> 和 <code>Rectangle</code> 是实现 <code>Shape</code> 接口的类，分别实现了 <code>area</code> 方法。</li>
+<li>在 <code>main</code> 方法中，使用 <code>Shape</code> 类型的引用指向 <code>Circle</code> 和 <code>Rectangle</code> 对象，调用 <code>area</code> 方法时，根据实际对象的类型执行相应的方法。</li>
+</ul>
+<p><strong>强制向下转型</strong></p>
+<p>可以调用子类属性和子类特有方法。</p>
+<p><img src="/../images/java/1741181653325.png" alt="1741181653325"></p>
+<h4 id="多态数组"><a href="#多态数组" class="headerlink" title="多态数组"></a><strong>多态数组</strong></h4><p><img src="/../images/java/1741181900887.png" alt="1741181900887"></p>
+<h5 id="基于继承的多态数组"><a href="#基于继承的多态数组" class="headerlink" title="基于继承的多态数组"></a>基于继承的多态数组</h5><p>示例代码</p>
+<pre><code class="java">// 定义父类 Animal
+class Animal &#123;
+    public void makeSound() &#123;
+        System.out.println(&quot;动物发出声音&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Dog，继承自 Animal
+class Dog extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;汪汪汪&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Cat，继承自 Animal
+class Cat extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;喵喵喵&quot;);
+    &#125;
+&#125;
+
+public class InheritancePolymorphicArray &#123;
+    public static void main(String[] args) &#123;
+        // 创建一个 Animal 类型的数组，该数组可以存储 Animal 及其子类的对象
+        Animal[] animals = new Animal[2];
+        animals[0] = new Dog();
+        animals[1] = new Cat();
+
+        // 遍历数组，调用 makeSound 方法，实现多态
+        for (Animal animal : animals) &#123;
+            animal.makeSound();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ol>
+<li><strong>定义父类和子类</strong>：定义了一个父类 <code>Animal</code>，其中包含 <code>makeSound</code> 方法。<code>Dog</code> 和 <code>Cat</code> 类继承自 <code>Animal</code> 类，并重写了 <code>makeSound</code> 方法，以实现不同的行为。</li>
+<li><strong>创建多态数组</strong>：创建了一个 <code>Animal</code> 类型的数组 <code>animals</code>，该数组可以存储 <code>Animal</code> 类及其子类的对象。</li>
+<li><strong>存储不同子类对象</strong>：将 <code>Dog</code> 和 <code>Cat</code> 类的对象分别存储到数组的不同位置。</li>
+<li><strong>遍历数组并调用方法</strong>：使用增强 <code>for</code> 循环遍历数组，调用 <code>makeSound</code> 方法。由于数组元素是 <code>Animal</code> 类型的引用，但实际指向的是 <code>Dog</code> 和 <code>Cat</code> 对象，因此会根据实际对象的类型调用相应的 <code>makeSound</code> 方法，实现多态。</li>
+</ol>
+<h5 id="基于接口的多态数组"><a href="#基于接口的多态数组" class="headerlink" title="基于接口的多态数组"></a>基于接口的多态数组</h5><p>示例代码</p>
+<pre><code class="java">// 定义接口 Shape
+interface Shape &#123;
+    double area();
+&#125;
+
+// 定义实现类 Circle，实现 Shape 接口
+class Circle implements Shape &#123;
+    private double radius;
+
+    public Circle(double radius) &#123;
+        this.radius = radius;
+    &#125;
+
+    @Override
+    public double area() &#123;
+        return Math.PI * radius * radius;
+    &#125;
+&#125;
+
+// 定义实现类 Rectangle，实现 Shape 接口
+class Rectangle implements Shape &#123;
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) &#123;
+        this.length = length;
+        this.width = width;
+    &#125;
+
+    @Override
+    public double area() &#123;
+        return length * width;
+    &#125;
+&#125;
+
+public class InterfacePolymorphicArray &#123;
+    public static void main(String[] args) &#123;
+        // 创建一个 Shape 类型的数组，该数组可以存储实现 Shape 接口的类的对象
+        Shape[] shapes = new Shape[2];
+        shapes[0] = new Circle(5);
+        shapes[1] = new Rectangle(4, 6);
+
+        // 遍历数组，调用 area 方法，实现多态
+        for (Shape shape : shapes) &#123;
+            System.out.println(&quot;该图形的面积是: &quot; + shape.area());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ol>
+<li><strong>定义接口和实现类</strong>：定义了一个接口 <code>Shape</code>，其中包含抽象方法 <code>area</code>。<code>Circle</code> 和 <code>Rectangle</code> 类实现了 <code>Shape</code> 接口，并实现了 <code>area</code> 方法，以计算不同形状的面积。</li>
+<li><strong>创建多态数组</strong>：创建了一个 <code>Shape</code> 类型的数组 <code>shapes</code>，该数组可以存储实现 <code>Shape</code> 接口的类的对象。</li>
+<li><strong>存储不同实现类对象</strong>：将 <code>Circle</code> 和 <code>Rectangle</code> 类的对象分别存储到数组的不同位置。</li>
+<li><strong>遍历数组并调用方法</strong>：使用增强 <code>for</code> 循环遍历数组，调用 <code>area</code> 方法。由于数组元素是 <code>Shape</code> 类型的引用，但实际指向的是 <code>Circle</code> 和 <code>Rectangle</code> 对象，因此会根据实际对象的类型调用相应的 <code>area</code> 方法，实现多态。</li>
+</ol>
+<h4 id="动态绑定机制"><a href="#动态绑定机制" class="headerlink" title="动态绑定机制"></a>动态绑定机制</h4><p><img src="/../images/java/1741182900629.png" alt="1741182900629"></p>
+<h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p>在 Java 中，当通过父类引用调用一个被重写的方法时，编译阶段编译器会根据引用的类型（即父类类型）来检查方法是否存在，但在运行阶段，Java 虚拟机（JVM）会根据引用实际指向的对象类型（即子类类型）来决定调用哪个类的方法。这种在运行时确定调用方法的机制就是动态绑定。</p>
+<h5 id="实现动态绑定的条件"><a href="#实现动态绑定的条件" class="headerlink" title="实现动态绑定的条件"></a>实现动态绑定的条件</h5><ol>
+<li><strong>继承关系</strong>：存在父类和子类的继承关系，子类继承自父类。</li>
+<li><strong>方法重写</strong>：子类重写了父类的方法，即子类定义了与父类中具有相同签名（方法名、参数列表和返回类型）的方法。</li>
+<li><strong>父类引用指向子类对象</strong>：使用父类类型的引用变量来引用子类的对象。</li>
+</ol>
+<p>示例代码</p>
+<pre><code class="java">// 定义父类 Animal
+class Animal &#123;
+    public void makeSound() &#123;
+        System.out.println(&quot;动物发出声音&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Dog，继承自 Animal
+class Dog extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;汪汪汪&quot;);
+    &#125;
+&#125;
+
+// 定义子类 Cat，继承自 Animal
+class Cat extends Animal &#123;
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;喵喵喵&quot;);
+    &#125;
+&#125;
+
+public class DynamicBindingExample &#123;
+    public static void main(String[] args) &#123;
+        // 父类引用指向子类对象
+        Animal dog = new Dog();
+        Animal cat = new Cat();
+
+        // 调用 makeSound 方法，发生动态绑定
+        dog.makeSound();
+        cat.makeSound();
+    &#125;
+&#125;
+</code></pre>
+<p>代码解释</p>
+<ol>
+<li><strong>定义父类和子类</strong>：定义了一个父类 <code>Animal</code>，其中包含 <code>makeSound</code> 方法。<code>Dog</code> 和 <code>Cat</code> 类继承自 <code>Animal</code> 类，并重写了 <code>makeSound</code> 方法，以实现不同的行为。</li>
+<li><strong>父类引用指向子类对象</strong>：在 <code>main</code> 方法中，创建了 <code>Animal</code> 类型的引用变量 <code>dog</code> 和 <code>cat</code>，分别指向 <code>Dog</code> 和 <code>Cat</code> 类的对象。</li>
+<li><strong>动态绑定过程</strong>：<ul>
+<li>编译阶段：编译器根据引用类型 <code>Animal</code> 检查 <code>makeSound</code> 方法是否存在，由于 <code>Animal</code> 类中定义了该方法，编译通过。</li>
+<li>运行阶段：JVM 根据引用实际指向的对象类型（<code>Dog</code> 或 <code>Cat</code>）来决定调用哪个类的 <code>makeSound</code> 方法。因此，<code>dog.makeSound()</code> 会调用 <code>Dog</code> 类的 <code>makeSound</code> 方法，输出 “汪汪汪”；<code>cat.makeSound()</code> 会调用 <code>Cat</code> 类的 <code>makeSound</code> 方法，输出 “喵喵喵”。</li>
+</ul>
+</li>
+</ol>
+<p><strong>注意事项</strong></p>
+<ul>
+<li><strong>静态方法和私有方法不参与动态绑定</strong>：静态方法属于类，而不是对象，它们在编译时就已经确定了调用关系，不依赖于对象的实际类型。私有方法不能被重写，因此也不会发生动态绑定。例如：</li>
+</ul>
+<pre><code class="java">class Parent &#123;
+    public static void staticMethod() &#123;
+        System.out.println(&quot;父类的静态方法&quot;);
+    &#125;
+
+    private void privateMethod() &#123;
+        System.out.println(&quot;父类的私有方法&quot;);
+    &#125;
+&#125;
+
+class Child extends Parent &#123;
+    public static void staticMethod() &#123;
+        System.out.println(&quot;子类的静态方法&quot;);
+    &#125;
+
+    // 这里并不是重写父类的私有方法，因为私有方法不能被重写
+    private void privateMethod() &#123;
+        System.out.println(&quot;子类的私有方法&quot;);
+    &#125;
+&#125;
+
+public class StaticAndPrivateMethodExample &#123;
+    public static void main(String[] args) &#123;
+        Parent parent = new Child();
+        parent.staticMethod(); // 调用父类的静态方法
+        // parent.privateMethod(); // 编译错误，私有方法不能被外部访问
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>staticMethod</code> 是静态方法，<code>parent.staticMethod()</code> 调用的是父类的静态方法，而不是子类的静态方法；<code>privateMethod</code> 是私有方法，不参与动态绑定。</p>
+<h5 id="静态属性和方法的-“继承”-与实例属性和方法继承的区别"><a href="#静态属性和方法的-“继承”-与实例属性和方法继承的区别" class="headerlink" title="静态属性和方法的 “继承” 与实例属性和方法继承的区别"></a>静态属性和方法的 “继承” 与实例属性和方法继承的区别</h5><p><strong>方法重写方面</strong></p>
+<p>普通的实例方法可以在子类中被重写（override），实现多态；而静态方法不能被重写，当子类中定义了和父类相同签名的静态方法时，这被称为方法隐藏（method hiding），而不是方法重写。</p>
+<p><strong>调用时的绑定机制</strong></p>
+<p>实例方法的调用是动态绑定的，在运行时根据对象的实际类型来确定调用哪个类的方法；而静态方法的调用是静态绑定的，在编译时就根据引用类型确定要调用的方法。</p>
+<h3 id="默认父类方法"><a href="#默认父类方法" class="headerlink" title="默认父类方法"></a>默认父类方法</h3><p><img src="/../images/java/1741185187271.png" alt="1741185187271"></p>
+<h4 id="equals"><a href="#equals" class="headerlink" title="equals"></a>equals</h4><p><img src="/../images/java/1741185171198.png" alt="1741185171198"></p>
+<h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h4><p><img src="/../images/java/1741185982777.png" alt="1741185982777"></p>
+<h4 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h4><p><img src="/../images/java/1741185995421.png" alt="1741185995421"></p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p><img src="/../images/java/1741254352036.png" alt="1741254352036"></p>
+<h4 id="定义抽象类"><a href="#定义抽象类" class="headerlink" title="定义抽象类"></a>定义抽象类</h4><p>在 Java 中，使用 <code>abstract</code> 关键字来定义抽象类。抽象类不能被实例化，也就是不能使用 <code>new</code> 关键字来创建抽象类的对象，它主要用于被其他类继承。</p>
+<pre><code class="java">// 定义一个抽象类 Animal
+abstract class Animal &#123;
+    // 成员变量
+    protected String name;
+
+    // 构造方法
+    public Animal(String name) &#123;
+        this.name = name;
+    &#125;
+
+    // 普通方法
+    public void eat() &#123;
+        System.out.println(name + &quot; 正在吃东西&quot;);
+    &#125;
+
+    // 抽象方法，没有方法体
+    public abstract void makeSound();
+&#125;
+</code></pre>
+<h4 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h4><p>抽象类中可以包含抽象方法，抽象方法使用 <code>abstract</code> 关键字修饰，并且没有方法体。抽象方法的作用是定义一个规范，要求子类必须实现这个方法。</p>
+<pre><code class="java">// 抽象方法示例
+public abstract void makeSound();
+</code></pre>
+<h4 id="继承抽象类"><a href="#继承抽象类" class="headerlink" title="继承抽象类"></a>继承抽象类</h4><p>子类继承抽象类时，必须实现抽象类中的所有抽象方法，否则子类也必须被声明为抽象类。</p>
+<pre><code class="java">// 定义 Dog 类继承自 Animal 抽象类
+class Dog extends Animal &#123;
+    public Dog(String name) &#123;
+        super(name);
+    &#125;
+
+    // 实现抽象方法 makeSound
+    @Override
+    public void makeSound() &#123;
+        System.out.println(name + &quot; 汪汪叫&quot;);
+    &#125;
+&#125;
+
+// 定义 Cat 类继承自 Animal 抽象类
+class Cat extends Animal &#123;
+    public Cat(String name) &#123;
+        super(name);
+    &#125;
+
+    // 实现抽象方法 makeSound
+    @Override
+    public void makeSound() &#123;
+        System.out.println(name + &quot; 喵喵叫&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="使用抽象类"><a href="#使用抽象类" class="headerlink" title="使用抽象类"></a>使用抽象类</h4><p>虽然抽象类不能被实例化，但可以使用抽象类的引用指向子类的对象，从而实现多态。</p>
+<pre><code class="java">public class Main &#123;
+    public static void main(String[] args) &#123;
+        // 抽象类的引用指向子类对象
+        Animal dog = new Dog(&quot;旺财&quot;);
+        Animal cat = new Cat(&quot;咪咪&quot;);
+
+        // 调用普通方法
+        dog.eat();
+        cat.eat();
+
+        // 调用抽象方法（多态）
+        dog.makeSound();
+        cat.makeSound();
+    &#125;
+&#125;
+</code></pre>
+<h4 id="抽象类的特点和使用场景"><a href="#抽象类的特点和使用场景" class="headerlink" title="抽象类的特点和使用场景"></a>抽象类的特点和使用场景</h4><ul>
+<li><strong>特点</strong><ul>
+<li><strong>不能实例化</strong>：抽象类不能使用 <code>new</code> 关键字创建对象，只能作为父类被继承。</li>
+<li><strong>可以包含抽象方法和普通方法</strong>：抽象类中既可以有抽象方法，也可以有普通方法，这样可以提供一些通用的实现，同时要求子类实现特定的行为。</li>
+<li><strong>构造方法</strong>：抽象类可以有构造方法，用于初始化成员变量，但不能通过构造方法直接创建抽象类的对象，构造方法主要用于子类调用。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong><ul>
+<li><strong>定义通用行为和规范</strong>：当多个类有一些共同的行为和属性时，可以将这些共同的部分提取到抽象类中，同时定义一些抽象方法，要求子类根据自身的特点去实现这些方法。</li>
+<li><strong>实现多态</strong>：通过抽象类的引用指向子类的对象，可以实现多态，提高代码的灵活性和可扩展性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p><img src="/../images/java/1741265807966.png" alt="1741265807966"></p>
+<p><img src="/../images/java/1741266765499.png" alt="1741266765499"></p>
+<h4 id="接口的定义"><a href="#接口的定义" class="headerlink" title="接口的定义"></a>接口的定义</h4><p>在 Java 中，使用 <code>interface</code> 关键字来定义接口，接口中的方法默认是 <code>public abstract</code> 类型（即抽象方法），字段默认是 <code>public static final</code> 类型（即常量）。</p>
+<pre><code class="java">// 定义一个接口 Animal
+interface Animal &#123;
+    // 常量
+    int LEGS = 4;
+
+    // 抽象方法
+    void eat();
+    void makeSound();
+&#125;
+</code></pre>
+<ul>
+<li><strong>不能实例化</strong>：接口不能使用 <code>new</code> 关键字创建对象，它主要用于被类实现或者被其他接口继承。</li>
+<li><strong>抽象方法</strong>：接口中的方法默认是抽象方法，不需要使用 <code>abstract</code> 关键字修饰，而且这些方法必须由实现类来实现。</li>
+<li><strong>常量</strong>：接口中的字段默认是常量，即 <code>public static final</code> 类型，必须在定义时进行初始化，且初始化后不能再修改。</li>
+<li><strong>多实现</strong>：一个类可以实现多个接口，从而实现多重继承的效果，这弥补了 Java 类只能单继承的局限性。</li>
+</ul>
+<h4 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a>接口的实现</h4><p>类通过 <code>implements</code> 关键字来实现接口，实现接口的类必须实现接口中定义的所有抽象方法。</p>
+<pre><code class="java">// 定义 Dog 类实现 Animal 接口
+class Dog implements Animal &#123;
+    @Override
+    public void eat() &#123;
+        System.out.println(&quot;狗在吃东西&quot;);
+    &#125;
+
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;狗汪汪叫&quot;);
+    &#125;
+&#125;
+
+// 定义 Cat 类实现 Animal 接口
+class Cat implements Animal &#123;
+    @Override
+    public void eat() &#123;
+        System.out.println(&quot;猫在吃东西&quot;);
+    &#125;
+
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;猫喵喵叫&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="接口的继承"><a href="#接口的继承" class="headerlink" title="接口的继承"></a>接口的继承</h4><p>接口可以继承其他接口，使用 <code>extends</code> 关键字，一个接口可以继承多个接口。</p>
+<pre><code class="java">// 定义一个新的接口 Pet，继承自 Animal 接口
+interface Pet extends Animal &#123;
+    void play();
+&#125;
+
+// 定义 Dog 类实现 Pet 接口
+class Dog implements Pet &#123;
+    @Override
+    public void eat() &#123;
+        System.out.println(&quot;狗在吃东西&quot;);
+    &#125;
+
+    @Override
+    public void makeSound() &#123;
+        System.out.println(&quot;狗汪汪叫&quot;);
+    &#125;
+
+    @Override
+    public void play() &#123;
+        System.out.println(&quot;狗在玩耍&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="接口的使用场景"><a href="#接口的使用场景" class="headerlink" title="接口的使用场景"></a>接口的使用场景</h4><ul>
+<li><strong>定义规范</strong>：接口可以定义一组规范，让不同的类去实现这些规范，从而保证这些类具有相同的行为。例如，Java 中的 <code>Runnable</code> 接口，任何实现该接口的类都必须实现 <code>run</code> 方法，这样就可以将这些类的对象作为线程任务来执行。</li>
+<li><strong>实现多态</strong>：通过接口的引用指向实现类的对象，可以实现多态，提高代码的灵活性和可扩展性。</li>
+</ul>
+<pre><code class="java">public class Main &#123;
+    public static void main(String[] args) &#123;
+        // 接口的引用指向实现类对象
+        Animal dog = new Dog();
+        Animal cat = new Cat();
+
+        // 调用接口方法（多态）
+        dog.eat();
+        dog.makeSound();
+        cat.eat();
+        cat.makeSound();
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Java-8-及以后接口的新特性"><a href="#Java-8-及以后接口的新特性" class="headerlink" title="Java 8 及以后接口的新特性"></a>Java 8 及以后接口的新特性</h4><ul>
+<li><strong>默认方法</strong>：Java 8 引入了默认方法，使用 <code>default</code> 关键字修饰，默认方法可以有方法体，实现类可以选择是否重写默认方法。</li>
+</ul>
+<pre><code class="java">interface Animal &#123;
+    void eat();
+    void makeSound();
+
+    // 默认方法
+    default void sleep() &#123;
+        System.out.println(&quot;动物在睡觉&quot;);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>静态方法</strong>：Java 8 还允许接口中定义静态方法，静态方法使用 <code>static</code> 关键字修饰，通过接口名直接调用。</li>
+</ul>
+<pre><code class="java">interface Animal &#123;
+    void eat();
+    void makeSound();
+
+    // 静态方法
+    static void info() &#123;
+        System.out.println(&quot;这是一个动物接口&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><p><img src="/../images/java/1741351878282.png" alt="1741351878282"></p>
+<h4 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h4><p><img src="/../images/java/1741352159174.png" alt="1741352159174"></p>
+<h5 id="定义成员内部类"><a href="#定义成员内部类" class="headerlink" title="定义成员内部类"></a>定义成员内部类</h5><p>成员内部类的定义语法很简单，在外部类的内部直接定义一个新的类即</p>
+<pre><code class="java">// 外部类
+class Outer &#123;
+    // 成员内部类
+    class Inner &#123;
+        // 内部类的方法
+        public void innerMethod() &#123;
+            System.out.println(&quot;这是成员内部类的方法&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="创建成员内部类的对象"><a href="#创建成员内部类的对象" class="headerlink" title="创建成员内部类的对象"></a>创建成员内部类的对象</h5><p>要创建成员内部类的对象，必须先创建外部类的对象，因为成员内部类依赖于外部类的实例存在。创建成员内部类对象的语法如下：</p>
+<pre><code class="java">// 创建外部类对象
+Outer outer = new Outer();
+// 通过外部类对象创建成员内部类对象
+Outer.Inner inner = outer.new Inner();
+</code></pre>
+<h5 id="成员内部类访问外部类成员"><a href="#成员内部类访问外部类成员" class="headerlink" title="成员内部类访问外部类成员"></a>成员内部类访问外部类成员</h5><p>成员内部类可以访问外部类的所有成员，包括私有成员。</p>
+<pre><code class="java">// 外部类
+class Outer &#123;
+    private int outerVariable = 10;
+
+    // 成员内部类
+    class Inner &#123;
+        public void accessOuterVariable() &#123;
+            // 访问外部类的私有成员
+            System.out.println(&quot;外部类的私有变量值: &quot; + outerVariable);
+        &#125;
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Outer outer = new Outer();
+        Outer.Inner inner = outer.new Inner();
+        inner.accessOuterVariable();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="外部类访问成员内部类成员"><a href="#外部类访问成员内部类成员" class="headerlink" title="外部类访问成员内部类成员"></a>外部类访问成员内部类成员</h5><p>外部类也可以访问成员内部类的成员，但需要先创建成员内部类的对象。</p>
+<pre><code class="java">// 外部类
+class Outer &#123;
+    // 成员内部类
+    class Inner &#123;
+        private int innerVariable = 20;
+
+        public void innerMethod() &#123;
+            System.out.println(&quot;这是成员内部类的方法&quot;);
+        &#125;
+    &#125;
+
+    public void accessInnerMembers() &#123;
+        Inner inner = new Inner();
+        // 访问成员内部类的私有变量
+        System.out.println(&quot;成员内部类的私有变量值: &quot; + inner.innerVariable);
+        // 调用成员内部类的方法
+        inner.innerMethod();
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Outer outer = new Outer();
+        outer.accessInnerMembers();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="成员内部类的特点"><a href="#成员内部类的特点" class="headerlink" title="成员内部类的特点"></a>成员内部类的特点</h5><ol>
+<li><strong>依赖外部类实例</strong>：成员内部类的对象必须依赖于外部类的对象才能创建，因为它隐式地持有一个对外部类对象的引用。</li>
+<li><strong>访问外部类成员</strong>：可以访问外部类的所有成员，包括私有成员和静态成员。</li>
+<li><strong>编译后生成独立的.class 文件</strong>：成员内部类编译后会生成独立的 <code>.class</code> 文件，文件名格式为 <code>外部类名$内部类名.class</code>。</li>
+</ol>
+<h5 id="成员内部类的使用场景"><a href="#成员内部类的使用场景" class="headerlink" title="成员内部类的使用场景"></a>成员内部类的使用场景</h5><ol>
+<li><strong>实现多继承效果</strong>：由于 Java 不支持类的多重继承，但通过成员内部类可以在一定程度上实现类似多重继承的效果，一个类可以通过成员内部类继承其他类。</li>
+<li><strong>封装细节</strong>：当一个类的某些功能只与该类的其他成员密切相关，并且不希望被外部直接访问时，可以将这些功能封装在成员内部类中。</li>
+<li><strong>事件处理</strong>：在 GUI 编程中，成员内部类常被用于处理事件，例如按钮点击事件等。</li>
+</ol>
+<h4 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h4><p><img src="/../images/java/1741501103771.png" alt="1741501103771"></p>
+<h5 id="定义静态内部类"><a href="#定义静态内部类" class="headerlink" title="定义静态内部类"></a>定义静态内部类</h5><p>静态内部类的定义和普通内部类类似，只是在类定义前加上 <code>static</code> 关键字。示例代码如下：</p>
+<pre><code class="java">// 外部类
+class OuterClass &#123;
+    // 静态内部类
+    static class StaticInnerClass &#123;
+        public void display() &#123;
+            System.out.println(&quot;这是静态内部类的方法&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="创建静态内部类的对象"><a href="#创建静态内部类的对象" class="headerlink" title="创建静态内部类的对象"></a>创建静态内部类的对象</h5><p>静态内部类不依赖于外部类的实例，因此可以直接创建静态内部类的对象，不需要先创建外部类的对象。创建对象的语法如下：</p>
+<pre><code class="java">OuterClass.StaticInnerClass inner = new OuterClass.StaticInnerClass();
+</code></pre>
+<p>完整示例代码如下：</p>
+<pre><code class="java">class OuterClass &#123;
+    static class StaticInnerClass &#123;
+        public void display() &#123;
+            System.out.println(&quot;这是静态内部类的方法&quot;);
+        &#125;
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        OuterClass.StaticInnerClass inner = new OuterClass.StaticInnerClass();
+        inner.display();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="静态内部类的访问规则"><a href="#静态内部类的访问规则" class="headerlink" title="静态内部类的访问规则"></a>静态内部类的访问规则</h5><h6 id="访问外部类成员"><a href="#访问外部类成员" class="headerlink" title="访问外部类成员"></a>访问外部类成员</h6><p>静态内部类只能直接访问外部类的静态成员（静态变量和静态方法），不能直接访问外部类的非静态成员。如果要访问外部类的非静态成员，需要先创建外部类的对象。示例代码如下：</p>
+<pre><code class="java">class OuterClass &#123;
+    private static int staticVariable = 10;
+    private int nonStaticVariable = 20;
+
+    static class StaticInnerClass &#123;
+        public void accessOuterMembers() &#123;
+            // 可以直接访问外部类的静态成员
+            System.out.println(&quot;外部类的静态变量: &quot; + staticVariable);
+
+            // 不能直接访问外部类的非静态成员，需要创建外部类对象
+            OuterClass outer = new OuterClass();
+            System.out.println(&quot;外部类的非静态变量: &quot; + outer.nonStaticVariable);
+        &#125;
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        OuterClass.StaticInnerClass inner = new OuterClass.StaticInnerClass();
+        inner.accessOuterMembers();
+    &#125;
+&#125;
+</code></pre>
+<h6 id="外部类访问静态内部类成员"><a href="#外部类访问静态内部类成员" class="headerlink" title="外部类访问静态内部类成员"></a>外部类访问静态内部类成员</h6><p>外部类可以直接访问静态内部类的静态成员，如果要访问静态内部类的非静态成员，需要创建静态内部类的对象。示例代码如下：</p>
+<pre><code class="java">class OuterClass &#123;
+    static class StaticInnerClass &#123;
+        private static int staticInnerVariable = 30;
+        private int nonStaticInnerVariable = 40;
+
+        public static void staticInnerMethod() &#123;
+            System.out.println(&quot;静态内部类的静态方法&quot;);
+        &#125;
+
+        public void nonStaticInnerMethod() &#123;
+            System.out.println(&quot;静态内部类的非静态方法&quot;);
+        &#125;
+    &#125;
+
+    public void accessInnerMembers() &#123;
+        // 直接访问静态内部类的静态成员
+        System.out.println(&quot;静态内部类的静态变量: &quot; + StaticInnerClass.staticInnerVariable);
+        StaticInnerClass.staticInnerMethod();
+
+        // 创建静态内部类对象访问其非静态成员
+        StaticInnerClass inner = new StaticInnerClass();
+        System.out.println(&quot;静态内部类的非静态变量: &quot; + inner.nonStaticInnerVariable);
+        inner.nonStaticInnerMethod();
+    &#125;
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        OuterClass outer = new OuterClass();
+        outer.accessInnerMembers();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="静态内部类的特点"><a href="#静态内部类的特点" class="headerlink" title="静态内部类的特点"></a>静态内部类的特点</h5><ol>
+<li><strong>不依赖外部类实例</strong>：静态内部类不持有外部类对象的引用，它的创建不依赖于外部类的实例，这使得它在内存使用和独立性上有一定优势。</li>
+<li><strong>只能访问外部类静态成员</strong>：由于静态内部类不依赖外部类实例，所以只能直接访问外部类的静态成员。</li>
+<li><strong>编译后生成独立的.class 文件</strong>：静态内部类编译后会生成独立的 <code>.class</code> 文件，文件名格式为 <code>外部类名$静态内部类名.class</code>。</li>
+</ol>
+<h5 id="静态内部类的使用场景"><a href="#静态内部类的使用场景" class="headerlink" title="静态内部类的使用场景"></a>静态内部类的使用场景</h5><ol>
+<li><strong>封装相关功能</strong>：当一组功能与某个外部类相关，但又不需要访问外部类的非静态成员时，可以将这些功能封装在静态内部类中，提高代码的模块化程度。</li>
+<li><strong>数据结构嵌套</strong>：在实现一些复杂的数据结构时，如树、图等，静态内部类可以用来表示节点等嵌套结构，使代码结构更清晰。</li>
+</ol>
+<h4 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h4><p><img src="/../images/java/1741501971643.png" alt="1741501971643"></p>
+<h5 id="定义局部内部类"><a href="#定义局部内部类" class="headerlink" title="定义局部内部类"></a>定义局部内部类</h5><p>局部内部类定义在方法、构造函数或者代码块内部，其定义语法和普通类类似，但只能在定义它的作用域内使用。以下是在方法内部定义局部内部类的示例：</p>
+<pre><code class="java">public class OuterClass &#123;
+    public void outerMethod() &#123;
+        // 局部内部类
+        class LocalInnerClass &#123;
+            public void display() &#123;
+                System.out.println(&quot;这是局部内部类的方法&quot;);
+            &#125;
+        &#125;
+        // 在方法内部创建局部内部类的对象并调用方法
+        LocalInnerClass inner = new LocalInnerClass();
+        inner.display();
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>LocalInnerClass</code> 是定义在 <code>outerMethod</code> 方法内部的局部内部类，只能在 <code>outerMethod</code> 方法内部使用。</p>
+<h5 id="局部内部类的特点"><a href="#局部内部类的特点" class="headerlink" title="局部内部类的特点"></a>局部内部类的特点</h5><ol>
+<li><strong>作用域受限</strong>：局部内部类只能在定义它的方法、构造函数或代码块内部使用，出了这个作用域就无法访问。</li>
+<li><strong>访问外部类成员</strong>：局部内部类可以访问外部类的所有成员，包括私有成员。</li>
+<li><strong>访问局部变量</strong>：局部内部类可以访问定义它的方法中的 <code>final</code> 或 <code>effectively final</code>（Java 8 及以后，若变量值在初始化后未被修改，可视为 <code>effectively final</code>）局部变量。</li>
+<li><strong>编译后生成独立的.class 文件</strong>：局部内部类编译后会生成独立的 <code>.class</code> 文件，文件名格式为 <code>外部类名$数字局部内部类名.class</code>，其中数字用于区分不同位置的局部内部类。</li>
+</ol>
+<h5 id="访问规则"><a href="#访问规则" class="headerlink" title="访问规则"></a>访问规则</h5><h6 id="访问外部类成员-1"><a href="#访问外部类成员-1" class="headerlink" title="访问外部类成员"></a>访问外部类成员</h6><p>局部内部类可以直接访问外部类的所有成员，包括私有成员。示例代码如下：</p>
+<pre><code class="java">public class OuterClass &#123;
+    private int outerVariable = 10;
+
+    public void outerMethod() &#123;
+        class LocalInnerClass &#123;
+            public void accessOuterVariable() &#123;
+                // 访问外部类的私有成员
+                System.out.println(&quot;外部类的私有变量: &quot; + outerVariable);
+            &#125;
+        &#125;
+        LocalInnerClass inner = new LocalInnerClass();
+        inner.accessOuterVariable();
+    &#125;
+&#125;
+</code></pre>
+<h6 id="访问局部变量"><a href="#访问局部变量" class="headerlink" title="访问局部变量"></a>访问局部变量</h6><p>局部内部类可以访问定义它的方法中的 <code>final</code> 或 <code>effectively final</code> 局部变量。示例代码如下：</p>
+<pre><code class="java">public class OuterClass &#123;
+    public void outerMethod() &#123;
+        // effectively final 局部变量
+        int localVar = 20;
+        class LocalInnerClass &#123;
+            public void accessLocalVariable() &#123;
+                // 访问局部变量
+                System.out.println(&quot;局部变量的值: &quot; + localVar);
+            &#125;
+        &#125;
+        LocalInnerClass inner = new LocalInnerClass();
+        inner.accessLocalVariable();
+    &#125;
+&#125;
+</code></pre>
+<p>需要注意的是，如果尝试修改 <code>localVar</code> 的值，就会破坏其 <code>effectively final</code> 的特性，局部内部类将无法再访问该变量。</p>
+<h5 id="局部内部类的使用场景"><a href="#局部内部类的使用场景" class="headerlink" title="局部内部类的使用场景"></a>局部内部类的使用场景</h5><ol>
+<li><strong>封装特定逻辑</strong>：当某个功能只在方法内部使用，且该功能有一定的复杂性，需要封装成类时，可以使用局部内部类。</li>
+<li><strong>实现临时接口或抽象类</strong>：在方法内部需要实现某个接口或继承某个抽象类，并且这个实现只在该方法内部使用时，使用局部内部类可以避免创建过多的外部类，使代码更加简洁。</li>
+</ol>
+<h5 id="完整示例代码"><a href="#完整示例代码" class="headerlink" title="完整示例代码"></a>完整示例代码</h5><pre><code class="java">public class OuterClass &#123;
+    private int outerVariable = 10;
+
+    public void outerMethod() &#123;
+        // effectively final 局部变量
+        int localVar = 20;
+
+        // 局部内部类
+        class LocalInnerClass &#123;
+            public void accessOuterVariable() &#123;
+                // 访问外部类的私有成员
+                System.out.println(&quot;外部类的私有变量: &quot; + outerVariable);
+            &#125;
+
+            public void accessLocalVariable() &#123;
+                // 访问局部变量
+                System.out.println(&quot;局部变量的值: &quot; + localVar);
+            &#125;
+        &#125;
+
+        // 创建局部内部类的对象并调用方法
+        LocalInnerClass inner = new LocalInnerClass();
+        inner.accessOuterVariable();
+        inner.accessLocalVariable();
+    &#125;
+
+    public static void main(String[] args) &#123;
+        OuterClass outer = new OuterClass();
+        outer.outerMethod();
+    &#125;
+&#125;
+</code></pre>
+<p>在上述完整示例中，我们展示了局部内部类如何访问外部类的私有成员和方法内的局部变量，同时演示了如何在方法内部创建局部内部类的对象并调用其方法。</p>
+<h4 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h4><p><img src="/../images/java/1741507808267.png" alt="1741507808267"></p>
+<h5 id="定义与基本语法"><a href="#定义与基本语法" class="headerlink" title="定义与基本语法"></a>定义与基本语法</h5><p>匿名内部类通常用于创建一个实现某个接口或者继承某个类的对象，并且在创建对象的同时实现接口的抽象方法或者重写父类的方法。基本语法如下：</p>
+<h5 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h5><pre><code class="java">interface MyInterface &#123;
+    void doSomething();
+&#125;
+
+public class AnonymousInnerClassExample &#123;
+    public static void main(String[] args) &#123;
+        // 匿名内部类实现接口
+        MyInterface myInterface = new MyInterface() &#123;
+            @Override
+            public void doSomething() &#123;
+                System.out.println(&quot;执行接口的方法&quot;);
+            &#125;
+        &#125;;
+        myInterface.doSomething();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="继承类"><a href="#继承类" class="headerlink" title="继承类"></a>继承类</h5><pre><code class="java">class MyClass &#123;
+    public void display() &#123;
+        System.out.println(&quot;父类的方法&quot;);
+    &#125;
+&#125;
+
+public class AnonymousInnerClassExample2 &#123;
+    public static void main(String[] args) &#123;
+        // 匿名内部类继承类
+        MyClass myClass = new MyClass() &#123;
+            @Override
+            public void display() &#123;
+                System.out.println(&quot;重写父类的方法&quot;);
+            &#125;
+        &#125;;
+        myClass.display();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ol>
+<li><strong>没有类名</strong>：匿名内部类没有显式的类名，它的定义和对象的创建是同时进行的。</li>
+<li><strong>一次性使用</strong>：通常用于创建一次性的对象，只在当前使用的地方有效，不会被其他地方复用。</li>
+<li><strong>隐式继承或实现</strong>：匿名内部类必须继承一个类或者实现一个接口，并且只能继承一个类或者实现一个接口。</li>
+<li><strong>访问外部变量</strong>：可以访问外部类的成员变量和方法，对于方法中的局部变量，要求该变量是 <code>final</code> 或 <code>effectively final</code>（Java 8 及以后，若变量值在初始化后未被修改，可视为 <code>effectively final</code>）。</li>
+</ol>
+<h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li><strong>事件处理</strong>：在 GUI 编程中，经常使用匿名内部类来处理事件，例如按钮点击事件、鼠标事件等。</li>
+</ol>
+<pre><code class="java">import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class EventHandlingExample &#123;
+    public static void main(String[] args) &#123;
+        JFrame frame = new JFrame(&quot;匿名内部类事件处理&quot;);
+        JButton button = new JButton(&quot;点击我&quot;);
+
+        // 匿名内部类处理按钮点击事件
+        button.addActionListener(new ActionListener() &#123;
+            @Override
+            public void actionPerformed(ActionEvent e) &#123;
+                JOptionPane.showMessageDialog(frame, &quot;按钮被点击了&quot;);
+            &#125;
+        &#125;);
+
+        frame.add(button);
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    &#125;
+&#125;
+</code></pre>
+<ol>
+<li><strong>回调机制</strong>：当需要传递一个实现了特定接口的对象作为回调时，可以使用匿名内部类简化代码。</li>
+<li><strong>简化代码</strong>：当某个类只需要使用一次，且实现逻辑比较简单时，使用匿名内部类可以避免创建过多的类文件，使代码更加简洁。</li>
+</ol>
+<h5 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h5><ol>
+<li><strong>构造函数</strong>：由于匿名内部类没有类名，所以不能有显式的构造函数。如果需要进行初始化操作，可以使用实例初始化块。</li>
+</ol>
+<pre><code class="java">abstract class MyAbstractClass &#123;
+    abstract void display();
+&#125;
+
+public class InitializationExample &#123;
+    public static void main(String[] args) &#123;
+        MyAbstractClass myAbstractClass = new MyAbstractClass() &#123;
+            int value;
+
+            // 实例初始化块
+            &#123;
+                value = 10;
+            &#125;
+
+            @Override
+            public void display() &#123;
+                System.out.println(&quot;值为: &quot; + value);
+            &#125;
+        &#125;;
+        myAbstractClass.display();
+    &#125;
+&#125;
+</code></pre>
+<ol start="2">
+<li><strong>方法重写</strong>：如果实现接口，必须实现接口中的所有抽象方法；如果继承类，通常需要重写父类的方法来实现特定的逻辑。</li>
+</ol>
+<h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><p><img src="/../images/java/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-09%20161258.png"></p>
+<h4 id="自定义枚举"><a href="#自定义枚举" class="headerlink" title="自定义枚举"></a>自定义枚举</h4><p><img src="/../images/java/1741509009547.png" alt="1741509009547"></p>
+<h4 id="enum枚举类"><a href="#enum枚举类" class="headerlink" title="enum枚举类"></a>enum枚举类</h4><p><img src="/../images/java/1741509045726.png" alt="1741509045726"></p>
+<h4 id="定义枚举类"><a href="#定义枚举类" class="headerlink" title="定义枚举类"></a>定义枚举类</h4><p>使用 <code>enum</code> 关键字来定义枚举类，语法如下：</p>
+<pre><code class="java">enum Season &#123;
+    SPRING, SUMMER, AUTUMN, WINTER
+&#125;
+</code></pre>
+<p>在上述代码中，<code>Season</code> 是一个枚举类，它包含四个枚举常量：<code>SPRING</code>、<code>SUMMER</code>、<code>AUTUMN</code> 和 <code>WINTER</code>。每个枚举常量都是 <code>Season</code> 类的一个实例。</p>
+<h4 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h4><h5 id="遍历枚举常量"><a href="#遍历枚举常量" class="headerlink" title="遍历枚举常量"></a>遍历枚举常量</h5><p>可以使用 <code>values()</code> 方法获取枚举类的所有枚举常量，并进行遍历。</p>
+<pre><code class="java">enum Season &#123;
+    SPRING, SUMMER, AUTUMN, WINTER
+&#125;
+
+public class EnumExample &#123;
+    public static void main(String[] args) &#123;
+        // 遍历枚举常量
+        for (Season season : Season.values()) &#123;
+            System.out.println(season);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="根据名称获取枚举常量"><a href="#根据名称获取枚举常量" class="headerlink" title="根据名称获取枚举常量"></a>根据名称获取枚举常量</h5><p>可以使用 <code>valueOf()</code> 方法根据枚举常量的名称获取对应的枚举实例。</p>
+<pre><code class="java">enum Season &#123;
+    SPRING, SUMMER, AUTUMN, WINTER
+&#125;
+
+public class EnumExample &#123;
+    public static void main(String[] args) &#123;
+        Season season = Season.valueOf(&quot;SPRING&quot;);
+        System.out.println(season);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="枚举类的特性"><a href="#枚举类的特性" class="headerlink" title="枚举类的特性"></a>枚举类的特性</h4><h5 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h5><p>枚举类可以有构造函数，但构造函数必须是私有的，以确保枚举常量的唯一性。可以为枚举常量添加属性和方法。</p>
+<pre><code class="java">enum Season &#123;
+    SPRING(&quot;春天&quot;), SUMMER(&quot;夏天&quot;), AUTUMN(&quot;秋天&quot;), WINTER(&quot;冬天&quot;);
+
+    private String description;
+
+    // 私有构造函数
+    private Season(String description) &#123;
+        this.description = description;
+    &#125;
+
+    public String getDescription() &#123;
+        return description;
+    &#125;
+&#125;
+
+public class EnumExample &#123;
+    public static void main(String[] args) &#123;
+        for (Season season : Season.values()) &#123;
+            System.out.println(season + &quot;: &quot; + season.getDescription());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="实现接口-1"><a href="#实现接口-1" class="headerlink" title="实现接口"></a>实现接口</h5><p>枚举类可以实现接口，为每个枚举常量提供不同的实现。</p>
+<pre><code class="java">interface SeasonActivity &#123;
+    void activity();
+&#125;
+
+enum Season implements SeasonActivity &#123;
+    SPRING &#123;
+        @Override
+        public void activity() &#123;
+            System.out.println(&quot;春天适合踏青&quot;);
+        &#125;
+    &#125;,
+    SUMMER &#123;
+        @Override
+        public void activity() &#123;
+            System.out.println(&quot;夏天适合游泳&quot;);
+        &#125;
+    &#125;,
+    AUTUMN &#123;
+        @Override
+        public void activity() &#123;
+            System.out.println(&quot;秋天适合赏菊&quot;);
+        &#125;
+    &#125;,
+    WINTER &#123;
+        @Override
+        public void activity() &#123;
+            System.out.println(&quot;冬天适合滑雪&quot;);
+        &#125;
+    &#125;;
+&#125;
+
+public class EnumExample &#123;
+    public static void main(String[] args) &#123;
+        for (Season season : Season.values()) &#123;
+            season.activity();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><h5 id="状态表示"><a href="#状态表示" class="headerlink" title="状态表示"></a>状态表示</h5><p>在程序中，经常需要表示一些固定的状态，如订单状态（未支付、已支付、已发货等）、用户状态（正常、冻结、注销等），使用枚举类可以使代码更加清晰。</p>
+<pre><code class="java">enum OrderStatus &#123;
+    UNPAID, PAID, SHIPPED, DELIVERED
+&#125;
+
+public class Order &#123;
+    private OrderStatus status;
+
+    public Order(OrderStatus status) &#123;
+        this.status = status;
+    &#125;
+
+    public OrderStatus getStatus() &#123;
+        return status;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        Order order = new Order(OrderStatus.PAID);
+        System.out.println(&quot;订单状态: &quot; + order.getStatus());
+    &#125;
+&#125;
+</code></pre>
+<h5 id="配置选项"><a href="#配置选项" class="headerlink" title="配置选项"></a>配置选项</h5><p>当需要定义一组固定的配置选项时，枚举类也是一个很好的选择，如颜色选项、文件格式等。</p>
+<h4 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>枚举常量默认是 <code>public static final</code> 的，并且是单例的，在整个程序中只有一个实例。</li>
+<li>枚举类不能被继承，但可以实现接口。</li>
+<li>枚举类的 <code>values()</code>、<code>valueOf()</code> 等方法是编译器自动添加的，它们是 <code>java.lang.Enum</code> 类的子类的方法。</li>
+</ul>
+<h4 id="枚举类的相关方法"><a href="#枚举类的相关方法" class="headerlink" title="枚举类的相关方法"></a>枚举类的相关方法</h4><p><img src="/../images/java/1741513183213.png" alt="1741513183213"></p>
+<ol start="2">
+<li>values()&#96;方法</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：这是编译器为枚举类自动生成的方法，它返回一个包含该枚举类所有枚举常量的数组，数组中元素的顺序就是枚举常量在枚举类中声明的顺序。</li>
+<li><strong>示例</strong></li>
+</ul>
+<pre><code class="java">enum Color &#123;
+    RED, GREEN, BLUE
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Color[] colors = Color.values();
+        for (Color color : colors) &#123;
+            System.out.println(color);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<ol start="3">
+<li><code>valueOf()</code>方法</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：根据给定的字符串名称返回对应的枚举常量。字符串必须与枚举常量的名称完全匹配（包括大小写），否则会抛出<code>IllegalArgumentException</code>异常。</li>
+<li><strong>示例</strong></li>
+</ul>
+<pre><code class="java">enum Color &#123;
+    RED, GREEN, BLUE
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Color color = Color.valueOf(&quot;RED&quot;);
+        System.out.println(color);
+    &#125;
+&#125;
+</code></pre>
+<ol start="4">
+<li><code>ordinal()</code>方法</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：返回枚举常量在枚举类中的声明顺序，从 0 开始计数。</li>
+<li><strong>示例</strong></li>
+</ul>
+<pre><code class="java">enum Color &#123;
+    RED, GREEN, BLUE
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(Color.RED.ordinal()); 
+        System.out.println(Color.GREEN.ordinal()); 
+        System.out.println(Color.BLUE.ordinal()); 
+    &#125;
+&#125;
+</code></pre>
+<ol start="6">
+<li><code>compareTo()</code>方法</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：用于比较两个枚举常量的顺序。它基于枚举常量的<code>ordinal</code>值进行比较，如果当前枚举常量的<code>ordinal</code>值小于参数枚举常量的<code>ordinal</code>值，则返回负整数；如果相等，则返回 0；如果大于，则返回正整数。</li>
+<li><strong>示例</strong></li>
+</ul>
+<pre><code class="java">enum Color &#123;
+    RED, GREEN, BLUE
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(Color.RED.compareTo(Color.GREEN)); 
+        System.out.println(Color.GREEN.compareTo(Color.GREEN)); 
+        System.out.println(Color.BLUE.compareTo(Color.GREEN)); 
+    &#125;
+&#125;
+</code></pre>
+<ol start="7">
+<li><code>name()</code>方法</li>
+</ol>
+<ul>
+<li><strong>作用</strong>：返回枚举常量的名称，与在枚举类中声明的名称一致。</li>
+<li><strong>示例</strong></li>
+</ul>
+<pre><code class="java">enum Color &#123;
+    RED, GREEN, BLUE
+&#125;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(Color.RED.name()); 
+    &#125;
+&#125;
+</code></pre>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p><img src="/../images/java/1741513669438.png" alt="1741513669438"></p>
+<h4 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h4><p>使用 <code>@interface</code> 关键字来定义注解，注解的定义类似于接口的定义。示例如下：</p>
+<pre><code class="java">// 定义一个简单的注解
+public @interface MyAnnotation &#123;
+    // 定义注解的属性
+    String value() default &quot;&quot;;
+    int count() default 0;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>MyAnnotation</code> 是一个自定义注解，它包含两个属性：<code>value</code> 和 <code>count</code>，并分别为它们设置了默认值。</p>
+<h4 id="内置注解"><a href="#内置注解" class="headerlink" title="内置注解"></a>内置注解</h4><p>Java 提供了一些内置注解，用于在不同场景下提供特定的元数据信息。</p>
+<ul>
+<li>**<code>@Override</code>**：用于标记一个方法是重写父类的方法。编译器会检查该方法是否真的重写了父类的方法，如果没有则会报错。</li>
+</ul>
+<pre><code class="java">class Parent &#123;
+    public void display() &#123;
+        System.out.println(&quot;父类的方法&quot;);
+    &#125;
+&#125;
+
+class Child extends Parent &#123;
+    @Override
+    public void display() &#123;
+        System.out.println(&quot;子类重写的方法&quot;);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>@Deprecated</code>**：用于标记一个类、方法或字段已经过时，不建议再使用。编译器会在使用这些元素时给出警告。</li>
+</ul>
+<pre><code class="java">class MyClass &#123;
+    @Deprecated
+    public void oldMethod() &#123;
+        System.out.println(&quot;这是一个过时的方法&quot;);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>@SuppressWarnings</code>**：用于抑制编译器的警告信息。可以指定要抑制的警告类型，如 <code>unchecked</code>、<code>deprecation</code> 等。</li>
+</ul>
+<pre><code class="java">@SuppressWarnings(&quot;unchecked&quot;)
+public void test() &#123;
+    java.util.List list = new java.util.ArrayList();
+    // 这里不会出现未检查类型转换的警告
+&#125;
+</code></pre>
+<h4 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h4><p>自定义注解可以根据具体需求定义属性和使用规则。</p>
+<pre><code class="java">// 定义一个自定义注解
+public @interface MyAnnotation &#123;
+    String value() default &quot;&quot;;
+    int count() default 0;
+&#125;
+
+// 使用自定义注解
+@MyAnnotation(value = &quot;测试注解&quot;, count = 5)
+public class MyClass &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;使用自定义注解的类&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p><img src="/../images/java/1741515069168.png" alt="1741515069168"></p>
+<p><img src="/../images/java/1741515612811.png" alt="1741515612811"></p>
+<h4 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try-catch-finally"></a><code>try-catch-finally</code></h4><p><img src="/../images/java/1741515823233.png" alt="1741515823233"></p>
+<h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><p><code>try-catch</code> 语句块的基本语法如下：</p>
+<pre><code class="java">try &#123;
+    // 可能会抛出异常的代码
+&#125; catch (ExceptionType1 e1) &#123;
+    // 处理 ExceptionType1 类型异常的代码
+&#125; catch (ExceptionType2 e2) &#123;
+    // 处理 ExceptionType2 类型异常的代码
+&#125; 
+</code></pre>
+<p>其中，<code>try</code> 块中放置可能会抛出异常的代码，<code>catch</code> 块用于捕获并处理特定类型的异常。每个 <code>catch</code> 块可以捕获一种特定类型的异常，当 <code>try</code> 块中的代码抛出异常时，会依次检查各个 <code>catch</code> 块，找到匹配的异常类型并执行相应的处理代码。</p>
+<h5 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h5><p>下面通过一个简单的示例来展示 <code>try-catch</code> 语句块的执行流程：</p>
+<pre><code class="java">public class TryCatchExample &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            int result = 10 / 0; // 这行代码会抛出 ArithmeticException 异常
+            System.out.println(&quot;结果: &quot; + result);
+        &#125; catch (ArithmeticException e) &#123;
+            System.out.println(&quot;捕获到算术异常: &quot; + e.getMessage());
+        &#125;
+        System.out.println(&quot;程序继续执行&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>try</code> 块中的 <code>10 / 0</code> 会抛出 <code>ArithmeticException</code> 异常，此时程序会立即跳转到对应的 <code>catch</code> 块中执行异常处理代码，输出异常信息。然后程序会继续执行 <code>catch</code> 块之后的代码，输出 “程序继续执行”。</p>
+<h5 id="多-catch-块"><a href="#多-catch-块" class="headerlink" title="多 catch 块"></a>多 <code>catch</code> 块</h5><p>可以使用多个 <code>catch</code> 块来捕获不同类型的异常，按照异常类型的顺序依次进行匹配。需要注意的是，子类异常的 <code>catch</code> 块要放在父类异常的 <code>catch</code> 块之前，否则子类异常将无法被捕获。</p>
+<pre><code class="java">public class MultipleCatchExample &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            int[] arr = new int[5];
+            System.out.println(arr[10]); // 这行代码会抛出 ArrayIndexOutOfBoundsException 异常
+            int result = 10 / 0; // 这行代码不会执行，因为前面已经抛出异常
+        &#125; catch (ArrayIndexOutOfBoundsException e) &#123;
+            System.out.println(&quot;捕获到数组越界异常: &quot; + e.getMessage());
+        &#125; catch (ArithmeticException e) &#123;
+            System.out.println(&quot;捕获到算术异常: &quot; + e.getMessage());
+        &#125; catch (Exception e) &#123;
+            System.out.println(&quot;捕获到其他异常: &quot; + e.getMessage());
+        &#125;
+        System.out.println(&quot;程序继续执行&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>try</code> 块中的 <code>arr[10]</code> 会抛出 <code>ArrayIndexOutOfBoundsException</code> 异常，程序会跳转到对应的 <code>catch</code> 块中执行异常处理代码。由于异常已经被捕获，后面的 <code>10 / 0</code> 代码不会执行。</p>
+<h5 id="finally-块"><a href="#finally-块" class="headerlink" title="finally 块"></a><code>finally</code> 块</h5><p><code>finally</code> 块是可选的，它通常跟在 <code>try-catch</code> 语句块之后，无论 <code>try</code> 块中的代码是否抛出异常，<code>finally</code> 块中的代码都会被执行。</p>
+<pre><code class="java">public class FinallyExample &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            int result = 10 / 0; // 这行代码会抛出 ArithmeticException 异常
+            System.out.println(&quot;结果: &quot; + result);
+        &#125; catch (ArithmeticException e) &#123;
+            System.out.println(&quot;捕获到算术异常: &quot; + e.getMessage());
+        &#125; finally &#123;
+            System.out.println(&quot;finally 块中的代码一定会执行&quot;);
+        &#125;
+        System.out.println(&quot;程序继续执行&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>try</code> 块中的 <code>10 / 0</code> 会抛出 <code>ArithmeticException</code> 异常，程序会跳转到 <code>catch</code> 块中执行异常处理代码，然后执行 <code>finally</code> 块中的代码，最后继续执行 <code>finally</code> 块之后的代码。</p>
+<h5 id="异常处理的注意事项"><a href="#异常处理的注意事项" class="headerlink" title="异常处理的注意事项"></a>异常处理的注意事项</h5><ul>
+<li><strong>异常类型匹配</strong>：<code>catch</code> 块中的异常类型要与 <code>try</code> 块中可能抛出的异常类型相匹配，确保能够捕获到相应的异常。</li>
+<li><strong>子类异常在前</strong>：在使用多个 <code>catch</code> 块时，子类异常的 <code>catch</code> 块要放在父类异常的 <code>catch</code> 块之前，避免子类异常被父类异常的 <code>catch</code> 块捕获。</li>
+<li><strong><code>finally</code> 块的使用</strong>：<code>finally</code> 块通常用于释放资源，如关闭文件、数据库连接等，确保资源在任何情况下都能被正确释放。</li>
+</ul>
+<h4 id="throws-与-throw"><a href="#throws-与-throw" class="headerlink" title="throws 与 throw"></a><code>throws</code> 与 <code>throw</code></h4><p><img src="/../images/java/1741516755212.png" alt="1741516755212"></p>
+<h5 id="throws-关键字"><a href="#throws-关键字" class="headerlink" title="throws 关键字"></a>throws 关键字</h5><h6 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h6><p><code>throws</code> 关键字用于方法声明处，用于声明该方法可能会抛出的异常类型。它告知调用者，这个方法在执行过程中可能会产生某些异常，调用者需要对这些异常进行处理或者继续向上抛出。</p>
+<h6 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h6><pre><code class="java">修饰符 返回值类型 方法名(参数列表) throws 异常类型1, 异常类型2, ... &#123;
+    // 方法体
+&#125;
+</code></pre>
+<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6><pre><code class="java">import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class ThrowsExample &#123;
+    // 声明该方法可能会抛出 FileNotFoundException 异常
+    public void readFile() throws FileNotFoundException &#123;
+        // 尝试打开一个文件，如果文件不存在会抛出 FileNotFoundException 异常
+        FileInputStream fis = new FileInputStream(&quot;nonexistentfile.txt&quot;);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        ThrowsExample example = new ThrowsExample();
+        try &#123;
+            example.readFile();
+        &#125; catch (FileNotFoundException e) &#123;
+            System.out.println(&quot;文件未找到: &quot; + e.getMessage());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在上述示例中，<code>readFile</code> 方法使用 <code>throws</code> 关键字声明可能会抛出 <code>FileNotFoundException</code> 异常。在 <code>main</code> 方法中调用 <code>readFile</code> 方法时，需要使用 <code>try-catch</code> 语句块来捕获并处理该异常。</p>
+<h6 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h6><ul>
+<li><code>throws</code> 后面可以跟多个异常类型，多个异常类型之间用逗号分隔。</li>
+<li>如果一个方法声明了可能会抛出某个异常，但实际上该方法内部并没有抛出该异常，也是合法的。</li>
+<li>子类重写父类的方法时，如果父类方法声明了某些异常，子类方法可以不声明这些异常，也可以声明父类方法声明的异常的子类异常，但不能声明比父类方法声明的异常范围更大的异常。</li>
+</ul>
+<h5 id="throw-关键字"><a href="#throw-关键字" class="headerlink" title="throw 关键字"></a>throw 关键字</h5><h6 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h6><p><code>throw</code> 关键字用于在方法内部手动抛出一个异常对象。当程序执行到 <code>throw</code> 语句时，会立即停止当前方法的执行，并将异常对象抛出给调用者。</p>
+<h6 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h6><pre><code class="java">throw 异常对象;
+</code></pre>
+<h6 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h6><pre><code class="java">public class ThrowExample &#123;
+    public void checkAge(int age) &#123;
+        if (age &lt; 0) &#123;
+            // 手动抛出 IllegalArgumentException 异常
+            throw new IllegalArgumentException(&quot;年龄不能为负数&quot;);
+        &#125;
+        System.out.println(&quot;年龄合法: &quot; + age);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        ThrowExample example = new ThrowExample();
+        try &#123;
+            example.checkAge(-5);
+        &#125; catch (IllegalArgumentException e) &#123;
+            System.out.println(&quot;捕获到异常: &quot; + e.getMessage());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在上述示例中，<code>checkAge</code> 方法内部检查传入的 <code>age</code> 参数，如果 <code>age</code> 小于 0，则使用 <code>throw</code> 关键字手动抛出一个 <code>IllegalArgumentException</code> 异常。在 <code>main</code> 方法中调用 <code>checkAge</code> 方法时，使用 <code>try-catch</code> 语句块来捕获并处理该异常。</p>
+<h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><p>Java 提供了 8 种基本数据类型，对应有 8 个包装类，具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>byte</code></td>
+<td><code>Byte</code></td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td><code>Short</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>Integer</code></td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td><code>Long</code></td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td><code>Float</code></td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td><code>Double</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>Character</code></td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>Boolean</code></td>
+</tr>
+</tbody></table>
+<h4 id="自动装箱与拆箱"><a href="#自动装箱与拆箱" class="headerlink" title="自动装箱与拆箱"></a>自动装箱与拆箱</h4><ul>
+<li><strong>自动装箱</strong>：将基本数据类型自动转换为对应的包装类对象。例如，将 <code>int</code> 类型的值赋给 <code>Integer</code> 类型的变量时，会自动进行装箱操作。</li>
+</ul>
+<pre><code class="java">int num = 10;
+Integer integerObj = num; // 自动装箱
+</code></pre>
+<ul>
+<li><strong>自动拆箱</strong>：将包装类对象自动转换为对应的基本数据类型。例如，将 <code>Integer</code> 类型的对象赋给 <code>int</code> 类型的变量时，会自动进行拆箱操作。</li>
+</ul>
+<pre><code class="java">Integer integerObj = 20;
+int num = integerObj; // 自动拆箱
+</code></pre>
+<h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><p>不同的包装类提供了一些常用的方法，以下以 <code>Integer</code> 类为例进行介绍：</p>
+<ul>
+<li><strong><code>valueOf()</code> 方法</strong>：用于将基本数据类型或字符串转换为包装类对象。</li>
+</ul>
+<pre><code class="java">Integer intObj1 = Integer.valueOf(30);
+Integer intObj2 = Integer.valueOf(&quot;40&quot;);
+</code></pre>
+<ul>
+<li><strong><code>parseInt()</code> 方法</strong>：用于将字符串转换为 <code>int</code> 类型。</li>
+</ul>
+<pre><code class="java">int num = Integer.parseInt(&quot;50&quot;);
+</code></pre>
+<ul>
+<li><strong><code>toString()</code> 方法</strong>：用于将包装类对象转换为字符串。</li>
+</ul>
+<pre><code class="java">Integer intObj = 60;
+String str = intObj.toString();
+</code></pre>
+<ul>
+<li><strong><code>compareTo()</code> 方法</strong>：用于比较两个包装类对象的大小。</li>
+</ul>
+<pre><code class="java">Integer intObj1 = 70;
+Integer intObj2 = 80;
+int result = intObj1.compareTo(intObj2);
+if (result &lt; 0) &#123;
+    System.out.println(&quot;intObj1 小于 intObj2&quot;);
+&#125; else if (result == 0) &#123;
+    System.out.println(&quot;intObj1 等于 intObj2&quot;);
+&#125; else &#123;
+    System.out.println(&quot;intObj1 大于 intObj2&quot;);
+&#125;
+</code></pre>
+<h4 id="缓存机制"><a href="#缓存机制" class="headerlink" title="缓存机制"></a>缓存机制</h4><p>部分包装类（如 <code>Integer</code>、<code>Byte</code>、<code>Short</code>、<code>Long</code>、<code>Character</code>）存在缓存机制，对于一些常用的值，会将其对应的包装类对象缓存起来，当再次使用相同的值时，会直接从缓存中获取对象，而不是重新创建。</p>
+<pre><code class="java">Integer a = 10;
+Integer b = 10;
+System.out.println(a == b); // 输出 true，因为使用了缓存
+
+Integer c = 128;
+Integer d = 128;
+System.out.println(c == d); // 输出 false，超出了缓存范围
+</code></pre>
+<p><code>Integer</code> 类的缓存范围是 -128 到 127，不同的包装类缓存范围可能不同。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><img src="/../images/java/1741527233539.png" alt="1741527233539"></p>
+<h4 id="1-String-类的创建"><a href="#1-String-类的创建" class="headerlink" title="1. String 类的创建"></a>1. <code>String</code> 类的创建</h4><p>在 Java 中创建 <code>String</code> 对象有多种方式，常见的如下：</p>
+<h5 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h5><pre><code class="java">String str1 = &quot;Hello&quot;;
+</code></pre>
+<p>这种方式会先检查字符串常量池中是否已经存在 <code>&quot;Hello&quot;</code> 这个字符串，如果存在则直接引用该字符串，若不存在则在常量池中创建该字符串对象。</p>
+<h5 id="使用-new-关键字"><a href="#使用-new-关键字" class="headerlink" title="使用 new 关键字"></a>使用 <code>new</code> 关键字</h5><pre><code class="java">String str2 = new String(&quot;World&quot;);
+</code></pre>
+<p>使用 <code>new</code> 关键字会在堆内存中创建一个新的 <code>String</code> 对象，即使字符串常量池中已经存在相同内容的字符串。</p>
+<h4 id="2-String-类的不可变性"><a href="#2-String-类的不可变性" class="headerlink" title="2. String 类的不可变性"></a>2. <code>String</code> 类的不可变性</h4><p><code>String</code> 类的对象是不可变的，这意味着一旦一个 <code>String</code> 对象被创建，它的内容就不能被修改。例如：</p>
+<pre><code class="java">String str = &quot;Java&quot;;
+str = str + &quot; Programming&quot;;
+</code></pre>
+<p>这里看似 <code>str</code> 的内容发生了改变，但实际上是创建了一个新的 <code>String</code> 对象 <code>&quot;Java Programming&quot;</code>，并让 <code>str</code> 引用这个新对象，原来的 <code>&quot;Java&quot;</code> 对象依然存在于内存中。</p>
+<p><code>String</code> 类不可变的好处主要有安全性、线程安全、可以作为哈希表的键等。</p>
+<h4 id="3-String-类的常用方法"><a href="#3-String-类的常用方法" class="headerlink" title="3. String 类的常用方法"></a>3. <code>String</code> 类的常用方法</h4><h5 id="获取字符串长度"><a href="#获取字符串长度" class="headerlink" title="获取字符串长度"></a>获取字符串长度</h5><pre><code class="java">String str = &quot;Example&quot;;
+int length = str.length(); // 返回 7
+</code></pre>
+<h5 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h5><pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = &quot; World&quot;;
+String result = str1.concat(str2); // 结果为 &quot;Hello World&quot;
+</code></pre>
+<h5 id="字符串查找"><a href="#字符串查找" class="headerlink" title="字符串查找"></a>字符串查找</h5><pre><code class="java">String str = &quot;Java Programming&quot;;
+int index = str.indexOf(&quot;Programming&quot;); // 返回 5
+</code></pre>
+<h5 id="字符串截取"><a href="#字符串截取" class="headerlink" title="字符串截取"></a>字符串截取</h5><pre><code class="java">String str = &quot;Java Programming&quot;;
+String subStr = str.substring(5); // 结果为 &quot;Programming&quot;
+String subStr2 = str.substring(5, 10); // 结果为 &quot;Progr&quot;
+</code></pre>
+<h5 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h5><pre><code class="java">String str = &quot;Java Programming&quot;;
+String newStr = str.replace(&quot;Java&quot;, &quot;Python&quot;); // 结果为 &quot;Python Programming&quot;
+</code></pre>
+<h5 id="字符串大小写转换"><a href="#字符串大小写转换" class="headerlink" title="字符串大小写转换"></a>字符串大小写转换</h5><pre><code class="java">String str = &quot;Hello&quot;;
+String upperCase = str.toUpperCase(); // 结果为 &quot;HELLO&quot;
+String lowerCase = str.toLowerCase(); // 结果为 &quot;hello&quot;
+</code></pre>
+<h5 id="去除字符串首尾空格"><a href="#去除字符串首尾空格" class="headerlink" title="去除字符串首尾空格"></a>去除字符串首尾空格</h5><pre><code class="java">String str = &quot;  Hello  &quot;;
+String trimmedStr = str.trim(); // 结果为 &quot;Hello&quot;
+</code></pre>
+<h5 id="getBytes-方法"><a href="#getBytes-方法" class="headerlink" title="getBytes() 方法"></a><code>getBytes()</code> 方法</h5><h6 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h6><p><code>getBytes()</code> 方法有两个重载形式：</p>
+<ul>
+<li><code>public byte[] getBytes()</code>：使用平台的默认字符编码将字符串编码为字节序列，并将结果存储到一个新的字节数组中。</li>
+<li><code>public byte[] getBytes(String charsetName)</code>：使用指定的字符编码将字符串编码为字节序列，并将结果存储到一个新的字节数组中。如果指定的字符编码不支持，会抛出 <code>UnsupportedEncodingException</code> 异常。</li>
+</ul>
+<h6 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h6><pre><code class="java">import java.io.UnsupportedEncodingException;
+
+public class GetBytesExample &#123;
+    public static void main(String[] args) &#123;
+        String str = &quot;Hello, 世界!&quot;;
+
+        // 使用平台默认编码
+        byte[] defaultBytes = str.getBytes();
+        System.out.println(&quot;默认编码后的字节数组长度: &quot; + defaultBytes.length);
+
+        try &#123;
+            // 使用 UTF-8 编码
+            byte[] utf8Bytes = str.getBytes(&quot;UTF-8&quot;);
+            System.out.println(&quot;UTF-8 编码后的字节数组长度: &quot; + utf8Bytes.length);
+
+            // 使用 GBK 编码
+            byte[] gbkBytes = str.getBytes(&quot;GBK&quot;);
+            System.out.println(&quot;GBK 编码后的字节数组长度: &quot; + gbkBytes.length);
+        &#125; catch (UnsupportedEncodingException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h6 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h6><ul>
+<li><code>str.getBytes()</code>：使用平台的默认字符编码对字符串 <code>str</code> 进行编码，返回一个字节数组。</li>
+<li><code>str.getBytes(&quot;UTF-8&quot;)</code>：使用 UTF - 8 字符编码对字符串 <code>str</code> 进行编码，返回一个字节数组。</li>
+<li><code>str.getBytes(&quot;GBK&quot;)</code>：使用 GBK 字符编码对字符串 <code>str</code> 进行编码，返回一个字节数组。</li>
+</ul>
+<h5 id="String-byte-bytes-String-charsetName-构造函数"><a href="#String-byte-bytes-String-charsetName-构造函数" class="headerlink" title="String(byte[] bytes, String charsetName) 构造函数"></a><code>String(byte[] bytes, String charsetName)</code> 构造函数</h5><h6 id="构造函数概述"><a href="#构造函数概述" class="headerlink" title="构造函数概述"></a>构造函数概述</h6><p>该构造函数用于通过指定的字符编码将字节数组解码为字符串。如果指定的字符编码不支持，会抛出 <code>UnsupportedEncodingException</code> 异常。</p>
+<h6 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h6><pre><code class="java">import java.io.UnsupportedEncodingException;
+
+public class StringConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        String originalStr = &quot;Hello, 世界!&quot;;
+        try &#123;
+            // 使用 UTF-8 编码将字符串转换为字节数组
+            byte[] utf8Bytes = originalStr.getBytes(&quot;UTF-8&quot;);
+
+            // 使用 UTF-8 编码将字节数组解码为字符串
+            String decodedStr = new String(utf8Bytes, &quot;UTF-8&quot;);
+            System.out.println(&quot;解码后的字符串: &quot; + decodedStr);
+
+            // 使用错误的编码进行解码（会导致乱码）
+            String wrongDecodedStr = new String(utf8Bytes, &quot;GBK&quot;);
+            System.out.println(&quot;使用错误编码解码后的字符串: &quot; + wrongDecodedStr);
+        &#125; catch (UnsupportedEncodingException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h6 id="代码解释-1"><a href="#代码解释-1" class="headerlink" title="代码解释"></a>代码解释</h6><ul>
+<li><code>new String(utf8Bytes, &quot;UTF-8&quot;)</code>：使用 UTF - 8 字符编码将字节数组 <code>utf8Bytes</code> 解码为字符串。由于编码和解码使用的是相同的字符编码，所以解码后的字符串与原始字符串相同。</li>
+<li><code>new String(utf8Bytes, &quot;GBK&quot;)</code>：使用 GBK 字符编码将字节数组 <code>utf8Bytes</code> 解码为字符串。由于编码使用的是 UTF - 8，解码使用的是 GBK，编码和解码使用的字符编码不一致，所以解码后的字符串会出现乱码。</li>
+</ul>
+<h4 id="4-字符串拼接"><a href="#4-字符串拼接" class="headerlink" title="4. 字符串拼接"></a>4. 字符串拼接</h4><p>除了使用 <code>concat</code> 方法进行字符串拼接外，还可以使用 <code>+</code> 运算符：</p>
+<pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = &quot; World&quot;;
+String result = str1 + str2; // 结果为 &quot;Hello World&quot;
+</code></pre>
+<p>在 Java 中，当使用 <code>+</code> 运算符进行字符串拼接时，如果其中一个操作数是字符串，那么其他操作数会自动转换为字符串类型。不过在大量拼接字符串时，使用 <code>+</code> 运算符会产生较多临时对象，性能较低，此时建议使用 <code>StringBuilder</code> 或 <code>StringBuffer</code> 类。</p>
+<h4 id="5-字符串比较"><a href="#5-字符串比较" class="headerlink" title="5. 字符串比较"></a>5. 字符串比较</h4><h5 id="使用-比较"><a href="#使用-比较" class="headerlink" title="使用 == 比较"></a>使用 <code>==</code> 比较</h5><p><code>==</code> 比较的是两个字符串对象的引用是否相等，即是否指向同一个内存地址。</p>
+<pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = &quot;Hello&quot;;
+String str3 = new String(&quot;Hello&quot;);
+System.out.println(str1 == str2); // 输出 true，因为它们引用常量池中的同一个对象
+System.out.println(str1 == str3); // 输出 false，因为 str3 在堆内存中是新对象
+</code></pre>
+<h5 id="使用-equals-方法比较"><a href="#使用-equals-方法比较" class="headerlink" title="使用 equals 方法比较"></a>使用 <code>equals</code> 方法比较</h5><p><code>equals</code> 方法比较的是两个字符串的内容是否相等。</p>
+<pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = new String(&quot;Hello&quot;);
+System.out.println(str1.equals(str2)); // 输出 true，因为内容相同
+</code></pre>
+<h4 id="6-字符串分割"><a href="#6-字符串分割" class="headerlink" title="6. 字符串分割"></a>6. 字符串分割</h4><pre><code class="java">String str = &quot;Java,Python,C++&quot;;
+String[] parts = str.split(&quot;,&quot;);
+for (String part : parts) &#123;
+    System.out.println(part);
+&#125;
+</code></pre>
+<p>上述代码将字符串按逗号进行分割，结果存储在字符串数组中。</p>
+<h4 id="字符串编码"><a href="#字符串编码" class="headerlink" title="字符串编码"></a>字符串编码</h4><p><img src="/../images/java/1741698218188.png" alt="1741698218188"></p>
+<h5 id="1-Java-字符串的内部表示"><a href="#1-Java-字符串的内部表示" class="headerlink" title="1. Java 字符串的内部表示"></a>1. Java 字符串的内部表示</h5><p>在 Java 中，<code>String</code> 类的对象在内存中是以 Unicode 编码形式存储的，Unicode 是一种字符编码标准，它为世界上几乎所有的字符都分配了一个唯一的数字代码，这使得 Java 能够处理各种语言的文本。</p>
+<h5 id="2-编码与解码操作"><a href="#2-编码与解码操作" class="headerlink" title="2. 编码与解码操作"></a>2. 编码与解码操作</h5><h6 id="编码（将字符串转换为字节数组）"><a href="#编码（将字符串转换为字节数组）" class="headerlink" title="编码（将字符串转换为字节数组）"></a>编码（将字符串转换为字节数组）</h6><p>使用 <code>String</code> 类的 <code>getBytes()</code> 方法可以将字符串按照指定的字符编码转换为字节数组。如果不指定编码，默认使用平台的默认字符编码。</p>
+<pre><code class="java">import java.io.UnsupportedEncodingException;
+
+public class StringEncodingExample &#123;
+    public static void main(String[] args) &#123;
+        String str = &quot;你好，世界！&quot;;
+        try &#123;
+            // 使用 UTF-8 编码将字符串转换为字节数组
+            byte[] utf8Bytes = str.getBytes(&quot;UTF-8&quot;);
+            System.out.println(&quot;UTF-8 编码后的字节数组长度: &quot; + utf8Bytes.length);
+
+            // 使用 GBK 编码将字符串转换为字节数组
+            byte[] gbkBytes = str.getBytes(&quot;GBK&quot;);
+            System.out.println(&quot;GBK 编码后的字节数组长度: &quot; + gbkBytes.length);
+        &#125; catch (UnsupportedEncodingException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，我们将字符串 <code>&quot;你好，世界！&quot;</code> 分别使用 UTF - 8 和 GBK 编码转换为字节数组，并输出字节数组的长度。由于不同的编码方案对字符的编码方式不同，所以得到的字节数组长度可能不同。</p>
+<h6 id="解码（将字节数组转换为字符串）"><a href="#解码（将字节数组转换为字符串）" class="headerlink" title="解码（将字节数组转换为字符串）"></a>解码（将字节数组转换为字符串）</h6><p>使用 <code>String</code> 类的构造函数可以将字节数组按照指定的字符编码转换为字符串。</p>
+<pre><code class="java">import java.io.UnsupportedEncodingException;
+
+public class StringDecodingExample &#123;
+    public static void main(String[] args) &#123;
+        String str = &quot;你好，世界！&quot;;
+        try &#123;
+            // 使用 UTF-8 编码将字符串转换为字节数组
+            byte[] utf8Bytes = str.getBytes(&quot;UTF-8&quot;);
+
+            // 使用 UTF-8 编码将字节数组解码为字符串
+            String decodedStr = new String(utf8Bytes, &quot;UTF-8&quot;);
+            System.out.println(&quot;解码后的字符串: &quot; + decodedStr);
+        &#125; catch (UnsupportedEncodingException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，我们先将字符串使用 UTF - 8 编码转换为字节数组，然后再使用相同的编码将字节数组解码为字符串，并输出解码后的字符串。</p>
+<h5 id="3-常见的字符编码"><a href="#3-常见的字符编码" class="headerlink" title="3. 常见的字符编码"></a>3. 常见的字符编码</h5><h6 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF - 8"></a>UTF - 8</h6><p>UTF - 8 是一种可变长度的 Unicode 编码，它使用 1 到 4 个字节来表示一个字符。对于 ASCII 字符（即 Unicode 编码范围在 0 - 127 之间的字符），UTF - 8 只使用 1 个字节，与 ASCII 编码兼容。对于大多数常用的汉字，UTF - 8 使用 3 个字节表示。UTF - 8 是互联网上最常用的字符编码，因为它能够处理各种语言的文本，并且对于英文文本的存储效率较高。</p>
+<h6 id="GBK"><a href="#GBK" class="headerlink" title="GBK"></a>GBK</h6><p>GBK 是中国国家标准的中文字符编码，它是对 GB2312 编码的扩展，能够表示 21003 个汉字和图形符号。GBK 使用 2 个字节来表示一个汉字，对于 ASCII 字符，GBK 同样只使用 1 个字节。GBK 主要用于中文操作系统和中文文本处理。</p>
+<h6 id="ISO-8859-1"><a href="#ISO-8859-1" class="headerlink" title="ISO - 8859 - 1"></a>ISO - 8859 - 1</h6><p>ISO - 8859 - 1 是一种单字节编码，它只能表示 256 个字符，主要用于西欧语言。ISO - 8859 - 1 是 Java 中默认的字符编码之一，但它不能表示中文等非西欧语言的字符。</p>
+<h5 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. 注意事项</h5><ul>
+<li><strong>编码一致性</strong>：在进行编码和解码操作时，必须确保使用相同的字符编码，否则会导致乱码问题。例如，如果使用 UTF - 8 编码将字符串转换为字节数组，那么在解码时也必须使用 UTF - 8 编码。</li>
+<li><strong>异常处理</strong>：在使用 <code>getBytes()</code> 方法和 <code>String</code> 构造函数时，可能会抛出 <code>UnsupportedEncodingException</code> 异常，因此需要进行异常处理。</li>
+</ul>
+<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p><img src="/../images/java/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-11%20214218.png"></p>
+<h5 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h5><p><code>StringBuffer</code> 是一个线程安全的可变字符序列。它继承自 <code>AbstractStringBuilder</code> 类，与 <code>String</code> 不同，<code>StringBuffer</code> 对象的内容可以被动态修改，不会像 <code>String</code> 那样每次修改都创建新的对象，从而避免了频繁创建对象带来的性能开销。</p>
+<h5 id="创建-StringBuffer-对象"><a href="#创建-StringBuffer-对象" class="headerlink" title="创建 StringBuffer 对象"></a>创建 <code>StringBuffer</code> 对象</h5><p>可以通过以下几种方式创建 <code>StringBuffer</code> 对象：</p>
+<pre><code class="java">// 1. 创建一个空的 StringBuffer 对象
+StringBuffer sb1 = new StringBuffer();
+
+// 2. 创建一个初始容量为 20 的 StringBuffer 对象
+StringBuffer sb2 = new StringBuffer(20);
+
+// 3. 使用指定的字符串初始化 StringBuffer 对象
+StringBuffer sb3 = new StringBuffer(&quot;Hello&quot;);
+</code></pre>
+<h5 id="常用方法-1"><a href="#常用方法-1" class="headerlink" title="常用方法"></a>常用方法</h5><h6 id="1-append-方法"><a href="#1-append-方法" class="headerlink" title="1. append() 方法"></a>1. <code>append()</code> 方法</h6><p>用于将各种类型的数据追加到 <code>StringBuffer</code> 的末尾。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+sb.append(&quot; World&quot;); // 追加字符串
+sb.append(123); // 追加整数
+System.out.println(sb); // 输出: Hello World123
+</code></pre>
+<h6 id="2-insert-方法"><a href="#2-insert-方法" class="headerlink" title="2. insert() 方法"></a>2. <code>insert()</code> 方法</h6><p>用于在指定位置插入各种类型的数据。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+sb.insert(2, &quot;abc&quot;); // 在索引为 2 的位置插入字符串
+System.out.println(sb); // 输出: Heabcllo
+</code></pre>
+<h6 id="3-delete-方法"><a href="#3-delete-方法" class="headerlink" title="3. delete() 方法"></a>3. <code>delete()</code> 方法</h6><p>用于删除指定范围内的字符。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello World&quot;);
+sb.delete(6, 11); // 删除索引从 6 到 10 的字符
+System.out.println(sb); // 输出: Hello
+</code></pre>
+<h6 id="4-replace-方法"><a href="#4-replace-方法" class="headerlink" title="4. replace() 方法"></a>4. <code>replace()</code> 方法</h6><p>用于替换指定范围内的字符。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+sb.replace(1, 4, &quot;abc&quot;); // 替换索引从 1 到 3 的字符
+System.out.println(sb); // 输出: Habco
+</code></pre>
+<h6 id="5-reverse-方法"><a href="#5-reverse-方法" class="headerlink" title="5. reverse() 方法"></a>5. <code>reverse()</code> 方法</h6><p>用于反转 <code>StringBuffer</code> 中的字符序列。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+sb.reverse();
+System.out.println(sb); // 输出: olleH
+</code></pre>
+<h6 id="6-toString-方法"><a href="#6-toString-方法" class="headerlink" title="6. toString() 方法"></a>6. <code>toString()</code> 方法</h6><p>将 <code>StringBuffer</code> 对象转换为 <code>String</code> 对象。</p>
+<pre><code class="java">StringBuffer sb = new StringBuffer(&quot;Hello&quot;);
+String str = sb.toString();
+System.out.println(str); // 输出: Hello
+</code></pre>
+<h5 id="线程安全性"><a href="#线程安全性" class="headerlink" title="线程安全性"></a>线程安全性</h5><p><code>StringBuffer</code> 是线程安全的，这意味着在多线程环境下可以安全地使用它。它的大部分方法都使用了 <code>synchronized</code> 关键字进行同步，确保在同一时间只有一个线程可以修改 <code>StringBuffer</code> 的内容。</p>
+<h5 id="与-StringBuilder-的比较"><a href="#与-StringBuilder-的比较" class="headerlink" title="与 StringBuilder 的比较"></a>与 <code>StringBuilder</code> 的比较</h5><p><code>StringBuilder</code> 也是一个可变的字符序列类，它与 <code>StringBuffer</code> 的功能非常相似，但 <code>StringBuilder</code> 是非线程安全的。在单线程环境下，由于不需要进行同步操作，<code>StringBuilder</code> 的性能通常比 <code>StringBuffer</code> 要好。因此，如果是在单线程环境中进行字符串的频繁修改，建议使用 <code>StringBuilder</code>；如果是在多线程环境中，为了保证线程安全，应该使用 <code>StringBuffer</code>。</p>
+<h3 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h3><p><img src="/../images/java/1741702404265.png" alt="1741702404265"></p>
+<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><p><img src="/../images/java/1741702461774.png" alt="1741702461774"></p>
+<h4 id="1-对基本数据类型数组排序"><a href="#1-对基本数据类型数组排序" class="headerlink" title="1. 对基本数据类型数组排序"></a>1. 对基本数据类型数组排序</h4><p><code>Arrays.sort()</code> 可以对基本数据类型的数组进行排序，如 <code>int</code>、<code>double</code>、<code>char</code> 等。排序是按照升序进行的，使用的是双轴快速排序（Dual-Pivot Quicksort）算法，对于小规模数组会使用插入排序。</p>
+<p><strong>示例代码</strong></p>
+<pre><code class="java">import java.util.Arrays;
+
+public class BasicArraySorting &#123;
+    public static void main(String[] args) &#123;
+        // 对 int 数组排序
+        int[] intArray = &#123;5, 3, 8, 1, 2&#125;;
+        Arrays.sort(intArray);
+        System.out.println(&quot;排序后的 int 数组: &quot; + Arrays.toString(intArray));
+
+        // 对 char 数组排序
+        char[] charArray = &#123;&#39;d&#39;, &#39;a&#39;, &#39;c&#39;, &#39;b&#39;&#125;;
+        Arrays.sort(charArray);
+        System.out.println(&quot;排序后的 char 数组: &quot; + Arrays.toString(charArray));
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li>对于 <code>int</code> 数组 <code>intArray</code>，调用 <code>Arrays.sort(intArray)</code> 后，数组元素会按升序排列。</li>
+<li>对于 <code>char</code> 数组 <code>charArray</code>，同样调用 <code>Arrays.sort(charArray)</code> 进行升序排序。</li>
+</ul>
+<h4 id="2-对对象数组排序"><a href="#2-对对象数组排序" class="headerlink" title="2. 对对象数组排序"></a>2. 对对象数组排序</h4><p>当对对象数组进行排序时，数组中的元素类型必须实现 <code>java.lang.Comparable</code> 接口，或者在调用 <code>Arrays.sort()</code> 方法时传入一个 <code>java.util.Comparator</code> 对象来指定排序规则。</p>
+<h5 id="2-1-实现-Comparable-接口"><a href="#2-1-实现-Comparable-接口" class="headerlink" title="2.1 实现 Comparable 接口"></a>2.1 实现 <code>Comparable</code> 接口</h5><p><code>Comparable</code> 接口有一个抽象方法 <code>compareTo()</code>，用于定义对象之间的比较规则。</p>
+<pre><code class="java">import java.util.Arrays;
+
+class Student implements Comparable&lt;Student&gt; &#123;
+    private String name;
+    private int age;
+
+    public Student(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+
+    @Override
+    public int compareTo(Student other) &#123;
+        return Integer.compare(this.age, other.age);
+    &#125;
+
+    @Override
+    public String toString() &#123;
+        return &quot;Student&#123;name=&#39;&quot; + name + &quot;&#39;, age=&quot; + age + &quot;&#125;&quot;;
+    &#125;
+&#125;
+
+public class ObjectArraySortingComparable &#123;
+    public static void main(String[] args) &#123;
+        Student[] students = &#123;
+                new Student(&quot;Alice&quot;, 20),
+                new Student(&quot;Bob&quot;, 18),
+                new Student(&quot;Charlie&quot;, 22)
+        &#125;;
+        Arrays.sort(students);
+        System.out.println(&quot;按年龄排序后的学生数组: &quot; + Arrays.toString(students));
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><code>Student</code> 类实现了 <code>Comparable</code> 接口，并重写了 <code>compareTo()</code> 方法，按照学生的年龄进行比较。</li>
+<li>调用 <code>Arrays.sort(students)</code> 时，会根据 <code>compareTo()</code> 方法定义的规则对学生数组进行排序。</li>
+</ul>
+<h5 id="2-2-使用-Comparator-接口"><a href="#2-2-使用-Comparator-接口" class="headerlink" title="2.2 使用 Comparator 接口"></a>2.2 使用 <code>Comparator</code> 接口</h5><p>如果不想修改类的定义，或者需要临时定义不同的排序规则，可以使用 <code>Comparator</code> 接口。</p>
+<pre><code class="java">import java.util.Arrays;
+import java.util.Comparator;
+
+class Person &#123;
+    private String name;
+    private int age;
+
+    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+
+    @Override
+    public String toString() &#123;
+        return &quot;Person&#123;name=&#39;&quot; + name + &quot;&#39;, age=&quot; + age + &quot;&#125;&quot;;
+    &#125;
+&#125;
+
+public class ObjectArraySortingComparator &#123;
+    public static void main(String[] args) &#123;
+        Person[] persons = &#123;
+                new Person(&quot;Alice&quot;, 20),
+                new Person(&quot;Bob&quot;, 18),
+                new Person(&quot;Charlie&quot;, 22)
+        &#125;;
+
+        // 按年龄降序排序
+        Arrays.sort(persons, new Comparator&lt;Person&gt;() &#123;
+            @Override
+            public int compare(Person p1, Person p2) &#123;
+                return Integer.compare(p2.age, p1.age);
+            &#125;
+        &#125;);
+
+        System.out.println(&quot;按年龄降序排序后的人员数组: &quot; + Arrays.toString(persons));
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><code>Person</code> 类没有实现 <code>Comparable</code> 接口，在调用 <code>Arrays.sort()</code> 时传入了一个匿名的 <code>Comparator</code> 对象，重写了 <code>compare()</code> 方法，实现了按年龄降序排序。</li>
+</ul>
+<h4 id="3-对部分数组元素排序"><a href="#3-对部分数组元素排序" class="headerlink" title="3. 对部分数组元素排序"></a>3. 对部分数组元素排序</h4><p><code>Arrays.sort()</code> 还提供了对数组部分元素进行排序的重载方法，通过指定起始索引和结束索引来确定排序的范围。</p>
+<pre><code class="java">import java.util.Arrays;
+
+public class PartialArraySorting &#123;
+    public static void main(String[] args) &#123;
+        int[] array = &#123;5, 3, 8, 1, 2, 7, 4, 6&#125;;
+        // 对索引从 1 到 4（不包括 4）的元素进行排序
+        Arrays.sort(array, 1, 4);
+        System.out.println(&quot;部分排序后的数组: &quot; + Arrays.toString(array));
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li><code>Arrays.sort(array, 1, 4)</code> 只对数组 <code>array</code> 中索引从 1 到 3 的元素进行排序，其他元素保持不变。</li>
+</ul>
+<h4 id="4-二分查找方法"><a href="#4-二分查找方法" class="headerlink" title="4. 二分查找方法"></a>4. 二分查找方法</h4><ul>
+<li><code>binarySearch()</code>：在已排序的数组中使用二分查找算法查找指定元素，返回元素的索引，如果未找到则返回负数。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+
+public class ArraysBinarySearchExample &#123;
+    public static void main(String[] args) &#123;
+        int[] intArray = &#123;1, 2, 3, 5, 8&#125;;
+        int index = Arrays.binarySearch(intArray, 5);
+        System.out.println(&quot;元素 5 的索引是: &quot; + index); 
+        // 输出: 元素 5 的索引是: 3
+    &#125;
+&#125;
+</code></pre>
+<h4 id="5-数组填充方法"><a href="#5-数组填充方法" class="headerlink" title="5. 数组填充方法"></a>5. 数组填充方法</h4><ul>
+<li><code>fill()</code>：用指定的值填充数组的所有元素或指定范围的元素。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+
+public class ArraysFillExample &#123;
+    public static void main(String[] args) &#123;
+        int[] intArray = new int[5];
+        Arrays.fill(intArray, 10);
+        System.out.println(Arrays.toString(intArray)); 
+        // 输出: [10, 10, 10, 10, 10]
+    &#125;
+&#125;
+</code></pre>
+<h4 id="6-数组比较方法"><a href="#6-数组比较方法" class="headerlink" title="6. 数组比较方法"></a>6. 数组比较方法</h4><ul>
+<li><code>equals()</code>：比较两个数组是否相等，会比较数组的长度和对应位置的元素。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+
+public class ArraysEqualsExample &#123;
+    public static void main(String[] args) &#123;
+        int[] array1 = &#123;1, 2, 3&#125;;
+        int[] array2 = &#123;1, 2, 3&#125;;
+        boolean isEqual = Arrays.equals(array1, array2);
+        System.out.println(&quot;两个数组是否相等: &quot; + isEqual); 
+        // 输出: 两个数组是否相等: true
+    &#125;
+&#125;
+</code></pre>
+<h4 id="7-数组转字符串方法"><a href="#7-数组转字符串方法" class="headerlink" title="7. 数组转字符串方法"></a>7. 数组转字符串方法</h4><ul>
+<li><code>toString()</code>：返回数组的字符串表示形式，方便调试和输出。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+
+public class ArraysToStringExample &#123;
+    public static void main(String[] args) &#123;
+        int[] intArray = &#123;1, 2, 3&#125;;
+        String arrayString = Arrays.toString(intArray);
+        System.out.println(arrayString); 
+        // 输出: [1, 2, 3]
+    &#125;
+&#125;
+</code></pre>
+<h4 id="8-数组复制方法"><a href="#8-数组复制方法" class="headerlink" title="8.数组复制方法"></a>8.数组复制方法</h4><p><code>Arrays.copyOf</code> 有多个重载版本，常见的方法签名如下：</p>
+<pre><code class="java">// 复制指定数组的指定长度部分到一个新数组中，元素类型为基本数据类型（以 int 为例）
+public static int[] copyOf(int[] original, int newLength)
+
+// 复制指定数组的指定长度部分到一个新数组中，元素类型为对象类型（以 String 为例）
+public static &lt;T&gt; T[] copyOf(T[] original, int newLength)
+</code></pre>
+<ul>
+<li><code>original</code>：要复制的原始数组。</li>
+<li><code>newLength</code>：新数组的长度。</li>
+<li>若 <code>newLength</code> 小于原始数组的长度，新数组将只包含原始数组的前 <code>newLength</code> 个元素；若 <code>newLength</code> 大于原始数组的长度，新数组中超出原始数组长度的部分会用对应类型的默认值填充（对于基本数据类型，如 <code>int</code> 是 0，<code>boolean</code> 是 <code>false</code>；对于对象类型是 <code>null</code>）。</li>
+</ul>
+<h3 id="System"><a href="#System" class="headerlink" title="System"></a>System</h3><p><img src="/../images/java/1741702473807.png" alt="1741702473807"></p>
+<h4 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h4><h5 id="1-System-in"><a href="#1-System-in" class="headerlink" title="1. System.in"></a>1. <code>System.in</code></h5><p>这是一个 <code>InputStream</code> 类型的静态属性，代表标准输入流，通常关联到键盘输入。在控制台程序中，可利用它从用户那里获取输入信息。</p>
+<pre><code class="java">import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class SystemInExample &#123;
+    public static void main(String[] args) &#123;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) &#123;
+            System.out.print(&quot;请输入一些内容: &quot;);
+            String input = reader.readLine();
+            System.out.println(&quot;你输入的内容是: &quot; + input);
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-System-out"><a href="#2-System-out" class="headerlink" title="2. System.out"></a>2. <code>System.out</code></h5><p>它是一个 <code>PrintStream</code> 类型的静态属性，代表标准输出流，通常关联到控制台输出。借助它可以将信息输出到控制台。</p>
+<pre><code class="java">public class SystemOutExample &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;这是一个输出示例。&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-System-err"><a href="#3-System-err" class="headerlink" title="3. System.err"></a>3. <code>System.err</code></h5><p>同样是 <code>PrintStream</code> 类型的静态属性，代表标准错误输出流，也关联到控制台。一般用于输出错误信息，与 <code>System.out</code> 不同的是，它输出的内容通常会以不同颜色显示（取决于控制台设置）。</p>
+<pre><code class="java">public class SystemErrExample &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            int result = 1 / 0;
+        &#125; catch (ArithmeticException e) &#123;
+            System.err.println(&quot;发生错误: &quot; + e.getMessage());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="常用方法-2"><a href="#常用方法-2" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-System-currentTimeMillis"><a href="#1-System-currentTimeMillis" class="headerlink" title="1. System.currentTimeMillis()"></a>1. <code>System.currentTimeMillis()</code></h5><p>返回当前时间（从 1970 年 1 月 1 日 00:00:00 UTC 到现在的毫秒数），常用来计算代码的执行时间。</p>
+<pre><code class="java">public class CurrentTimeMillisExample &#123;
+    public static void main(String[] args) &#123;
+        long startTime = System.currentTimeMillis();
+        // 模拟一段耗时操作
+        for (int i = 0; i &lt; 1000000; i++) &#123;
+            // 空循环
+        &#125;
+        long endTime = System.currentTimeMillis();
+        System.out.println(&quot;操作耗时: &quot; + (endTime - startTime) + &quot; 毫秒&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-System-arraycopy"><a href="#2-System-arraycopy" class="headerlink" title="2. System.arraycopy()"></a>2. <code>System.arraycopy()</code></h5><p>用于将一个数组的指定部分复制到另一个数组中，是一个高效的数组复制方法。</p>
+<pre><code class="java">public class ArrayCopyExample &#123;
+    public static void main(String[] args) &#123;
+        int[] source = &#123;1, 2, 3, 4, 5&#125;;
+        int[] destination = new int[5];
+        System.arraycopy(source, 0, destination, 0, 5);
+        for (int num : destination) &#123;
+            System.out.print(num + &quot; &quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-System-getProperties"><a href="#3-System-getProperties" class="headerlink" title="3. System.getProperties()"></a>3. <code>System.getProperties()</code></h5><p>返回一个 <code>Properties</code> 对象，包含了当前系统的所有属性，如操作系统名称、Java 版本等。</p>
+<pre><code class="java">import java.util.Properties;
+
+public class GetPropertiesExample &#123;
+    public static void main(String[] args) &#123;
+        Properties properties = System.getProperties();
+        properties.list(System.out);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="4-System-setProperty-String-key-String-value"><a href="#4-System-setProperty-String-key-String-value" class="headerlink" title="4. System.setProperty(String key, String value)"></a>4. <code>System.setProperty(String key, String value)</code></h5><p>用于设置系统属性，可在程序运行时动态修改系统属性。</p>
+<pre><code class="java">public class SetPropertyExample &#123;
+    public static void main(String[] args) &#123;
+        System.setProperty(&quot;my.property&quot;, &quot;my value&quot;);
+        String value = System.getProperty(&quot;my.property&quot;);
+        System.out.println(&quot;自定义属性的值: &quot; + value);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="5-System-exit-int-status"><a href="#5-System-exit-int-status" class="headerlink" title="5. System.exit(int status)"></a>5. <code>System.exit(int status)</code></h5><p>用于终止当前正在运行的 Java 虚拟机。参数 <code>status</code> 为 0 表示正常退出，非 0 表示异常退出。</p>
+<pre><code class="java">public class ExitExample &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;程序即将退出...&quot;);
+        System.exit(0);
+        System.out.println(&quot;这行代码不会执行。&quot;);
+    &#125;
+&#125;
+</code></pre>
 
     </div>
     
