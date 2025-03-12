@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #00a596">
+                <a href="/tags/java/" style="color: #00bcd4">
                     java
                 </a>
             </span>
@@ -2730,7 +2730,372 @@ public class GetPropertiesExample &#123;
     &#125;
 &#125;
 </code></pre>
+<h3 id="BigInteger-BigDecimal的方法和它差不多）"><a href="#BigInteger-BigDecimal的方法和它差不多）" class="headerlink" title="BigInteger(BigDecimal的方法和它差不多）"></a>BigInteger(BigDecimal的方法和它差不多）</h3><p><img src="/../images/java-notes/1741785405658.png" alt="1741785405658"></p>
+<h4 id="创建-BigInteger-对象"><a href="#创建-BigInteger-对象" class="headerlink" title="创建 BigInteger 对象"></a>创建 <code>BigInteger</code> 对象</h4><p><code>BigInteger</code> 提供了多种创建对象的方式：</p>
+<ul>
+<li><strong>使用字符串构造</strong>：可以将一个表示整数的字符串作为参数传递给 <code>BigInteger</code> 的构造函数。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
 
+public class BigIntegerCreation &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;12345678901234567890&quot;);
+        System.out.println(&quot;num1: &quot; + num1);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>使用基本数据类型转换</strong>：可以将 <code>int</code>、<code>long</code> 等基本数据类型转换为 <code>BigInteger</code> 对象。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerCreationFromPrimitive &#123;
+    public static void main(String[] args) &#123;
+        int intValue = 123;
+        BigInteger num2 = BigInteger.valueOf(intValue);
+        System.out.println(&quot;num2: &quot; + num2);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="常用方法-3"><a href="#常用方法-3" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-基本运算方法"><a href="#1-基本运算方法" class="headerlink" title="1. 基本运算方法"></a>1. 基本运算方法</h5><ul>
+<li><strong>加法</strong>：使用 <code>add()</code> 方法进行加法运算。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerAddition &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;10&quot;);
+        BigInteger num2 = new BigInteger(&quot;20&quot;);
+        BigInteger sum = num1.add(num2);
+        System.out.println(&quot;两数之和: &quot; + sum);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>减法</strong>：使用 <code>subtract()</code> 方法进行减法运算。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerSubtraction &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;20&quot;);
+        BigInteger num2 = new BigInteger(&quot;10&quot;);
+        BigInteger difference = num1.subtract(num2);
+        System.out.println(&quot;两数之差: &quot; + difference);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>乘法</strong>：使用 <code>multiply()</code> 方法进行乘法运算。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerMultiplication &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;5&quot;);
+        BigInteger num2 = new BigInteger(&quot;3&quot;);
+        BigInteger product = num1.multiply(num2);
+        System.out.println(&quot;两数之积: &quot; + product);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>除法</strong>：使用 <code>divide()</code> 方法进行除法运算，只返回商。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerDivision &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;10&quot;);
+        BigInteger num2 = new BigInteger(&quot;3&quot;);
+        BigInteger quotient = num1.divide(num2);
+        System.out.println(&quot;两数之商: &quot; + quotient);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>取模</strong>：使用 <code>mod()</code> 方法进行取模运算。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerModulus &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;10&quot;);
+        BigInteger num2 = new BigInteger(&quot;3&quot;);
+        BigInteger remainder = num1.mod(num2);
+        System.out.println(&quot;两数取模结果: &quot; + remainder);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-比较方法"><a href="#2-比较方法" class="headerlink" title="2. 比较方法"></a>2. 比较方法</h5><ul>
+<li><strong><code>compareTo()</code> 方法</strong>：用于比较两个 <code>BigInteger</code> 对象的大小。如果当前对象小于参数对象，返回 -1；如果相等，返回 0；如果当前对象大于参数对象，返回 1。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerComparison &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num1 = new BigInteger(&quot;10&quot;);
+        BigInteger num2 = new BigInteger(&quot;20&quot;);
+        int result = num1.compareTo(num2);
+        if (result &lt; 0) &#123;
+            System.out.println(&quot;num1 小于 num2&quot;);
+        &#125; else if (result == 0) &#123;
+            System.out.println(&quot;num1 等于 num2&quot;);
+        &#125; else &#123;
+            System.out.println(&quot;num1 大于 num2&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-转换方法"><a href="#3-转换方法" class="headerlink" title="3. 转换方法"></a>3. 转换方法</h5><ul>
+<li><strong><code>intValue()</code>、<code>longValue()</code> 等</strong>：可以将 <code>BigInteger</code> 对象转换为基本数据类型，但要注意可能会丢失精度。</li>
+</ul>
+<pre><code class="java">import java.math.BigInteger;
+
+public class BigIntegerConversion &#123;
+    public static void main(String[] args) &#123;
+        BigInteger num = new BigInteger(&quot;123&quot;);
+        int intValue = num.intValue();
+        System.out.println(&quot;转换为 int 类型的值: &quot; + intValue);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="注意事项-4"><a href="#注意事项-4" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><strong>性能问题</strong>：由于 <code>BigInteger</code> 要处理任意精度的整数，其运算性能通常比基本数据类型的运算要低，因此在能使用基本数据类型的情况下，优先使用基本数据类型。</li>
+<li><strong>精度丢失</strong>：在将 <code>BigInteger</code> 转换为基本数据类型时，如果 <code>BigInteger</code> 的值超出了基本数据类型的取值范围，会发生精度丢失。</li>
+</ul>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p><img src="/../images/java-notes/1741786653399.png" alt="1741786653399"></p>
+<h3 id="集合框架体系"><a href="#集合框架体系" class="headerlink" title="集合框架体系"></a>集合框架体系</h3><p><strong>单列集合</strong></p>
+<p><img src="/../images/java-notes/1741786573112.png" alt="1741786573112"></p>
+<p><strong>双列集合</strong></p>
+<p><img src="/../images/java-notes/1741786639451.png" alt="1741786639451"></p>
+<h3 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h3><p><img src="/../images/java-notes/1741787440825.png" alt="1741787440825"></p>
+<p><code>Collection</code> 是 Java 集合框架中的根接口，它位于 <code>java.util</code> 包下，为各种集合类提供了通用的操作规范。以下将从概述、常用方法、子接口及实现类等方面详细介绍 <code>Collection</code>。</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p><code>Collection</code> 接口代表一组对象，这些对象被称为集合的元素。它是 Java 集合框架的基础，许多具体的集合类都实现了这个接口，不同的实现类有不同的数据存储和操作特性，但都遵循 <code>Collection</code> 接口定义的基本操作规则。</p>
+<h4 id="常用方法-4"><a href="#常用方法-4" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-元素添加方法"><a href="#1-元素添加方法" class="headerlink" title="1. 元素添加方法"></a>1. 元素添加方法</h5><ul>
+<li><code>boolean add(E e)</code>：将指定的元素添加到集合中。如果集合因为此调用而发生改变，则返回 <code>true</code>；如果集合不允许重复元素且已经包含该元素，则返回 <code>false</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class AddExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        boolean result = collection.add(&quot;apple&quot;);
+        System.out.println(&quot;添加结果: &quot; + result); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>boolean addAll(Collection c)</code>：将指定集合中的所有元素添加到当前集合中。如果集合因为此调用而发生改变，则返回 <code>true</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class AddAllExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection1 = new ArrayList&lt;&gt;();
+        collection1.add(&quot;apple&quot;);
+        collection1.add(&quot;banana&quot;);
+
+        Collection&lt;String&gt; collection2 = new ArrayList&lt;&gt;();
+        collection2.add(&quot;cherry&quot;);
+        boolean result = collection1.addAll(collection2);
+        System.out.println(&quot;添加结果: &quot; + result); 
+        System.out.println(collection1); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-元素删除方法"><a href="#2-元素删除方法" class="headerlink" title="2. 元素删除方法"></a>2. 元素删除方法</h5><ul>
+<li><code>boolean remove(Object o)</code>：从集合中移除指定元素的单个实例（如果存在）。如果集合因为此调用而发生改变，则返回 <code>true</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class RemoveExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        collection.add(&quot;apple&quot;);
+        boolean result = collection.remove(&quot;apple&quot;);
+        System.out.println(&quot;删除结果: &quot; + result); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>boolean removeAll(Collection c)</code>：从当前集合中移除包含在指定集合中的所有元素。如果集合因为此调用而发生改变，则返回 <code>true</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class RemoveAllExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection1 = new ArrayList&lt;&gt;();
+        collection1.add(&quot;apple&quot;);
+        collection1.add(&quot;banana&quot;);
+
+        Collection&lt;String&gt; collection2 = new ArrayList&lt;&gt;();
+        collection2.add(&quot;apple&quot;);
+        boolean result = collection1.removeAll(collection2);
+        System.out.println(&quot;删除结果: &quot; + result); 
+        System.out.println(collection1); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-元素查询方法"><a href="#3-元素查询方法" class="headerlink" title="3. 元素查询方法"></a>3. 元素查询方法</h5><ul>
+<li><code>boolean contains(Object o)</code>：判断集合中是否包含指定元素。如果包含，则返回 <code>true</code>；否则返回 <code>false</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class ContainsExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        collection.add(&quot;apple&quot;);
+        boolean result = collection.contains(&quot;apple&quot;);
+        System.out.println(&quot;是否包含: &quot; + result); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>boolean containsAll(Collection c)</code>：判断当前集合是否包含指定集合中的所有元素。如果包含，则返回 <code>true</code>；否则返回 <code>false</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class ContainsAllExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection1 = new ArrayList&lt;&gt;();
+        collection1.add(&quot;apple&quot;);
+        collection1.add(&quot;banana&quot;);
+
+        Collection&lt;String&gt; collection2 = new ArrayList&lt;&gt;();
+        collection2.add(&quot;apple&quot;);
+        boolean result = collection1.containsAll(collection2);
+        System.out.println(&quot;是否包含所有: &quot; + result); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="4-其他常用方法"><a href="#4-其他常用方法" class="headerlink" title="4. 其他常用方法"></a>4. 其他常用方法</h5><ul>
+<li><code>int size()</code>：返回集合中的元素个数。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class SizeExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        collection.add(&quot;apple&quot;);
+        int size = collection.size();
+        System.out.println(&quot;集合大小: &quot; + size); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>boolean isEmpty()</code>：判断集合是否为空。如果集合不包含任何元素，则返回 <code>true</code>；否则返回 <code>false</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class IsEmptyExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        boolean isEmpty = collection.isEmpty();
+        System.out.println(&quot;集合是否为空: &quot; + isEmpty); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>void clear()</code>：移除集合中的所有元素。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collection;
+
+public class ClearExample &#123;
+    public static void main(String[] args) &#123;
+        Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+        collection.add(&quot;apple&quot;);
+        collection.clear();
+        System.out.println(&quot;集合大小: &quot; + collection.size()); 
+    &#125;
+&#125;
+</code></pre>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p><img src="/../images/java-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-12%20220014.png"></p>
+<p><img src="/../images/java-notes/1741788798038.png" alt="1741788798038"></p>
+<h4 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>List</code> 接口定义了一系列用于操作有序集合的方法，它继承自 <code>Collection</code> 接口，因此也拥有 <code>Collection</code> 接口提供的通用方法，如添加元素、删除元素、检查元素是否存在等。同时，<code>List</code> 接口还提供了基于索引的操作方法，使得可以方便地对集合中的元素进行定位和操作。</p>
+<h4 id="常用方法-5"><a href="#常用方法-5" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-元素添加方法-1"><a href="#1-元素添加方法-1" class="headerlink" title="1. 元素添加方法"></a>1. 元素添加方法</h5><ul>
+<li><code>void add(int index, E element)</code>：在指定索引位置插入指定元素。</li>
+<li><code>boolean add(E e)</code>：将指定元素添加到列表的末尾。</li>
+</ul>
+<h5 id="2-元素删除方法-1"><a href="#2-元素删除方法-1" class="headerlink" title="2. 元素删除方法"></a>2. 元素删除方法</h5><ul>
+<li><code>E remove(int index)</code>：移除列表中指定索引位置的元素，并返回该元素。</li>
+<li><code>boolean remove(Object o)</code>：从列表中移除指定元素的第一个出现项，如果列表包含该元素，则返回 <code>true</code>。</li>
+</ul>
+<h5 id="3-元素获取方法"><a href="#3-元素获取方法" class="headerlink" title="3. 元素获取方法"></a>3. 元素获取方法</h5><ul>
+<li><code>E get(int index)</code>：返回列表中指定索引位置的元素。</li>
+</ul>
+<h5 id="4-元素修改方法"><a href="#4-元素修改方法" class="headerlink" title="4. 元素修改方法"></a>4. 元素修改方法</h5><ul>
+<li><code>E set(int index, E element)</code>：用指定元素替换列表中指定索引位置的元素，并返回被替换的元素。</li>
+</ul>
+<h5 id="5-元素查找方法"><a href="#5-元素查找方法" class="headerlink" title="5. 元素查找方法"></a>5. 元素查找方法</h5><ul>
+<li><code>int indexOf(Object o)</code>：返回指定元素在列表中第一次出现的索引，如果列表不包含该元素，则返回 -1。</li>
+<li><code>int lastIndexOf(Object o)</code>：返回指定元素在列表中最后一次出现的索引，如果列表不包含该元素，则返回 -1。</li>
+</ul>
+<h4 id="遍历-List-的方式"><a href="#遍历-List-的方式" class="headerlink" title="遍历 List 的方式"></a>遍历 <code>List</code> 的方式</h4><h5 id="1-使用-for-each-循环"><a href="#1-使用-for-each-循环" class="headerlink" title="1. 使用 for-each 循环"></a>1. 使用 <code>for-each</code> 循环</h5><pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class ListTraversalForEach &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add(&quot;apple&quot;);
+        list.add(&quot;banana&quot;);
+        list.add(&quot;cherry&quot;);
+
+        for (String element : list) &#123;
+            System.out.println(element);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-使用迭代器"><a href="#2-使用迭代器" class="headerlink" title="2. 使用迭代器"></a>2. 使用迭代器</h5><pre><code class="java">import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ListTraversalIterator &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add(&quot;apple&quot;);
+        list.add(&quot;banana&quot;);
+        list.add(&quot;cherry&quot;);
+
+        Iterator&lt;String&gt; iterator = list.iterator();
+        while (iterator.hasNext()) &#123;
+            String element = iterator.next();
+            System.out.println(element);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p><strong>注意！！！</strong></p>
+<p><strong>迭代器初始位置</strong></p>
+<p>迭代器的初始位置是在集合第一个元素之前，它起到一个游标或者指针的作用，用于控制对集合元素的访问顺序，但本身并不直接存储集合中的元素值。<code>iterator()</code> 方法创建的迭代器就像是一个站在集合元素队列 “入口外” 的引导者，还未进入队列开始引导访问元素。</p>
+<h5 id="3-使用普通-for-循环"><a href="#3-使用普通-for-循环" class="headerlink" title="3. 使用普通 for 循环"></a>3. 使用普通 <code>for</code> 循环</h5><pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class ListTraversalForLoop &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add(&quot;apple&quot;);
+        list.add(&quot;banana&quot;);
+        list.add(&quot;cherry&quot;);
+
+        for (int i = 0; i &lt; list.size(); i++) &#123;
+            String element = list.get(i);
+            System.out.println(element);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3>
     </div>
     
     
