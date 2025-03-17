@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>java-notes | 小白脑浆糊的进化之旅</title>
+    <title>java_notes | 小白脑浆糊的进化之旅</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -157,7 +157,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>java-notes</h1>
+        <h1>java_notes</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -3095,7 +3095,1433 @@ public class ListTraversalForLoop &#123;
     &#125;
 &#125;
 </code></pre>
-<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3>
+<h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p><img src="/../images/java-notes/1741868896927.png" alt="1741868896927"></p>
+<h4 id="基本概念-2"><a href="#基本概念-2" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>ArrayList</code> 是一个可调整大小的数组实现，用于存储对象元素。与传统的数组不同，<code>ArrayList</code> 的大小可以动态增长，当添加的元素超过当前容量时，它会自动进行扩容。<code>ArrayList</code> 允许存储重复元素，并且元素是有序的，每个元素都有一个对应的索引，可以通过索引快速访问元素。</p>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>ArrayList()</code>**：创建一个初始容量为 10 的空 <code>ArrayList</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        System.out.println(&quot;初始大小: &quot; + list.size()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>ArrayList(int initialCapacity)</code>**：创建一个具有指定初始容量的空 <code>ArrayList</code>。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListConstructorWithCapacity &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; list = new ArrayList&lt;&gt;(20);
+        System.out.println(&quot;初始容量: &quot; + ((ArrayList&lt;Integer&gt;) list).capacity()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>ArrayList(Collection c)</code>**：创建一个包含指定集合元素的 <code>ArrayList</code>，元素顺序与指定集合的迭代器返回顺序相同。</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ArrayListConstructorWithCollection &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; sourceList = Arrays.asList(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;);
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(sourceList);
+        System.out.println(list); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h4><p><code>ArrayList</code> 的底层是基于数组实现的，当添加元素时，如果当前数组容量不足，<code>ArrayList</code> 会进行扩容。默认情况下，初始容量为 10，当元素数量超过当前容量时，会创建一个新的数组，新数组的容量为原来的 1.5 倍（即 <code>oldCapacity + (oldCapacity &gt;&gt; 1)</code>），然后将原数组中的元素复制到新数组中。</p>
+<h4 id="性能特点"><a href="#性能特点" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>随机访问性能好</strong>：由于 <code>ArrayList</code> 是基于数组实现的，通过索引可以直接访问数组中的元素，时间复杂度为 (O(1))，因此随机访问性能非常高。</li>
+<li><strong>插入和删除性能较差</strong>：在数组中间插入或删除元素时，需要移动大量元素，时间复杂度为 (O(n))，性能相对较低。特别是在数组开头插入或删除元素时，性能开销更大。</li>
+<li><strong>尾部添加元素性能较好</strong>：在数组末尾添加元素时，如果不需要扩容，时间复杂度为 (O(1))；如果需要扩容，虽然会有一定的性能开销，但平均情况下时间复杂度仍然接近 (O(1))。</li>
+</ul>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h3><p><img src="/../images/java-notes/1741870447441.png" alt="1741870447441"></p>
+<h4 id="基本概念-3"><a href="#基本概念-3" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>Vector</code> 类是 <code>List</code> 接口的一个实现类，它可以存储任意类型的对象，并且允许存储重复元素。<code>Vector</code> 中的元素是有序的，每个元素都有一个对应的索引，通过索引可以访问和操作元素。与普通数组不同的是，<code>Vector</code> 的大小可以动态变化，当添加的元素超过当前容量时，<code>Vector</code> 会自动扩容。</p>
+<h4 id="常用构造方法"><a href="#常用构造方法" class="headerlink" title="常用构造方法"></a>常用构造方法</h4><ul>
+<li>**<code>Vector()</code>**：创建一个空的 <code>Vector</code> 对象，初始容量为 10。</li>
+</ul>
+<pre><code class="java">import java.util.Vector;
+
+public class VectorConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        Vector&lt;String&gt; vector = new Vector&lt;&gt;();
+        System.out.println(&quot;初始容量: &quot; + vector.capacity()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>Vector(int initialCapacity)</code>**：创建一个具有指定初始容量的 <code>Vector</code> 对象。</li>
+</ul>
+<pre><code class="java">import java.util.Vector;
+
+public class VectorConstructorWithCapacity &#123;
+    public static void main(String[] args) &#123;
+        Vector&lt;Integer&gt; vector = new Vector&lt;&gt;(20);
+        System.out.println(&quot;初始容量: &quot; + vector.capacity()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>Vector(int initialCapacity, int capacityIncrement)</code>**：创建一个具有指定初始容量和容量增量的 <code>Vector</code> 对象。当 <code>Vector</code> 需要扩容时，会按照指定的容量增量增加容量。</li>
+</ul>
+<pre><code class="java">import java.util.Vector;
+
+public class VectorConstructorWithIncrement &#123;
+    public static void main(String[] args) &#123;
+        Vector&lt;Double&gt; vector = new Vector&lt;&gt;(10, 5);
+        System.out.println(&quot;初始容量: &quot; + vector.capacity()); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="线程安全性-1"><a href="#线程安全性-1" class="headerlink" title="线程安全性"></a>线程安全性</h4><p><code>Vector</code> 是线程安全的，它的大部分方法都使用了 <code>synchronized</code> 关键字进行同步，这意味着在多线程环境下，多个线程可以安全地访问和修改同一个 <code>Vector</code> 对象，不会出现数据不一致的问题。例如：</p>
+<pre><code class="java">import java.util.Vector;
+
+public class VectorThreadSafetyExample &#123;
+    private static Vector&lt;Integer&gt; vector = new Vector&lt;&gt;();
+
+    public static void main(String[] args) throws InterruptedException &#123;
+        // 创建线程 1
+        Thread t1 = new Thread(() -&gt; &#123;
+            for (int i = 0; i &lt; 1000; i++) &#123;
+                vector.addElement(i);
+            &#125;
+        &#125;);
+
+        // 创建线程 2
+        Thread t2 = new Thread(() -&gt; &#123;
+            for (int i = 1000; i &lt; 2000; i++) &#123;
+                vector.addElement(i);
+            &#125;
+        &#125;);
+
+        // 启动线程
+        t1.start();
+        t2.start();
+
+        // 等待线程执行完毕
+        t1.join();
+        t2.join();
+
+        System.out.println(&quot;Vector 的大小: &quot; + vector.size()); 
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，两个线程同时对 <code>Vector</code> 对象进行添加元素的操作，由于 <code>Vector</code> 是线程安全的，最终输出的 <code>Vector</code> 大小为 2000。</p>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p><img src="/../images/java-notes/1741870992972.png" alt="1741870992972"></p>
+<h4 id="基本概念-4"><a href="#基本概念-4" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>LinkedList</code> 是一种基于双向链表实现的集合类，它可以存储任意类型的元素，并且允许存储重复元素。元素在 <code>LinkedList</code> 中以链表节点的形式存储，每个节点包含一个元素和指向前一个节点和后一个节点的引用。</p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p><code>LinkedList</code> 采用双向链表的数据结构，每个节点（<code>Node</code>）包含三个部分：</p>
+<ul>
+<li><strong>元素（<code>item</code>）</strong>：存储实际的数据。</li>
+<li><strong>指向前一个节点的引用（<code>prev</code>）</strong>：用于在链表中向前遍历。</li>
+<li><strong>指向后一个节点的引用（<code>next</code>）</strong>：用于在链表中向后遍历。</li>
+</ul>
+<h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>LinkedList()</code>**：创建一个空的 <code>LinkedList</code>。</li>
+</ul>
+<pre><code class="java">import java.util.LinkedList;
+import java.util.List;
+
+public class LinkedListConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new LinkedList&lt;&gt;();
+        System.out.println(&quot;初始大小: &quot; + list.size()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>LinkedList(Collection c)</code>**：创建一个包含指定集合元素的 <code>LinkedList</code>，元素顺序与指定集合的迭代器返回顺序相同。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+public class LinkedListConstructorWithCollection &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; sourceList = Arrays.asList(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;);
+        List&lt;String&gt; list = new LinkedList&lt;&gt;(sourceList);
+        System.out.println(list); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="性能特点-1"><a href="#性能特点-1" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>插入和删除性能好</strong>：在链表的任意位置插入或删除元素时，只需要修改相邻节点的引用，时间复杂度为 (O(1))。特别是在链表的头部和尾部进行插入和删除操作时，性能非常高。</li>
+<li><strong>随机访问性能差</strong>：由于 <code>LinkedList</code> 是基于链表实现的，要访问指定索引位置的元素，需要从头或尾开始遍历链表，平均时间复杂度为 (O(n))，因此随机访问性能较差。</li>
+</ul>
+<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>频繁的插入和删除操作</strong>：如果需要在集合的任意位置频繁进行插入和删除操作，<code>LinkedList</code> 是一个不错的选择，例如实现栈、队列等数据结构。</li>
+<li><strong>不需要频繁随机访问</strong>：当不需要频繁通过索引访问元素时，使用 <code>LinkedList</code> 可以避免因随机访问带来的性能开销。</li>
+</ul>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p><img src="/../images/java-notes/1741873566977.png" alt="1741873566977"></p>
+<h4 id="基本概念-5"><a href="#基本概念-5" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>Set</code> 接口是 Java 集合框架的重要组成部分，它定义了一组不重复元素的集合规范。与 <code>List</code> 接口不同，<code>Set</code> 不保证元素的顺序，即元素在集合中的存储顺序和插入顺序可能不同。<code>Set</code> 接口不允许存储重复元素，当尝试添加重复元素时，添加操作会失败。</p>
+<h4 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>去重操作</strong>：由于 <code>Set</code> 不允许存储重复元素，因此可以很方便地对数据进行去重。例如，从一个包含重复元素的列表中提取不重复的元素：</li>
+</ul>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class SetForDuplicateRemoval &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; listWithDuplicates = new ArrayList&lt;&gt;();
+        listWithDuplicates.add(&quot;apple&quot;);
+        listWithDuplicates.add(&quot;banana&quot;);
+        listWithDuplicates.add(&quot;apple&quot;);
+
+        Set&lt;String&gt; set = new HashSet&lt;&gt;(listWithDuplicates);
+        System.out.println(set); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>判断元素是否存在</strong>：<code>Set</code> 的查找操作性能通常较好，特别是 <code>HashSet</code>，可以快速判断一个元素是否存在于集合中。例如，判断一个单词是否在字典中：</li>
+</ul>
+<pre><code class="java">import java.util.HashSet;
+import java.util.Set;
+
+public class SetForExistenceCheck &#123;
+    public static void main(String[] args) &#123;
+        Set&lt;String&gt; dictionary = new HashSet&lt;&gt;();
+        dictionary.add(&quot;apple&quot;);
+        dictionary.add(&quot;banana&quot;);
+
+        boolean exists = dictionary.contains(&quot;apple&quot;);
+        System.out.println(&quot;单词 &#39;apple&#39; 是否存在: &quot; + exists); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>需要有序且不重复的集合</strong>：如果需要元素既不重复又按照一定顺序排列，可以使用 <code>TreeSet</code>。例如，对一组整数进行排序并去重：</li>
+</ul>
+<pre><code class="java">import java.util.TreeSet;
+import java.util.Set;
+
+public class TreeSetForSortingAndDuplicateRemoval &#123;
+    public static void main(String[] args) &#123;
+        Set&lt;Integer&gt; numbers = new TreeSet&lt;&gt;();
+        numbers.add(3);
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        System.out.println(numbers); 
+    &#125;
+&#125;
+</code></pre>
+<h3 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h3><p><img src="/../images/java-notes/1741873990543.png" alt="1741873990543"></p>
+<p><img src="/../images/java-notes/1741874777810.png" alt="1741874777810"></p>
+<p><img src="/../images/java-notes/1741879623733.png" alt="1741879623733"></p>
+<h4 id="基本概念-6"><a href="#基本概念-6" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>HashSet</code> 是一个不允许存储重复元素的集合，它不保证元素的顺序，也就是说，元素在 <code>HashSet</code> 中的存储顺序和插入顺序可能不同。<code>HashSet</code> 允许存储 <code>null</code> 元素，但只能有一个 <code>null</code> 元素。</p>
+<h4 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h4><p><code>HashSet</code> 基于哈希表（实际上是 <code>HashMap</code>）实现。它使用元素的 <code>hashCode()</code> 方法来计算元素在哈希表中的存储位置，通过 <code>equals()</code> 方法来判断元素是否相等。当向 <code>HashSet</code> 中添加元素时，会先计算元素的哈希码，根据哈希码找到对应的存储位置，如果该位置已经有元素，会使用 <code>equals()</code> 方法比较元素是否相等，如果相等则不添加，如果不相等则以链表或红黑树（当链表长度超过一定阈值时会转换为红黑树）的形式存储在该位置。</p>
+<h4 id="构造方法-2"><a href="#构造方法-2" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>HashSet()</code>**：创建一个新的空 <code>HashSet</code>，默认初始容量为 16，加载因子为 0.75。</li>
+</ul>
+<pre><code class="java">import java.util.HashSet;
+import java.util.Set;
+
+public class HashSetConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        Set&lt;String&gt; set = new HashSet&lt;&gt;();
+        System.out.println(&quot;初始大小: &quot; + set.size()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>HashSet(Collection c)</code>**：创建一个包含指定集合元素的 <code>HashSet</code>。</li>
+</ul>
+<pre><code class="java">import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class HashSetConstructorWithCollection &#123;
+    public static void main(String[] args) &#123;
+        Set&lt;String&gt; sourceSet = new HashSet&lt;&gt;(Arrays.asList(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;));
+        Set&lt;String&gt; set = new HashSet&lt;&gt;(sourceSet);
+        System.out.println(set); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>HashSet(int initialCapacity)</code>**：创建一个具有指定初始容量的新 <code>HashSet</code>，加载因子为 0.75。</li>
+<li>**<code>HashSet(int initialCapacity, float loadFactor)</code>**：创建一个具有指定初始容量和加载因子的新 <code>HashSet</code>。</li>
+</ul>
+<h4 id="性能特点-2"><a href="#性能特点-2" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>插入、删除和查找操作性能好</strong>：在理想情况下，<code>HashSet</code> 的插入、删除和查找操作的时间复杂度为 (O(1))，因为它是基于哈希表实现的，通过哈希码可以快速定位元素的存储位置。</li>
+<li><strong>无序性</strong>：<code>HashSet</code> 不保证元素的顺序，元素的存储顺序取决于哈希码和哈希表的实现，因此不能依赖元素的顺序进行操作。</li>
+</ul>
+<h4 id="使用注意事项"><a href="#使用注意事项" class="headerlink" title="使用注意事项"></a>使用注意事项</h4><ul>
+<li><strong>元素的 <code>hashCode()</code> 和 <code>equals()</code> 方法</strong>：为了确保 <code>HashSet</code> 能够正确判断元素是否相等，存储在 <code>HashSet</code> 中的元素必须正确重写 <code>hashCode()</code> 和 <code>equals()</code> 方法。如果两个元素通过 <code>equals()</code> 方法比较相等，那么它们的 <code>hashCode()</code> 值必须相同；如果两个元素的 <code>hashCode()</code> 值相同，它们不一定通过 <code>equals()</code> 方法比较相等。</li>
+</ul>
+<pre><code class="java">import java.util.HashSet;
+import java.util.Set;
+
+class Person &#123;
+    private String name;
+    private int age;
+
+    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+
+    @Override
+    public boolean equals(Object o) &#123;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age &amp;&amp; name.equals(person.name);
+    &#125;
+
+    @Override
+    public int hashCode() &#123;
+        int result = name.hashCode();
+        result = 31 * result + age;
+        return result;
+    &#125;
+
+    @Override
+    public String toString() &#123;
+        return &quot;Person&#123;name=&#39;&quot; + name + &quot;&#39;, age=&quot; + age + &quot;&#125;&quot;;
+    &#125;
+&#125;
+
+public class HashSetCustomObjectExample &#123;
+    public static void main(String[] args) &#123;
+        Set&lt;Person&gt; set = new HashSet&lt;&gt;();
+        set.add(new Person(&quot;Alice&quot;, 20));
+        set.add(new Person(&quot;Alice&quot;, 20));
+        System.out.println(set); 
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>Person</code> 类重写了 <code>equals()</code> 和 <code>hashCode()</code> 方法，确保 <code>HashSet</code> 能够正确判断元素是否相等。</p>
+<h4 id="元素添加、查找和删除过程"><a href="#元素添加、查找和删除过程" class="headerlink" title="元素添加、查找和删除过程"></a>元素添加、查找和删除过程</h4><h5 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h5><p>当调用 <code>HashSet</code> 的 <code>add(E e)</code> 方法时，实际上是调用 <code>HashMap</code> 的 <code>put(K key, V value)</code> 方法，具体步骤如下：</p>
+<ol>
+<li>计算元素的哈希码（<code>hash</code>），通过 <code>hash</code> 函数对哈希码进行处理，得到一个更均匀分布的哈希值。</li>
+<li>根据处理后的哈希值计算出在数组中的索引位置。</li>
+<li>如果该索引位置为空，直接创建一个新的节点存储元素，并将其放入该位置。</li>
+<li>如果该索引位置已经有元素（即发生哈希冲突），则遍历链表或红黑树：<ul>
+<li>如果是链表，逐个比较元素的 <code>equals()</code> 方法，若找到相等的元素，则不添加；若遍历到链表末尾都没有找到相等的元素，则在链表尾部插入新节点。</li>
+<li>如果是红黑树，按照红黑树的插入规则进行插入操作。</li>
+</ul>
+</li>
+<li>如果链表长度达到 8 且数组长度达到 64，将链表转换为红黑树。</li>
+</ol>
+<h5 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h5><p>当调用 <code>HashSet</code> 的 <code>contains(Object o)</code> 方法时，实际上是调用 <code>HashMap</code> 的 <code>containsKey(Object key)</code> 方法，具体步骤如下：</p>
+<ol>
+<li>计算元素的哈希码，通过 <code>hash</code> 函数处理得到哈希值。</li>
+<li>根据哈希值计算出在数组中的索引位置。</li>
+<li>如果该索引位置为空，直接返回 <code>false</code>。</li>
+<li>如果该索引位置有元素，遍历链表或红黑树：<ul>
+<li>如果是链表，逐个比较元素的 <code>equals()</code> 方法，若找到相等的元素，则返回 <code>true</code>；若遍历完链表都没有找到，则返回 <code>false</code>。</li>
+<li>如果是红黑树，按照红黑树的查找规则进行查找，若找到则返回 <code>true</code>，否则返回 <code>false</code>。</li>
+</ul>
+</li>
+</ol>
+<h5 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h5><p>当调用 <code>HashSet</code> 的 <code>remove(Object o)</code> 方法时，实际上是调用 <code>HashMap</code> 的 <code>remove(Object key)</code> 方法，具体步骤如下：</p>
+<ol>
+<li>计算元素的哈希码，通过 <code>hash</code> 函数处理得到哈希值。</li>
+<li>根据哈希值计算出在数组中的索引位置。</li>
+<li>如果该索引位置为空，直接返回 <code>false</code>。</li>
+<li>如果该索引位置有元素，遍历链表或红黑树：<ul>
+<li>如果是链表，逐个比较元素的 <code>equals()</code> 方法，若找到相等的元素，则将该节点从链表中移除；若遍历完链表都没有找到，则返回 <code>false</code>。</li>
+<li>如果是红黑树，按照红黑树的删除规则进行删除操作。</li>
+</ul>
+</li>
+<li>如果红黑树的节点数量减少到一定阈值（默认为 6），将红黑树转换为链表。</li>
+</ol>
+<h4 id="HashSet扩容机制"><a href="#HashSet扩容机制" class="headerlink" title="HashSet扩容机制"></a>HashSet扩容机制</h4><h5 id="关键参数"><a href="#关键参数" class="headerlink" title="关键参数"></a>关键参数</h5><p>在了解扩容机制之前，先明确几个关键参数：</p>
+<ul>
+<li><strong>容量（<code>capacity</code>）</strong>：指的是 <code>HashMap</code> 中哈希桶数组的大小，初始默认容量为 16。</li>
+<li><strong>加载因子（<code>loadFactor</code>）</strong>：默认值是 0.75，它是一个衡量 <code>HashMap</code> 满的程度的指标。当 <code>HashMap</code> 中存储的元素数量达到 <code>容量 * 加载因子</code> 时，就会触发扩容操作。</li>
+<li><strong>阈值（<code>threshold</code>）</strong>：<code>阈值 = 容量 * 加载因子</code>，当元素数量超过这个阈值时，<code>HashMap</code> 会进行扩容。</li>
+</ul>
+<h5 id="扩容触发条件"><a href="#扩容触发条件" class="headerlink" title="扩容触发条件"></a>扩容触发条件</h5><p>当向 <code>HashSet</code> 中添加元素时，<code>HashSet</code> 会调用 <code>HashMap</code> 的 <code>put</code> 方法。在 <code>put</code> 方法中，会检查当前元素数量是否超过阈值，如果超过则触发扩容操作。以下是 <code>HashMap</code> 中部分关键代码体现：</p>
+<pre><code class="java">final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) &#123;
+    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) &amp; hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else &#123;
+        // 处理哈希冲突等情况
+    &#125;
+    ++modCount;
+    if (++size &gt; threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>size</code> 表示 <code>HashMap</code> 中存储的元素数量，<code>threshold</code> 是阈值。当 <code>++size &gt; threshold</code> 时，会调用 <code>resize()</code> 方法进行扩容。</p>
+<h5 id="扩容过程"><a href="#扩容过程" class="headerlink" title="扩容过程"></a>扩容过程</h5><p><code>resize()</code> 方法是 <code>HashMap</code> 进行扩容的核心方法，其主要步骤如下：</p>
+<h5 id="1-计算新的容量和阈值"><a href="#1-计算新的容量和阈值" class="headerlink" title="1. 计算新的容量和阈值"></a>1. 计算新的容量和阈值</h5><ul>
+<li>如果当前容量已经达到最大容量（<code>MAXIMUM_CAPACITY = 1 &lt;&lt; 30</code>），则将阈值设置为最大整数值，不再进行扩容。</li>
+<li>否则，将容量扩大为原来的 2 倍，同时更新阈值。以下是部分代码：</li>
+</ul>
+<pre><code class="java">final Node&lt;K,V&gt;[] resize() &#123;
+    Node&lt;K,V&gt;[] oldTab = table;
+    int oldCap = (oldTab == null) ? 0 : oldTab.length;
+    int oldThr = threshold;
+    int newCap, newThr = 0;
+    if (oldCap &gt; 0) &#123;
+        if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;
+            threshold = Integer.MAX_VALUE;
+            return oldTab;
+        &#125;
+        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;
+                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)
+            newThr = oldThr &lt;&lt; 1; // double threshold
+    &#125;
+    else if (oldThr &gt; 0) // initial capacity was placed in threshold
+        newCap = oldThr;
+    else &#123;               // zero initial threshold signifies using defaults
+        newCap = DEFAULT_INITIAL_CAPACITY;
+        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+    &#125;
+    if (newThr == 0) &#123;
+        float ft = (float)newCap * loadFactor;
+        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?
+                  (int)ft : Integer.MAX_VALUE);
+    &#125;
+    threshold = newThr;
+    @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)
+    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];
+    table = newTab;
+    // 其他代码...
+&#125;
+</code></pre>
+<h5 id="2-重新分配元素"><a href="#2-重新分配元素" class="headerlink" title="2. 重新分配元素"></a>2. 重新分配元素</h5><p>创建一个新的更大的哈希桶数组，然后将旧数组中的元素重新计算哈希值并分配到新数组中。在 Java 8 中，为了提高性能，采用了更优化的方式处理元素的迁移：</p>
+<ul>
+<li>对于链表节点，会根据节点的哈希值与旧容量进行按位与运算的结果，将链表拆分为两个链表，分别放入新数组的不同位置。</li>
+<li>对于红黑树节点，如果树的节点数量减少到一定阈值（默认为 6），会将红黑树转换为链表，然后再进行迁移。以下是部分代码：</li>
+</ul>
+<pre><code class="java">if (oldTab != null) &#123;
+    for (int j = 0; j &lt; oldCap; ++j) &#123;
+        Node&lt;K,V&gt; e;
+        if ((e = oldTab[j]) != null) &#123;
+            oldTab[j] = null;
+            if (e.next == null)
+                newTab[e.hash &amp; (newCap - 1)] = e;
+            else if (e instanceof TreeNode)
+                ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);
+            else &#123; // preserve order
+                Node&lt;K,V&gt; loHead = null, loTail = null;
+                Node&lt;K,V&gt; hiHead = null, hiTail = null;
+                Node&lt;K,V&gt; next;
+                do &#123;
+                    next = e.next;
+                    if ((e.hash &amp; oldCap) == 0) &#123;
+                        if (loTail == null)
+                            loHead = e;
+                        else
+                            loTail.next = e;
+                        loTail = e;
+                    &#125;
+                    else &#123;
+                        if (hiTail == null)
+                            hiHead = e;
+                        else
+                            hiTail.next = e;
+                        hiTail = e;
+                    &#125;
+                &#125; while ((e = next) != null);
+                if (loTail != null) &#123;
+                    loTail.next = null;
+                    newTab[j] = loHead;
+                &#125;
+                if (hiTail != null) &#123;
+                    hiTail.next = null;
+                    newTab[j + oldCap] = hiHead;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><code>HashSet</code> 的扩容机制本质上是 <code>HashMap</code> 的扩容机制。当 <code>HashSet</code> 中存储的元素数量超过阈值（<code>容量 * 加载因子</code>）时，会触发扩容操作。扩容时，容量会扩大为原来的 2 倍，然后将旧数组中的元素重新分配到新数组中。扩容操作会带来一定的性能开销，因为需要重新计算哈希值和移动元素，所以在使用 <code>HashSet</code> 时，可以根据实际情况合理设置初始容量和加载因子，以减少扩容的次数。</p>
+<h3 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h3><p><img src="/../images/java-notes/1741954407841.png" alt="1741954407841"></p>
+<p><img src="/../images/java-notes/1741954649922.png" alt="1741954649922"></p>
+<h4 id="元素存储和顺序维护原理"><a href="#元素存储和顺序维护原理" class="headerlink" title="元素存储和顺序维护原理"></a>元素存储和顺序维护原理</h4><p>由于 <code>LinkeHashSet</code> 内部使用 <code>LinkedHashMap</code> 存储元素，其元素存储和顺序维护主要依赖于 <code>LinkedHashMap</code> 的实现。</p>
+<h5 id="元素存储"><a href="#元素存储" class="headerlink" title="元素存储"></a>元素存储</h5><p><code>LinkedHashSet</code> 调用 <code>add</code> 方法添加元素时，实际上是调用 <code>LinkedHashMap</code> 的 <code>put</code> 方法。<code>LinkedHashMap</code> 会根据元素的哈希码计算存储位置，并处理哈希冲突，保证元素的唯一性。</p>
+<h5 id="顺序维护"><a href="#顺序维护" class="headerlink" title="顺序维护"></a>顺序维护</h5><p><code>LinkedHashMap</code> 内部维护了一个双向链表，这个链表记录了元素的插入顺序（或访问顺序）。每次插入新元素时，会将该元素对应的节点添加到链表尾部；当进行迭代操作时，会按照链表的顺序依次访问元素，从而保证了 <code>LinkedHashSet</code> 中元素的顺序与插入顺序一致。</p>
+<h3 id="Map-内容为HashMap"><a href="#Map-内容为HashMap" class="headerlink" title="Map(内容为HashMap)"></a>Map(内容为HashMap)</h3><p><img src="/../images/java-notes/1741957900213.png" alt="1741957900213"></p>
+<p><img src="/../images/java-notes/1741958059707.png" alt="1741958059707"></p>
+<p><img src="/../images/java-notes/1741957350791.png" alt="1741957350791"></p>
+<h4 id="基本概念-7"><a href="#基本概念-7" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>Map</code> 接口定义了一种将键映射到值的对象，其中每个键都是唯一的，一个键最多只能映射到一个值。可以通过键来快速查找对应的值，就像使用字典中的单词查找其释义一样。<code>Map</code> 不继承 <code>Collection</code> 接口，它是与 <code>Collection</code> 并列的集合接口。</p>
+<h4 id="常用方法-6"><a href="#常用方法-6" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-元素添加方法-2"><a href="#1-元素添加方法-2" class="headerlink" title="1. 元素添加方法"></a>1. 元素添加方法</h5><ul>
+<li><code>V put(K key, V value)</code>：将指定的键值对插入到 <code>Map</code> 中。如果键已经存在，则会用新值替换旧值，并返回旧值；如果键不存在，则返回 <code>null</code>。</li>
+</ul>
+<pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapPutExample &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        Integer oldValue = map.put(&quot;apple&quot;, 2);
+        System.out.println(&quot;旧值: &quot; + oldValue); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-元素删除方法-2"><a href="#2-元素删除方法-2" class="headerlink" title="2. 元素删除方法"></a>2. 元素删除方法</h5><ul>
+<li><code>V remove(Object key)</code>：移除指定键对应的键值对，并返回该键对应的值；如果键不存在，则返回 <code>null</code>。</li>
+</ul>
+<pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapRemoveExample &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        Integer removedValue = map.remove(&quot;apple&quot;);
+        System.out.println(&quot;移除的值: &quot; + removedValue); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-元素查询方法-1"><a href="#3-元素查询方法-1" class="headerlink" title="3. 元素查询方法"></a>3. 元素查询方法</h5><ul>
+<li><code>V get(Object key)</code>：返回指定键对应的值；如果键不存在，则返回 <code>null</code>。</li>
+</ul>
+<pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapGetExample &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        Integer value = map.get(&quot;apple&quot;);
+        System.out.println(&quot;键 &#39;apple&#39; 对应的值: &quot; + value); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><code>boolean containsKey(Object key)</code>：判断 <code>Map</code> 中是否包含指定的键。</li>
+<li><code>boolean containsValue(Object value)</code>：判断 <code>Map</code> 中是否包含指定的值。</li>
+</ul>
+<h5 id="4-其他常用方法-1"><a href="#4-其他常用方法-1" class="headerlink" title="4. 其他常用方法"></a>4. 其他常用方法</h5><ul>
+<li><code>int size()</code>：返回 <code>Map</code> 中键值对的数量。</li>
+<li><code>boolean isEmpty()</code>：判断 <code>Map</code> 是否为空。</li>
+<li><code>void clear()</code>：移除 <code>Map</code> 中的所有键值对。</li>
+</ul>
+<h4 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式"></a>遍历方式</h4><h5 id="1-遍历键集"><a href="#1-遍历键集" class="headerlink" title="1. 遍历键集"></a>1. 遍历键集</h5><pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapKeySetTraversal &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        map.put(&quot;banana&quot;, 2);
+
+        for (String key : map.keySet()) &#123;
+            Integer value = map.get(key);
+            System.out.println(&quot;键: &quot; + key + &quot;, 值: &quot; + value);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-遍历值集"><a href="#2-遍历值集" class="headerlink" title="2. 遍历值集"></a>2. 遍历值集</h5><pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapValuesTraversal &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        map.put(&quot;banana&quot;, 2);
+
+        for (Integer value : map.values()) &#123;
+            System.out.println(&quot;值: &quot; + value);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-遍历键值对"><a href="#3-遍历键值对" class="headerlink" title="3. 遍历键值对"></a>3. 遍历键值对</h5><pre><code class="java">import java.util.HashMap;
+import java.util.Map;
+
+public class MapEntrySetTraversal &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;apple&quot;, 1);
+        map.put(&quot;banana&quot;, 2);
+
+        for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) &#123;
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            System.out.println(&quot;键: &quot; + key + &quot;, 值: &quot; + value);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Key-和-Value-的存放位置"><a href="#Key-和-Value-的存放位置" class="headerlink" title="Key 和 Value 的存放位置"></a><code>Key</code> 和 <code>Value</code> 的存放位置</h4><p>在 Java 8 及以后版本中，<code>HashMap</code> 采用数组 + 链表 + 红黑树的数据结构来存储 <code>Key</code> 和 <code>Value</code>。</p>
+<h4 id="EntrySet-集合"><a href="#EntrySet-集合" class="headerlink" title="EntrySet 集合"></a><code>EntrySet</code> 集合</h4><p><code>EntrySet</code> 是 <code>HashMap</code> 中的一个视图集合，它包含了 <code>HashMap</code> 中所有的键值对信息。<code>EntrySet</code> 中的每个元素都是一个 <code>Map.Entry</code> 对象，该对象封装了一个键值对，通过它可以同时访问 <code>Key</code> 和 <code>Value</code>。</p>
+<h5 id="EntrySet-与-Key、Value-存放位置的关系"><a href="#EntrySet-与-Key、Value-存放位置的关系" class="headerlink" title="EntrySet 与 Key、Value 存放位置的关系"></a><code>EntrySet</code> 与 <code>Key</code>、<code>Value</code> 存放位置的关系</h5><ul>
+<li><code>EntrySet</code> 是 <code>HashMap</code> 中键值对的一个视图，它并不实际存储 <code>Key</code> 和 <code>Value</code>，而是通过引用指向 <code>HashMap</code> 内部数组中的 <code>Node</code> 或 <code>TreeNode</code> 对象。</li>
+<li>当调用 <code>entrySet()</code> 方法时，<code>HashMap</code> 会创建一个包含所有 <code>Map.Entry</code> 对象的集合，这些 <code>Map.Entry</code> 对象实际上是对 <code>Node</code> 或 <code>TreeNode</code> 的封装，通过它们可以方便地访问 <code>Key</code> 和 <code>Value</code>。</li>
+</ul>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p><code>Map</code> 接口为 Java 开发者提供了一种方便的方式来存储和操作键值对。不同的实现类适用于不同的场景，开发者可以根据具体需求选择合适的 <code>Map</code> 实现类。在使用 <code>Map</code> 时，需要注意键的唯一性以及不同实现类对 <code>null</code> 键和 <code>null</code> 值的支持情况。</p>
+<h3 id="Hashtable"><a href="#Hashtable" class="headerlink" title="Hashtable"></a>Hashtable</h3><p><img src="/../images/java-notes/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-14%20213053.png"></p>
+<h4 id="基本概念-8"><a href="#基本概念-8" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>Hashtable</code> 实现了 <code>Map</code> 接口，用于存储键值对（key - value），其中每个键都是唯一的，一个键最多只能映射到一个值。<code>Hashtable</code> 是线程安全的，这意味着在多线程环境下可以安全地使用它进行操作，不会出现数据不一致的问题。</p>
+<h4 id="数据结构-2"><a href="#数据结构-2" class="headerlink" title="数据结构"></a>数据结构</h4><p><code>Hashtable</code> 采用数组 + 链表的数据结构，类似于 Java 8 之前的 <code>HashMap</code>。它内部维护一个数组，数组的每个元素是一个链表的头节点。当向 <code>Hashtable</code> 中插入键值对时，会根据键的哈希码计算出在数组中的索引位置，如果该位置已经有元素（即发生哈希冲突），则将新的键值对插入到该位置对应的链表中。</p>
+<h4 id="构造方法-3"><a href="#构造方法-3" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>Hashtable()</code>**：创建一个新的空 <code>Hashtable</code>，初始容量为 11，加载因子为 0.75。</li>
+</ul>
+<pre><code class="java">import java.util.Hashtable;
+import java.util.Map;
+
+public class HashtableConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        Map&lt;String, Integer&gt; hashtable = new Hashtable&lt;&gt;();
+        System.out.println(&quot;初始大小: &quot; + hashtable.size()); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>Hashtable(int initialCapacity)</code>**：创建一个具有指定初始容量的新 <code>Hashtable</code>，加载因子为 0.75。</li>
+<li>**<code>Hashtable(int initialCapacity, float loadFactor)</code>**：创建一个具有指定初始容量和加载因子的新 <code>Hashtable</code>。</li>
+<li>**<code>Hashtable(Map t)</code>**：创建一个包含指定 <code>Map</code> 中所有键值对的新 <code>Hashtable</code>。</li>
+</ul>
+<h4 id="性能特点-3"><a href="#性能特点-3" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>线程安全</strong>：<code>Hashtable</code> 的所有方法都是同步的，这意味着在多线程环境下可以安全地使用它，但同步操作会带来一定的性能开销，因此在单线程环境下，其性能通常不如 <code>HashMap</code>。</li>
+<li><strong>插入、删除和查找操作</strong>：平均情况下，<code>Hashtable</code> 的插入、删除和查找操作的时间复杂度为 (O(1))，但在哈希冲突严重时，性能会下降。</li>
+</ul>
+<h4 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>多线程环境</strong>：当需要在多线程环境下使用 <code>Map</code> 时，<code>Hashtable</code> 是一个选择，因为它的线程安全特性可以保证数据的一致性。</li>
+<li><strong>不允许 <code>null</code> 键和 <code>null</code> 值</strong>：如果业务需求不允许使用 <code>null</code> 作为键或值，<code>Hashtable</code> 可以满足这一要求。</li>
+</ul>
+<h4 id="与其他类似类的比较"><a href="#与其他类似类的比较" class="headerlink" title="与其他类似类的比较"></a>与其他类似类的比较</h4><ul>
+<li>与 <code>HashMap</code> 比较：<ul>
+<li><strong>线程安全</strong>：<code>Hashtable</code> 是线程安全的，而 <code>HashMap</code> 是非线程安全的。在单线程环境下，<code>HashMap</code> 的性能通常比 <code>Hashtable</code> 好，因为 <code>Hashtable</code> 的同步机制会带来额外的开销。</li>
+<li><strong>对 <code>null</code> 的支持</strong>：<code>Hashtable</code> 不允许使用 <code>null</code> 作为键或值，而 <code>HashMap</code> 允许使用 <code>null</code> 作为键（只能有一个 <code>null</code> 键）和值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><p><img src="/../images/java-notes/1741959328704.png" alt="1741959328704"></p>
+<h4 id="基本概念-9"><a href="#基本概念-9" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>Properties</code> 类本质上是一个键值对的集合，其中键和值都是字符串类型。它可以从 <code>.properties</code> 文件中加载属性信息，也可以将属性信息保存到 <code>.properties</code> 文件中。<code>.properties</code> 文件是一种常见的配置文件格式，其内容通常采用 <code>key=value</code> 的形式，例如：</p>
+<pre><code class="properties">database.url=jdbc:mysql://localhost:3306/mydb
+database.username=root
+database.password=123456
+</code></pre>
+<h4 id="常用方法-7"><a href="#常用方法-7" class="headerlink" title="常用方法"></a>常用方法</h4><h5 id="1-加载属性文件"><a href="#1-加载属性文件" class="headerlink" title="1. 加载属性文件"></a>1. 加载属性文件</h5><ul>
+<li>**<code>void load(InputStream inStream)</code>**：从输入流中读取属性列表（键和元素对）。</li>
+</ul>
+<pre><code class="java">import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class PropertiesLoadExample &#123;
+    public static void main(String[] args) &#123;
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(&quot;config.properties&quot;)) &#123;
+            properties.load(fis);
+            System.out.println(properties.getProperty(&quot;database.url&quot;));
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>void load(Reader reader)</code>**：从输入字符流中读取属性列表。</li>
+</ul>
+<h5 id="2-保存属性到文件"><a href="#2-保存属性到文件" class="headerlink" title="2. 保存属性到文件"></a>2. 保存属性到文件</h5><ul>
+<li>**<code>void store(OutputStream out, String comments)</code>**：将此 <code>Properties</code> 表中的属性列表（键和元素对）写入输出流，并可以添加注释。</li>
+</ul>
+<pre><code class="java">import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class PropertiesStoreExample &#123;
+    public static void main(String[] args) &#123;
+        Properties properties = new Properties();
+        properties.setProperty(&quot;app.name&quot;, &quot;MyApp&quot;);
+        properties.setProperty(&quot;app.version&quot;, &quot;1.0&quot;);
+        try (FileOutputStream fos = new FileOutputStream(&quot;app.properties&quot;)) &#123;
+            properties.store(fos, &quot;Application configuration&quot;);
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>void store(Writer writer, String comments)</code>**：将此 <code>Properties</code> 表中的属性列表（键和元素对）写入输出字符流。</li>
+</ul>
+<h5 id="3-获取属性值"><a href="#3-获取属性值" class="headerlink" title="3. 获取属性值"></a>3. 获取属性值</h5><ul>
+<li>**<code>String getProperty(String key)</code>**：用指定的键在此属性列表中搜索属性。如果在此属性列表中未找到该键，则会继续在默认属性列表中搜索。如果仍未找到，则返回 <code>null</code>。</li>
+<li>**<code>String getProperty(String key, String defaultValue)</code>**：用指定的键在此属性列表中搜索属性。如果在此属性列表中未找到该键，则会继续在默认属性列表中搜索。如果仍未找到，则返回默认值。</li>
+</ul>
+<h5 id="4-设置属性值"><a href="#4-设置属性值" class="headerlink" title="4. 设置属性值"></a>4. 设置属性值</h5><ul>
+<li>**<code>Object setProperty(String key, String value)</code>**：调用 <code>Hashtable</code> 的方法 <code>put</code>，将键值对存储到 <code>Properties</code> 中。返回的是以前与 <code>key</code> 关联的值，如果没有则返回 <code>null</code>。</li>
+</ul>
+<h5 id="5-其他方法"><a href="#5-其他方法" class="headerlink" title="5. 其他方法"></a>5. 其他方法</h5><ul>
+<li>**<code>void list(PrintStream out)</code>**：将属性列表输出到指定的输出流，主要用于调试。</li>
+<li>**<code>void list(PrintWriter out)</code>**：将属性列表输出到指定的字符输出流。</li>
+</ul>
+<h4 id="使用场景-4"><a href="#使用场景-4" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>配置管理</strong>：用于存储和读取应用程序的配置信息，如数据库连接信息、服务器端口、日志级别等。这样可以将配置信息与代码分离，方便修改和维护。</li>
+<li><strong>国际化</strong>：在实现国际化功能时，可以使用不同语言的 <code>.properties</code> 文件来存储文本信息，根据用户的语言设置加载相应的属性文件。</li>
+</ul>
+<h4 id="注意事项-5"><a href="#注意事项-5" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><strong>键值类型</strong>：<code>Properties</code> 中的键和值都必须是字符串类型。如果需要存储其他类型的数据，需要进行额外的类型转换。</li>
+<li><strong>编码问题</strong>：在使用 <code>load</code> 和 <code>store</code> 方法时，要注意字符编码的问题。默认情况下，<code>load</code> 方法使用 ISO 8859 - 1 编码读取文件，如果文件包含中文等非 ASCII 字符，可能会出现乱码。可以使用 <code>InputStreamReader</code> 和 <code>OutputStreamWriter</code> 来指定编码。</li>
+</ul>
+<pre><code class="java">import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Properties;
+
+public class PropertiesEncodingExample &#123;
+    public static void main(String[] args) &#123;
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(&quot;config.properties&quot;);
+             InputStreamReader isr = new InputStreamReader(fis, &quot;UTF-8&quot;)) &#123;
+            properties.load(isr);
+            System.out.println(properties.getProperty(&quot;key&quot;));
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h3><p><img src="/../images/java-notes/1741959815832.png" alt="1741959815832"></p>
+<p><code>TreeSet</code> 是 Java 集合框架中的一个重要类，它实现了 <code>NavigableSet</code> 接口，而 <code>NavigableSet</code> 继承自 <code>SortedSet</code> 接口。<code>TreeSet</code> 基于红黑树（一种自平衡的二叉搜索树）实现，用于存储有序且唯一的元素。以下从基本概念、数据结构、构造方法、常用方法、性能特点、使用场景等方面对 <code>TreeSet</code> 进行详细介绍。</p>
+<h4 id="基本概念-10"><a href="#基本概念-10" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>TreeSet</code> 存储的元素会按照自然顺序（如果元素实现了 <code>Comparable</code> 接口）或者指定的比较器（<code>Comparator</code>）进行排序。同时，它不允许存储重复的元素，这是由 <code>Set</code> 接口的特性决定的。</p>
+<h4 id="数据结构-3"><a href="#数据结构-3" class="headerlink" title="数据结构"></a>数据结构</h4><p><code>TreeSet</code> 底层使用红黑树实现。红黑树是一种自平衡的二叉搜索树，它在插入和删除元素时会自动调整树的结构，以保证树的高度始终保持在对数级别，从而使得插入、删除和查找操作的时间复杂度都为 (O(log n))。红黑树的每个节点包含一个元素，并且满足以下性质：</p>
+<ul>
+<li>每个节点要么是红色，要么是黑色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点（NIL 节点，空节点）是黑色。</li>
+<li>如果一个节点是红色的，则它的子节点必须是黑色的。</li>
+<li>对每个节点，从该节点到其所有后代叶节点的简单路径上，均包含相同数目的黑色节点。</li>
+</ul>
+<h4 id="构造方法-4"><a href="#构造方法-4" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>TreeSet()</code>**：创建一个新的空 <code>TreeSet</code>，元素将按照自然顺序进行排序。元素必须实现 <code>Comparable</code> 接口。</li>
+</ul>
+<pre><code class="java">import java.util.TreeSet;
+
+public class TreeSetConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        TreeSet&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;();
+        treeSet.add(3);
+        treeSet.add(1);
+        treeSet.add(2);
+        System.out.println(treeSet); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>TreeSet(Comparator comparator)</code>**：创建一个新的空 <code>TreeSet</code>，元素将按照指定的比较器进行排序。</li>
+</ul>
+<pre><code class="java">import java.util.Comparator;
+import java.util.TreeSet;
+
+class CustomComparator implements Comparator&lt;Integer&gt; &#123;
+    @Override
+    public int compare(Integer o1, Integer o2) &#123;
+        return o2 - o1; 
+    &#125;
+&#125;
+
+public class TreeSetWithComparatorExample &#123;
+    public static void main(String[] args) &#123;
+        TreeSet&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;(new CustomComparator());
+        treeSet.add(3);
+        treeSet.add(1);
+        treeSet.add(2);
+        System.out.println(treeSet); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>TreeSet(Collection c)</code>**：创建一个包含指定集合元素的 <code>TreeSet</code>，元素将按照自然顺序进行排序。</li>
+<li>**<code>TreeSet(SortedSet s)</code>**：创建一个包含指定有序集合元素的 <code>TreeSet</code>，元素将使用与指定有序集合相同的排序方式。</li>
+</ul>
+<h4 id="元素查询方法"><a href="#元素查询方法" class="headerlink" title="元素查询方法"></a>元素查询方法</h4><ul>
+<li>**<code>E first()</code>**：返回集合中的第一个（最小的）元素。如果集合为空，则抛出 <code>NoSuchElementException</code> 异常。</li>
+<li>**<code>E last()</code>**：返回集合中的最后一个（最大的）元素。如果集合为空，则抛出 <code>NoSuchElementException</code> 异常。</li>
+<li>**<code>E lower(E e)</code>**：返回集合中小于给定元素的最大元素；如果不存在这样的元素，则返回 <code>null</code>。</li>
+<li>**<code>E higher(E e)</code>**：返回集合中大于给定元素的最小元素；如果不存在这样的元素，则返回 <code>null</code>。</li>
+<li>**<code>E floor(E e)</code>**：返回集合中小于等于给定元素的最大元素；如果不存在这样的元素，则返回 <code>null</code>。</li>
+<li>**<code>E ceiling(E e)</code>**：返回集合中大于等于给定元素的最小元素；如果不存在这样的元素，则返回 <code>null</code>。</li>
+</ul>
+<h4 id="性能特点-4"><a href="#性能特点-4" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>有序性</strong>：<code>TreeSet</code> 中的元素始终是有序的，这使得可以方便地进行范围查询和获取最大、最小元素等操作。</li>
+<li><strong>插入、删除和查找操作</strong>：由于底层使用红黑树实现，插入、删除和查找操作的时间复杂度都为 (O(log n))，其中 n 是集合中元素的数量。</li>
+<li><strong>不允许 <code>null</code> 元素</strong>：<code>TreeSet</code> 不允许存储 <code>null</code> 元素，因为在排序时需要调用元素的 <code>compareTo</code> 方法或使用比较器，而 <code>null</code> 无法进行比较。</li>
+</ul>
+<h4 id="使用场景-5"><a href="#使用场景-5" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>需要有序集合的场景</strong>：当需要存储一组唯一的元素，并且希望这些元素按照自然顺序或指定顺序排列时，可以使用 <code>TreeSet</code>。例如，对一组整数进行排序并去重。</li>
+<li><strong>范围查询场景</strong>：<code>TreeSet</code> 提供了 <code>lower</code>、<code>higher</code>、<code>floor</code>、<code>ceiling</code> 等方法，方便进行范围查询，如查找小于某个值的最大元素、大于某个值的最小元素等。</li>
+</ul>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p><img src="/../images/java-notes/1741960768209.png" alt="1741960768209"></p>
+<h4 id="基本概念-11"><a href="#基本概念-11" class="headerlink" title="基本概念"></a>基本概念</h4><p><code>TreeMap</code> 存储的键值对会根据键的顺序进行排序。如果键实现了 <code>Comparable</code> 接口，<code>TreeMap</code> 会按照键的自然顺序进行排序；如果在创建 <code>TreeMap</code> 时指定了比较器（<code>Comparator</code>），则会按照比较器的规则进行排序。同时，<code>TreeMap</code> 不允许键为 <code>null</code>，因为排序操作需要调用键的 <code>compareTo</code> 方法或使用比较器，而 <code>null</code> 无法进行比较，但值可以为 <code>null</code>。</p>
+<h4 id="构造方法-5"><a href="#构造方法-5" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
+<li>**<code>TreeMap()</code>**：创建一个新的空 <code>TreeMap</code>，键将按照自然顺序进行排序。键必须实现 <code>Comparable</code> 接口。</li>
+</ul>
+<pre><code class="java">import java.util.TreeMap;
+
+public class TreeMapConstructorExample &#123;
+    public static void main(String[] args) &#123;
+        TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;();
+        treeMap.put(3, &quot;Three&quot;);
+        treeMap.put(1, &quot;One&quot;);
+        treeMap.put(2, &quot;Two&quot;);
+        System.out.println(treeMap); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>TreeMap(Comparator comparator)</code>**：创建一个新的空 <code>TreeMap</code>，键将按照指定的比较器进行排序。</li>
+</ul>
+<pre><code class="java">import java.util.Comparator;
+import java.util.TreeMap;
+
+class CustomComparator implements Comparator&lt;Integer&gt; &#123;
+    @Override
+    public int compare(Integer o1, Integer o2) &#123;
+        return o2 - o1; 
+    &#125;
+&#125;
+
+public class TreeMapWithComparatorExample &#123;
+    public static void main(String[] args) &#123;
+        TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;(new CustomComparator());
+        treeMap.put(3, &quot;Three&quot;);
+        treeMap.put(1, &quot;One&quot;);
+        treeMap.put(2, &quot;Two&quot;);
+        System.out.println(treeMap); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>TreeMap(Map m)</code>**：创建一个包含指定 <code>Map</code> 中所有键值对的 <code>TreeMap</code>，键将按照自然顺序进行排序。</li>
+<li>**<code>TreeMap(SortedMap m)</code>**：创建一个包含指定有序 <code>Map</code> 中所有键值对的 <code>TreeMap</code>，键将使用与指定有序 <code>Map</code> 相同的排序方式。</li>
+</ul>
+<h4 id="元素查询方法-1"><a href="#元素查询方法-1" class="headerlink" title="元素查询方法"></a>元素查询方法</h4><ul>
+<li>**<code>V get(Object key)</code>**：返回指定键对应的值；如果键不存在，则返回 <code>null</code>。</li>
+</ul>
+<pre><code class="java">import java.util.TreeMap;
+
+public class TreeMapGetExample &#123;
+    public static void main(String[] args) &#123;
+        TreeMap&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;();
+        treeMap.put(1, &quot;One&quot;);
+        String value = treeMap.get(1);
+        System.out.println(&quot;键 &#39;1&#39; 对应的值: &quot; + value); 
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>**<code>K firstKey()</code>**：返回 <code>TreeMap</code> 中的第一个（最小的）键。如果 <code>TreeMap</code> 为空，则抛出 <code>NoSuchElementException</code> 异常。</li>
+<li>**<code>K lastKey()</code>**：返回 <code>TreeMap</code> 中的最后一个（最大的）键。如果 <code>TreeMap</code> 为空，则抛出 <code>NoSuchElementException</code> 异常。</li>
+<li>**<code>Map.Entry lowerEntry(K key)</code>**：返回 <code>TreeMap</code> 中键小于给定键的最大键值对；如果不存在这样的键值对，则返回 <code>null</code>。</li>
+<li>**<code>Map.Entry higherEntry(K key)</code>**：返回 <code>TreeMap</code> 中键大于给定键的最小键值对；如果不存在这样的键值对，则返回 <code>null</code>。</li>
+<li>**<code>Map.Entry floorEntry(K key)</code>**：返回 <code>TreeMap</code> 中键小于等于给定键的最大键值对；如果不存在这样的键值对，则返回 <code>null</code>。</li>
+<li>**<code>Map.Entry ceilingEntry(K key)</code>**：返回 <code>TreeMap</code> 中键大于等于给定键的最小键值对；如果不存在这样的键值对，则返回 <code>null</code>。</li>
+</ul>
+<h4 id="性能特点-5"><a href="#性能特点-5" class="headerlink" title="性能特点"></a>性能特点</h4><ul>
+<li><strong>有序性</strong>：<code>TreeMap</code> 中的键值对始终按照键的顺序排列，这使得可以方便地进行范围查询和获取最大、最小键值对等操作。</li>
+<li><strong>插入、删除和查找操作</strong>：由于底层使用红黑树实现，插入、删除和查找操作的时间复杂度都为 (O(log n))，其中 n 是 <code>TreeMap</code> 中键值对的数量。</li>
+<li><strong>不允许 <code>null</code> 键</strong>：<code>TreeMap</code> 不允许键为 <code>null</code>，但值可以为 <code>null</code>。</li>
+</ul>
+<h4 id="使用场景-6"><a href="#使用场景-6" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>需要有序键的场景</strong>：当需要存储一组键值对，并且希望这些键按照自然顺序或指定顺序排列时，可以使用 <code>TreeMap</code>。例如，对一组学生成绩按照分数进行排序存储。</li>
+<li><strong>范围查询场景</strong>：<code>TreeMap</code> 提供了 <code>lowerEntry</code>、<code>higherEntry</code>、<code>floorEntry</code>、<code>ceilingEntry</code> 等方法，方便进行范围查询，如查找分数小于某个值的最高成绩学生、分数大于某个值的最低成绩学生等。</li>
+</ul>
+<h3 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h3><p><img src="/../images/java-notes/1742020626789.png" alt="1742020626789"></p>
+<p><code>Collections</code> 是 Java 集合框架中的一个实用工具类，位于 <code>java.util</code> 包下。它提供了一系列静态方法，用于对集合（如 <code>List</code>、<code>Set</code>、<code>Map</code> 等）进行各种操作，比如排序、查找、替换、同步控制等，大大简化了集合操作的代码编写。以下从常用方法分类详细介绍 <code>Collections</code> 工具类。</p>
+<h4 id="排序操作"><a href="#排序操作" class="headerlink" title="排序操作"></a>排序操作</h4><h5 id="1-sort-List-list"><a href="#1-sort-List-list" class="headerlink" title="1. sort(List list)"></a>1. <code>sort(List list)</code></h5><p>该方法用于对实现了 <code>Comparable</code> 接口的元素列表进行自然排序。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SortExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(3);
+        numbers.add(1);
+        numbers.add(2);
+
+        Collections.sort(numbers);
+        System.out.println(numbers); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-sort-List-list-Comparator-c"><a href="#2-sort-List-list-Comparator-c" class="headerlink" title="2. sort(List list, Comparator c)"></a>2. <code>sort(List list, Comparator c)</code></h5><p>使用指定的比较器对列表进行排序。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class CustomComparator implements Comparator&lt;Integer&gt; &#123;
+    @Override
+    public int compare(Integer o1, Integer o2) &#123;
+        return o2 - o1; 
+    &#125;
+&#125;
+
+public class SortWithComparatorExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(3);
+        numbers.add(1);
+        numbers.add(2);
+
+        Collections.sort(numbers, new CustomComparator());
+        System.out.println(numbers); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><h5 id="1-binarySearch-List-list-T-key"><a href="#1-binarySearch-List-list-T-key" class="headerlink" title="1. binarySearch(List&gt; list, T key)"></a>1. <code>binarySearch(List&gt; list, T key)</code></h5><p>使用二分查找算法在有序列表中查找指定元素的索引。列表必须是按照自然顺序排序的。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class BinarySearchExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        int index = Collections.binarySearch(numbers, 2);
+        System.out.println(&quot;元素 2 的索引: &quot; + index); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-binarySearch-List-list-T-key-Comparator-c"><a href="#2-binarySearch-List-list-T-key-Comparator-c" class="headerlink" title="2. binarySearch(List list, T key, Comparator c)"></a>2. <code>binarySearch(List list, T key, Comparator c)</code></h5><p>使用二分查找算法在有序列表中查找指定元素的索引，列表按照指定的比较器排序。</p>
+<h4 id="替换操作"><a href="#替换操作" class="headerlink" title="替换操作"></a>替换操作</h4><h5 id="1-replaceAll-List-list-T-oldVal-T-newVal"><a href="#1-replaceAll-List-list-T-oldVal-T-newVal" class="headerlink" title="1. replaceAll(List list, T oldVal, T newVal)"></a>1. <code>replaceAll(List list, T oldVal, T newVal)</code></h5><p>将列表中所有的旧元素替换为新元素。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ReplaceAllExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+        fruits.add(&quot;apple&quot;);
+        fruits.add(&quot;banana&quot;);
+        fruits.add(&quot;apple&quot;);
+
+        Collections.replaceAll(fruits, &quot;apple&quot;, &quot;orange&quot;);
+        System.out.println(fruits); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="同步控制"><a href="#同步控制" class="headerlink" title="同步控制"></a>同步控制</h4><h5 id="1-synchronizedList-List-list"><a href="#1-synchronizedList-List-list" class="headerlink" title="1. synchronizedList(List list)"></a>1. <code>synchronizedList(List list)</code></h5><p>返回指定列表的同步（线程安全的）列表。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SynchronizedListExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        List&lt;String&gt; syncedList = Collections.synchronizedList(list);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-其他同步方法"><a href="#2-其他同步方法" class="headerlink" title="2. 其他同步方法"></a>2. 其他同步方法</h5><p>还有 <code>synchronizedSet</code>、<code>synchronizedMap</code> 等方法，分别用于返回同步的 <code>Set</code> 和 <code>Map</code>。</p>
+<h4 id="反转、打乱等操作"><a href="#反转、打乱等操作" class="headerlink" title="反转、打乱等操作"></a>反转、打乱等操作</h4><h5 id="1-reverse-List-list"><a href="#1-reverse-List-list" class="headerlink" title="1. reverse(List list)"></a>1. <code>reverse(List list)</code></h5><p>反转列表中元素的顺序。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ReverseExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        Collections.reverse(numbers);
+        System.out.println(numbers); 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-shuffle-List-list"><a href="#2-shuffle-List-list" class="headerlink" title="2. shuffle(List list)"></a>2. <code>shuffle(List list)</code></h5><p>随机打乱列表中元素的顺序。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ShuffleExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+
+        Collections.shuffle(numbers);
+        System.out.println(numbers); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="不可变集合操作"><a href="#不可变集合操作" class="headerlink" title="不可变集合操作"></a>不可变集合操作</h4><h5 id="1-unmodifiableList-List-list"><a href="#1-unmodifiableList-List-list" class="headerlink" title="1. unmodifiableList(List list)"></a>1. <code>unmodifiableList(List list)</code></h5><p>返回指定列表的不可变视图，对返回的列表进行修改操作会抛出 <code>UnsupportedOperationException</code>。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class UnmodifiableListExample &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add(&quot;apple&quot;);
+        List&lt;String&gt; unmodifiableList = Collections.unmodifiableList(list);
+        try &#123;
+            unmodifiableList.add(&quot;banana&quot;); 
+        &#125; catch (UnsupportedOperationException e) &#123;
+            System.out.println(&quot;不支持修改操作&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-其他不可变方法"><a href="#2-其他不可变方法" class="headerlink" title="2. 其他不可变方法"></a>2. 其他不可变方法</h5><p>还有 <code>unmodifiableSet</code>、<code>unmodifiableMap</code> 等方法，分别用于返回不可变的 <code>Set</code> 和 <code>Map</code>。</p>
+<h4 id="复制操作"><a href="#复制操作" class="headerlink" title="复制操作"></a>复制操作</h4><h5 id="copy-List-dest-List-src"><a href="#copy-List-dest-List-src" class="headerlink" title="copy(List dest, List src)"></a><code>copy(List dest, List src)</code></h5><p>此方法用于将一个源列表（<code>src</code>）中的所有元素复制到目标列表（<code>dest</code>）中。目标列表的长度必须至少等于源列表的长度，如果目标列表长度小于源列表长度，会抛出 <code>IndexOutOfBoundsException</code> 异常。</p>
+<p><strong>示例代码</strong></p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class CollectionsCopyExample &#123;
+    public static void main(String[] args) &#123;
+        // 创建源列表
+        List&lt;String&gt; sourceList = new ArrayList&lt;&gt;();
+        sourceList.add(&quot;apple&quot;);
+        sourceList.add(&quot;banana&quot;);
+        sourceList.add(&quot;cherry&quot;);
+
+        // 创建目标列表，长度要至少和源列表一样
+        List&lt;String&gt; destinationList = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; sourceList.size(); i++) &#123;
+            destinationList.add(null);
+        &#125;
+
+        // 执行复制操作
+        Collections.copy(destinationList, sourceList);
+
+        // 输出目标列表
+        System.out.println(&quot;目标列表: &quot; + destinationList);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ol>
+<li><strong>创建源列表</strong>：首先创建了一个源列表 <code>sourceList</code>，并向其中添加了几个元素。</li>
+<li><strong>创建目标列表</strong>：接着创建目标列表 <code>destinationList</code>，为了满足 <code>Collections.copy</code> 方法的要求，需要确保目标列表的长度至少和源列表长度相等，这里通过循环添加 <code>null</code> 元素来达到这个目的。</li>
+<li><strong>执行复制操作</strong>：调用 <code>Collections.copy</code> 方法将源列表的元素复制到目标列表中。</li>
+<li><strong>输出结果</strong>：最后打印目标列表，可以看到目标列表已经包含了源列表的所有元素。</li>
+</ol>
+<p><strong>注意事项</strong></p>
+<ul>
+<li><strong>目标列表长度</strong>：目标列表的长度必须至少等于源列表的长度，否则会抛出 <code>IndexOutOfBoundsException</code> 异常。</li>
+<li><strong>元素引用</strong>：该方法只是复制元素的引用，而不是创建元素的副本。也就是说，如果源列表中的元素是可变对象，修改源列表或目标列表中对应元素的属性，会影响到另一个列表中的元素。</li>
+</ul>
+<h3 id="集合使用的选择"><a href="#集合使用的选择" class="headerlink" title="集合使用的选择"></a>集合使用的选择</h3><p><img src="/../images/java-notes/1742022453845.png" alt="1742022453845"></p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><img src="/../images/java-notes/1742022912923.png" alt="1742022912923"></p>
+<p><img src="/../images/java-notes/1742024033181.png" alt="1742024033181"></p>
+<h3 id="基本概念-12"><a href="#基本概念-12" class="headerlink" title="基本概念"></a>基本概念</h3><p>泛型，即 “参数化类型”，就是将类型由原来的具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用 &#x2F; 调用时传入具体的类型（类型实参）。泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。</p>
+<h3 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h3><p>泛型类是在定义类时使用泛型。通过在类名后面添加 &#96;&#96;（<code>T</code> 是类型参数，可以是任意标识符，通常使用 <code>T</code> 表示 Type），可以在类中使用这个类型参数来定义成员变量、方法的参数类型和返回值类型等。</p>
+<p><img src="/../images/java-notes/1742040606357.png" alt="1742040606357"></p>
+<h4 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h4><p>自定义泛型类是在定义类时使用泛型类型参数。通过在类名后面添加 <code>&lt;T&gt;</code> 是类型参数，可根据习惯使用不同标识符，常见的有 <code>T</code> 代表 Type，<code>E</code> 代表Element，<code>K</code> 代表 Key，<code>V</code> 代表 Value 等），可以在类中使用这个类型参数来定义成员变量、方法的参数类型和返回值类型等。</p>
+<h4 id="使用场景-7"><a href="#使用场景-7" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><strong>数据容器类</strong>：当创建一个用于存储数据的类，且希望这个类可以存储不同类型的数据时，就可以使用泛型类。例如，自定义一个简单的容器类，它可以存储整数、字符串等各种类型的数据。</li>
+<li><strong>算法类</strong>：在实现一些通用算法时，使用泛型类可以让算法适用于不同类型的数据。比如实现一个排序算法，使用泛型可以让该算法对不同类型的数组进行排序。</li>
+</ul>
+<pre><code class="java">// 定义一个泛型类
+class Box&lt;T&gt; &#123;
+    private T item;
+
+    public void setItem(T item) &#123;
+        this.item = item;
+    &#125;
+
+    public T getItem() &#123;
+        return item;
+    &#125;
+&#125;
+
+// 使用泛型类
+public class GenericClassExample &#123;
+    public static void main(String[] args) &#123;
+        // 创建一个存储 Integer 类型的 Box 对象
+        Box&lt;Integer&gt; integerBox = new Box&lt;&gt;();
+        integerBox.setItem(10);
+        Integer integerItem = integerBox.getItem();
+        System.out.println(&quot;Integer 类型的项: &quot; + integerItem);
+
+        // 创建一个存储 String 类型的 Box 对象
+        Box&lt;String&gt; stringBox = new Box&lt;&gt;();
+        stringBox.setItem(&quot;Hello, World!&quot;);
+        String stringItem = stringBox.getItem();
+        System.out.println(&quot;String 类型的项: &quot; + stringItem);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="注意事项-6"><a href="#注意事项-6" class="headerlink" title="注意事项"></a>注意事项</h4><h5 id="1-类型参数命名规范"><a href="#1-类型参数命名规范" class="headerlink" title="1. 类型参数命名规范"></a>1. 类型参数命名规范</h5><ul>
+<li><strong>常用命名约定</strong>：类型参数通常使用单个大写字母来命名，以提高代码的可读性。常见的命名有 <code>T</code>（Type）、<code>E</code>（Element）、<code>K</code>（Key）、<code>V</code>（Value）等。例如：</li>
+</ul>
+<pre><code class="java">class Container&lt;T&gt; &#123;
+    private T item;
+    // ...
+&#125;
+</code></pre>
+<ul>
+<li><strong>避免使用易混淆的名称</strong>：不要使用与 Java 内置类名或常用变量名相同的名称作为类型参数，以免造成混淆。</li>
+</ul>
+<h5 id="2-类型参数的作用域"><a href="#2-类型参数的作用域" class="headerlink" title="2. 类型参数的作用域"></a>2. 类型参数的作用域</h5><ul>
+<li><strong>仅限于类定义内部</strong>：类型参数的作用域仅限于泛型类的定义内部，它可以用于定义成员变量、方法的参数类型、返回值类型等，但<strong>不能用于静态成员</strong>。因为静态成员属于类本身，在类加载时就已经确定，而类型参数是在创建对象时才确定具体类型的。例如：</li>
+</ul>
+<pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    private T instanceField; // 可以使用类型参数定义实例字段
+
+    public static final T staticField; // 错误，静态字段不能使用类型参数
+
+    public void instanceMethod(T param) &#123; // 可以使用类型参数定义方法参数
+        // ...
+    &#125;
+
+    public static void staticMethod(T param) &#123; // 错误，静态方法不能使用类型参数
+        // ...
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-类型擦除"><a href="#3-类型擦除" class="headerlink" title="3. 类型擦除"></a>3. 类型擦除</h5><ul>
+<li><strong>运行时类型信息丢失</strong>：Java 的泛型是通过类型擦除实现的，这意味着在编译后，泛型类型信息会被擦除，替换为原始类型（通常是 <code>Object</code> 类型，如果有上界则替换为上界类型）。例如：</li>
+</ul>
+<pre><code class="java">class Container&lt;T&gt; &#123;
+    private T item;
+
+    public Container(T item) &#123;
+        this.item = item;
+    &#125;
+
+    public T getItem() &#123;
+        return item;
+    &#125;
+&#125;
+</code></pre>
+<p>编译后，<code>Container</code> 类的字节码中 <code>T</code> 会被替换为 <code>Object</code> 类型。因此，在运行时无法获取泛型的具体类型信息。</p>
+<ul>
+<li><strong>不能使用基本数据类型</strong>：由于类型擦除后泛型类型会被替换为引用类型，所以不能直接使用基本数据类型作为类型参数，需要使用对应的包装类。例如：</li>
+</ul>
+<pre><code class="java">Container&lt;int&gt; intContainer; // 错误
+Container&lt;Integer&gt; integerContainer; // 正确
+</code></pre>
+<h5 id="4-泛型类的继承和实现"><a href="#4-泛型类的继承和实现" class="headerlink" title="4. 泛型类的继承和实现"></a>4. 泛型类的继承和实现</h5><ul>
+<li><strong>子类可以指定具体类型</strong>：在继承泛型类时，子类可以指定具体的类型实参。例如：</li>
+</ul>
+<pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    // ...
+&#125;
+
+class SubClass extends GenericClass&lt;String&gt; &#123;
+    // ...
+&#125;
+</code></pre>
+<ul>
+<li><strong>子类也可以继续使用泛型</strong>：子类也可以继续使用泛型，在创建子类对象时再指定具体类型。例如：</li>
+</ul>
+<pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    // ...
+&#125;
+
+class SubClass&lt;T&gt; extends GenericClass&lt;T&gt; &#123;
+    // ...
+&#125;
+</code></pre>
+<h5 id="5-泛型类中的方法重载"><a href="#5-泛型类中的方法重载" class="headerlink" title="5. 泛型类中的方法重载"></a>5. 泛型类中的方法重载</h5><ul>
+<li><strong>类型参数不参与方法重载判断</strong>：在泛型类中，方法的重载是基于方法的参数列表来判断的，类型参数不参与重载判断。例如：</li>
+</ul>
+<pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    public void method(T param) &#123;
+        // ...
+    &#125;
+
+    public void method(T param1, T param2) &#123; // 正确，参数列表不同
+        // ...
+    &#125;
+
+    public void method(String param) &#123; // 正确，参数类型不同
+        // ...
+    &#125;
+
+    public &lt;U&gt; void method(U param) &#123; // 错误，类型参数不参与重载判断，会导致编译错误
+        // ...
+    &#125;
+&#125;
+</code></pre>
+<h5 id="6-异常处理"><a href="#6-异常处理" class="headerlink" title="6. 异常处理"></a>6. 异常处理</h5><ul>
+<li><strong>不能捕获泛型类型的异常</strong>：由于类型擦除，在 <code>catch</code> 块中不能使用泛型类型作为异常类型。例如：</li>
+</ul>
+<pre><code class="java">class GenericClass&lt;T extends Throwable&gt; &#123;
+    public void doSomething() &#123;
+        try &#123;
+            // ...
+        &#125; catch (T e) &#123; // 错误，不能捕获泛型类型的异常
+            // ...
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="7-泛型数组"><a href="#7-泛型数组" class="headerlink" title="7. 泛型数组"></a>7. 泛型数组</h5><ul>
+<li><strong>不能直接创建泛型数组</strong>：由于类型擦除，不能直接创建泛型数组。例如：</li>
+</ul>
+<pre><code class="java">T[] array = new T[10]; // 错误
+</code></pre>
+<p>可以通过创建 <code>Object</code> 数组并进行类型转换来实现类似的功能，但需要注意类型转换可能会引发 <code>ClassCastException</code>。例如：</p>
+<pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    private T[] array;
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public GenericClass(int size) &#123;
+        array = (T[]) new Object[size]; // 进行类型转换
+    &#125;
+
+    public T get(int index) &#123;
+        return array[index];
+    &#125;
+
+    public void set(int index, T item) &#123;
+        array[index] = item;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h3><p><img src="/../images/java-notes/1742042463395.png" alt="1742042463395"></p>
+<h4 id="定义泛型方法"><a href="#定义泛型方法" class="headerlink" title="定义泛型方法"></a>定义泛型方法</h4><p>定义泛型方法的语法格式如下：</p>
+<pre><code class="java">修饰符 &lt;类型参数列表&gt; 返回值类型 方法名(参数列表) &#123;
+    // 方法体
+&#125;
+</code></pre>
+<p>以下是几个不同场景下自定义泛型方法的示例：</p>
+<h5 id="简单的泛型方法"><a href="#简单的泛型方法" class="headerlink" title="简单的泛型方法"></a>简单的泛型方法</h5><pre><code class="java">public class GenericMethodExample &#123;
+    // 定义一个泛型方法，用于打印数组元素
+    public static &lt;T&gt; void printArray(T[] array) &#123;
+        for (T element : array) &#123;
+            System.out.print(element + &quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+
+    public static void main(String[] args) &#123;
+        // 创建一个 Integer 类型的数组
+        Integer[] intArray = &#123;1, 2, 3, 4, 5&#125;;
+        // 调用泛型方法打印 Integer 数组
+        printArray(intArray);
+
+        // 创建一个 String 类型的数组
+        String[] stringArray = &#123;&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;&#125;;
+        // 调用泛型方法打印 String 数组
+        printArray(stringArray);
+    &#125;
+&#125;
+</code></pre>
+<p>在上述代码中，<code>printArray</code> 是一个泛型方法，&#96;&#96; 表示类型参数，<code>T[] array</code> 表示参数是一个类型为 <code>T</code> 的数组。在 <code>main</code> 方法中，我们分别传入了 <code>Integer</code> 数组和 <code>String</code> 数组来调用该方法。</p>
+<h5 id="泛型方法返回值为泛型类型"><a href="#泛型方法返回值为泛型类型" class="headerlink" title="泛型方法返回值为泛型类型"></a>泛型方法返回值为泛型类型</h5><pre><code class="java">public class ReturnGenericMethod &#123;
+    // 定义一个泛型方法，返回传入的参数
+    public static &lt;T&gt; T getValue(T value) &#123;
+        return value;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        // 调用泛型方法，传入 Integer 类型的值
+        Integer intValue = getValue(10);
+        System.out.println(&quot;Integer 值: &quot; + intValue);
+
+        // 调用泛型方法，传入 String 类型的值
+        String stringValue = getValue(&quot;Hello&quot;);
+        System.out.println(&quot;String 值: &quot; + stringValue);
+    &#125;
+&#125;
+</code></pre>
+<p>此代码中的 <code>getValue</code> 方法是一个泛型方法，它接受一个类型为 <code>T</code> 的参数，并返回该参数。在 <code>main</code> 方法中，我们分别传入了 <code>Integer</code> 类型和 <code>String</code> 类型的值来调用该方法。</p>
+<h5 id="在泛型类中定义泛型方法"><a href="#在泛型类中定义泛型方法" class="headerlink" title="在泛型类中定义泛型方法"></a>在泛型类中定义泛型方法</h5><pre><code class="java">class GenericClass&lt;T&gt; &#123;
+    private T value;
+
+    public GenericClass(T value) &#123;
+        this.value = value;
+    &#125;
+
+    // 泛型类中的泛型方法
+    public &lt;U&gt; void printBoth(T t, U u) &#123;
+        System.out.println(&quot;T 类型的值: &quot; + t);
+        System.out.println(&quot;U 类型的值: &quot; + u);
+    &#125;
+
+    public static void main(String[] args) &#123;
+        GenericClass&lt;Integer&gt; genericObj = new GenericClass&lt;&gt;(10);
+        genericObj.printBoth(10, &quot;Hello&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>在 <code>GenericClass</code> 这个泛型类中，<code>printBoth</code> 是一个泛型方法，它除了使用类的泛型类型参数 <code>T</code> 外，还定义了自己的泛型类型参数 <code>U</code>。</p>
+<h4 id="注意事项-7"><a href="#注意事项-7" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><strong>类型参数的作用域</strong>：泛型方法的类型参数作用域仅限于该方法内部，不同的泛型方法可以使用相同的类型参数名，它们彼此独立。</li>
+<li><strong>类型推断</strong>：在调用泛型方法时，编译器通常可以根据传入的参数类型自动推断出类型参数的具体类型。例如在上述 <code>printArray</code> 方法中，传入 <code>Integer</code> 数组时，编译器会自动将 <code>T</code> 推断为 <code>Integer</code>。</li>
+<li><strong>静态泛型方法</strong>：静态泛型方法只能使用自己定义的泛型类型参数，不能使用类的泛型类型参数，因为静态成员属于类本身，在类加载时就已经确定，而类的泛型类型参数是在创建对象时才确定具体类型的。</li>
+</ul>
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><p><img src="/../images/java-notes/1742041282218.png" alt="1742041282218"></p>
+<h4 id="定义泛型接口"><a href="#定义泛型接口" class="headerlink" title="定义泛型接口"></a>定义泛型接口</h4><p>定义泛型接口的语法格式如下：</p>
+<pre><code class="java">interface 接口名&lt;类型参数列表&gt; &#123;
+    // 抽象方法定义，可使用类型参数
+    返回值类型 方法名(参数列表);
+    // 其他抽象方法...
+&#125;
+</code></pre>
+<p>以下是一个简单的泛型接口示例，定义一个生成器接口，该接口可以生成不同类型的对象：</p>
+<pre><code class="java">// 定义一个泛型接口 Generator
+interface Generator&lt;T&gt; &#123;
+    // 定义一个抽象方法，返回类型为 T
+    T generate();
+&#125;
+</code></pre>
+<h4 id="实现泛型接口"><a href="#实现泛型接口" class="headerlink" title="实现泛型接口"></a>实现泛型接口</h4><p>实现泛型接口有两种方式：指定具体类型和继续使用泛型。</p>
+<h5 id="1-指定具体类型"><a href="#1-指定具体类型" class="headerlink" title="1. 指定具体类型"></a>1. 指定具体类型</h5><p>在实现泛型接口时，可以指定具体的类型实参，这样实现类中的泛型类型就被确定下来。</p>
+<pre><code class="java">// 实现 Generator 接口并指定具体类型为 Integer
+class IntegerGenerator implements Generator&lt;Integer&gt; &#123;
+    @Override
+    public Integer generate() &#123;
+        // 生成一个 0 到 99 之间的随机整数
+        return (int) (Math.random() * 100);
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-继续使用泛型"><a href="#2-继续使用泛型" class="headerlink" title="2. 继续使用泛型"></a>2. 继续使用泛型</h5><p>实现类也可以继续使用泛型，在创建实现类对象时再指定具体类型。</p>
+<pre><code class="java">// 实现 Generator 接口并继续使用泛型
+class GenericGenerator&lt;T&gt; implements Generator&lt;T&gt; &#123;
+    private T item;
+
+    public GenericGenerator(T item) &#123;
+        this.item = item;
+    &#125;
+
+    @Override
+    public T generate() &#123;
+        return item;
+    &#125;
+&#125;
+</code></pre>
+<p>以下是使用上述泛型接口及其实现类的示例代码：</p>
+<pre><code class="java">public class GenericInterfaceExample &#123;
+    public static void main(String[] args) &#123;
+        // 使用指定具体类型的实现类
+        IntegerGenerator integerGenerator = new IntegerGenerator();
+        Integer randomInteger = integerGenerator.generate();
+        System.out.println(&quot;随机整数: &quot; + randomInteger);
+
+        // 使用继续使用泛型的实现类
+        GenericGenerator&lt;String&gt; stringGenerator = new GenericGenerator&lt;&gt;(&quot;Hello&quot;);
+        String stringItem = stringGenerator.generate();
+        System.out.println(&quot;字符串项: &quot; + stringItem);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>代码解释</strong></p>
+<ul>
+<li>**泛型接口 <code>Generator</code>**：定义了一个抽象方法 <code>generate()</code>，返回类型为 <code>T</code>，表示该接口可以生成任意类型的对象。</li>
+<li><strong><code>IntegerGenerator</code> 类</strong>：实现了 <code>Generator</code> 接口，指定了具体类型为 <code>Integer</code>，在 <code>generate()</code> 方法中生成一个随机整数。</li>
+<li><strong><code>GenericGenerator</code> 类</strong>：继续使用泛型，在创建对象时可以指定具体类型。构造方法接收一个类型为 <code>T</code> 的参数，<code>generate()</code> 方法返回该参数。</li>
+<li><strong><code>GenericInterfaceExample</code> 类</strong>：在 <code>main</code> 方法中分别创建了 <code>IntegerGenerator</code> 和 <code>GenericGenerator</code> 对象，并调用 <code>generate()</code> 方法获取生成的对象。</li>
+</ul>
+<h4 id="注意事项-8"><a href="#注意事项-8" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><strong>类型参数作用域</strong>：类型参数的作用域仅限于泛型接口的定义内部，可用于定义方法的参数类型、返回值类型等，但不能用于静态成员。</li>
+<li><strong>类型擦除</strong>：Java 的泛型是通过类型擦除实现的，</li>
+</ul>
+<h3 id="泛型的通配符"><a href="#泛型的通配符" class="headerlink" title="泛型的通配符"></a>泛型的通配符</h3><p><img src="/../images/java-notes/1742042779427.png" alt="1742042779427"></p>
+<p>泛型通配符用于在使用泛型时表示未知类型。常见的通配符有 <code>?</code>（无界通配符）、<code>? extends T</code>（上界通配符）和 <code>? super T</code>（下界通配符）。</p>
+<h4 id="无界通配符"><a href="#无界通配符" class="headerlink" title="无界通配符 ?"></a>无界通配符 <code>?</code></h4><p>无界通配符表示未知类型，通常用于当你不关心泛型的具体类型时。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+public class UnboundedWildcardExample &#123;
+    public static void printList(List&lt;?&gt; list) &#123;
+        for (Object element : list) &#123;
+            System.out.print(element + &quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; integerList = new ArrayList&lt;&gt;();
+        integerList.add(1);
+        integerList.add(2);
+        integerList.add(3);
+        printList(integerList);
+
+        List&lt;String&gt; stringList = new ArrayList&lt;&gt;();
+        stringList.add(&quot;apple&quot;);
+        stringList.add(&quot;banana&quot;);
+        printList(stringList);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="上界通配符-extends-T"><a href="#上界通配符-extends-T" class="headerlink" title="上界通配符 ? extends T"></a>上界通配符 <code>? extends T</code></h4><p>上界通配符表示该类型是 <code>T</code> 或 <code>T</code> 的子类。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+class Animal &#123;
+    public void eat() &#123;
+        System.out.println(&quot;Animal is eating.&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    @Override
+    public void eat() &#123;
+        System.out.println(&quot;Dog is eating.&quot;);
+    &#125;
+&#125;
+
+public class UpperBoundedWildcardExample &#123;
+    public static void printAnimals(List&lt;? extends Animal&gt; animals) &#123;
+        for (Animal animal : animals) &#123;
+            animal.eat();
+        &#125;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        List&lt;Dog&gt; dogList = new ArrayList&lt;&gt;();
+        dogList.add(new Dog());
+        printAnimals(dogList);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="下界通配符-super-T"><a href="#下界通配符-super-T" class="headerlink" title="下界通配符 ? super T"></a>下界通配符 <code>? super T</code></h4><p>下界通配符表示该类型是 <code>T</code> 或 <code>T</code> 的父类。</p>
+<pre><code class="java">import java.util.ArrayList;
+import java.util.List;
+
+class Animal &#123;
+    public void eat() &#123;
+        System.out.println(&quot;Animal is eating.&quot;);
+    &#125;
+&#125;
+
+class Dog extends Animal &#123;
+    @Override
+    public void eat() &#123;
+        System.out.println(&quot;Dog is eating.&quot;);
+    &#125;
+&#125;
+
+public class LowerBoundedWildcardExample &#123;
+    public static void addDogs(List&lt;? super Dog&gt; dogs) &#123;
+        dogs.add(new Dog());
+    &#125;
+
+    public static void main(String[] args) &#123;
+        List&lt;Animal&gt; animalList = new ArrayList&lt;&gt;();
+        addDogs(animalList);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><img src="/../images/java-notes/1742043918319.png" alt="1742043918319"></p>
+<h3 id="Class类的方法"><a href="#Class类的方法" class="headerlink" title="Class类的方法"></a>Class类的方法</h3><p><img src="/../images/java-notes/1742044540707.png" alt="1742044540707"></p>
+
     </div>
     
     
