@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Use_of_Git | 小白脑浆糊的进化之旅</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="小白脑浆糊的进化之旅" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小白脑浆糊的进化之旅</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小白脑浆糊的进化之旅</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Use_of_Git</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/17
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Git/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Git
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="color: #00a596">
+                    学习
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Git基础操作入门</p>
+<span id="more"></span> 
+
+<h1 id="Git-概述"><a href="#Git-概述" class="headerlink" title="Git 概述"></a>Git 概述</h1><p>Git 是一个免费的、开源的<strong>分布式版本控制系统</strong>，可以快速高效地处理从小型到大型的各种项目。</p>
+<p>Git 易于学习，占地面积小，性能极快。 它具有廉价的本地库，方便的暂存区域和多个工作流分支等特性。其性能优于 Subversion、CVS、Perforce 和 ClearCase 等版本控制工具。</p>
+<h1 id="何为版本控制"><a href="#何为版本控制" class="headerlink" title="何为版本控制"></a>何为版本控制</h1><p>版本控制是一种记录文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
+<p>版本控制其实最重要的是可以记录文件修改历史记录，从而让用户能够查看历史版本，方便版本切换。</p>
+<h2 id="核心目标"><a href="#核心目标" class="headerlink" title="核心目标"></a>核心目标</h2><ul>
+<li><strong>记录变化</strong>：精准记录文件在不同时间点的内容变动，包括新增、修改、删除等操作。</li>
+<li><strong>追溯历史</strong>：方便开发者随时回溯到过去的某个版本，查看当时的文件状态，了解项目的演变过程。</li>
+</ul>
+<h2 id="基本操作理念"><a href="#基本操作理念" class="headerlink" title="基本操作理念"></a>基本操作理念</h2><ul>
+<li><strong>快照机制</strong>：每次提交时对项目当前状态进行 “快照” 保存，而非简单记录文件差异，确保能完整还原特定时刻的项目全貌。</li>
+<li><strong>分支管理</strong>：允许同时存在多个开发线路，各分支可独立进行功能开发、问题修复等操作，互不干扰，提高开发效率。</li>
+<li><strong>合并操作</strong>：在合适时机将不同分支上的修改合并到主分支或其他目标分支，整合各方开发成果。</li>
+</ul>
+<h2 id="核心价值体现"><a href="#核心价值体现" class="headerlink" title="核心价值体现"></a>核心价值体现</h2><ul>
+<li><strong>提升协作效率</strong>：多人协作开发时，版本控制系统能有效管理不同开发者的修改，避免冲突，确保代码的一致性和完整性。</li>
+<li><strong>保障项目安全</strong>：提供历史版本备份，即使出现误操作或代码损坏，也能轻松恢复到之前的稳定版本。</li>
+</ul>
+<h1 id="Git-工作机制"><a href="#Git-工作机制" class="headerlink" title="Git 工作机制"></a>Git 工作机制</h1><p><img src="/../images/Use-of-Git/1742225773776.png" alt="1742225773776"></p>
+<p>本地库还可以用**<code>push</code><strong>指令推送到</strong>代码托管中心<strong>（也就是</strong>远程库**）</p>
+<h1 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h1><p><img src="/../images/Use-of-Git/1742227145016.png" alt="1742227145016"></p>
+<h2 id="初始化本地库"><a href="#初始化本地库" class="headerlink" title="初始化本地库"></a>初始化本地库</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code class="bash">git init
+</code></pre>
+<h3 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h3><p> 进入想要进行版本控制的项目目录。可以在文件资源管理器中找到该目录，然后右键选择 “Git Bash Here”（Windows 系统）打开命令行；</p>
+<p>在命令行中执行<code>git init</code>命令 ，执行后会在该目录下生成一个隐藏的<code>.git</code>文件夹（若在 Windows 系统下看不到隐藏文件，需设置显示隐藏文件）。这个文件夹用于存储版本控制信息，如提交历史、分支信息等，不要随意删除或修改里面的内容。 </p>
+<h2 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h2><h3 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code class="bash">git status
+</code></pre>
+<p>初始化完成后，可以使用<code>git status</code>命令查看当前仓库的状态，会显示是否有未跟踪的文件等信息。例如，如果项目目录下有新文件，命令行可能提示这些文件是 “untracked files”（未跟踪文件），表示这些文件还未纳入版本控制。</p>
+<p>至此，本地库初始化完成。后续若要将项目文件纳入版本控制，还需进行添加文件到暂存区（<code>git add</code> ）和提交到本地库（<code>git commit</code> ）等操作。</p>
+<h2 id="添加-删除-暂存区"><a href="#添加-删除-暂存区" class="headerlink" title="添加&amp;删除 暂存区"></a>添加&amp;删除 暂存区</h2><h3 id="基本语法-2"><a href="#基本语法-2" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code class="bash">git add example.txt
+</code></pre>
+<pre><code class="bash">git rm --cached &lt;文件名1&gt; &lt;文件名2&gt; ...
+</code></pre>
+<p>删除只是将暂存区的文件删了，并不是将工作区的文件删了。</p>
+<h2 id="提交本地库"><a href="#提交本地库" class="headerlink" title="提交本地库"></a>提交本地库</h2><h3 id="基本语法-3"><a href="#基本语法-3" class="headerlink" title="基本语法"></a>基本语法</h3><pre><code class="bash">git commit -m &quot;提交信息&quot; filename
+</code></pre>
+<p>其中，<code>-m</code> 选项用于指定提交信息，你需要将 <code>&quot;提交信息&quot;</code> 替换为具体的描述，例如：</p>
+<pre><code class="bash">git commit -m &quot;修复登录功能的 bug&quot; filename
+</code></pre>
+<p>一个好的提交信息应该简洁明了，能够准确描述本次提交所做的更改，方便后续查看和理解项目的历史记录。</p>
+<h4 id="跳过暂存区直接提交"><a href="#跳过暂存区直接提交" class="headerlink" title="跳过暂存区直接提交"></a>跳过暂存区直接提交</h4><p>如果你想直接将工作区中所有已跟踪文件的修改提交到本地库，而不经过暂存区，可以使用 <code>-a</code> 选项。但需要注意，该选项只会提交已跟踪文件的修改，不会处理新创建的未跟踪文件。</p>
+<pre><code class="bash">git commit -a -m &quot;提交所有已跟踪文件的修改&quot;
+</code></pre>
+<h2 id="查看版本信息"><a href="#查看版本信息" class="headerlink" title="查看版本信息"></a>查看版本信息</h2><p><img src="/../images/Use-of-Git/1742276486650.png" alt="1742276486650"></p>
+<h3 id="命令用法"><a href="#命令用法" class="headerlink" title="命令用法"></a>命令用法</h3><ul>
+<li><strong>查看完整的引用日志</strong>：在仓库目录下直接执行 <code>git reflog</code> 命令，会显示所有引用的更新记录，每条记录包含操作的哈希值、操作名称、提交信息和操作时间等。</li>
+</ul>
+<pre><code class="bash">git reflog
+</code></pre>
+<p>示例输出：</p>
+<pre><code class="plaintext">f5a3d2b (HEAD -&gt; master) HEAD@&#123;0&#125;: commit: Add new feature
+8c7d1e3 HEAD@&#123;1&#125;: reset: moving to 8c7d1e3
+3b9a4f6 HEAD@&#123;2&#125;: commit: Fix bug
+</code></pre>
+<pre><code class="bash">git log
+</code></pre>
+<p>在 Git 仓库目录下，直接执行<code>git log</code>命令，它会按照时间倒序（最新提交在前）显示所有提交的详细信息，默认输出包含以下内容：</p>
+<ul>
+<li><strong>提交哈希值</strong>：一个唯一标识该提交的 40 位十六进制字符串。</li>
+<li><strong>作者信息</strong>：包含作者姓名和邮箱。</li>
+<li><strong>提交日期</strong>：记录提交发生的时间。</li>
+<li><strong>提交信息</strong>：提交者添加的描述本次提交更改的文字。</li>
+</ul>
+<pre><code class="plaintext">commit 3a8d2c1e4f5g6h7i8j9k0l1m2n3o4p5q6r7s8t9u
+Author: John Doe &lt;johndoe@example.com&gt;
+Date:   Mon Mar 18 14:30:00 2025 +0800
+
+    Add new feature to the project
+</code></pre>
+<h2 id="创建-预览-文本"><a href="#创建-预览-文本" class="headerlink" title="创建&amp;预览 文本"></a>创建&amp;预览 文本</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><h4 id="1-打开文件"><a href="#1-打开文件" class="headerlink" title="1. 打开文件"></a>1. 打开文件</h4><p>在终端中输入以下命令来打开你想要修改的文件，将 <code>filename</code> 替换为实际的文件名。</p>
+<pre><code class="bash">vim hello.txt
+</code></pre>
+<p>如果文件不存在，Vim 会创建一个新文件；如果文件已存在，Vim 会打开该文件供你编辑。</p>
+<h4 id="2-进入编辑模式"><a href="#2-进入编辑模式" class="headerlink" title="2. 进入编辑模式"></a>2. 进入编辑模式</h4><p>Vim 有多种模式，刚打开文件时处于正常模式，在该模式下不能直接输入文本。若要修改文件内容，需要进入插入模式，有以下几种常用的进入方式：</p>
+<ul>
+<li><strong><code>i</code> 键</strong>：在当前光标所在位置之前插入文本。</li>
+<li><strong><code>a</code> 键</strong>：在当前光标所在位置之后插入文本。</li>
+<li><strong><code>o</code> 键</strong>：在当前行的下一行插入新行并进入插入模式。</li>
+<li><strong><code>O</code> 键</strong>：在当前行的上一行插入新行并进入插入模式。</li>
+</ul>
+<h4 id="3-进行文本编辑"><a href="#3-进行文本编辑" class="headerlink" title="3. 进行文本编辑"></a>3. 进行文本编辑</h4><p>进入插入模式后，你就可以像使用普通文本编辑器一样输入、修改和删除文本了：</p>
+<ul>
+<li><strong>输入文本</strong>：直接输入需要添加的内容。</li>
+<li><strong>删除文本</strong>：使用 <code>Backspace</code> 或 <code>Delete</code> 键删除字符。</li>
+<li><strong>移动光标</strong>：使用方向键（上、下、左、右）或者 <code>h</code>（左）、<code>j</code>（下）、<code>k</code>（上）、<code>l</code>（右）在文本中移动光标位置。</li>
+</ul>
+<h4 id="4-保存和退出"><a href="#4-保存和退出" class="headerlink" title="4. 保存和退出"></a>4. 保存和退出</h4><p>完成编辑后，需要先从插入模式返回到正常模式，按下 <code>Esc</code> 键即可。然后，在正常模式下可以使用以下命令来保存和退出文件：</p>
+<ul>
+<li><strong>保存并退出</strong>：输入 <code>:wq</code> 然后按 <code>Enter</code> 键，<code>w</code> 表示写入（保存），<code>q</code> 表示退出。</li>
+<li><strong>仅保存不退出</strong>：输入 <code>:w</code> 然后按 <code>Enter</code> 键。</li>
+<li><strong>不保存直接退出</strong>：输入 <code>:q!</code> 然后按 <code>Enter</code> 键，<code>!</code> 表示强制执行该操作。</li>
+</ul>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>修改后的文件并不会直接添加到暂存区。</p>
+<h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><pre><code class="bash">cat hello.txt
+</code></pre>
+<p><img src="/../images/Use-of-Git/1742276133427.png" alt="1742276133427"></p>
+<h2 id="版本穿梭"><a href="#版本穿梭" class="headerlink" title="版本穿梭"></a>版本穿梭</h2><pre><code class="bash">git reset --hard &lt;commit-hash&gt;
+</code></pre>
+<p>上面的<code>&lt;commit-hash&gt;</code> 为版本号，可以先用<code>git reflogx</code>查看版本号</p>
+<ul>
+<li><strong><code>--hard</code> 模式</strong>：移动分支指针，同时更新暂存区和工作目录的内容，使其与指定提交版本一致。</li>
+</ul>
+<p> 使用 <code>git reset --hard</code> 改变了分支指针的位置，这些提交对象本身并不会立即从磁盘上被删除，而是会在一段时间内（默认是 30 天）作为 “悬空对象（dangling objects）” 保留在仓库里。 </p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p><img src="/../images/Use-of-Git/1742277690118.png" alt="1742277690118"></p>
+<p><img src="/../images/Use-of-Git/1742277754126.png" alt="1742277754126"></p>
+<p> <code>master</code>为主线分支</p>
+<h3 id="分支的好处"><a href="#分支的好处" class="headerlink" title="分支的好处"></a>分支的好处</h3><p><img src="/../images/Use-of-Git/1742277887295.png" alt="1742277887295"></p>
+<h3 id="分支的相关操作"><a href="#分支的相关操作" class="headerlink" title="分支的相关操作"></a>分支的相关操作</h3><p><img src="/../images/Use-of-Git/1742277915445.png" alt="1742277915445"></p>
+<h3 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h3><p><img src="/../images/Use-of-Git/1742278264344.png" alt="1742278264344"></p>
+<p>先查看分支，然后创建分支<code>hot-fix</code>，再次查看分支，编辑<code>hello.txt</code>，</p>
+<p>将<code>master</code>分支转成<code>hot-fix</code>分支，查看分支</p>
+<p><img src="/../images/Use-of-Git/1742278335743.png" alt="1742278335743"></p>
+<p>在<code>hot-fix</code>分支下编辑<code>hello.txt</code>，查看仓库状态，添加到暂存区，查看仓库状态，上传到本地库</p>
+<p><img src="/../images/Use-of-Git/1742278405063.png" alt="1742278405063"></p>
+<p>预览文本，展示版本信息</p>
+<p><img src="/../images/Use-of-Git/1742278644385.png" alt="1742278644385"></p>
+<p>将分支转成<code>master</code>，合并分支</p>
+<p><img src="/../images/Use-of-Git/1742278654696.png" alt="1742278654696"></p>
+<h3 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h3><p><img src="/../images/Use-of-Git/1742279203414.png" alt="1742279203414"></p>
+<h4 id="手动解决冲突"><a href="#手动解决冲突" class="headerlink" title="手动解决冲突"></a>手动解决冲突</h4><p>用 vim 打开文本文件人为修改文件。</p>
+<p><img src="/../images/Use-of-Git/1742279431657.png" alt="1742279431657"></p>
+<p>然后添加暂存区。</p>
+<p>提交本地库（<strong>注意：此时提交本地库不能带有文件名</strong>）。</p>
+<p><strong>报错示例：</strong></p>
+<p><img src="/../images/Use-of-Git/1742279461906.png" alt="1742279461906"></p>
+<p>在当前分支下合并分支，只会修改当前分支。</p>
+<h3 id="head指针"><a href="#head指针" class="headerlink" title="head指针"></a>head指针</h3><p><img src="/../images/Use-of-Git/1742279594624.png" alt="1742279594624"></p>
+<h1 id="Git-团队协作机制"><a href="#Git-团队协作机制" class="headerlink" title="Git 团队协作机制"></a>Git 团队协作机制</h1><h2 id="团队内协作"><a href="#团队内协作" class="headerlink" title="团队内协作"></a>团队内协作</h2><p><img src="/../images/Use-of-Git/1742287892857.png" alt="1742287892857"></p>
+<h2 id="跨团队协作"><a href="#跨团队协作" class="headerlink" title="跨团队协作"></a>跨团队协作</h2><p><img src="/../images/Use-of-Git/1742288101677.png" alt="1742288101677"></p>
+<h1 id="远程库操作命令"><a href="#远程库操作命令" class="headerlink" title="远程库操作命令"></a>远程库操作命令</h1><p><img src="/../images/Use-of-Git/1742288499837.png" alt="1742288499837"></p>
+<h2 id="创建别名"><a href="#创建别名" class="headerlink" title="创建别名"></a>创建别名</h2><p><img src="/../images/Use-of-Git/1742288559737.png" alt="1742288559737"></p>
+<h2 id="推送本地库分支到远程库"><a href="#推送本地库分支到远程库" class="headerlink" title="推送本地库分支到远程库"></a>推送本地库分支到远程库</h2><p><img src="/../images/Use-of-Git/1742288771694.png" alt="1742288771694"></p>
+<p>推送后会弹出该页面进行登入</p>
+<p><img src="/../images/Use-of-Git/1742288783567.png" alt="1742288783567"></p>
+<h2 id="拉取远程库到本地库"><a href="#拉取远程库到本地库" class="headerlink" title="拉取远程库到本地库"></a>拉取远程库到本地库</h2><p><img src="/../images/Use-of-Git/1742289034982.png" alt="1742289034982"></p>
+<h2 id="克隆远程库到本地库"><a href="#克隆远程库到本地库" class="headerlink" title="克隆远程库到本地库"></a>克隆远程库到本地库</h2><p><img src="/../images/Use-of-Git/1742291569191.png" alt="1742291569191"></p>
+<p>克隆代码不需要账号,克隆会自动取上origin别名</p>
+<h2 id="团队内协作-1"><a href="#团队内协作-1" class="headerlink" title="团队内协作"></a>团队内协作</h2><p><img src="/../images/Use-of-Git/1742292441416.png" alt="1742292441416"></p>
+<p><img src="/../images/Use-of-Git/1742292459325.png" alt="1742292459325"></p>
+<p><img src="/../images/Use-of-Git/1742292474045.png" alt="1742292474045"></p>
+<p><img src="/../images/Use-of-Git/1742292501601.png" alt="1742292501601"></p>
+<p>在Github的远程库的<code>settings</code>中，的<code>manage access</code>选项，邀请人员成员团队内成员，并会产生邀请链接，对方在自己的GitHub账户中打开链接接受邀请。</p>
+<p><img src="/../images/Use-of-Git/1742292364344.png" alt="1742292364344"></p>
+<p>然后该人员就可以<code>push</code>自己的内容到远程库中</p>
+<h2 id="跨团队协作-1"><a href="#跨团队协作-1" class="headerlink" title="跨团队协作"></a>跨团队协作</h2><p><img src="/../images/Use-of-Git/1742292693332.png" alt="1742292693332"></p>
+<p>在自己的账户中用对方的远程库链接访问对方远程库，然后点击<code>Fork</code>，在自己的账户下就有了对方在远程库中的文件。</p>
+<p><img src="/../images/Use-of-Git/1742293046572.png" alt="1742293046572"></p>
+<p><img src="/../images/Use-of-Git/1742293240657.png" alt="1742293240657"></p>
+<p><img src="/../images/Use-of-Git/1742293324117.png" alt="1742293324117"></p>
+<p>在修改完文件之后可以点击上传，然后进入<code>Pull request</code> ，创建请求，</p>
+<p><img src="/../images/Use-of-Git/1742293547991.png" alt="1742293547991"></p>
+<p>对方就可以在自己的库中的<code>Pull request</code>看到我们的拉取请求，并且可以审核修改后的文件，然后合并文件。</p>
+<h2 id="SSH协议免密登录"><a href="#SSH协议免密登录" class="headerlink" title="SSH协议免密登录"></a>SSH协议免密登录</h2><p>在<code>asus</code>目录下打开<code>Git bash</code></p>
+<p>输入</p>
+<pre><code class="bash">ssh-keygen -t rsa -C 邮箱
+</code></pre>
+<p>再连续按三次回车，就会再<code>asus</code>目录下创建<code>.ssh</code>文件</p>
+<p><img src="/../images/Use-of-Git/1742305152028.png" alt="1742305152028"></p>
+<p>然后查看公钥信息</p>
+<p><img src="/../images/Use-of-Git/1742305393813.png" alt="1742305393813"></p>
+<p>将内符复制到账号设置内添加公钥</p>
+<p><img src="/../images/Use-of-Git/1742305429367.png" alt="1742305429367"></p>
+<p>添加成功后，再次将本地库推送到远程库或拉取文件时，可以不用再登入Github</p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 小白脑浆糊的进化之旅
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
