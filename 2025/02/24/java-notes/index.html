@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #00a596">
+                <a href="/tags/java/" style="color: #03a9f4">
                     java
                 </a>
             </span>
@@ -4521,6 +4521,520 @@ public class LowerBoundedWildcardExample &#123;
 </code></pre>
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p><img src="/../images/java-notes/1742043918319.png" alt="1742043918319"></p>
 <h3 id="Class类的方法"><a href="#Class类的方法" class="headerlink" title="Class类的方法"></a>Class类的方法</h3><p><img src="/../images/java-notes/1742044540707.png" alt="1742044540707"></p>
+<p><img src="/../images/java-notes/1742372570707.png" alt="1742372570707"></p>
+<h3 id="Class类的获取方式"><a href="#Class类的获取方式" class="headerlink" title="Class类的获取方式"></a>Class类的获取方式</h3><h4 id="基本概念-13"><a href="#基本概念-13" class="headerlink" title="基本概念"></a>基本概念</h4><ul>
+<li><strong>对应关系</strong>：每一个类、接口（包括注解类型和枚举类型）、基本数据类型（boolean、byte、char、short、int、long、float、double）、关键字 void 以及数组，在运行时都有一个对应的 Class 对象 ，用于封装它们在运行时的状态和类型信息。比如，定义一个<code>class Person&#123;&#125;</code>，编译后就会有一个表示<code>Person</code>类的 Class 对象。</li>
+<li><strong>唯一性</strong>：JVM 中对于每种类型只会存在一个对应的 Class 对象。无论一个类实例化出多少个对象，这些对象对应的 Class 对象都是同一个。</li>
+</ul>
+<h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><p>Class 类没有公共构造方法，它的对象由 JVM 在类加载时自动创建，或通过类加载器中的 defineClass 方法生成，无法像普通类一样通过<code>new</code>关键字创建。</p>
+<h4 id="获取途径"><a href="#获取途径" class="headerlink" title="获取途径"></a>获取途径</h4><ul>
+<li><strong>对象的<code>getClass()</code>方法</strong>：当一个类被实例化后，可通过对象调用<code>getClass()</code>方法获取该对象所属类的 Class 实例。例如：</li>
+</ul>
+<pre><code class="java">public class Main &#123;
+    public static void main(String[] args) &#123;
+        String str = &quot;hello&quot;;
+        Class&lt;?&gt; clazz = str.getClass();
+        System.out.println(clazz);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>类字面常量（<code>.class</code>方式）</strong>：直接使用<code>类名.class</code>的形式获取对应的 Class 对象，基本数据类型的封装类还可以采用<code>.TYPE</code>获取相对应基本数据类型的 Class 实例。例如：</li>
+</ul>
+<pre><code class="java">Class&lt;String&gt; stringClass = String.class;
+Class&lt;Integer&gt; integerClass = Integer.class;
+Class&lt;int[]&gt; intArrayClass = int[].class;
+Class&lt;Void&gt; voidClass = void.class;
+Class&lt;Integer.TYPE&gt; primitiveIntClass = Integer.TYPE;
+</code></pre>
+<ul>
+<li><strong><code>Class.forName()</code>方法</strong>：通过传入类的全限定名（包名。类名）获取对应的 Class 对象，该方法常用于动态加载类。例如：</li>
+</ul>
+<pre><code class="java">try &#123;
+    Class&lt;?&gt; clazz = Class.forName(&quot;java.lang.String&quot;);
+    System.out.println(clazz);
+&#125; catch (ClassNotFoundException e) &#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+<h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
+<li><strong>反射机制</strong>：通过 Class 对象，可在运行时获取类的构造函数、方法、字段等信息，动态创建对象、调用方法、访问和修改字段。例如，获取类的所有公共方法：</li>
+</ul>
+<pre><code class="java">import java.lang.reflect.Method;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            Class&lt;?&gt; clazz = String.class;
+            Method[] methods = clazz.getMethods();
+            for (Method method : methods) &#123;
+                System.out.println(method.getName());
+            &#125;
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><strong>类加载机制</strong>：JVM 在加载类时会创建对应的 Class 对象，可利用这一特性实现自定义类加载器，扩展类加载功能。</li>
+<li><strong>泛型</strong>：在泛型编程中，借助 Class 类获取泛型类型的实际类型信息，增强代码的灵活性和通用性。</li>
+</ul>
+<h4 id="Class类的对象"><a href="#Class类的对象" class="headerlink" title="Class类的对象"></a>Class类的对象</h4><p><img src="/../images/java-notes/1742373691163.png" alt="1742373691163"></p>
+<h3 id="反射创建对象"><a href="#反射创建对象" class="headerlink" title="反射创建对象"></a>反射创建对象</h3><p><img src="/../images/java-notes/1742374305770.png" alt="1742374305770"></p>
+<h4 id="获取-Class-对象"><a href="#获取-Class-对象" class="headerlink" title="获取 Class 对象"></a>获取 Class 对象</h4><p>获取 Class 对象是反射创建对象的基础，有以下三种常见方式：</p>
+<ul>
+<li><strong>使用<code>class.forname(&quot;类的全限定名&quot;)</code>方法</strong>：该方法会动态加载指定类，最常用于在运行时根据配置文件或用户输入来确定要加载的类。例如<code>Class clazz = Class.forName(&quot;com.example.MyClass&quot;);</code>，如果类不存在会抛出<code>ClassNotFoundException</code>异常。</li>
+<li><strong>使用类的<code>.class</code>语法</strong>：适用于在编译时就已知具体类的情况。比如<code>Class clazz = String.class;</code> ，这种方式不会导致类的初始化（静态代码块不会执行），仅表示获取该类的 Class 对象。</li>
+<li><strong>使用对象的<code>getclass()</code>方法</strong>：当已经有一个类的对象实例时，可以通过调用该对象的<code>getClass()</code>方法获取其对应的 Class 对象。例如<code>MyClass obj = new MyClass(); Class clazz = obj.getClass();</code> 。</li>
+</ul>
+<h4 id="反射创建对象的具体方式"><a href="#反射创建对象的具体方式" class="headerlink" title="反射创建对象的具体方式"></a>反射创建对象的具体方式</h4><ul>
+<li><strong>使用 Class 对象的<code>newinstance()</code>方法（已过时）</strong> ：在 Java 9 及之后，该方法已被标记为过时。它的使用前提是目标类必须有无参构造函数，并且构造函数的访问权限足够（通常是<code>public</code>） 。示例代码如下：</li>
+</ul>
+<pre><code class="java">try &#123;
+    Class&lt;?&gt; clazz = MyClass.class;
+    Object obj = clazz.newInstance();
+    // 如果需要，可将obj强制转换为MyClass类型
+    MyClass myObj = (MyClass) obj; 
+&#125; catch (InstantiationException | IllegalAccessException e) &#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+<ul>
+<li><p>使用<code>Constructor</code>类的<code>newinstance()</code>方法：</p>
+<p>这种方式更为灵活，可以调用类的无参构造函数，也可以调用有参构造函数。步骤如下：</p>
+<ol>
+<li><strong>获取<code>Constructor</code>对象</strong>：通过 Class 对象的<code>getConstructor()</code>（获取公共无参构造函数） 、<code>getDeclaredConstructor()</code>（获取类中声明的指定参数类型的构造函数，包括私有构造函数）等方法获取<code>Constructor</code>对象。例如，获取一个带有<code>String</code>和<code>int</code>类型参数的构造函数：<code>Constructor constructor = MyClass.class.getDeclaredConstructor(String.class, int.class);</code> 。</li>
+<li><strong>设置访问权限（若需要）</strong> ：如果构造函数是私有的，需要调用<code>setAccessible(true)</code>来绕过访问权限检查，使其可访问。如<code>constructor.setAccessible(true);</code> 。</li>
+<li><strong>创建对象实例</strong>：调用<code>Constructor</code>对象的<code>newInstance()</code>方法创建对象，并传入构造函数所需的参数。例如<code>MyClass obj = constructor.newInstance(&quot;example&quot;, 123);</code> 。</li>
+</ol>
+</li>
+</ul>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">import java.lang.reflect.InvocationTargetException;
+
+class MyClass &#123;
+    public MyClass() &#123;
+        System.out.println(&quot;MyClass 的无参构造函数被调用&quot;);
+    &#125;
+&#125;
+
+public class ReflectionExample &#123;
+    public static void main(String[] args) &#123;
+        try &#123;
+            // 获取 MyClass 的 Class 对象
+            Class&lt;?&gt; clazz = MyClass.class;
+            // 使用 newInstance() 方法创建对象实例
+            Object obj = clazz.newInstance();
+            // 将 Object 类型的对象强制转换为 MyClass 类型
+            MyClass myObj = (MyClass) obj;
+        &#125; catch (InstantiationException | IllegalAccessException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="代码详细解释"><a href="#代码详细解释" class="headerlink" title="代码详细解释"></a>代码详细解释</h4><ul>
+<li>**<code>clazz</code>**：这是一个 <code>Class</code> 类型的对象，它代表了某个类的运行时类型信息。在 Java 中，每个类在运行时都会有一个对应的 <code>Class</code> 对象，可通过多种方式获取，例如 <code>Class.forName(&quot;com.example.MyClass&quot;)</code>、<code>MyClass.class</code> 或者 <code>myObject.getClass()</code>。</li>
+<li>**<code>newInstance()</code>**：这是 <code>Class</code> 类中的一个方法，其作用是尝试创建该 <code>Class</code> 对象所代表类的一个新实例。它会调用该类的无参构造函数来创建对象。</li>
+<li>**<code>Object obj</code>**：声明了一个 <code>Object</code> 类型的变量 <code>obj</code>，用于接收 <code>newInstance()</code> 方法返回的对象实例。由于 Java 中的所有类都继承自 <code>Object</code> 类，所以可以用 <code>Object</code> 类型的变量来引用任何类的实例。</li>
+</ul>
+<h3 id="反射操作属性"><a href="#反射操作属性" class="headerlink" title="反射操作属性"></a>反射操作属性</h3><p><img src="/../images/java-notes/1742375125779.png" alt="1742375125779"></p>
+<h4 id="a-、获取属性（四种方式）"><a href="#a-、获取属性（四种方式）" class="headerlink" title="a)、获取属性（四种方式）"></a>a)、获取属性（四种方式）</h4><ul>
+<li><strong>获取公共属性</strong>：使用<code>Class</code>类的<code>getField(String name)</code>方法，参数<code>name</code>为属性名，能获取类中声明的指定公共属性。比如有类<code>public class Student &#123; public String name; &#125;</code>，获取<code>name</code>属性的代码如下：</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; clazz = Student.class;
+Field field = clazz.getField(&quot;name&quot;);
+</code></pre>
+<ul>
+<li><strong>获取所有公共属性</strong>：通过<code>getFields()</code>方法，可获取类中所有公共属性，返回值是<code>Field</code>数组。例如：</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; clazz = Student.class;
+Field[] fields = clazz.getFields();
+for (Field f : fields) &#123;
+    System.out.println(f.getName());
+&#125;
+</code></pre>
+<ul>
+<li><strong>获取指定声明属性</strong>：不管属性的访问修饰符（私有、保护、默认等），<code>getDeclaredField(String name)</code>方法能获取类中声明的指定属性。若有类<code>class Person &#123; private int age; &#125;</code> ，获取<code>age</code>属性的方式为：</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; clazz = Person.class;
+Field field = clazz.getDeclaredField(&quot;age&quot;);
+</code></pre>
+<ul>
+<li><strong>获取所有声明属性</strong>：<code>getDeclaredFields()</code>方法可获取类中声明的所有属性（包含私有、保护、默认），返回<code>Field</code>数组。示例代码：</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; clazz = Person.class;
+Field[] fields = clazz.getDeclaredFields();
+for (Field f : fields) &#123;
+    System.out.println(f.getName());
+&#125;
+</code></pre>
+<h4 id="b-、设置属性"><a href="#b-、设置属性" class="headerlink" title="b)、设置属性"></a>b)、设置属性</h4><p>利用<code>Field</code>类的<code>set(Object obj, Object value)</code>方法设置属性值。第一个参数<code>obj</code>是要操作属性的对象实例；第二个参数<code>value</code>是要设置的新值。例如：</p>
+<pre><code class="java">class Book &#123;
+    public String title;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException &#123;
+        Book book = new Book();
+        Class&lt;?&gt; clazz = book.getClass();
+        Field field = clazz.getField(&quot;title&quot;);
+        field.set(book, &quot;Java编程思想&quot;);
+        System.out.println(book.title); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="c-、私有属性处理"><a href="#c-、私有属性处理" class="headerlink" title="c)、私有属性处理"></a>c)、私有属性处理</h4><p>对于私有属性，使用<code>getDeclaredField(String name)</code>获取属性后，默认无法直接访问，需调用<code>setAccessible(true)</code>来绕过访问权限检查。比如：</p>
+<pre><code class="java">class Car &#123;
+    private String brand;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException &#123;
+        Car car = new Car();
+        Class&lt;?&gt; clazz = car.getClass();
+        Field field = clazz.getDeclaredField(&quot;brand&quot;);
+        field.setAccessible(true);
+        field.set(car, &quot;BMW&quot;);
+        System.out.println(field.get(car)); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="d-、静态属性处理"><a href="#d-、静态属性处理" class="headerlink" title="d)、静态属性处理"></a>d)、静态属性处理</h4><p>静态属性属于类而非对象实例，当使用<code>set(Object obj, Object value)</code>或<code>get(Object obj)</code>操作静态属性时，若属性是静态的，第一个参数<code>obj</code>可以为<code>null</code>。示例如下：</p>
+<pre><code class="java">class Company &#123;
+    public static String companyName;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException &#123;
+        Class&lt;?&gt; clazz = Company.class;
+        Field field = clazz.getField(&quot;companyName&quot;);
+        field.set(null, &quot;Google&quot;); 
+        System.out.println(field.get(null)); 
+    &#125;
+&#125;
+</code></pre>
+<h3 id="反射操作方法"><a href="#反射操作方法" class="headerlink" title="反射操作方法"></a>反射操作方法</h3><p><img src="/../images/java-notes/1742379209494.png" alt="1742379209494"></p>
+<h4 id="a-获取方法-四种"><a href="#a-获取方法-四种" class="headerlink" title="a) 获取方法 (四种)"></a>a) 获取方法 (四种)</h4><ul>
+<li><strong>获取类及其父类的所有公共方法</strong>：使用<code>Class</code>类的<code>getMethods()</code>方法，该方法返回一个包含<code>Method</code>对象的数组，每个<code>Method</code>对象代表一个公共方法。例如：</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; clazz = MyClass.class;
+Method[] allPublicMethods = clazz.getMethods();
+for (Method method : allPublicMethods) &#123;
+    System.out.println(method.getName());
+&#125;
+</code></pre>
+<ul>
+<li><strong>获取类中指定的公共方法</strong>：通过<code>getMethod(String name, Class... parameterTypes)</code>方法，<code>name</code>为方法名，后面的可变参数指定方法的参数类型。如获取一个名为<code>printInfo</code>且接收一个<code>String</code>参数的公共方法：</li>
+</ul>
+<pre><code class="java">Method specificPublicMethod = clazz.getMethod(&quot;printInfo&quot;, String.class);
+</code></pre>
+<ul>
+<li><strong>获取类中声明的所有方法</strong>：调用<code>getDeclaredMethods()</code>方法，它会返回类中声明的所有方法，包括私有、保护和默认访问修饰符的方法，但不包含从父类继承的方法。示例如下：</li>
+</ul>
+<pre><code class="java">Method[] allDeclaredMethods = clazz.getDeclaredMethods();
+for (Method method : allDeclaredMethods) &#123;
+    System.out.println(method.getName());
+&#125;
+</code></pre>
+<ul>
+<li><strong>获取类中指定声明的方法</strong>：使用<code>getDeclaredMethod(String name, Class... parameterTypes)</code>，可以获取指定名称和参数类型的类中声明的方法（包括私有方法）。比如获取一个私有方法<code>privateMethod</code>：</li>
+</ul>
+<pre><code class="java">Method specificDeclaredMethod = clazz.getDeclaredMethod(&quot;privateMethod&quot;);
+</code></pre>
+<h4 id="b-调用方法"><a href="#b-调用方法" class="headerlink" title="b) 调用方法"></a>b) 调用方法</h4><p>获取到<code>Method</code>对象后，使用<code>invoke()</code>方法来调用。对于实例方法，<code>invoke(Object obj, Object... args)</code>中第一个参数<code>obj</code>是要调用方法的对象实例，<code>args</code>是方法的参数；对于静态方法，<code>obj</code>可以为<code>null</code>。例如：</p>
+<pre><code class="java">class MyService &#123;
+    public void sayHello(String name) &#123;
+        System.out.println(&quot;Hello, &quot; + name);
+    &#125;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws Exception &#123;
+        MyService service = new MyService();
+        Class&lt;?&gt; clazz = service.getClass();
+        Method method = clazz.getMethod(&quot;sayHello&quot;, String.class);
+        method.invoke(service, &quot;Alice&quot;); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="c-私有方法"><a href="#c-私有方法" class="headerlink" title="c) 私有方法"></a>c) 私有方法</h4><p>调用私有方法时，由于访问限制，不能直接调用。需先通过<code>setAccessible(true)</code>方法设置可访问性，绕过访问控制检查。示例如下：</p>
+<pre><code class="java">class SecretUtils &#123;
+    private void secretOperation() &#123;
+        System.out.println(&quot;Performing secret operation&quot;);
+    &#125;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws Exception &#123;
+        SecretUtils utils = new SecretUtils();
+        Class&lt;?&gt; clazz = utils.getClass();
+        Method method = clazz.getDeclaredMethod(&quot;secretOperation&quot;);
+        method.setAccessible(true);
+        method.invoke(utils); 
+    &#125;
+&#125;
+</code></pre>
+<h4 id="d-如果是静态方法，第一个参数可以给-null"><a href="#d-如果是静态方法，第一个参数可以给-null" class="headerlink" title="d) 如果是静态方法，第一个参数可以给 null"></a>d) 如果是静态方法，第一个参数可以给 null</h4><p>静态方法属于类本身，而非类的实例。在使用<code>invoke()</code>调用静态方法时，第一个参数可以传入<code>null</code>，后续参数按方法定义传递。比如：</p>
+<pre><code class="java">class MathUtils &#123;
+    public static int add(int a, int b) &#123;
+        return a + b;
+    &#125;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) throws Exception &#123;
+        Class&lt;?&gt; clazz = MathUtils.class;
+        Method method = clazz.getMethod(&quot;add&quot;, int.class, int.class);
+        int result = (int) method.invoke(null, 3, 5); 
+        System.out.println(&quot;Result: &quot; + result);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Class类的其他方法"><a href="#Class类的其他方法" class="headerlink" title="Class类的其他方法"></a>Class类的其他方法</h3><p><img src="/../images/java-notes/1742380015764.png" alt="1742380015764"></p>
+<h4 id="a-获取内部类"><a href="#a-获取内部类" class="headerlink" title="a) 获取内部类"></a>a) 获取内部类</h4><p>在 Java 中，可以使用<code>getDeclaredClasses()</code>方法来获取一个类中声明的所有内部类，返回值是一个<code>Class</code>数组，每个元素代表一个内部类的<code>Class</code>对象。示例代码如下：</p>
+<pre><code class="java">class OuterClass &#123;
+    class InnerClass &#123;
+    &#125;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Class&lt;?&gt; outerClass = OuterClass.class;
+        Class&lt;?&gt;[] declaredClasses = outerClass.getDeclaredClasses();
+        for (Class&lt;?&gt; inner : declaredClasses) &#123;
+            System.out.println(inner.getName());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="b-获取父类"><a href="#b-获取父类" class="headerlink" title="b) 获取父类"></a>b) 获取父类</h4><p>使用<code>getSuperclass()</code>方法可以获取一个类的直接父类，返回值是一个<code>Class</code>对象。如果一个类直接继承自<code>Object</code>类，或者该类是<code>Object</code>类本身，此方法返回<code>java.lang.Object.class</code>。示例如下：</p>
+<pre><code class="java">class ParentClass &#123;
+&#125;
+class ChildClass extends ParentClass &#123;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Class&lt;?&gt; childClass = ChildClass.class;
+        Class&lt;?&gt; superclass = childClass.getSuperclass();
+        System.out.println(superclass.getName());
+    &#125;
+&#125;
+</code></pre>
+<h4 id="c-获取接口"><a href="#c-获取接口" class="headerlink" title="c) 获取接口"></a>c) 获取接口</h4><p>通过<code>getInterfaces()</code>方法可以获取一个类实现的所有接口，返回值是一个<code>Class</code>数组，数组中的每个元素代表一个接口的<code>Class</code>对象。示例代码：</p>
+<pre><code class="java">interface MyInterface &#123;
+&#125;
+class ImplementClass implements MyInterface &#123;
+&#125;
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Class&lt;?&gt; implementClass = ImplementClass.class;
+        Class&lt;?&gt;[] interfaces = implementClass.getInterfaces();
+        for (Class&lt;?&gt; interfaceClass : interfaces) &#123;
+            System.out.println(interfaceClass.getName());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="反射打印类的结构信息"><a href="#反射打印类的结构信息" class="headerlink" title="反射打印类的结构信息"></a>反射打印类的结构信息</h3><p><img src="/../images/java-notes/1742380952092.png" alt="1742380952092"></p>
+<h4 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h4><pre><code class="java">import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+public class PrintClassStructure &#123;
+
+    public static void printClassStructure(Class&lt;?&gt; clazz) &#123;
+        // 打印类的基本信息
+        System.out.println(&quot;类的基本信息：&quot;);
+        System.out.println(&quot;类名: &quot; + clazz.getName());
+        System.out.println(&quot;简单类名: &quot; + clazz.getSimpleName());
+        System.out.println(&quot;修饰符: &quot; + Modifier.toString(clazz.getModifiers()));
+
+        // 打印父类信息
+        Class&lt;?&gt; superclass = clazz.getSuperclass();
+        if (superclass != null) &#123;
+            System.out.println(&quot;父类: &quot; + superclass.getName());
+        &#125; else &#123;
+            System.out.println(&quot;父类: 无&quot;);
+        &#125;
+
+        // 打印实现的接口信息
+        Class&lt;?&gt;[] interfaces = clazz.getInterfaces();
+        if (interfaces.length &gt; 0) &#123;
+            System.out.print(&quot;实现的接口: &quot;);
+            for (Class&lt;?&gt; inter : interfaces) &#123;
+                System.out.print(inter.getName() + &quot; &quot;);
+            &#125;
+            System.out.println();
+        &#125; else &#123;
+            System.out.println(&quot;实现的接口: 无&quot;);
+        &#125;
+
+        // 打印字段信息
+        System.out.println(&quot;\n字段信息：&quot;);
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) &#123;
+            System.out.println(&quot;  字段名: &quot; + field.getName());
+            System.out.println(&quot;    类型: &quot; + field.getType().getName());
+            System.out.println(&quot;    修饰符: &quot; + Modifier.toString(field.getModifiers()));
+        &#125;
+
+        // 打印构造函数信息
+        System.out.println(&quot;\n构造函数信息：&quot;);
+        Constructor&lt;?&gt;[] constructors = clazz.getDeclaredConstructors();
+        for (Constructor&lt;?&gt; constructor : constructors) &#123;
+            System.out.println(&quot;  构造函数名: &quot; + constructor.getName());
+            System.out.print(&quot;    参数类型: &quot;);
+            Class&lt;?&gt;[] parameterTypes = constructor.getParameterTypes();
+            for (Class&lt;?&gt; paramType : parameterTypes) &#123;
+                System.out.print(paramType.getName() + &quot; &quot;);
+            &#125;
+            System.out.println();
+            System.out.println(&quot;    修饰符: &quot; + Modifier.toString(constructor.getModifiers()));
+        &#125;
+
+        // 打印方法信息
+        System.out.println(&quot;\n方法信息：&quot;);
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method method : methods) &#123;
+            System.out.println(&quot;  方法名: &quot; + method.getName());
+            System.out.println(&quot;    返回类型: &quot; + method.getReturnType().getName());
+            System.out.print(&quot;    参数类型: &quot;);
+            Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();
+            for (Class&lt;?&gt; paramType : parameterTypes) &#123;
+                System.out.print(paramType.getName() + &quot; &quot;);
+            &#125;
+            System.out.println();
+            System.out.println(&quot;    修饰符: &quot; + Modifier.toString(method.getModifiers()));
+        &#125;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        // 示例：打印 String 类的结构信息
+        printClassStructure(String.class);
+    &#125;
+&#125;    
+</code></pre>
+<ul>
+<li><strong>类的基本信息</strong>：使用 <code>getName()</code>、<code>getSimpleName()</code> 和 <code>getModifiers()</code> 方法获取类的名称、简单名称和修饰符。</li>
+<li><strong>父类信息</strong>：使用 <code>getSuperclass()</code> 方法获取类的父类。</li>
+<li><strong>实现的接口信息</strong>：使用 <code>getInterfaces()</code> 方法获取类实现的所有接口。</li>
+<li><strong>字段信息</strong>：使用 <code>getDeclaredFields()</code> 方法获取类中声明的所有字段，并打印字段的名称、类型和修饰符。</li>
+<li><strong>构造函数信息</strong>：使用 <code>getDeclaredConstructors()</code> 方法获取类的所有构造函数，并打印构造函数的名称、参数类型和修饰符。</li>
+<li><strong>方法信息</strong>：使用 <code>getDeclaredMethods()</code> 方法获取类中声明的所有方法，并打印方法的名称、返回类型、参数类型和修饰符。</li>
+</ul>
+<h4 id="代码解释-2"><a href="#代码解释-2" class="headerlink" title="代码解释"></a>代码解释</h4><h5 id="1-导入必要的类"><a href="#1-导入必要的类" class="headerlink" title="1. 导入必要的类"></a>1. 导入必要的类</h5><pre><code class="java">import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+</code></pre>
+<p>这里导入了 Java 反射机制相关的类，具体如下：</p>
+<ul>
+<li><code>Constructor</code>：用于获取类的构造函数信息。</li>
+<li><code>Field</code>：用于获取类的字段（成员变量）信息。</li>
+<li><code>Method</code>：用于获取类的方法信息。</li>
+<li><code>Modifier</code>：用于获取和处理类、方法、字段等的修饰符（如 <code>public</code>、<code>private</code>、<code>static</code> 等）。</li>
+</ul>
+<h5 id="2-定义主类"><a href="#2-定义主类" class="headerlink" title="2. 定义主类"></a>2. 定义主类</h5><pre><code class="java">public class PrintClassStructure &#123;
+</code></pre>
+<p>定义了一个名为 <code>PrintClassStructure</code> 的公共类，该类包含一个静态方法 <code>printClassStructure</code> 用于打印类的结构信息，以及一个 <code>main</code> 方法作为程序的入口。</p>
+<h5 id="3-定义打印类结构信息的方法"><a href="#3-定义打印类结构信息的方法" class="headerlink" title="3. 定义打印类结构信息的方法"></a>3. 定义打印类结构信息的方法</h5><pre><code class="java">public static void printClassStructure(Class&lt;?&gt; clazz) &#123;
+</code></pre>
+<p>定义了一个静态方法 <code>printClassStructure</code>，它接受一个 <code>Class</code> 类型的参数 <code>clazz</code>，表示要打印结构信息的类。</p>
+<h6 id="打印类的基本信息"><a href="#打印类的基本信息" class="headerlink" title="打印类的基本信息"></a>打印类的基本信息</h6><pre><code class="java">// 打印类的基本信息
+System.out.println(&quot;类的基本信息：&quot;);
+System.out.println(&quot;类名: &quot; + clazz.getName());
+System.out.println(&quot;简单类名: &quot; + clazz.getSimpleName());
+System.out.println(&quot;修饰符: &quot; + Modifier.toString(clazz.getModifiers()));
+</code></pre>
+<ul>
+<li><code>clazz.getName()</code>：返回类的全限定名，包含包名。</li>
+<li><code>clazz.getSimpleName()</code>：返回类的简单名称，不包含包名。</li>
+<li><code>Modifier.toString(clazz.getModifiers())</code>：将类的修饰符转换为字符串表示，如 <code>public</code>、<code>final</code> 等。</li>
+</ul>
+<h6 id="打印父类信息"><a href="#打印父类信息" class="headerlink" title="打印父类信息"></a>打印父类信息</h6><pre><code class="java">// 打印父类信息
+Class&lt;?&gt; superclass = clazz.getSuperclass();
+if (superclass != null) &#123;
+    System.out.println(&quot;父类: &quot; + superclass.getName());
+&#125; else &#123;
+    System.out.println(&quot;父类: 无&quot;);
+&#125;
+</code></pre>
+<ul>
+<li><code>clazz.getSuperclass()</code>：获取该类的直接父类的 <code>Class</code> 对象。如果该类没有父类（即 <code>Object</code> 类），则返回 <code>null</code>。</li>
+</ul>
+<h6 id="打印实现的接口信息"><a href="#打印实现的接口信息" class="headerlink" title="打印实现的接口信息"></a>打印实现的接口信息</h6><pre><code class="java">// 打印实现的接口信息
+Class&lt;?&gt;[] interfaces = clazz.getInterfaces();
+if (interfaces.length &gt; 0) &#123;
+    System.out.print(&quot;实现的接口: &quot;);
+    for (Class&lt;?&gt; inter : interfaces) &#123;
+        System.out.print(inter.getName() + &quot; &quot;);
+    &#125;
+    System.out.println();
+&#125; else &#123;
+    System.out.println(&quot;实现的接口: 无&quot;);
+&#125;
+</code></pre>
+<ul>
+<li><code>clazz.getInterfaces()</code>：获取该类实现的所有接口的 <code>Class</code> 对象数组。如果该类没有实现任何接口，则数组长度为 0。</li>
+</ul>
+<h6 id="打印字段信息"><a href="#打印字段信息" class="headerlink" title="打印字段信息"></a>打印字段信息</h6><pre><code class="java">// 打印字段信息
+System.out.println(&quot;\n字段信息：&quot;);
+Field[] fields = clazz.getDeclaredFields();
+for (Field field : fields) &#123;
+    System.out.println(&quot;  字段名: &quot; + field.getName());
+    System.out.println(&quot;    类型: &quot; + field.getType().getName());
+    System.out.println(&quot;    修饰符: &quot; + Modifier.toString(field.getModifiers()));
+&#125;
+</code></pre>
+<ul>
+<li><code>clazz.getDeclaredFields()</code>：获取该类声明的所有字段（包括私有、受保护和公共字段）的 <code>Field</code> 对象数组。</li>
+<li><code>field.getName()</code>：返回字段的名称。</li>
+<li><code>field.getType().getName()</code>：返回字段的类型的全限定名。</li>
+<li><code>Modifier.toString(field.getModifiers())</code>：返回字段的修饰符的字符串表示。</li>
+</ul>
+<h6 id="打印构造函数信息"><a href="#打印构造函数信息" class="headerlink" title="打印构造函数信息"></a>打印构造函数信息</h6><pre><code class="java">// 打印构造函数信息
+System.out.println(&quot;\n构造函数信息：&quot;);
+Constructor&lt;?&gt;[] constructors = clazz.getDeclaredConstructors();
+for (Constructor&lt;?&gt; constructor : constructors) &#123;
+    System.out.println(&quot;  构造函数名: &quot; + constructor.getName());
+    System.out.print(&quot;    参数类型: &quot;);
+    Class&lt;?&gt;[] parameterTypes = constructor.getParameterTypes();
+    for (Class&lt;?&gt; paramType : parameterTypes) &#123;
+        System.out.print(paramType.getName() + &quot; &quot;);
+    &#125;
+    System.out.println();
+    System.out.println(&quot;    修饰符: &quot; + Modifier.toString(constructor.getModifiers()));
+&#125;
+</code></pre>
+<ul>
+<li><code>clazz.getDeclaredConstructors()</code>：获取该类声明的所有构造函数的 <code>Constructor</code> 对象数组。</li>
+<li><code>constructor.getName()</code>：返回构造函数的名称，通常与类名相同。</li>
+<li><code>constructor.getParameterTypes()</code>：返回构造函数的参数类型的 <code>Class</code> 对象数组。</li>
+<li><code>Modifier.toString(constructor.getModifiers())</code>：返回构造函数的修饰符的字符串表示。</li>
+</ul>
+<h6 id="打印方法信息"><a href="#打印方法信息" class="headerlink" title="打印方法信息"></a>打印方法信息</h6><pre><code class="java">// 打印方法信息
+System.out.println(&quot;\n方法信息：&quot;);
+Method[] methods = clazz.getDeclaredMethods();
+for (Method method : methods) &#123;
+    System.out.println(&quot;  方法名: &quot; + method.getName());
+    System.out.println(&quot;    返回类型: &quot; + method.getReturnType().getName());
+    System.out.print(&quot;    参数类型: &quot;);
+    Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();
+    for (Class&lt;?&gt; paramType : parameterTypes) &#123;
+        System.out.print(paramType.getName() + &quot; &quot;);
+    &#125;
+    System.out.println();
+    System.out.println(&quot;    修饰符: &quot; + Modifier.toString(method.getModifiers()));
+&#125;
+</code></pre>
+<ul>
+<li><code>clazz.getDeclaredMethods()</code>：获取该类声明的所有方法的 <code>Method</code> 对象数组。</li>
+<li><code>method.getName()</code>：返回方法的名称。</li>
+<li><code>method.getReturnType().getName()</code>：返回方法的返回类型的全限定名。</li>
+<li><code>method.getParameterTypes()</code>：返回方法的参数类型的 <code>Class</code> 对象数组。</li>
+<li><code>Modifier.toString(method.getModifiers())</code>：返回方法的修饰符的字符串表示。</li>
+</ul>
+<h5 id="4-定义主方法"><a href="#4-定义主方法" class="headerlink" title="4. 定义主方法"></a>4. 定义主方法</h5><pre><code class="java">public static void main(String[] args) &#123;
+    // 示例：打印 String 类的结构信息
+    printClassStructure(String.class);
+&#125;
+</code></pre>
+<p>这是程序的入口方法，调用 <code>printClassStructure</code> 方法并传入 <code>String.class</code> 作为参数，打印 <code>String</code> 类的结构信息。你可以将 <code>String.class</code> 替换为其他类的 <code>Class</code> 对象，以打印不同类的结构信息。</p>
 
     </div>
     
