@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #03a9f4">
+                <a href="/tags/Android/" style="color: #00a596">
                     Android
                 </a>
             </span>
@@ -474,6 +474,575 @@ class MainActivity : AppCompatActivity() &#123;
 </code></pre>
 <h1 id="ImageView"><a href="#ImageView" class="headerlink" title="ImageView"></a>ImageView</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742568167500.png" alt="1742568167500"></p>
 <h2 id="缩放类型"><a href="#缩放类型" class="headerlink" title="缩放类型"></a>缩放类型</h2><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742568189407.png" alt="1742568189407"></p>
+<h1 id="ProgressBar"><a href="#ProgressBar" class="headerlink" title="ProgressBar"></a>ProgressBar</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742627014974.png" alt="1742627014974"></p>
+<pre><code class="java">package com.example.practice;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    private ProgressBar pb1;
+    private ProgressBar pb2;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        pb1 = findViewById(R.id.pb1);
+        pb2 = findViewById(R.id.pb2);
+    &#125;
+
+    public void LeoClick(View view) &#123;
+        if (pb1.getVisibility() == View.GONE)&#123;
+            pb1.setVisibility(View.VISIBLE);
+        &#125;
+        else &#123;
+            pb1.setVisibility(View.GONE);
+        &#125;
+
+    &#125;
+
+    public void LeoClick2(View view) &#123;
+        int progress = pb2.getProgress();
+        progress += 10;
+        pb2.setProgress(progress);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="xml">&lt;ProgressBar
+            android:id=&quot;@+id/pb1&quot;
+            android:layout_width=&quot;50dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            /&gt;
+        &lt;Button
+            android:id=&quot;@+id/bt1&quot;
+            android:text=&quot;显示隐藏进度条&quot;
+            android:textSize=&quot;10dp&quot;
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:onClick=&quot;LeoClick&quot;
+             /&gt;
+        &lt;ProgressBar
+            android:id=&quot;@+id/pb2&quot;
+            android:layout_width=&quot;200dp&quot;
+            android:layout_height=&quot;30dp&quot;
+            android:max=&quot;100&quot;
+            style=&quot;@style/Widget.AppCompat.ProgressBar.Horizontal&quot;/&gt;
+        &lt;Button
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:text=&quot;模拟下载&quot;
+            android:textSize=&quot;10dp&quot;
+            android:onClick=&quot;LeoClick2&quot;/&gt;
+</code></pre>
+<p><strong>代码解释</strong> ：</p>
+<p>xml中</p>
+<ol>
+<li>第一个 <code>ProgressBar</code>（<code>pb1</code>）：<ul>
+<li><code>android:id=&quot;@+id/pb1&quot;</code>：为这个进度条组件定义了一个唯一的标识符 <code>pb1</code>，方便在 Java 代码中通过这个 ID 来引用它。</li>
+<li><code>android:layout_width=&quot;50dp&quot;</code> 和 <code>android:layout_height=&quot;50dp&quot;</code>：设置了进度条的宽度和高度都为 50 密度像素（dp）。这个进度条默认是圆形的不确定模式（因为没有设置特定的样式来改变它），用于显示操作正在进行但不明确具体进度的情况。</li>
+</ul>
+</li>
+<li>第一个 <code>Button</code>（<code>bt1</code>）：<ul>
+<li><code>android:id=&quot;@+id/bt1&quot;</code>：给按钮定义了 ID 为 <code>bt1</code>。</li>
+<li><code>android:text=&quot;显示隐藏进度条&quot;</code>：设置按钮上显示的文本内容为 “显示隐藏进度条”。</li>
+<li><code>android:textSize=&quot;10dp&quot;</code>：指定按钮上文本的大小为 10 密度像素。</li>
+<li><code>android:layout_width=&quot;100dp&quot;</code> 和 <code>android:layout_height=&quot;50dp&quot;</code>：设置按钮的宽度为 100 密度像素，高度为 50 密度像素。</li>
+<li><code>android:onClick=&quot;LeoClick&quot;</code>：指定当按钮被点击时，会调用在 <code>MainActivity</code> 中定义的名为 <code>LeoClick</code> 的方法。</li>
+</ul>
+</li>
+<li>第二个 <code>ProgressBar</code>（<code>pb2</code>）：<ul>
+<li><code>android:id=&quot;@+id/pb2&quot;</code>：定义了进度条的 ID 为 <code>pb2</code>。</li>
+<li><code>android:layout_width=&quot;200dp&quot;</code> 和 <code>android:layout_height=&quot;30dp&quot;</code>：设置进度条的宽度为 200 密度像素，高度为 30 密度像素。</li>
+<li><code>android:max=&quot;100&quot;</code>：设置这个进度条的最大值为 100，用于表示进度的范围。</li>
+<li><code>style=&quot;@style/Widget.AppCompat.ProgressBar.Horizontal&quot;</code>：应用了 <code>AppCompat</code> 库中定义的水平进度条样式，使进度条以水平的形式展示进度。</li>
+</ul>
+</li>
+<li>第二个 <code>Button</code>（<code>bt2</code>）：<ul>
+<li><code>android:layout_width=&quot;100dp&quot;</code> 和 <code>android:layout_height=&quot;50dp&quot;</code>：设置按钮的宽度为 100 密度像素，高度为 50 密度像素。</li>
+<li><code>android:text=&quot;模拟下载&quot;</code>：设置按钮上显示的文本为 “模拟下载”。</li>
+<li><code>android:textSize=&quot;10dp&quot;</code>：指定按钮文本的大小为 10 密度像素。</li>
+<li><code>android:onClick=&quot;LeoClick2&quot;</code>：表示当按钮被点击时，会调用 <code>MainActivity</code> 中的 <code>LeoClick2</code> 方法。</li>
+</ul>
+</li>
+</ol>
+<p>Java代码中</p>
+<ol>
+<li>成员变量声明：</li>
+</ol>
+<ul>
+<li><code>private ProgressBar pb1;</code> 和 <code>private ProgressBar pb2;</code>：声明了两个私有类型的 <code>ProgressBar</code> 变量 <code>pb1</code> 和 <code>pb2</code>，用于在整个活动类中引用布局文件中的两个进度条组件。</li>
+</ul>
+<ol start="2">
+<li><code>LeoClick</code> 方法：</li>
+</ol>
+<ul>
+<li><code>public void LeoClick(View view)</code>：定义了一个公共的方法 <code>LeoClick</code>，它接受一个 <code>View</code> 参数（这个参数通常是触发该方法的视图，在这里就是点击的按钮 <code>bt1</code>）。</li>
+<li>方法体内部通过 <code>if-else</code> 语句判断 <code>pb1</code> 的可见性状态：如果 <code>pb1</code> 是隐藏的（<code>View.GONE</code>），就将其设置为可见（<code>View.VISIBLE</code>）；否则，将其设置为隐藏。</li>
+</ul>
+<ol start="3">
+<li><code>LeoClick2</code> 方法：</li>
+</ol>
+<ul>
+<li><code>public void LeoClick2(View view)</code>：定义了一个公共的方法 <code>LeoClick2</code>，接受一个 <code>View</code> 参数（点击的按钮 <code>bt2</code>）。</li>
+<li>在方法体中，首先获取 <code>pb2</code> 的当前进度值（<code>int progress = pb2.getProgress();</code>），然后将进度值增加 10（<code>progress += 10;</code>），最后通过 <code>pb2.setProgress(progress);</code> 将更新后的进度值设置到 <code>pb2</code> 进度条上，从而实现模拟下载进度增加的效果。</li>
+</ul>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742628984801.png" alt="1742628984801"></p>
+<h1 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742629608998.png" alt="1742629608998"></p>
+<h2 id="NotificationChannel"><a href="#NotificationChannel" class="headerlink" title="NotificationChannel"></a>NotificationChannel</h2><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742631039499.png" alt="1742631039499"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742631226236.png" alt="1742631226236"></p>
+<h3 id="创建通知的步骤"><a href="#创建通知的步骤" class="headerlink" title="创建通知的步骤"></a>创建通知的步骤</h3><h4 id="1-创建通知渠道（Android-8-0-及以上）"><a href="#1-创建通知渠道（Android-8-0-及以上）" class="headerlink" title="1. 创建通知渠道（Android 8.0 及以上）"></a>1. 创建通知渠道（Android 8.0 及以上）</h4><p>从 Android 8.0（API 级别 26）开始，必须为通知创建渠道，以便用户对通知进行分类管理。</p>
+<pre><code class="java">if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) &#123;
+    CharSequence name = &quot;渠道名称&quot;;
+    String description = &quot;渠道描述&quot;;
+    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+    NotificationChannel channel = new NotificationChannel(&quot;channel_id&quot;, name, importance);
+    channel.setDescription(description);
+
+    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+    notificationManager.createNotificationChannel(channel);
+&#125;
+</code></pre>
+<h4 id="2-创建通知构建器"><a href="#2-创建通知构建器" class="headerlink" title="2. 创建通知构建器"></a>2. 创建通知构建器</h4><p>使用 <code>NotificationCompat.Builder</code> 来构建通知内容。</p>
+<pre><code class="java">NotificationCompat.Builder builder = new NotificationCompat.Builder(this, &quot;channel_id&quot;)
+        .setSmallIcon(R.drawable.notification_icon)
+        .setContentTitle(&quot;通知标题&quot;)
+        .setContentText(&quot;通知内容&quot;)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+</code></pre>
+<h4 id="3-创建通知意图（可选）"><a href="#3-创建通知意图（可选）" class="headerlink" title="3. 创建通知意图（可选）"></a>3. 创建通知意图（可选）</h4><p>若希望用户点击通知后打开特定的界面，需创建 <code>PendingIntent</code>。</p>
+<pre><code class="java">Intent intent = new Intent(this, MainActivity.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+builder.setContentIntent(pendingIntent);
+</code></pre>
+<h4 id="4-发送通知"><a href="#4-发送通知" class="headerlink" title="4. 发送通知"></a>4. 发送通知</h4><p>借助 <code>NotificationManager</code> 发送通知。</p>
+<pre><code class="java">NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+int notificationId = 1;
+notificationManager.notify(notificationId, builder.build());
+</code></pre>
+<h3 id="通知的类型"><a href="#通知的类型" class="headerlink" title="通知的类型"></a>通知的类型</h3><ul>
+<li><strong>普通通知</strong>：显示标题、内容和小图标，是最常见的通知类型。</li>
+<li><strong>进度通知</strong>：可显示操作进度，如文件下载进度。</li>
+</ul>
+<pre><code class="java">NotificationCompat.Builder builder = new NotificationCompat.Builder(this, &quot;channel_id&quot;)
+        .setContentTitle(&quot;文件下载&quot;)
+        .setContentText(&quot;正在下载...&quot;)
+        .setSmallIcon(R.drawable.download_icon)
+        .setPriority(NotificationCompat.PRIORITY_LOW)
+        .setProgress(100, 0, false);
+
+// 更新进度
+builder.setProgress(100, progress, false);
+notificationManager.notify(notificationId, builder.build());
+</code></pre>
+<ul>
+<li><strong>大视图通知</strong>：能显示更多内容，如长文本、图片等。</li>
+</ul>
+<pre><code class="java">NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+bigTextStyle.bigText(&quot;这是一段很长的文本内容...&quot;);
+builder.setStyle(bigTextStyle);
+</code></pre>
+<h3 id="管理通知"><a href="#管理通知" class="headerlink" title="管理通知"></a>管理通知</h3><ul>
+<li><strong>取消通知</strong>：使用 <code>NotificationManager</code> 的 <code>cancel</code> 方法取消单个通知，或使用 <code>cancelAll</code> 方法取消所有通知。</li>
+</ul>
+<pre><code class="java">notificationManager.cancel(notificationId);
+</code></pre>
+<ul>
+<li><strong>更新通知</strong>：再次调用 <code>notify</code> 方法，使用相同的通知 ID 即可更新通知内容。</li>
+</ul>
+<pre><code class="java">builder.setContentText(&quot;更新后的通知内容&quot;);
+notificationManager.notify(notificationId, builder.build());
+</code></pre>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>要实现一个通知必须要设置的三个通知内容：</p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742638186444.png" alt="1742638186444"></p>
+<p>其中小图标格式：</p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-22%20180800.png"></p>
+<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><pre><code class="java">package com.example.practice;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    private NotificationManager manager;
+    private Notification notification;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+
+        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) &#123;
+            NotificationChannel channel = new NotificationChannel(&quot;leo&quot;, &quot;测试通知&quot;, NotificationManager.IMPORTANCE_HIGH);
+            manager.createNotificationChannel(channel);
+        &#125;
+        notification = new NotificationCompat.Builder(this, &quot;leo&quot;)
+                .setContentTitle(&quot;官方通知&quot;)
+                .setContentText(&quot;hello world&quot;)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .build();
+    &#125;
+
+    public void fire_notification(View view) &#123;
+        manager.notify(1, notification);
+    &#125;
+
+    public void cancel_notification(View view) &#123;
+        manager.cancel(1);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;
+        android:gravity=&quot;center&quot;&gt;
+
+        &lt;Button
+            android:id=&quot;@+id/bt3&quot;
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:text=&quot;发起通知&quot;
+            android:textSize=&quot;10dp&quot;
+            android:onClick=&quot;fire_notification&quot;/&gt;
+        &lt;TextView
+            android:layout_width=&quot;10dp&quot;
+            android:layout_height=&quot;20dp&quot;/&gt;
+        &lt;Button
+            android:id=&quot;@+id/bt4&quot;
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:text=&quot;取消通知&quot;
+            android:textSize=&quot;10dp&quot;
+            android:onClick=&quot;cancel_notification&quot;/&gt;
+
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742638439766.png" alt="1742638439766"></p>
+<h1 id="Toolbar"><a href="#Toolbar" class="headerlink" title="Toolbar"></a>Toolbar</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742647683114.png" alt="1742647683114"></p>
+<h2 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h2><ol>
+<li>在布局文件中添加 Toolbar：</li>
+</ol>
+<pre><code class="xml">&lt;androidx.appcompat.widget.Toolbar
+    android:id=&quot;@+id/toolbar&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;?attr/actionBarSize&quot;
+    android:background=&quot;?attr/colorPrimary&quot;
+    android:elevation=&quot;4dp&quot;
+    android:theme=&quot;@style/ThemeOverlay.AppCompat.ActionBar&quot;
+    app:popupTheme=&quot;@style/ThemeOverlay.AppCompat.Light&quot;&gt;
+
+    &lt;!-- 可以在这里添加自定义的视图或按钮 --&gt;
+
+&lt;/androidx.appcompat.widget.Toolbar&gt;
+</code></pre>
+<ol start="2">
+<li>设置Toolbar点击事件</li>
+</ol>
+<pre><code class="java">tb = findViewById(R.id.tb);
+        tb.setNavigationOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                Log.e(&quot;leo&quot;, &quot;hello world&quot;);
+            &#125;
+        &#125;);
+</code></pre>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742649370766.png" alt="1742649370766"></p>
+<h1 id="AlertDialog"><a href="#AlertDialog" class="headerlink" title="AlertDialog"></a>AlertDialog</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742649103353.png" alt="1742649103353"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742649344436.png" alt="1742649344436"></p>
+<h2 id="代码实例-1"><a href="#代码实例-1" class="headerlink" title="代码实例"></a>代码实例</h2><h3 id="java代码"><a href="#java代码" class="headerlink" title="java代码"></a>java代码</h3><pre><code class="java">package com.example.practice;
+
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.DialogInterface;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+
+    private  View dialog_view;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+
+
+        dialog_view = getLayoutInflater().inflate(R.layout.dialog_view, null);
+    &#125;
+
+
+
+    public void leoClick(View view) &#123;
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setIcon(R.mipmap.ic_launcher_round)
+                .setTitle(&quot;你好！！！&quot;)
+                .setMessage(&quot;今天天气怎么样&quot;)
+                .setView(dialog_view)
+                .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() &#123;
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) &#123;
+                        Log.e(&quot;leo&quot;, &quot;onClick: 点击了确定&quot;);
+                    &#125;
+                &#125;)
+                .setNegativeButton(&quot;取消&quot;, new DialogInterface.OnClickListener() &#123;
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) &#123;
+                        Log.e(&quot;leo&quot;, &quot;onClick: 点击了取消&quot;);
+                    &#125;
+                &#125;)
+                .setNeutralButton(&quot;查看详细&quot;, new DialogInterface.OnClickListener() &#123;
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) &#123;
+                        Log.e(&quot;leo&quot;, &quot;onClick: 点击了查看详细信息&quot;);
+                    &#125;
+                &#125;)
+                .create()
+                .show();
+    &#125;
+&#125;
+</code></pre>
+<p><strong>注意：</strong>在链式构建dialog的时候create()，和show()的位置不能改变，因为它们的返回值不是builder。</p>
+<h3 id="自定义布局"><a href="#自定义布局" class="headerlink" title="自定义布局"></a>自定义布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;horizontal&quot;
+    android:gravity=&quot;center&quot;&gt;
+
+    &lt;ImageView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:src=&quot;@drawable/ic_launcher_foreground&quot;/&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:gravity=&quot;center&quot;
+        android:text=&quot;你找到了全世界&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h3 id="主布局"><a href="#主布局" class="headerlink" title="主布局"></a>主布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;
+        android:gravity=&quot;center_horizontal&quot;&gt;
+
+        &lt;Button
+            android:onClick=&quot;leoClick&quot;
+            android:layout_marginTop=&quot;10dp&quot;
+            android:textSize=&quot;10dp&quot;
+            android:text=&quot;显示dialog&quot;
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot;/&gt;
+
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742651592045.png" alt="1742651592045"></p>
+<h1 id="PopupWindow"><a href="#PopupWindow" class="headerlink" title="PopupWindow"></a>PopupWindow</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742653749151.png" alt="1742653749151"></p>
+<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><h3 id="java代码-1"><a href="#java代码-1" class="headerlink" title="java代码"></a>java代码</h3><pre><code class="java">package com.example.practice;
+
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.DialogInterface;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+    &#125;
+
+    public void leoClick(View view) &#123;
+        View popupview = getLayoutInflater().inflate(R.layout.poppupwindow_view, null);
+        PopupWindow popupwindow = new PopupWindow(popupview,
+                ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        popupwindow.showAsDropDown(view,-300,0);
+        Button bt1 = popupview.findViewById(R.id.bt1);
+        bt1.setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                Log.e(&quot;leo&quot;, &quot;onClick: 欢迎来到北京&quot;);
+                popupwindow.dismiss();
+            &#125;
+        &#125;);
+
+
+    &#125;
+&#125;
+</code></pre>
+<p>设置是否获取焦点可以让PopupWindow在点击空白处时自动关闭</p>
+<h3 id="PopupWindow布局"><a href="#PopupWindow布局" class="headerlink" title="PopupWindow布局"></a>PopupWindow布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;horizontal&quot;
+    android:background=&quot;@drawable/ic_launcher_background&quot;&gt;
+
+    &lt;ImageView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:src=&quot;@drawable/ic_launcher_foreground&quot;/&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:gravity=&quot;center&quot;
+        android:text=&quot;你找到了全世界&quot;/&gt;
+    &lt;Button
+        android:id=&quot;@+id/bt1&quot;
+        android:layout_marginLeft=&quot;10dp&quot;
+        android:text=&quot;北京&quot;
+        android:gravity=&quot;center&quot;
+        android:textSize=&quot;10dp&quot;
+        android:layout_width=&quot;80dp&quot;
+        android:layout_height=&quot;40dp&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h3 id="主布局-1"><a href="#主布局-1" class="headerlink" title="主布局"></a>主布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;
+        android:gravity=&quot;center_horizontal&quot;&gt;
+
+        &lt;Button
+            android:onClick=&quot;leoClick&quot;
+            android:layout_marginTop=&quot;10dp&quot;
+            android:textSize=&quot;10dp&quot;
+            android:text=&quot;显示Popupwindow&quot;
+            android:layout_width=&quot;100dp&quot;
+            android:layout_height=&quot;50dp&quot; /&gt;
+
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742655190094.png" alt="1742655190094"></p>
 
     </div>
     
