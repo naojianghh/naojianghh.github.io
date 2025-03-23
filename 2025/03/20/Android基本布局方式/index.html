@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #03a9f4">
+                <a href="/tags/Android/" style="color: #00a596">
                     Android
                 </a>
             </span>
@@ -250,7 +250,8 @@
 <li><strong>使用场景</strong>：自闭合标签适用于单一的视图组件，而普通闭合标签主要用于布局容器和自定义组件。</li>
 </ul>
 <h1 id="线性布局-LinearLayout"><a href="#线性布局-LinearLayout" class="headerlink" title="线性布局(LinearLayout)"></a>线性布局(LinearLayout)</h1><p> 在安卓开发里，线性布局（<code>LinearLayout</code>）是常用的布局方式，它能让子视图按水平或者垂直方向排列。 </p>
-<h2 id="1-线性布局的基本属性"><a href="#1-线性布局的基本属性" class="headerlink" title="1. 线性布局的基本属性"></a>1. 线性布局的基本属性</h2><ul>
+<h2 id="1-线性布局的基本属性"><a href="#1-线性布局的基本属性" class="headerlink" title="1. 线性布局的基本属性"></a>1. 线性布局的基本属性</h2><p><img src="/../images/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/1742655631006.png" alt="1742655631006"></p>
+<ul>
 <li>**<code>android:orientation</code>**：此属性用于指定布局方向，有 <code>horizontal</code>（水平方向）和 <code>vertical</code>（垂直方向）两个可选值。</li>
 <li>**<code>android:gravity</code>**：该属性用于设置子视图在布局中的对齐方式，例如 <code>center</code>（居中）、<code>left</code>（居左）、<code>right</code>（居右）等。</li>
 <li>**<code>android:layout_gravity</code>**：此属性用于设置当前视图在其父布局中的对齐方式。</li>
@@ -327,12 +328,13 @@
 &lt;/LinearLayout&gt;
 </code></pre>
 <p>在这个例子中，<code>layout_width</code> 被设置为 <code>0dp</code>，通过 <code>layout_weight</code> 来分配水平方向的剩余空间。<code>按钮2</code> 的 <code>layout_weight</code> 为 2，它会占据的水平空间是 <code>按钮1</code> 和 <code>按钮3</code> 的两倍。</p>
-<h1 id="相对布-RelativeLayout"><a href="#相对布-RelativeLayout" class="headerlink" title="相对布( RelativeLayout )"></a>相对布( RelativeLayout )</h1><p> 在 Android 开发中，相对布局（<code>RelativeLayout</code>）是一种强大且常用的布局方式，它允许子视图根据其他视图或父容器的位置来确定自身位置。 </p>
+<h1 id="相对布局-RelativeLayout"><a href="#相对布局-RelativeLayout" class="headerlink" title="相对布局( RelativeLayout )"></a>相对布局( RelativeLayout )</h1><p> 在 Android 开发中，相对布局（<code>RelativeLayout</code>）是一种强大且常用的布局方式，它允许子视图根据其他视图或父容器的位置来确定自身位置。 </p>
 <h2 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h2><ul>
 <li><strong>灵活性高</strong>：子视图的位置可以根据其他视图或父容器的相对位置进行调整，能实现复杂的布局效果。</li>
 <li><strong>减少嵌套</strong>：相较于线性布局等，相对布局可以减少布局的嵌套层级，提高布局性能。</li>
 </ul>
-<h2 id="常用属性及作用"><a href="#常用属性及作用" class="headerlink" title="常用属性及作用"></a>常用属性及作用</h2><h3 id="相对于父容器的定位属性"><a href="#相对于父容器的定位属性" class="headerlink" title="相对于父容器的定位属性"></a>相对于父容器的定位属性</h3><ul>
+<h2 id="常用属性及作用"><a href="#常用属性及作用" class="headerlink" title="常用属性及作用"></a>常用属性及作用</h2><p><img src="/../images/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/1742655694059.png" alt="1742655694059"></p>
+<h3 id="相对于父容器的定位属性"><a href="#相对于父容器的定位属性" class="headerlink" title="相对于父容器的定位属性"></a>相对于父容器的定位属性</h3><ul>
 <li>**<code>android:layout_alignParentTop</code>**：值为 <code>true</code> 时，视图会与父容器的顶部对齐。</li>
 <li>**<code>android:layout_alignParentBottom</code>**：值为 <code>true</code> 时，视图会与父容器的底部对齐。</li>
 <li>**<code>android:layout_alignParentLeft</code>**：值为 <code>true</code> 时，视图会与父容器的左侧对齐。</li>
@@ -591,7 +593,8 @@ public class FlowLayout extends ViewGroup &#123;
 <li>**<code>TableLayout</code>**：作为表格布局的根容器，用来容纳行和列。</li>
 <li>**<code>TableRow</code>**：代表表格中的一行，每个 <code>TableRow</code> 可以包含多个子视图，这些子视图会依次排列成列。</li>
 </ul>
-<h3 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h3><h4 id="TableLayout-的属性"><a href="#TableLayout-的属性" class="headerlink" title="TableLayout 的属性"></a><code>TableLayout</code> 的属性</h4><ul>
+<h3 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h3><p><img src="/../images/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/1742656024567.png" alt="1742656024567"></p>
+<h4 id="TableLayout-的属性"><a href="#TableLayout-的属性" class="headerlink" title="TableLayout 的属性"></a><code>TableLayout</code> 的属性</h4><ul>
 <li>**<code>android:shrinkColumns</code>**：指定哪些列可以收缩，以适应布局空间。例如 <code>android:shrinkColumns=&quot;1,2&quot;</code> 表示第 2 列和第 3 列可以收缩。</li>
 <li>**<code>android:stretchColumns</code>**：指定哪些列可以拉伸，以填充剩余空间。例如 <code>android:stretchColumns=&quot;*&quot;</code> 表示所有列都可以拉伸。</li>
 <li>**<code>android:collapseColumns</code>**：指定哪些列需要隐藏。例如 <code>android:collapseColumns=&quot;2&quot;</code> 表示第 3 列会被隐藏。</li>
@@ -670,6 +673,55 @@ public class FlowLayout extends ViewGroup &#123;
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
 <li>列数由第一行的子视图数量决定，后续行的子视图数量可以少于第一行，但不能多于第一行。</li>
 <li>可以通过 <code>android:shrinkColumns</code>、<code>android:stretchColumns</code> 和 <code>android:collapseColumns</code> 属性来灵活控制列的显示和布局。</li>
+</ul>
+<h1 id="帧布局-FrameLayout"><a href="#帧布局-FrameLayout" class="headerlink" title="帧布局(FrameLayout)"></a>帧布局(FrameLayout)</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p><code>FrameLayout</code> 是一种单帧布局，所有添加到 <code>FrameLayout</code> 中的子视图都堆叠在左上角（默认情况下），后添加的子视图会覆盖在前面子视图之上。它通常用于在界面上创建一个区域，在这个区域内显示单个视图或者多个重叠的视图。</p>
+<h2 id="特点-5"><a href="#特点-5" class="headerlink" title="特点"></a>特点</h2><ul>
+<li><strong>简单直接</strong>：<code>FrameLayout</code> 的布局规则简单，不需要复杂的约束条件，适合快速搭建一些简单的界面结构，比如在一个固定区域内显示图标、文本等内容。</li>
+<li><strong>重叠效果</strong>：由于子视图会重叠放置，<code>FrameLayout</code> 非常适合实现一些需要重叠显示的效果，如在图片上添加遮罩层、显示进度条覆盖在其他视图上、在地图上添加标记等。</li>
+</ul>
+<h2 id="常用属性-1"><a href="#常用属性-1" class="headerlink" title="常用属性"></a>常用属性</h2><ul>
+<li><code>android:layout_width</code> 和 <code>android:layout_height</code>：用于设置 <code>FrameLayout</code> 本身的宽度和高度，常见的值有 <code>match_parent</code>（与父容器宽度或高度相同）、<code>wrap_content</code>（包裹子视图的内容）以及具体的数值（如 <code>100dp</code>）。</li>
+<li><code>android:background</code>：设置 <code>FrameLayout</code> 的背景颜色、Drawable 资源等，例如 <code>android:background=&quot;@color/colorPrimary&quot;</code> 可以设置背景为定义好的颜色资源。</li>
+<li><code>android:foreground</code>：设置 <code>FrameLayout</code> 的前景，前景会绘制在所有子视图之上，可以用于添加一些装饰性的元素，如阴影等。</li>
+<li><code>android:foregroundGravity</code>：控制前景的位置，例如 <code>android:foregroundGravity=&quot;center&quot;</code> 表示将前景放置在 <code>FrameLayout</code> 的中心位置。</li>
+</ul>
+<pre><code class="xml">&lt;FrameLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:background=&quot;@color/white&quot;&gt;
+
+    &lt;!-- 第一个子视图，显示一张图片 --&gt;
+    &lt;ImageView
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:src=&quot;@drawable/sample_image&quot;
+        android:scaleType=&quot;centerCrop&quot; /&gt;
+
+    &lt;!-- 第二个子视图，一个半透明的遮罩层 --&gt;
+    &lt;View
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:background=&quot;#80000000&quot; /&gt;
+
+    &lt;!-- 第三个子视图，显示一段文本 --&gt;
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;这是一段文字&quot;
+        android:textColor=&quot;@color/white&quot;
+        android:textSize=&quot;20sp&quot;
+        android:layout_gravity=&quot;center&quot; /&gt;
+
+&lt;/FrameLayout&gt;
+</code></pre>
+<p>在上述示例中，<code>FrameLayout</code> 包含了三个子视图：一个 <code>ImageView</code> 用于显示图片，一个 <code>View</code> 作为半透明的遮罩层，还有一个 <code>TextView</code> 用于显示文本。由于 <code>FrameLayout</code> 的特性，这三个子视图会重叠显示，通过设置 <code>android:layout_gravity</code> 属性（这里 <code>TextView</code> 设置为 <code>center</code> 使其居中显示）可以调整子视图的位置。</p>
+<h1 id="网格布局-GridLayout"><a href="#网格布局-GridLayout" class="headerlink" title="网格布局(GridLayout)"></a>网格布局(GridLayout)</h1><p><img src="/../images/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/1742713556910.png" alt="1742713556910"></p>
+<h2 id="子控件属性"><a href="#子控件属性" class="headerlink" title="子控件属性"></a>子控件属性</h2><p><img src="/../images/Android%E5%9F%BA%E6%9C%AC%E5%B8%83%E5%B1%80%E6%96%B9%E5%BC%8F/1742713654325.png" alt="1742713654325"></p>
+<h1 id="约束布局-ConstraintLayout"><a href="#约束布局-ConstraintLayout" class="headerlink" title="约束布局(ConstraintLayout)"></a>约束布局(ConstraintLayout)</h1><h2 id="常用属性-2"><a href="#常用属性-2" class="headerlink" title="常用属性"></a>常用属性</h2><ul>
+<li><code>app:layout_constraintLeft_toLeftOf</code>、<code>app:layout_constraintRight_toRightOf</code> 等：用于设置视图之间在水平和垂直方向上的对齐关系。例如，<code>app:layout_constraintLeft_toLeftOf=&quot;@id/view1&quot;</code> 表示当前视图的左边与 <code>view1</code> 的左边对齐。</li>
+<li><code>app:layout_constraintTop_toBottomOf</code>、<code>app:layout_constraintBottom_toTopOf</code> 等：用于设置视图在垂直方向上的相对位置关系。如 <code>app:layout_constraintTop_toBottomOf=&quot;@id/view2&quot;</code> 表示当前视图的顶部在 <code>view2</code> 的底部下方。</li>
+<li><code>app:layout_constraintHorizontal_bias</code> 和 <code>app:layout_constraintVertical_bias</code>：用于设置视图在水平和垂直方向上的偏移比例，取值范围是 <code>0</code> 到 <code>1</code>。<code>0</code> 表示偏向起始位置，<code>1</code> 表示偏向结束位置，<code>0.5</code> 表示居中。</li>
 </ul>
 
     </div>

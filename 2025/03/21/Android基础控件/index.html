@@ -1043,6 +1043,405 @@ public class MainActivity extends AppCompatActivity &#123;
 &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
 </code></pre>
 <p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742655190094.png" alt="1742655190094"></p>
+<h1 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a>ListView</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742717494138.png" alt="1742717494138"></p>
+<h2 id="代码实例（未优化）"><a href="#代码实例（未优化）" class="headerlink" title="代码实例（未优化）"></a>代码实例（未优化）</h2><h3 id="activity-main"><a href="#activity-main" class="headerlink" title="activity_main"></a>activity_main</h3><pre><code class="java">package com.example.practice;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    private List&lt;Bean&gt; data = new ArrayList&lt;&gt;();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        // 循环 100 次，创建 100 个 Bean 对象并设置其名称，然后添加到 data 列表中
+        for (int i = 0;i &lt; 100;i ++)&#123;
+            Bean bean = new Bean();
+            bean.setName(&quot;栏目&quot; + (i + 1));
+            data.add(bean);
+        &#125;
+        // 通过 findViewById 方法获取布局文件中 id 为 lv 的 ListView 实例
+        ListView listView = findViewById(R.id.lv);
+        // 为 ListView 设置适配器 MyAdapter，传入数据列表 data 和当前活动的上下文 this
+        listView.setAdapter(new MyAdapter(data,this));
+        // 为 ListView 设置项点击监听器
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() &#123;
+            @Override
+            public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;
+                Log.e(&quot;zxy&quot;, &quot;onItemClick: &quot; + position );
+            &#125;
+        &#125;);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="MyAdapter"><a href="#MyAdapter" class="headerlink" title="MyAdapter"></a>MyAdapter</h3><pre><code class="java">package com.example.practice;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class MyAdapter extends BaseAdapter &#123;
+    // 声明一个用于存储数据的 List，泛型为 Bean 类型
+    private List&lt;Bean&gt; data;
+    // 声明一个 Context 对象，用于获取系统资源等
+    private Context context;
+    // 构造函数，传入数据列表 data 和上下文 context
+    public MyAdapter(List&lt;Bean&gt; data,Context context) &#123;
+        this.context = context;
+        this.data = data;
+    &#125;
+    // 获取数据列表的大小，即列表项的数量
+    @Override
+    public int getCount() &#123;
+        return data.size();
+    &#125;
+    // 获取指定位置的列表项对象，这里返回 null（可能需要根据实际情况修改）
+    @Override
+    public Object getItem(int position) &#123;
+        return null;
+    &#125;
+    // 获取指定位置的列表项的唯一标识，这里简单返回位置索引
+    @Override
+    public long getItemId(int position) &#123;
+        return position;
+    &#125;
+    // 获取每个列表项的视图
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) &#123;
+        // 如果 convertView 为空，说明是第一次创建该列表项视图
+        if (convertView == null) &#123;
+            // 使用 LayoutInflater 从 context 中加载 list_item.xml 布局文件，并将其转换为视图对象
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+        &#125;
+        // 在 convertView 中找到 id 为 tv 的 TextView 实例
+        TextView textView = convertView.findViewById(R.id.tv);
+        // 设置 TextView 的文本为 data 列表中指定位置的 Bean 对象的名称
+        textView.setText(data.get(position).getName());
+
+        return convertView;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h3><pre><code class="java">package com.example.practice;
+
+public class Bean &#123;
+    String name;
+
+    public String getName() &#123;
+        return name;
+    &#125;
+
+    public void setName(String name) &#123;
+        this.name = name;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="主布局-2"><a href="#主布局-2" class="headerlink" title="主布局"></a>主布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+       &lt;ListView
+           android:layout_width=&quot;match_parent&quot;
+           android:layout_height=&quot;match_parent&quot;
+           android:id=&quot;@+id/lv&quot;/&gt;
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<h3 id="item布局"><a href="#item布局" class="headerlink" title="item布局"></a>item布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:id=&quot;@+id/tv&quot;
+        android:textSize=&quot;30sp&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h2 id="优化后"><a href="#优化后" class="headerlink" title="优化后"></a>优化后</h2><h3 id="MyAdapter-1"><a href="#MyAdapter-1" class="headerlink" title="MyAdapter"></a>MyAdapter</h3><pre><code class="java">package com.example.practice;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class MyAdapter extends BaseAdapter &#123;
+    private List&lt;Bean&gt; data;
+    private Context context;
+
+    public MyAdapter(List&lt;Bean&gt; data,Context context) &#123;
+        this.context = context;
+        this.data = data;
+    &#125;
+
+    @Override
+    public int getCount() &#123;
+        return data.size();
+    &#125;
+
+    @Override
+    public Object getItem(int position) &#123;
+        return null;
+    &#125;
+
+    @Override
+    public long getItemId(int position) &#123;
+        return position;
+    &#125;
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) &#123;
+        ViewHolder viewHolder;
+        if (convertView == null) &#123;
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+            viewHolder.textView = convertView.findViewById(R.id.tv);
+            convertView.setTag(viewHolder);
+        &#125;
+        else &#123;
+            viewHolder = (ViewHolder) convertView.getTag();
+        &#125;
+        viewHolder.textView.setText(data.get(position).getName());
+
+        return convertView;
+    &#125;
+
+    private final class ViewHolder &#123;
+        TextView textView;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="RecyclerView"><a href="#RecyclerView" class="headerlink" title="RecyclerView"></a>RecyclerView</h1><p>使用前要导入recyclerview依赖包</p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742718997143.png" alt="1742718997143"></p>
+<h2 id="代码实例-2"><a href="#代码实例-2" class="headerlink" title="代码实例"></a>代码实例</h2><h3 id="activity-main-1"><a href="#activity-main-1" class="headerlink" title="activity_main"></a>activity_main</h3><pre><code class="java">package com.example.practice;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    private List&lt;Bean&gt; data = new ArrayList&lt;&gt;();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+
+        for (int i = 0;i &lt; 100;i ++)&#123;
+            Bean bean = new Bean();
+            bean.setName(&quot;栏目&quot; + (i + 1));
+            data.add(bean);
+        &#125;
+        RecyclerView recyclerView = findViewById(R.id.rv);
+
+      LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+      recyclerView.setLayoutManager(linearLayoutManager);
+
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+//        recyclerView.setLayoutManager(gridLayoutManager);
+
+        MyAdapter myAdapter = new MyAdapter(data,this);
+        recyclerView.setAdapter(myAdapter);
+        myAdapter.setRecyclerItemClickListener(new MyAdapter.OnRecyclerItemClickListener() &#123;
+            @Override
+            public void onRecyclerItemClick(int position) &#123;
+                Log.e(&quot;zxy&quot;, &quot;onRecyclerItemClick: &quot; + position );
+            &#125;
+        &#125;);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="MyAdapter-2"><a href="#MyAdapter-2" class="headerlink" title="MyAdapter"></a>MyAdapter</h3><pre><code class="java">package com.example.practice;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+public class MyAdapter extends RecyclerView.Adapter&lt;MyAdapter.MyViewHolder&gt; &#123;
+
+    private  List&lt;Bean&gt; data;
+    private  Context context;
+
+    public MyAdapter(List&lt;Bean&gt; data,Context context) &#123;
+        this.context = context;
+        this.data = data;
+    &#125;
+
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) &#123;
+        View view = View.inflate(context,R.layout.list_item,null);
+        return new MyViewHolder(view);
+    &#125;
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) &#123;
+        holder.tv.setText(data.get(position).getName());
+    &#125;
+
+    @Override
+    public int getItemCount() &#123;
+        return data == null ? 0 : data.size();
+    &#125;
+
+    public class MyViewHolder extends RecyclerView.ViewHolder &#123;
+        private TextView tv;
+        public MyViewHolder(@NonNull View itemView)&#123;
+            super(itemView);
+            tv = itemView.findViewById(R.id.tv1);
+
+            itemView.setOnClickListener(new View.OnClickListener() &#123;
+                @Override
+                public void onClick(View v) &#123;
+                    if (mOnItemClickListener != null)&#123;
+                        mOnItemClickListener.onRecyclerItemClick(getAdapterPosition());
+                    &#125;
+                &#125;
+            &#125;);
+        &#125;
+    &#125;
+
+    private OnRecyclerItemClickListener mOnItemClickListener;
+
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener)&#123;
+        mOnItemClickListener = listener;
+    &#125;
+
+    public interface OnRecyclerItemClickListener &#123;
+        void onRecyclerItemClick(int position);
+
+    &#125;
+&#125;
+</code></pre>
+<h3 id="主布局-3"><a href="#主布局-3" class="headerlink" title="主布局"></a>主布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+       &lt;androidx.recyclerview.widget.RecyclerView
+           android:layout_width=&quot;match_parent&quot;
+           android:layout_height=&quot;match_parent&quot;
+           android:id=&quot;@+id/rv&quot;/&gt;
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<h3 id="item布局-1"><a href="#item布局-1" class="headerlink" title="item布局"></a>item布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:id=&quot;@+id/tv&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+        &lt;ImageView
+
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:src=&quot;@drawable/ic_launcher_foreground&quot;/&gt;
+
+        &lt;TextView
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:id=&quot;@+id/tv1&quot;
+            android:gravity=&quot;center&quot;
+            android:layout_gravity=&quot;center&quot;
+            android:textSize=&quot;30sp&quot;/&gt;
+
+    &lt;/LinearLayout&gt;
+
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h4 id="其中"><a href="#其中" class="headerlink" title="其中"></a>其中</h4><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742737925025.png" alt="1742737925025"></p>
+<p>可以通过更换<code>Manager</code>来变换<code>RecyclerView</code>的布局</p>
+<p>例如：</p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738011458.png" alt="1742738011458"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738022538.png" alt="1742738022538"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738052712.png" alt="1742738052712"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738073741.png" alt="1742738073741"></p>
 
     </div>
     
