@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Android基础组件 | 小白脑浆糊的进化之旅</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="小白脑浆糊的进化之旅" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小白脑浆糊的进化之旅</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小白脑浆糊的进化之旅</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Android基础组件</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/23
+        </span>
+        
+        <span class="category">
+            <a href="/categories/study/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Activity，Service等等。</p>
+<span id="more"></span>
+
+<h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><h2 id="Activity的创建"><a href="#Activity的创建" class="headerlink" title="Activity的创建"></a>Activity的创建</h2><p>创建一个Activity需要在<code>AndroidManifest</code>里进行注册</p>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1742742015579.png" alt="1742742015579"></p>
+<p>然后在新建的java代码页面中继承<code>AppCompatActivity</code>，并重写<code>onCreate</code>代码，</p>
+<p>设置布局页面。</p>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1742741952400.png" alt="1742741952400"></p>
+<h2 id="Activity的跳转"><a href="#Activity的跳转" class="headerlink" title="Activity的跳转"></a>Activity的跳转</h2><p>在布局中设置按钮并通过点击事件实现跳转。</p>
+<pre><code class="java">public void ac1(View view) &#123;
+        startActivity(new Intent(this,MainActivity.class));
+    &#125;
+</code></pre>
+<p>其中，<code>this</code>为当前页面，<code>MainActivity.class</code>为需要跳转的页面。</p>
+<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><p>MainActivity</p>
+<pre><code class="java">package com.example.practice;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+
+    &#125;
+
+    public void ac2(View view) &#123;
+        startActivity(new Intent(this,MainActivity2.class));
+    &#125;
+&#125;
+</code></pre>
+<p>MainActivity2</p>
+<pre><code class="java">package com.example.practice;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity2 extends AppCompatActivity &#123;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+    &#125;
+    public void ac1(View view) &#123;
+        startActivity(new Intent(this,MainActivity.class));
+    &#125;
+&#125;
+</code></pre>
+<p>activity_main</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+       &lt;TextView
+           android:layout_gravity=&quot;center_horizontal&quot;
+           android:gravity=&quot;center_horizontal&quot;
+           android:layout_width=&quot;wrap_content&quot;
+           android:layout_height=&quot;wrap_content&quot;
+           android:textSize=&quot;50dp&quot;
+           android:text=&quot;我是第一个Activity&quot;/&gt;
+
+        &lt;Button
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_gravity=&quot;center&quot;
+            android:onClick=&quot;ac2&quot;
+            android:text=&quot;进入&quot;/&gt;
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<p>activity_main2</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:orientation=&quot;vertical&quot;&gt;
+
+        &lt;TextView
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;我是第二个Activity&quot;
+            android:layout_gravity=&quot;center_horizontal&quot;
+            android:gravity=&quot;center_horizontal&quot;
+            android:textSize=&quot;50dp&quot;/&gt;
+
+        &lt;Button
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_gravity=&quot;center&quot;
+            android:onClick=&quot;ac1&quot;
+            android:text=&quot;返回&quot;/&gt;
+
+    &lt;/LinearLayout&gt;
+
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<h2 id="Activity生命周期"><a href="#Activity生命周期" class="headerlink" title="Activity生命周期"></a>Activity生命周期</h2><ol>
+<li>启动阶段<ul>
+<li>**onCreate()**：Activity 第一次被创建时调用，是生命周期的起点。在这个方法中，通常进行一些初始化操作，如设置布局文件（<code>setContentView</code>）、初始化成员变量、绑定事件监听器等。但要注意避免在此处执行耗时操作，否则会导致应用启动缓慢甚至卡顿。</li>
+<li>**onStart()**：在<code>onCreate</code>之后调用，此时 Activity 对用户来说已经可见，但还未出现在前台与用户交互。可进行一些准备显示的操作，比如开始动画的准备工作。</li>
+<li>**onResume()**：Activity 进入前台，获取到焦点，此时可以与用户进行交互。像开启传感器监听、启动动画等操作可在此处进行。</li>
+</ul>
+</li>
+<li>运行阶段<ul>
+<li>当 Activity 处于前台并与用户交互时，它处于运行状态，此时<code>onResume</code>方法已执行完毕，系统会保持其运行，直到有其他 Activity 切入或其他事件发生。</li>
+</ul>
+</li>
+<li>暂停阶段<ul>
+<li>**onPause()**：当 Activity 失去焦点，比如有新的 Activity 部分遮挡它（如弹出一个对话框）或者切换到其他应用时，该方法被调用。在这个方法中，通常要保存一些重要的状态数据，停止动画、释放一些系统资源（如关闭传感器监听）等，但不能执行耗时操作，因为只有当<code>onPause</code>执行完，新的 Activity 才会完全显示。</li>
+</ul>
+</li>
+<li>停止阶段<ul>
+<li>**onStop()**：当 Activity 完全被其他 Activity 遮挡，对用户不可见时调用。相比<code>onPause</code>，此时 Activity 对用户来说已经不可见，可执行一些更重量级的资源释放操作，如停止后台线程、关闭数据库连接等。</li>
+</ul>
+</li>
+<li>销毁阶段<ul>
+<li>**onDestroy()**：Activity 被销毁前调用，这是生命周期的终点。通常在 Activity 不再需要，或者应用退出等情况下触发。在此方法中，要确保释放所有的资源，避免内存泄漏，比如取消所有的监听器绑定、关闭文件流等。</li>
+</ul>
+</li>
+<li>恢复阶段<ul>
+<li>**onRestart()**：当 Activity 由停止状态再次启动时调用，比如用户从其他应用切换回该应用。在这个方法之后，会依次调用<code>onStart()</code>和<code>onResume()</code>，使 Activity 重新回到前台可交互状态。</li>
+</ul>
+</li>
+</ol>
+<h1 id="Fragment"><a href="#Fragment" class="headerlink" title="Fragment"></a>Fragment</h1><ul>
+<li><strong>基本概念</strong>：Fragment 有自己的生命周期，可包含布局和实现逻辑，能让开发者在一个 Activity 中构建灵活多变的用户界面，实现界面模块化，提高代码复用性。比如在一个新闻类 App 中，可将文章列表、文章详情分别用不同的 Fragment 展示。</li>
+<li><strong>生命周期</strong>：与 Activity 类似，有创建（<code>onCreate</code>）、创建视图（<code>onCreateView</code>）、视图创建完成（<code>onViewCreated</code>）、可见（<code>onResume</code>）、不可见（<code>onPause</code>）、销毁视图（<code>onDestroyView</code>）、销毁（<code>onDestroy</code>）等阶段，开发者可在这些阶段处理不同任务。</li>
+<li><strong>与 Activity 的关系</strong>：依赖于 Activity 存在，可通过<code>getActivity()</code>获取关联的 Activity。Activity 可管理 Fragment 的添加、移除、替换等事务，使用<code>FragmentManager</code>和<code>FragmentTransaction</code>类来实现。</li>
+<li><strong>通信方式</strong>：Fragment 之间通信可通过 Activity 作为中介、接口回调、共享 ViewModel 等方式；Fragment 与 Activity 通信则可在 Fragment 中调用 Activity 的公共方法，或通过接口让 Activity 实现相应逻辑 。</li>
+<li><strong>使用场景</strong>：常用于开发响应式界面，在平板等大屏设备上可同时展示多个 Fragment；也适用于 Tab 布局、导航抽屉等，每个 Tab 或导航项对应一个 Fragment 。</li>
+</ul>
+<h2 id="在一个Activity页面中添加多个fragment"><a href="#在一个Activity页面中添加多个fragment" class="headerlink" title="在一个Activity页面中添加多个fragment"></a>在一个Activity页面中添加多个fragment</h2><p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1743054636292.png" alt="1743054636292"></p>
+<h2 id="Fragment的动态添加与管理"><a href="#Fragment的动态添加与管理" class="headerlink" title="Fragment的动态添加与管理"></a>Fragment的动态添加与管理</h2><p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1743058276500.png" alt="1743058276500"></p>
+<ul>
+<li><strong>添加碎片</strong>：<code>add(int containerViewId, Fragment fragment)</code>，第一个参数是容器的<code>id</code>，碎片将被添加到这个容器中；第二个参数是要添加的<code>Fragment</code>实例。比如<code>transaction.add(R.id.fragment_container, new MyFragment());</code> 。</li>
+<li><strong>替换碎片</strong>：<code>replace(int containerViewId, Fragment fragment)</code>，同样第一个参数是容器<code>id</code>，第二个是新的<code>Fragment</code>实例。它会先移除容器中已有的碎片，再添加新的碎片，如<code>transaction.replace(R.id.fragment_container, new AnotherFragment());</code> 。</li>
+<li><strong>移除碎片</strong>：<code>remove(Fragment fragment)</code>，参数是要移除的<code>Fragment</code>实例，例如<code>transaction.remove(myFragment);</code> 。</li>
+<li><strong>隐藏碎片</strong>：<code>hide(Fragment fragment)</code>，将指定的<code>Fragment</code>隐藏，不销毁，只是从视图中移除，<code>transaction.hide(myFragment);</code> 。</li>
+<li><strong>显示碎片</strong>：<code>show(Fragment fragment)</code>，和<code>hide</code>对应，用于显示之前隐藏的<code>Fragment</code>，<code>transaction.show(myFragment);</code> 。</li>
+<li><strong>提交事务</strong>：<code>commit()</code>，在完成一系列<code>Fragment</code>操作后，必须调用该方法来提交事务，让前面的操作生效。不过要注意，<code>commit()</code>必须在<code>Activity</code>的<code>onSaveInstanceState()</code>方法调用之前调用，否则可能会抛出异常。如果希望事务在未来某个时间点提交，可以使用<code>commitAllowingStateLoss()</code> 。</li>
+<li>**addToBackStack(String name)**：将当前事务添加到返回栈中，参数<code>name</code>是给这个事务在返回栈中的命名，可<code>null</code>。添加后，用户按下返回键时，可以回退到之前的<code>Fragment</code>状态。如<code>transaction.addToBackStack(&quot;myFragmentTransaction&quot;);</code> 。</li>
+</ul>
+<h3 id="Fragment页面切换"><a href="#Fragment页面切换" class="headerlink" title="Fragment页面切换"></a>Fragment页面切换</h3><p>在主布局中添加Framelayout</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;FrameLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_weight=&quot;1&quot;
+        android:id=&quot;@+id/framelayout&quot;/&gt;
+    &lt;include layout=&quot;@layout/bottom_layout&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>在相应java代码中</p>
+<pre><code class="java">package com.example.practice;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        Button bt1 = findViewById(R.id.bt1);
+        Button bt2 = findViewById(R.id.bt2);
+        bt1.setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                replaceFragment(new BlankFragment2());
+            &#125;
+        &#125;);
+        bt2.setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                replaceFragment(new BlankFragment1());
+            &#125;
+        &#125;);
+    &#125;
+
+    private void replaceFragment(Fragment fragment)&#123;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.framelayout,fragment);
+        transaction.commit();
+    &#125;
+
+&#125;
+</code></pre>
+<h2 id="Activity与Fragment通信"><a href="#Activity与Fragment通信" class="headerlink" title="Activity与Fragment通信"></a>Activity与Fragment通信</h2><h3 id="原生方案：Bundle"><a href="#原生方案：Bundle" class="headerlink" title="原生方案：Bundle"></a>原生方案：Bundle</h3><p>在Activity相关java代码中</p>
+<pre><code class="java">@Override
+            public void onClick(View v) &#123;
+                Bundle bundle = new Bundle();
+                bundle.putString(&quot;message&quot;,&quot;今天天气不错&quot;);
+                BlankFragment2 bf2 = new BlankFragment2();
+                bf2.setArguments(bundle);
+                replaceFragment(bf2);
+            &#125;
+</code></pre>
+<p>在Fragment相关代码中</p>
+<pre><code class="java"> @Override
+    public void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        String string = bundle.getString(&quot;message&quot;);
+        Log.d(TAG, &quot;onCreate: &quot; + string);
+        if (getArguments() != null) &#123;
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        &#125;
+    &#125;
+</code></pre>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1743058108620.png" alt="1743058108620"></p>
+<h3 id="java接口方案"><a href="#java接口方案" class="headerlink" title="java接口方案"></a>java接口方案</h3><p>首先定义一个接口</p>
+<pre><code class="java">package com.example.practice;
+
+public interface IFragmentCallback &#123;
+    void sendMsgToActivity(String msg);
+    String getMsgFromActivity(String msg);
+&#125;
+</code></pre>
+<p>在Activity实现匿名接口，并接受，发送信息</p>
+<pre><code class="java">            public void onClick(View v) &#123;
+                BlankFragment2 bf2 = new BlankFragment2();
+                bf2.setFragmentCallback(new IFragmentCallback() &#123;
+                    @Override
+                    public void sendMsgToActivity(String msg) &#123;
+                        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+                    &#125;
+
+                    @Override
+                    public String getMsgFromActivity(String msg) &#123;
+                        return &quot;Hello,I&#39;m From Activity&quot;;
+                    &#125;
+                &#125;);
+                replaceFragment(bf2);
+            &#125;
+</code></pre>
+<p>在Fragment定义一个接口</p>
+<pre><code class="java">private IFragmentCallback fragmentCallback;
+</code></pre>
+<p>在Fragment的onCreateView中接收，发出信息</p>
+<pre><code class="java">@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) &#123;
+        if (root == null) &#123;
+            root = inflater.inflate(R.layout.fragment_blank2, container, false);
+        &#125;
+        bt3 = root.findViewById(R.id.bt3);
+        bt3.setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                //fragmentCallback.sendMsgToActivity(&quot;Hello,I&#39;m from Fragment&quot;);
+                String string = fragmentCallback.getMsgFromActivity(&quot;null&quot;);
+                Toast.makeText(BlankFragment2.this.getContext(),string,Toast.LENGTH_SHORT).show();
+            &#125;
+        &#125;);
+        return root;
+    &#125;
+</code></pre>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1743070940126.png" alt="1743070940126"></p>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-27%20182931.png"></p>
+<h3 id="其他方案"><a href="#其他方案" class="headerlink" title="其他方案"></a>其他方案</h3><p>eventBus，LiveData …</p>
+<h2 id="Fragment生命周期"><a href="#Fragment生命周期" class="headerlink" title="Fragment生命周期"></a>Fragment生命周期</h2><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/1743081017653.png" alt="1743081017653"></p>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/1743081713305.png" alt="1743081713305"></p>
+<ol>
+<li><strong>关联阶段</strong>：<code>onAttach()</code>，当 Fragment 被添加到 Activity 时调用，表明 Fragment 已依附到 Activity 上，可在此接收 Activity 传递的参数并做初始化操作，比如获取 Activity 中的数据 。</li>
+<li>创建阶段：<ul>
+<li><code>onCreate()</code>，Fragment 被创建时调用，用于初始化一些资源，像开启线程、读取文件等，但不适合进行与 UI 相关的操作。</li>
+<li><code>onCreateView()</code>，创建 Fragment 的布局 UI，返回一个 View 对象用于在 Activity 中显示该 Fragment。例如，通过 LayoutInflater 将布局文件转换为 View 视图并返回。</li>
+<li><code>onViewCreated()</code>，在视图创建完成后调用，可进行与视图相关的初始化，如给视图中的控件设置监听器等。</li>
+<li><code>onActivityCreated()</code>，在 Activity 的<code>onCreate()</code>方法执行完毕后调用，意味着 Fragment 所依附的 Activity 已初始化完成，此时可进行与 Activity 交互的 UI 操作。</li>
+</ul>
+</li>
+<li>可见阶段：<ul>
+<li><code>onStart()</code>，当 Fragment 可见时调用，此时 Fragment 已和 Activity 关联，但还未处于前台与用户交互。</li>
+<li><code>onResume()</code>，Fragment 处于前台，能与用户交互时调用，可在此执行一些耗时操作或与用户交互相关的逻辑。</li>
+</ul>
+</li>
+<li>不可见阶段：<ul>
+<li><code>onPause()</code>，Fragment 失去焦点，即将暂停时调用，一般用于保存数据、停止动画等，不能进行耗时操作。</li>
+<li><code>onStop()</code>，Fragment 不可见时调用，比如所在 Activity 进入停止状态或 Fragment 被移除并加入后退栈，此时可停止一些较消耗资源的操作。</li>
+</ul>
+</li>
+<li>销毁阶段：<ul>
+<li><code>onDestroyView()</code>，从 Fragment 中删除相应的 UI 界面，此时 Fragment 还未完全销毁。</li>
+<li><code>onDestroy()</code>，Fragment 被销毁时调用，用于释放资源，如关闭线程、释放内存等。</li>
+<li><code>onDetach()</code>，Fragment 和 Activity 解除关联时调用，表明 Fragment 已从 Activity 上分离。</li>
+</ul>
+</li>
+</ol>
+<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p><code>Service</code>是组件，需要在<code>AndroidManifest</code>中注册</p>
+<h2 id="startService"><a href="#startService" class="headerlink" title="startService"></a>startService</h2><p>startService是不与Activity挂钩的，即使Activity关闭，startService也可在后台运行</p>
+<h3 id="代码实例-1"><a href="#代码实例-1" class="headerlink" title="代码实例"></a>代码实例</h3><p>MainActivity3</p>
+<pre><code class="java">package com.example.practice;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity3 extends AppCompatActivity &#123;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main3);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+    &#125;
+
+    public void startService(View view) &#123;
+        startService(new Intent(this,MyService.class));
+    &#125;
+
+    public void stopService(View view) &#123;
+        stopService(new Intent(this,MyService.class));
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity3&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        &gt;
+        &lt;Button
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;startService&quot;
+            android:onClick=&quot;startService&quot;
+            /&gt;
+        &lt;Button
+            android:text=&quot;stopService&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:onClick=&quot;stopService&quot;
+            /&gt;
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>通过 <code>startService</code> 启动服务时，其生命周期方法调用顺序为：</p>
+<ul>
+<li>**<code>onCreate</code>**：当服务第一次被创建时调用，用于执行一些一次性的初始化操作，比如初始化成员变量、注册广播接收器等。如果服务已经处于运行状态，再次通过 <code>startService</code> 启动时，该方法不会被重复调用。</li>
+<li>**<code>onStartCommand</code>**：每次客户端调用 <code>startService</code> 方法启动服务时都会回调此方法。在这个方法中可以根据传入的 <code>Intent</code> 来确定服务要执行的具体任务，并且可以返回不同的结果来指示系统在服务被系统销毁后如何重启服务 。</li>
+<li>**<code>onDestroy</code>**：当服务不再被使用且需要销毁时调用，比如调用了 <code>stopService</code> 方法，或者所在应用被完全终止等情况。在该方法中，应该释放服务持有的所有资源，如停止线程、注销监听器等。</li>
+</ul>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1742878501499.png" alt="1742878501499"></p>
+<h2 id="bindService"><a href="#bindService" class="headerlink" title="bindService"></a>bindService</h2><p>bindService是与Activity相挂钩的</p>
+<h3 id="生命周期方法调用流程"><a href="#生命周期方法调用流程" class="headerlink" title="生命周期方法调用流程"></a>生命周期方法调用流程</h3><ul>
+<li><strong>首次绑定</strong>：当客户端（如 Activity）通过<code>bindService</code>方法绑定服务时，如果服务尚未创建，系统会先调用服务的<code>onCreate</code>方法进行初始化，比如初始化成员变量、建立数据库连接等；接着调用<code>onBind</code>方法，该方法需返回一个<code>IBinder</code>接口实例，以便客户端与服务进行通信，如获取服务的运行状态或调用服务内的方法 。例如，在音乐播放服务中，可通过返回的<code>IBinder</code>获取播放控制方法。</li>
+<li><strong>多次绑定</strong>：若同一个客户端多次调用<code>bindService</code>绑定同一个服务，<code>onCreate</code>和<code>onBind</code>方法不会再次调用，因为服务已经存在且绑定关系已建立。</li>
+<li><strong>解除绑定</strong>：当客户端调用<code>unbindService</code>方法解除与服务的绑定时，会触发服务的<code>onUnbind</code>方法。该方法可用于处理解绑时的清理工作，如停止一些与客户端交互相关的操作。若此时没有其他客户端与该服务绑定（即所有绑定都已解除），系统会进一步调用<code>onDestroy</code>方法，标志着服务生命周期结束，在这个方法中应释放服务占用的所有资源，如停止线程、关闭文件句柄等。</li>
+<li><strong>特殊情况（允许重绑定）</strong>：如果在<code>onUnbind</code>方法中返回<code>true</code>，表示允许服务被重绑定。当有新的客户端尝试绑定时，服务的<code>onRebind</code>方法会被调用，而不是再次调用<code>onBind</code>方法 。</li>
+</ul>
+<h3 id="与调用者的关系"><a href="#与调用者的关系" class="headerlink" title="与调用者的关系"></a>与调用者的关系</h3><p>绑定的服务与调用它的客户端（如 Activity）关联紧密。当客户端（如 Activity）被销毁（例如用户返回或切换应用） ，若没有解除与服务的绑定，可能会导致内存泄漏等问题。因此，通常在客户端的<code>onDestroy</code>方法中调用<code>unbindService</code>方法来解除绑定，以确保服务能正常结束生命周期。而且，若绑定服务的客户端进程意外终止（如被系统杀死），服务的<code>onUnbind</code>和<code>onDestroy</code>方法也会被调用，以清理服务资源。</p>
+<h3 id="与startService启动方式的结合"><a href="#与startService启动方式的结合" class="headerlink" title="与startService启动方式的结合"></a>与<code>startService</code>启动方式的结合</h3><p>一个服务可以同时被<code>startService</code>和<code>bindService</code>启动。在这种情况下：</p>
+<ul>
+<li>服务的<code>onCreate</code>方法只会在服务首次创建时调用一次；<code>onStartCommand</code>方法会在每次通过<code>startService</code>启动服务时被调用。</li>
+<li>服务的终止需要<code>stopService</code>和所有客户端的<code>unbindService</code>都被调用。即如果先调用<code>unbindService</code>，服务不会立即终止，直到<code>stopService</code>被调用；反之，先调用<code>stopService</code>，服务也不会终止，直到所有绑定都被解除（所有客户端调用<code>unbindService</code>或客户端进程终止） 。</li>
+</ul>
+<h3 id="代码实例-2"><a href="#代码实例-2" class="headerlink" title="代码实例"></a>代码实例</h3><p>Mainactivity3</p>
+<pre><code class="java">package com.example.practice;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity3 extends AppCompatActivity &#123;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main3);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+    &#125;
+
+    public void bindService(View view) &#123;
+        bindService(new Intent(this,MyService.class),connection, Context.BIND_AUTO_CREATE);
+    &#125;
+
+    public void unbindService(View view) &#123;
+        unbindService(connection);
+    &#125;
+    private ServiceConnection connection = new ServiceConnection() &#123;
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) &#123;
+
+        &#125;
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) &#123;
+
+        &#125;
+    &#125;;
+
+&#125;
+</code></pre>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity3&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        &gt;
+        &lt;Button
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;bindService&quot;
+            android:onClick=&quot;bindService&quot;
+            /&gt;
+        &lt;Button
+            android:text=&quot;unbindService&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:onClick=&quot;unbindService&quot;
+            /&gt;
+
+    &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+<p><img src="/../images/Android%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/1742897635388.png" alt="1742897635388"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 小白脑浆糊的进化之旅
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

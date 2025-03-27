@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #00a596">
+                <a href="/tags/Android/" style="color: #03a9f4">
                     Android
                 </a>
             </span>
@@ -1442,6 +1442,360 @@ public class MyAdapter extends RecyclerView.Adapter&lt;MyAdapter.MyViewHolder&gt
 <p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738022538.png" alt="1742738022538"></p>
 <p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738052712.png" alt="1742738052712"></p>
 <p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1742738073741.png" alt="1742738073741"></p>
+<h1 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h1><p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1743053322919.png" alt="1743053322919"></p>
+<h2 id="代码实例-3"><a href="#代码实例-3" class="headerlink" title="代码实例"></a>代码实例</h2><h3 id="主布局-4"><a href="#主布局-4" class="headerlink" title="主布局"></a>主布局</h3><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;androidx.viewpager.widget.ViewPager
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:id=&quot;@+id/vp&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h3 id="main-java"><a href="#main-java" class="headerlink" title="main_java"></a>main_java</h3><pre><code class="java">package com.example.practice;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity &#123;
+    private ViewPager viewPager;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        LayoutInflater lf = getLayoutInflater().from(this);
+        View view1 = lf.inflate(R.layout.layout1,null);
+        View view2 = lf.inflate(R.layout.layout2,null);
+        View view3 = lf.inflate(R.layout.layout3,null);
+        List&lt;View&gt; viewList = new ArrayList&lt;&gt;();
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+
+        MyAdapter myAdapter = new MyAdapter(viewList);
+        viewPager = findViewById(R.id.vp);
+        viewPager.setAdapter(myAdapter);
+
+    &#125;
+
+&#125;
+</code></pre>
+<h3 id="适配器"><a href="#适配器" class="headerlink" title="适配器"></a>适配器</h3><pre><code class="java">package com.example.practice;
+
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+
+import java.util.List;
+
+public class MyAdapter extends PagerAdapter &#123;
+
+    private List&lt;View&gt; mListView;
+
+    public MyAdapter(List&lt;View&gt; mListView) &#123;
+        this.mListView = mListView;
+    &#125;
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) &#123;
+        container.addView(mListView.get(position), 0);
+        return mListView.get(position);
+
+    &#125;
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) &#123;
+        container.removeView(mListView.get(position));
+    &#125;
+
+    @Override
+    public int getCount() &#123;
+        return mListView.size();
+    &#125;
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) &#123;
+        return view == object;
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/../images/Android%E5%9F%BA%E7%A1%80%E6%8E%A7%E4%BB%B6/1743054423130.png" alt="1743054423130"></p>
+<h1 id="ViewPager2"><a href="#ViewPager2" class="headerlink" title="ViewPager2"></a>ViewPager2</h1><p><code>main_java</code></p>
+<pre><code class="java">package com.example.practice;
+
+import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        ViewPager2 viewPager = findViewById(R.id.vp);
+        List&lt;String&gt; titles = new ArrayList&lt;&gt;();
+        titles.add(&quot;热点&quot;);
+        titles.add(&quot;推荐&quot;);
+        titles.add(&quot;影视&quot;);
+        titles.add(&quot;音乐&quot;);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(titles);
+        viewPager.setAdapter(viewPagerAdapter);
+    &#125;
+&#125;
+</code></pre>
+<p>适配器</p>
+<pre><code class="java">package com.example.practice;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ViewPagerAdapter extends RecyclerView.Adapter&lt;ViewPagerAdapter.ViewPagerViewHolder&gt; &#123;
+    private List&lt;String&gt; titles = new ArrayList&lt;&gt;();
+
+    public ViewPagerAdapter(List&lt;String&gt; titles) &#123;
+        this.titles = titles;
+    &#125;
+
+
+    @NonNull
+    @Override
+    public ViewPagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) &#123;
+        return new ViewPagerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pager,parent,false));
+    &#125;
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) &#123;
+        holder.mTv.setText(titles.get(position));
+    &#125;
+
+    @Override
+    public int getItemCount() &#123;
+        return titles.size();
+    &#125;
+
+    class ViewPagerViewHolder extends RecyclerView.ViewHolder &#123;
+        TextView mTv;
+        LinearLayout mContainer;
+        public ViewPagerViewHolder(@NonNull View itemView) &#123;
+            super(itemView);
+            mContainer = itemView.findViewById(R.id.ly);
+            mTv = itemView.findViewById(R.id.tvTitle);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>主布局</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;androidx.viewpager2.widget.ViewPager2
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:id=&quot;@+id/vp&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>item布局</p>
+<pre><code class="java">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;vertical&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:id=&quot;@+id/ly&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/tvTitle&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_gravity=&quot;center&quot;
+        android:gravity=&quot;center&quot;
+        android:text=&quot;Hello World&quot;
+        android:textColor=&quot;#ff4532&quot;
+        android:textSize=&quot;32dp&quot;/&gt;
+
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<h2 id="ViewPager2-Fragment"><a href="#ViewPager2-Fragment" class="headerlink" title="ViewPager2 + Fragment"></a>ViewPager2 + Fragment</h2><p>在<code>main_java</code>中</p>
+<pre><code class="java">private ViewPager2 viewPager;
+private void initPager()&#123;
+        viewPager = findViewById(R.id.viewpager);
+        ArrayList&lt;Fragment&gt; fragments = new ArrayList&lt;&gt;();
+        fragments.add(BlankFragment.newInstance(&quot;热点&quot;));
+        fragments.add(BlankFragment.newInstance(&quot;推荐&quot;));
+        fragments.add(BlankFragment.newInstance(&quot;直播&quot;));
+        fragments.add(BlankFragment.newInstance(&quot;动画&quot;));
+        fragments.add(BlankFragment.newInstance(&quot;影视&quot;));
+        MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), getLifecycle(),fragments);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() &#123;
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) &#123;
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            &#125;
+
+            @Override
+            public void onPageSelected(int position) &#123;
+                super.onPageSelected(position);
+            &#125;
+
+            @Override
+            public void onPageScrollStateChanged(int state) &#123;
+                super.onPageScrollStateChanged(state);
+            &#125;
+        &#125;);
+    &#125;
+</code></pre>
+<p><code>MyFragmentPagerAdapter</code>适配器</p>
+<pre><code class="java">package com.example.bilibili;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.ListFragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyFragmentPagerAdapter extends FragmentStateAdapter &#123;
+    List&lt;Fragment&gt; fragmentList = new ArrayList&lt;&gt;();
+    public MyFragmentPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle,List&lt;Fragment&gt; fragments) &#123;
+        super(fragmentManager, lifecycle);
+        fragmentList = fragments;
+    &#125;
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) &#123;
+        return fragmentList.get(position);
+    &#125;
+
+    @Override
+    public int getItemCount() &#123;
+        return fragmentList.size();
+    &#125;
+&#125;
+</code></pre>
+<p><code>BlankFragment</code>空白Fragment</p>
+<pre><code class="java">package MyFragment;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.bilibili.R;
+
+public class BlankFragment extends Fragment &#123;
+    
+    private static final String ARG_TEXT = &quot;param1&quot;;
+    private String mTextString;
+    View rootView;
+
+    public BlankFragment() &#123;
+    &#125;
+
+    
+    public static BlankFragment newInstance(String param1) &#123;
+        BlankFragment fragment = new BlankFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_TEXT, param1);
+        fragment.setArguments(args);
+        return fragment;
+    &#125;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) &#123;
+            mTextString = getArguments().getString(ARG_TEXT);
+        &#125;
+    &#125;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) &#123;
+        if (rootView == null) &#123;
+            rootView = inflater.inflate(R.layout.fragment_blank, container, false);
+        &#125;
+        initView();
+        return rootView;
+    &#125;
+
+    private void initView() &#123;
+        TextView textView = rootView.findViewById(R.id.text);
+        textView.setText(mTextString);
+    &#125;
+&#125;
+</code></pre>
+<p>主布局加入<code>ViewPaper2</code>控件</p>
+<pre><code class="xml">&lt;androidx.viewpager2.widget.ViewPager2
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_weight=&quot;1&quot;
+        android:id=&quot;@+id/viewpager&quot;/&gt;
+</code></pre>
 
     </div>
     
