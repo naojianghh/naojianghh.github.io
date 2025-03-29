@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>I_chun_qiu | 小白脑浆糊的进化之旅</title>
+    <title>数据库SQLite | 小白脑浆糊的进化之旅</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -157,14 +157,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>I_chun_qiu</h1>
+        <h1>数据库SQLite</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/2/23
+            2025/3/28
         </span>
         
         <span class="category">
@@ -185,8 +185,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E9%80%86%E5%90%91/" style="color: #ffa2c4">
-                    逆向
+                <a href="/tags/Android/" style="color: #00bcd4">
+                    Android
                 </a>
             </span>
             
@@ -195,38 +195,171 @@
     </div>
     
     <div class="content" v-pre>
-        <p> 跟I春秋学逆向</p>
-<span id="more"></span> 
+        <p>SQLite 数据库存储</p>
+<span id="more"></span>
 
-<h1 id="IDA基础操作"><a href="#IDA基础操作" class="headerlink" title="IDA基础操作"></a>IDA基础操作</h1><h2 id="IDA插件安装"><a href="#IDA插件安装" class="headerlink" title="IDA插件安装"></a>IDA插件安装</h2><p><img src="/../images/I-chun-qiu/1738665569455.png" alt="1738665569455"></p>
-<h2 id="IDA打开方式"><a href="#IDA打开方式" class="headerlink" title="IDA打开方式"></a>IDA打开方式</h2><p><img src="/../images/I-chun-qiu/1738665679539.png" alt="1738665679539"></p>
-<p><strong>可以先用32打开文件，如果报错，再用64打开文件</strong></p>
-<h2 id="IDA常用窗口"><a href="#IDA常用窗口" class="headerlink" title="IDA常用窗口"></a>IDA常用窗口</h2><p><img src="/../images/I-chun-qiu/1738665790119.png" alt="1738665790119"></p>
-<h3 id="函数列表窗口"><a href="#函数列表窗口" class="headerlink" title="函数列表窗口"></a>函数列表窗口</h3><p><img src="/../images/I-chun-qiu/1738666061089.png" alt="1738666061089"></p>
-<p><strong>在函数列表中可按 Ctrl + F 来调出函数搜索窗口，双击函数名可在主视图跳转到对应函数的代码</strong></p>
-<h3 id="IDA-View窗口"><a href="#IDA-View窗口" class="headerlink" title="IDA-View窗口"></a>IDA-View窗口</h3><p><strong>可按G键，或在jump功能中点击jump to address来进行地址导航</strong></p>
-<h3 id="伪代码窗口"><a href="#伪代码窗口" class="headerlink" title="伪代码窗口"></a>伪代码窗口</h3><p><strong>按反斜杠键进行注释，按x键查看交叉引用</strong></p>
-<h3 id="import"><a href="#import" class="headerlink" title="import"></a>import</h3><p><strong>程序引用的其他第三方函数</strong></p>
-<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><p><strong>程序动态数据导出的函数，默认start为最初始的执行函数</strong></p>
-<h2 id="IDA操作实例"><a href="#IDA操作实例" class="headerlink" title="IDA操作实例"></a>IDA操作实例</h2><p><strong>在终端启动PowerShell，将执行文件托入可避免程序在我们未阅读完回显时就自动关闭</strong></p>
-<p><img src="/../images/I-chun-qiu/1738667322612.png" alt="1738667322612"></p>
-<p><strong>可在伪代码页面中选中函数并按N键为其重命名</strong></p>
-<h3 id="定位main函数"><a href="#定位main函数" class="headerlink" title="定位main函数"></a>定位main函数</h3><p><img src="/../images/I-chun-qiu/1738667427818.png" alt="1738667427818"></p>
-<p><strong>在IDA-View窗口中可选中字符串，再按U键来解除字符串，也可按A键来重新组成字符串</strong></p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="/../images/I-chun-qiu/1738667810659.png" alt="1738667810659"></p>
-<h1 id="RC4加密算法"><a href="#RC4加密算法" class="headerlink" title="RC4加密算法"></a>RC4加密算法</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738668071519.png" alt="1738668071519"></p>
-<h2 id="加密过程概述"><a href="#加密过程概述" class="headerlink" title="加密过程概述"></a>加密过程概述</h2><p><img src="/../images/I-chun-qiu/1738668264391.png" alt="1738668264391"></p>
-<p><img src="/../images/I-chun-qiu/1738668597694.png" alt="1738668597694"></p>
-<p><img src="/../images/I-chun-qiu/1738668622779.png" alt="1738668622779"></p>
-<p><strong>注：mod为取模</strong></p>
-<h2 id="特征识别"><a href="#特征识别" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738668934155.png" alt="1738668934155"></p>
-<h2 id="常见魔改及处理方法"><a href="#常见魔改及处理方法" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738668984958.png" alt="1738668984958"></p>
-<h1 id="TEA加密算法"><a href="#TEA加密算法" class="headerlink" title="TEA加密算法"></a>TEA加密算法</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p><img src="/../images/I-chun-qiu/1738670241877.png" alt="1738670241877"></p>
-<h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p><img src="/../images/I-chun-qiu/1738670316411.png" alt="1738670316411"></p>
-<h2 id="特征识别-1"><a href="#特征识别-1" class="headerlink" title="特征识别"></a>特征识别</h2><p><img src="/../images/I-chun-qiu/1738670451740.png" alt="1738670451740"></p>
-<p><strong>注：左移4等于乘16</strong></p>
-<h2 id="常见魔改及处理方法-1"><a href="#常见魔改及处理方法-1" class="headerlink" title="常见魔改及处理方法"></a>常见魔改及处理方法</h2><p><img src="/../images/I-chun-qiu/1738670560542.png" alt="1738670560542"></p>
-<p><img src="/../images/I-chun-qiu/1738670608311.png" alt="1738670608311"></p>
+<h1 id="SQL基础语法"><a href="#SQL基础语法" class="headerlink" title="SQL基础语法"></a>SQL基础语法</h1><h2 id="1-数据库操作"><a href="#1-数据库操作" class="headerlink" title="1. 数据库操作"></a>1. 数据库操作</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code class="sql">CREATE DATABASE database_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">CREATE DATABASE testdb;
+</code></pre>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><pre><code class="sql">DROP DATABASE database_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">DROP DATABASE testdb;
+</code></pre>
+<h3 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h3><pre><code class="sql">USE database_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">USE testdb;
+</code></pre>
+<h2 id="2-表操作"><a href="#2-表操作" class="headerlink" title="2. 表操作"></a>2. 表操作</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><pre><code class="sql">CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+    ...
+);
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">CREATE TABLE customers (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    age INT,
+    email VARCHAR(255)
+);
+</code></pre>
+<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><pre><code class="sql">DROP TABLE table_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">DROP TABLE customers;
+</code></pre>
+<h3 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h3><ul>
+<li><strong>添加列</strong></li>
+</ul>
+<pre><code class="sql">ALTER TABLE table_name
+ADD column_name datatype;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">ALTER TABLE customers
+ADD address VARCHAR(255);
+</code></pre>
+<ul>
+<li><strong>删除列</strong></li>
+</ul>
+<pre><code class="sql">ALTER TABLE table_name
+DROP COLUMN column_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">ALTER TABLE customers
+DROP COLUMN address;
+</code></pre>
+<h2 id="3-数据操作"><a href="#3-数据操作" class="headerlink" title="3. 数据操作"></a>3. 数据操作</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><pre><code class="sql">INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">INSERT INTO customers (id, name, age, email)
+VALUES (1, &#39;John Doe&#39;, 30, &#39;john@example.com&#39;);
+</code></pre>
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><pre><code class="sql">SELECT column1, column2, ...
+FROM table_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">SELECT id, name, age
+FROM customers;
+</code></pre>
+<ul>
+<li><strong>查询所有列</strong></li>
+</ul>
+<pre><code class="sql">SELECT * FROM table_name;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">SELECT * FROM customers;
+</code></pre>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><pre><code class="sql">UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">UPDATE customers
+SET age = 31
+WHERE id = 1;
+</code></pre>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><pre><code class="sql">DELETE FROM table_name
+WHERE condition;
+</code></pre>
+<p>示例：</p>
+<pre><code class="sql">DELETE FROM customers
+WHERE id = 1;
+</code></pre>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p><img src="/../images/SQLite/1743167022146.png" alt="1743167022146"></p>
+<h1 id="SQLiteDatabase"><a href="#SQLiteDatabase" class="headerlink" title="SQLiteDatabase"></a>SQLiteDatabase</h1><pre><code class="java">package com.example.practice;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import java.sql.SQLData;
+
+public class MainActivity extends AppCompatActivity &#123;
+
+    private String mDatabaseName;
+    private String desc = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+
+        mDatabaseName = getFilesDir() + &quot;/test.db&quot;;
+        TextView tv = findViewById(R.id.tv);
+        //创建数据库
+        findViewById(R.id.bt1).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                SQLiteDatabase db =  openOrCreateDatabase(mDatabaseName,Context.MODE_PRIVATE,null);
+                desc = String.format(&quot;数据库%s创建%s&quot;,db.getPath(),(db != null) ? &quot;成功&quot;:&quot;失败&quot;);
+                tv.setText(desc);
+
+            &#125;
+        &#125;);
+        //删除数据库
+        findViewById(R.id.bt2).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                boolean result = deleteDatabase(mDatabaseName);
+                desc = String.format(&quot;数据库删除%s&quot;,result ? &quot;成功&quot;:&quot;失败&quot;);
+                tv.setText(desc);
+            &#125;
+        &#125;);
+
+    &#125;
+
+&#125;
+</code></pre>
+<p><img src="/../images/SQLite/1743169364403.png" alt="1743169364403"></p>
+<p><img src="/../images/SQLite/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-28%20214126.png"></p>
+<p><img src="/../images/SQLite/1743169533489.png" alt="1743169533489"></p>
+<p><img src="/../images/SQLite/1743169560978.png" alt="1743169560978"></p>
+<p><img src="/../images/SQLite/1743169571765.png" alt="1743169571765"></p>
+<h1 id="SQLiteOpenHelper"><a href="#SQLiteOpenHelper" class="headerlink" title="SQLiteOpenHelper"></a>SQLiteOpenHelper</h1><p><img src="/../images/SQLite/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-28%20214638.png"></p>
 
     </div>
     
