@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #00bcd4">
+                <a href="/tags/Android/" style="color: #03a9f4">
                     Android
                 </a>
             </span>
@@ -357,9 +357,243 @@ public class MainActivity extends AppCompatActivity &#123;
 <p><img src="/../images/SQLite/1743169364403.png" alt="1743169364403"></p>
 <p><img src="/../images/SQLite/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-28%20214126.png"></p>
 <p><img src="/../images/SQLite/1743169533489.png" alt="1743169533489"></p>
-<p><img src="/../images/SQLite/1743169560978.png" alt="1743169560978"></p>
 <p><img src="/../images/SQLite/1743169571765.png" alt="1743169571765"></p>
 <h1 id="SQLiteOpenHelper"><a href="#SQLiteOpenHelper" class="headerlink" title="SQLiteOpenHelper"></a>SQLiteOpenHelper</h1><p><img src="/../images/SQLite/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-28%20214638.png"></p>
+<h2 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h2><p>SQLiteOpenHelper:</p>
+<pre><code class="java">package com.example.practice.database;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class UserDataHelper extends SQLiteOpenHelper &#123;
+    private static final String TABLE_NAME = &quot;user_info&quot;;
+    private static final String DB_NAME = &quot;user.db&quot;;
+    private static final int DB_VERSION = 3;
+    private static UserDataHelper mHelper = null;
+    private SQLiteDatabase mRDB = null;
+    private SQLiteDatabase mWDB = null;
+
+   private UserDataHelper(Context context)&#123;
+       super(context,DB_NAME,null,DB_VERSION);
+   &#125;
+
+   public static UserDataHelper getInstance(Context context)&#123;
+       if (mHelper == null)&#123;
+           mHelper = new UserDataHelper(context);
+       &#125;
+       return mHelper;
+   &#125;
+
+   public SQLiteDatabase openReadLink()&#123;
+       if (mRDB == null || !mRDB.isOpen())&#123;
+           mRDB = mHelper.getReadableDatabase();
+       &#125;
+       return mRDB;
+   &#125;
+
+    public SQLiteDatabase openWriteLink()&#123;
+        if (mWDB == null || !mWDB.isOpen())&#123;
+            mWDB = mHelper.getWritableDatabase();
+        &#125;
+        return mWDB;
+    &#125;
+
+    public void closeLink()&#123;
+       if(mRDB != null &amp;&amp; mRDB.isOpen())&#123;
+           mRDB.close();
+           mRDB = null;
+       &#125;
+        if(mWDB != null &amp;&amp; mWDB.isOpen())&#123;
+            mWDB.close();
+            mWDB = null;
+        &#125;
+    &#125;
+
+    @Override
+    //构建一个包含name属性的表
+    public void onCreate(@NonNull SQLiteDatabase db) &#123;
+        String sql = &quot;CREATE TABLE &quot; + TABLE_NAME + &quot; (&quot; +
+                &quot;id INTEGER PRIMARY KEY AUTOINCREMENT, &quot; +
+                &quot;name TEXT);&quot;;
+        db.execSQL(sql);
+    &#125;
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;
+        db.execSQL(&quot;DROP TABLE IF EXISTS &quot; + TABLE_NAME);
+        onCreate(db);
+    &#125;
+
+    //添加数据
+    public long insert(@NonNull User user)&#123;
+        ContentValues values = new ContentValues();
+        values.put(&quot;name&quot;,user.name);
+        return mWDB.insert(TABLE_NAME,null,values);
+    &#125;
+&#125;
+</code></pre>
+<p>SQLiteActivity</p>
+<pre><code class="java">package com.example.practice;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.practice.database.User;
+import com.example.practice.database.UserDataHelper;
+
+public class SQLiteOpenHelperActivity extends AppCompatActivity &#123;
+
+    private EditText et_name;
+    private UserDataHelper mHelper;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_sqlite_open_helper);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; &#123;
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        &#125;);
+        et_name = findViewById(R.id.et1);
+        //添加数据
+        findViewById(R.id.bt_add).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                String name = et_name.getText().toString();
+                User user = new User(name);
+                if (mHelper.insert(user) &gt; 0)&#123;
+                    Log.d(&quot;Data&quot;, &quot;onClick: &quot; + &quot;添加成功&quot;);
+                &#125;
+
+            &#125;
+        &#125;);
+
+    &#125;
+
+    @Override
+    protected void onStart() &#123;
+        super.onStart();
+        mHelper = UserDataHelper.getInstance(this);
+        mHelper.openWriteLink();
+        mHelper.openReadLink();
+    &#125;
+
+    @Override
+    protected void onStop() &#123;
+        super.onStop();
+        mHelper.closeLink();
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/../images/SQLite/1743691657504.png" alt="1743691657504"></p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p><img src="/../images/SQLite/1743692517822.png" alt="1743692517822"></p>
+<h3 id="根据名字来删除"><a href="#根据名字来删除" class="headerlink" title="根据名字来删除"></a>根据名字来删除</h3><p>SQLiteOpenHelper</p>
+<pre><code class="java"> public long deleteByName(String name)&#123;
+       return mWDB.delete(TABLE_NAME,&quot;name=?&quot;,new String[]&#123;name&#125;);
+   &#125;
+</code></pre>
+<p>Activity</p>
+<pre><code class="java">        findViewById(R.id.bt_delete).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                String name = et_name.getText().toString();
+                if (mHelper.deleteByName(name) &gt; 0)&#123;
+                    Log.d(&quot;Data&quot;, &quot;onClick: &quot; + &quot;删除成功&quot;);
+                &#125;
+            &#125;
+        &#125;);
+</code></pre>
+<p>若要根据多个属性来删除，在<code>delete</code>的第二个参数后加上<code>and</code>，并在第三个的字符串数组参数加上相应的属性。</p>
+<p>例如：<code>name = ? and age = ?</code></p>
+<p>​			<code>new String[]&#123;name ,age&#125;</code></p>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>Activity</p>
+<pre><code class="java">        findViewById(R.id.bt_update).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                String name = et_name.getText().toString();
+                User user = new User(name);
+                if (mHelper.update(user) &gt; 0)&#123;
+                    Log.d(&quot;Data&quot;, &quot;onClick: &quot; + &quot;修改成功&quot;);
+                &#125;
+            &#125;
+        &#125;);
+</code></pre>
+<p>Helper</p>
+<pre><code class="java">   public long update(User user)&#123;
+       ContentValues values = new ContentValues();
+       values.put(&quot;name&quot;,user.name);
+       return mWDB.update(TABLE_NAME,values,&quot;name=?&quot;,new String[]&#123;user.name&#125;);
+   &#125;
+</code></pre>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><p>Helper</p>
+<pre><code class="java">   public List&lt;User&gt; queryAll()&#123;
+       List&lt;User&gt; userList = new ArrayList&lt;&gt;();
+       Cursor cursor = mRDB.query(TABLE_NAME,null,null,null,null,null,null,null);
+       while (cursor.moveToNext())&#123;
+           User user = new User();
+           user.name = cursor.getString(1);
+           userList.add(user);
+       &#125;
+       return userList;
+   &#125;
+</code></pre>
+<p><img src="/../images/SQLite/1743694689283.png" alt="1743694689283"></p>
+<p><img src="/../images/SQLite/1743694706444.png" alt="1743694706444"></p>
+<p>Avtivity</p>
+<pre><code class="java">findViewById(R.id.bt_find).setOnClickListener(new View.OnClickListener() &#123;
+            @Override
+            public void onClick(View v) &#123;
+                List&lt;User&gt; list = mHelper.queryAll();
+                for (User u : list)&#123;
+                    Log.d(&quot;Data&quot;, &quot;onClick: &quot; + u.toString());
+                &#125;
+            &#125;
+        &#125;);
+</code></pre>
+<h2 id="事务管理相关方法"><a href="#事务管理相关方法" class="headerlink" title="事务管理相关方法"></a>事务管理相关方法</h2><p><img src="/../images/SQLite/1743169560978.png" alt="1743169560978"></p>
+<ol>
+<li>**<code>beginTransaction()</code>**：用于开始一个事务。调用该方法后，后续对数据库的操作都将作为事务的一部分，直到事务结束。</li>
+<li>**<code>setTransactionSuccessful()</code>**：设置事务的成功标志。在事务执行过程中，当所有操作都正确完成后，调用此方法标记事务成功。若未调用该方法，事务会在结束时自动回滚。</li>
+<li>**<code>endTransaction()</code>**：结束事务。执行该方法时，会检查事务是否已通过<code>setTransactionSuccessful()</code>设置为成功。如果已设置成功标志，则提交事务，将事务内的操作结果持久化到数据库；若未设置成功标志，则回滚事务，撤销事务内的所有操作。</li>
+</ol>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>假设在一个简单的记账应用中，有两个账户（账户 A 和账户 B），要实现从账户 A 向账户 B 转账的操作，且这两个操作需作为一个事务来确保数据一致性。代码如下：</p>
+<pre><code class="java">// 假设已获取SQLiteDatabase实例，名为db
+db.beginTransaction(); // 开启事务
+try &#123;
+    // 从账户A扣除转账金额，假设账户A的表名为account，id为1，金额字段为balance，转账金额为transferAmount
+    db.execSQL(&quot;UPDATE account SET balance = balance -? WHERE id = 1&quot;, new String[]&#123;String.valueOf(transferAmount)&#125;);
+    // 向账户B增加转账金额，假设账户B的id为2
+    db.execSQL(&quot;UPDATE account SET balance = balance +? WHERE id = 2&quot;, new String[]&#123;String.valueOf(transferAmount)&#125;);
+    db.setTransactionSuccessful(); // 设置事务成功标志
+&#125; catch (Exception e) &#123;
+    e.printStackTrace();
+&#125; finally &#123;
+    db.endTransaction(); // 结束事务，若设置了成功标志则提交，否则回滚
+&#125;
+</code></pre>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><strong>异常处理</strong>：在事务执行代码块中，要妥善处理可能出现的异常。一旦出现异常，通常不希望事务继续执行，避免数据不一致，如上述示例中在<code>catch</code>块捕获异常并打印堆栈信息。</li>
+<li><strong>操作顺序</strong>：<code>setTransactionSuccessful()</code>方法需在事务执行的关键操作完成且都正确时调用，并且要在<code>endTransaction()</code>之前调用。</li>
+<li><strong>自动提交模式</strong>：在 SQLite 中，默认情况下每个 SQL 语句都是一个自动提交的事务。但通过显式调用<code>beginTransaction()</code>等方法，可将多个 SQL 语句组合成一个事务进行处理 。</li>
+</ul>
+<h2 id="数据库版本升级"><a href="#数据库版本升级" class="headerlink" title="数据库版本升级"></a>数据库版本升级</h2><p>首先修改版本号</p>
+<p>然后在<code>onUpgrade</code>中写上升级内容，例：增加两个字段</p>
+<p><img src="/../images/SQLite/1743742365252.png" alt="1743742365252"></p>
 
     </div>
     
