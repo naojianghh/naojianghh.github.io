@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-04-04T14:55:43.090Z</updated>
+  <updated>2025-04-24T15:33:46.397Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,127 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>框架</title>
+    <link href="http://example.com/2025/04/23/%E6%A1%86%E6%9E%B6/"/>
+    <id>http://example.com/2025/04/23/%E6%A1%86%E6%9E%B6/</id>
+    <published>2025-04-23T15:05:04.000Z</published>
+    <updated>2025-04-24T15:33:46.397Z</updated>
+    
+    <content type="html"><![CDATA[<span id="more"></span><h1 id="框架意义"><a href="#框架意义" class="headerlink" title="框架意义"></a>框架意义</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745420756417.png" alt="1745420756417"></p><h1 id="框架优缺点"><a href="#框架优缺点" class="headerlink" title="框架优缺点"></a>框架优缺点</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745420790853.png" alt="1745420790853"></p><h1 id="常见java框架"><a href="#常见java框架" class="headerlink" title="常见java框架"></a>常见java框架</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745420896871.png" alt="1745420896871"></p><h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><h2 id="一种持久层框架"><a href="#一种持久层框架" class="headerlink" title="一种持久层框架"></a>一种持久层框架</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745421039699.png" alt="1745421039699"></p><h2 id="一种ORM框架"><a href="#一种ORM框架" class="headerlink" title="一种ORM框架"></a>一种ORM框架</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745421323953.png" alt="1745421323953"></p><h2 id="搭建MyBatis框架"><a href="#搭建MyBatis框架" class="headerlink" title="搭建MyBatis框架"></a>搭建MyBatis框架</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745421520937.png" alt="1745421520937"></p><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>在pom.xml中</p><pre><code class="xml">&lt;dependencies&gt;        &lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;        &lt;dependency&gt;            &lt;groupId&gt;mysql&lt;/groupId&gt;            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;            &lt;version&gt;8.0.30&lt;/version&gt;        &lt;/dependency&gt;        &lt;!-- https://mvnrepository.com/artifact/org.mybatis/mybatis --&gt;        &lt;dependency&gt;            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;            &lt;version&gt;3.5.11&lt;/version&gt;        &lt;/dependency&gt;    &lt;/dependencies&gt;</code></pre><h3 id="创建MyBatis的配置文件"><a href="#创建MyBatis的配置文件" class="headerlink" title="创建MyBatis的配置文件"></a>创建MyBatis的配置文件</h3><p>（可以去阅读MyBatis的入门文档）</p><p>将文件创建在resources的目录下</p><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&lt;!DOCTYPE configuration        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;&lt;configuration&gt;    &lt;environments default=&quot;mysql&quot;&gt;        &lt;environment id=&quot;mysql&quot;&gt;            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;            &lt;dataSource type=&quot;POOLED&quot;&gt;                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;allowPublicKeyRetrieval=true&quot;/&gt;                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;                &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;            &lt;/dataSource&gt;        &lt;/environment&gt;    &lt;/environments&gt;    &lt;mappers&gt;        &lt;mapper resource=&quot;mapper/BookMapper.xml&quot;&gt;&lt;/mapper&gt;    &lt;/mappers&gt;&lt;/configuration&gt;</code></pre><p>创建实体类（一般创建在pojo的包下）</p><pre><code class="java">package com.zxy.pojo;public class Book &#123;    private int id;    private String name;    private String author;    private double price;    public Book(int id, String name, String author, double price) &#123;        this.id = id;        this.name = name;        this.author = author;        this.price = price;    &#125;    public Book() &#123;    &#125;    public double getPrice() &#123;        return price;    &#125;    public int getId() &#123;        return id;    &#125;    public String getAuthor() &#123;        return author;    &#125;    public String getName() &#123;        return name;    &#125;&#125;</code></pre><p>创建映射文件（一般在resources下创建个mapper包，在mapper包下创建各种映射文件）</p><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&lt;!DOCTYPE mapper        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;&lt;mapper namespace=&quot;zxy&quot;&gt;    &lt;select id=&quot;selectAllBooks&quot; resultType=&quot;com.zxy.pojo.Book&quot;&gt;        select * from t_book    &lt;/select&gt;&lt;/mapper&gt;</code></pre><p>在这个文件中可以写各种SQL语言</p><h3 id="编写测试类"><a href="#编写测试类" class="headerlink" title="编写测试类"></a>编写测试类</h3><pre><code class="java">package com.zxy.test;import com.zxy.pojo.Book;import org.apache.ibatis.io.Resources;import org.apache.ibatis.session.SqlSession;import org.apache.ibatis.session.SqlSessionFactory;import org.apache.ibatis.session.SqlSessionFactoryBuilder;import java.io.IOException;import java.io.InputStream;import java.util.List;public class Test &#123;    public static void main(String[] args) throws IOException &#123;        String resource = &quot;Mybatis.xml&quot;;//配置文件        InputStream inputStream = Resources.getResourceAsStream(resource);        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);        SqlSession sqlSession = sqlSessionFactory.openSession();        List&lt;Book&gt; selectAllBooks = sqlSession.selectList(&quot;zxy.selectAllBooks&quot;);        for (Book book: selectAllBooks) &#123;            System.out.println(book.getAuthor() + &quot;---&quot; + book.getName() + &quot;----&quot; + book.getPrice());        &#125;    &#125;&#125;</code></pre><h2 id="别名设置、内置别名"><a href="#别名设置、内置别名" class="headerlink" title="别名设置、内置别名"></a>别名设置、内置别名</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745504154207.png" alt="1745504154207"></p><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745504495531.png" alt="1745504495531"></p><h2 id="属性文件配置"><a href="#属性文件配置" class="headerlink" title="属性文件配置"></a>属性文件配置</h2><p>在resources目录下创建db.properties文件</p><pre><code class="properties">url=jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=truedriver=com.mysql.cj.jdbc.Driverusername=rootpassword=root</code></pre><p>使用属性文件</p><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&lt;!DOCTYPE configuration        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;&lt;configuration&gt;    &lt;properties resource=&quot;db.properties&quot;&gt;&lt;/properties&gt;    &lt;environments default=&quot;mysql&quot;&gt;        &lt;environment id=&quot;mysql&quot;&gt;            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;            &lt;dataSource type=&quot;POOLED&quot;&gt;                &lt;property name=&quot;driver&quot; value=&quot;$&#123;driver&#125;&quot;/&gt;                 &lt;!-- $&#123;driver&#125;中的内容要与属性文件的一一对应 --&gt;                &lt;property name=&quot;url&quot; value=&quot;$&#123;url&#125;&quot;/&gt;                &lt;property name=&quot;username&quot; value=&quot;$&#123;username&#125;&quot;/&gt;                &lt;property name=&quot;password&quot; value=&quot;$&#123;password&#125;&quot;/&gt;            &lt;/dataSource&gt;        &lt;/environment&gt;    &lt;/environments&gt;    &lt;mappers&gt;        &lt;mapper resource=&quot;mapper/BookMapper.xml&quot;&gt;&lt;/mapper&gt;    &lt;/mappers&gt;&lt;/configuration&gt;</code></pre><h2 id="MyBatis启动日志功能"><a href="#MyBatis启动日志功能" class="headerlink" title="MyBatis启动日志功能"></a>MyBatis启动日志功能</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745505302231.png" alt="1745505302231"></p><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h1 id=&quot;框架意义&quot;&gt;&lt;a href=&quot;#框架意义&quot; class=&quot;headerlink&quot; title=&quot;框架意义&quot;&gt;&lt;/a&gt;框架意义&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/../images/%E6%A1%86%E6%9E%</summary>
+      
+    
+    
+    
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML,CSS and JS</title>
+    <link href="http://example.com/2025/04/22/HTML/"/>
+    <id>http://example.com/2025/04/22/HTML/</id>
+    <published>2025-04-22T12:53:41.000Z</published>
+    <updated>2025-04-22T13:51:22.494Z</updated>
+    
+    <content type="html"><![CDATA[<p>速通 web前端</p><span id="more"></span><h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><p><img src="/../images/HTML/1745326536644.png" alt="1745326536644"></p><p>要展示的内容写在body标签内部。</p><p>写中文时要把编码格式改成<code>UTF-8</code></p><h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p><img src="/../images/HTML/1745326875856.png" alt="1745326875856"></p><h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><p><img src="/../images/HTML/1745327426564.png" alt="1745327426564"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;速通 web前端&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDBC</title>
+    <link href="http://example.com/2025/04/22/JDBC/"/>
+    <id>http://example.com/2025/04/22/JDBC/</id>
+    <published>2025-04-22T11:53:46.000Z</published>
+    <updated>2025-04-22T12:52:08.359Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/../images/JDBC/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-04-22%20195308.png"></p><span id="more"></span><h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p><img src="/../images/JDBC/1745322888409.png" alt="1745322888409"></p><h1 id="JDBC访问数据库步骤"><a href="#JDBC访问数据库步骤" class="headerlink" title="JDBC访问数据库步骤"></a>JDBC访问数据库步骤</h1><p><img src="/../images/JDBC/1745323351334.png" alt="1745323351334"></p><h2 id="getConnection方法参数"><a href="#getConnection方法参数" class="headerlink" title="getConnection方法参数"></a>getConnection方法参数</h2><p><img src="/../images/JDBC/1745324040778.png" alt="1745324040778"></p><h2 id="增删改操作"><a href="#增删改操作" class="headerlink" title="增删改操作"></a>增删改操作</h2><pre><code class="java">package com.naojianghh;import java.sql.Connection;import java.sql.DriverManager;import java.sql.SQLException;import java.sql.Statement;public class Test &#123;    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;        //加载驱动        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);        //获取数据库连接        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;        String usrName = &quot;root&quot;;        String passWord = &quot;root&quot;;        Connection connection = DriverManager.getConnection(url,usrName,passWord);        //创建会话        Statement statement = connection.createStatement();        //发送SQL        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);        //处理结果        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响            System.out.println(&quot;插入成功！&quot;);        &#125; else &#123;            System.out.println(&quot;插入失败！&quot;);        &#125;        //关闭资源        statement.close();        connection.close();    &#125;&#125;</code></pre><p>url : “jdbc:mysql:&#x2F;&#x2F;<code>localhost</code>（本机IP地址）&#x2F;<code>zxy</code>（数据库名）?useSSL&#x3D;false&amp;useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&amp;allowPublicKeyRetrieval&#x3D;true”</p><p><img src="/../images/JDBC/1745324495029.png" alt="1745324495029"></p><p><img src="/../images/JDBC/1745324451974.png" alt="1745324451974"></p><h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><pre><code class="java">package com.naojianghh;import java.sql.*;public class Test &#123;    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;        //加载驱动        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);        //获取数据库连接        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;        String usrName = &quot;root&quot;;        String passWord = &quot;root&quot;;        Connection connection = DriverManager.getConnection(url,usrName,passWord);        //创建会话        Statement statement = connection.createStatement();        //发送SQL//        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);        ResultSet resultSet = statement.executeQuery(&quot;select * from t_book&quot;); // 返回值为结果的一个集合        //处理结果        while (resultSet.next())&#123;            System.out.println(resultSet.getInt(&quot;id&quot;) + &quot;---&quot; + resultSet.getString(&quot;name&quot;)            + &quot;---&quot; + resultSet.getString(&quot;author&quot;) + &quot;---&quot; + resultSet.getDouble(&quot;price&quot;));        &#125;//        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响//            System.out.println(&quot;插入成功！&quot;);//        &#125; else &#123;//            System.out.println(&quot;插入失败！&quot;);//        &#125;        //关闭资源        statement.close();        connection.close();    &#125;&#125;</code></pre><p><img src="/../images/JDBC/1745325214314.png" alt="1745325214314"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../images/JDBC/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-04-22%20195308.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL</title>
+    <link href="http://example.com/2025/04/22/MYSQL/"/>
+    <id>http://example.com/2025/04/22/MYSQL/</id>
+    <published>2025-04-22T04:20:34.000Z</published>
+    <updated>2025-04-22T11:52:16.347Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/../images/MYSQL/1745295711714.png" alt="1745295711714"></p><span id="more"></span><h1 id="程序交互过程"><a href="#程序交互过程" class="headerlink" title="程序交互过程"></a>程序交互过程</h1><p><img src="/../images/MYSQL/1745295733913.png" alt="1745295733913"></p><p>浏览器表示前端，后端即是服务器。</p><h1 id="MySQL介绍"><a href="#MySQL介绍" class="headerlink" title="MySQL介绍"></a>MySQL介绍</h1><p><img src="/../images/MYSQL/1745296002463.png" alt="1745296002463"></p><p><img src="/../images/MYSQL/1745321008374.png" alt="1745321008374"></p><h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p><img src="/../images/MYSQL/1745321042517.png" alt="1745321042517"></p><h1 id="表"><a href="#表" class="headerlink" title="表"></a>表</h1><p><img src="/../images/MYSQL/1745321138707.png" alt="1745321138707"></p><h1 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h1><p><img src="/../images/MYSQL/1745321204981.png" alt="1745321204981"></p><p><img src="/../images/MYSQL/1745321549032.png" alt="1745321549032"></p><p><img src="/../images/MYSQL/1745321597382.png" alt="1745321597382"></p><h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><p><img src="/../images/MYSQL/1745321695915.png" alt="1745321695915"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../images/MYSQL/1745295711714.png&quot; alt=&quot;1745295711714&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XML</title>
+    <link href="http://example.com/2025/04/20/XML/"/>
+    <id>http://example.com/2025/04/20/XML/</id>
+    <published>2025-04-20T14:09:23.000Z</published>
+    <updated>2025-04-20T15:41:20.620Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/../images/XML/1745158509549.png" alt="1745158509549"></p><span id="more"></span><h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p><img src="/../images/XML/1745158546980.png" alt="1745158546980"></p><h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p><img src="/../images/XML/1745158795883.png" alt="1745158795883"></p><h1 id="XML解析"><a href="#XML解析" class="headerlink" title="XML解析"></a>XML解析</h1><p>下载dom4j，并导入</p><p><img src="/../images/XML/1745162013410.png" alt="1745162013410"></p><p><img src="/../images/XML/1745161961040.png" alt="1745161961040"></p><pre><code class="java">package com.zxy.text02;import org.dom4j.Attribute;import org.dom4j.Document;import org.dom4j.DocumentException;import org.dom4j.Element;import org.dom4j.io.SAXReader;import java.io.File;import java.util.Iterator;import java.util.List;public class test &#123;    public static void main(String[] args) throws DocumentException &#123;        SAXReader sr = new SAXReader();        Document dom = sr.read(new File(&quot;src/com/zxy/text02/students.xml&quot;));        System.out.println(dom);        Element studentsEle = dom.getRootElement();        Iterator&lt;Element&gt; it1 = studentsEle.elementIterator();        while(it1.hasNext())&#123;            Element studentEle = it1.next();            List&lt;Attribute&gt; atts = studentEle.attributes();            for (Attribute a : atts)&#123;                System.out.println(&quot;该子节点的属性&quot; + a.getName() + &quot;---&quot; + a.getText());            &#125;            Iterator&lt;Element&gt; it2 = studentEle.elementIterator();            while (it2.hasNext())&#123;                Element eles = it2.next();                System.out.println(&quot;节点&quot; + eles.getName() + &quot;---&quot; + eles.getText());            &#125;            System.out.println();        &#125;    &#125;&#125;</code></pre><p><img src="/../images/XML/1745163654986.png" alt="1745163654986"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../images/XML/1745158509549.png&quot; alt=&quot;1745158509549&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="学习" scheme="http://example.com/categories/study/"/>
+    
+    
+    <category term="xml" scheme="http://example.com/tags/xml/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络编程</title>
+    <link href="http://example.com/2025/04/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    <id>http://example.com/2025/04/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</id>
+    <published>2025-04-20T13:13:26.000Z</published>
+    <updated>2025-04-20T14:15:27.306Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155002448.png" alt="1745155002448"></p><span id="more"></span><h1 id="网络编程概念明晰"><a href="#网络编程概念明晰" class="headerlink" title="网络编程概念明晰"></a>网络编程概念明晰</h1><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155026178.png" alt="1745155026178"></p><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155210799.png" alt="1745155210799"></p><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155257072.png" alt="1745155257072"></p><h2 id="Socket套接字"><a href="#Socket套接字" class="headerlink" title="Socket套接字"></a>Socket套接字</h2><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155520221.png" alt="1745155520221"></p><h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><pre><code class="java">package com.zxy.test01;import java.io.DataOutputStream;import java.io.IOException;import java.io.OutputStream;import java.net.Socket;import java.util.Arrays;public class TestClient &#123;    public static void main(String[] args) throws IOException &#123;        System.out.println(&quot;客户端启动&quot;);        //套接字：指定服务器的ip和端口号        Socket s = new Socket(&quot;10.134.42.56&quot;,8888);        //利用输出流传送数据        OutputStream os = s.getOutputStream();        DataOutputStream dos = new DataOutputStream(os);        //传送数据        dos.writeUTF(&quot;你好，服务器，我是客户端&quot;);        //流、网络资源关闭        dos.close();        os.close();        s.close();    &#125;&#125;</code></pre><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><pre><code class="java">package com.zxy.test01;import java.io.DataInputStream;import java.io.IOException;import java.io.InputStream;import java.net.ServerSocket;import java.net.Socket;public class TestServer &#123;    public static void main(String[] args) throws IOException &#123;        //套接字        ServerSocket ss = new ServerSocket(8888);        //等待客户端发送数据        Socket s = ss.accept();        //服务器端感受到的输入流        InputStream is = s.getInputStream();        DataInputStream dis = new DataInputStream(is);        //接收客户端发送的数据        String str = dis.readUTF();        System.out.println(str);        //流、网络资源关闭        dis.close();        is.close();        s.close();        ss.close();    &#125;&#125;</code></pre><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol><li><p>要先启动服务器，再启动客户端。</p></li><li><p>流、网络资源关闭要自下而上的关闭（先创建后关闭）。</p></li></ol><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745157361901.png" alt="1745157361901"></p><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745157375822.png" alt="1745157375822"></p><h3 id="客户端与服务器双向通信"><a href="#客户端与服务器双向通信" class="headerlink" title="客户端与服务器双向通信"></a>客户端与服务器双向通信</h3><h3 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h3><pre><code class="java">//对服务器返回的数据做处理        InputStream is = s.getInputStream();        DataInputStream dis = new DataInputStream(is);        String str = dis.readUTF();        System.out.println(&quot;服务器对我说&quot; + str);</code></pre><h3 id="服务器-1"><a href="#服务器-1" class="headerlink" title="服务器"></a>服务器</h3><pre><code class="java">//服务器发送数据给客户端        OutputStream os = s.getOutputStream();        DataOutputStream dos = new DataOutputStream(os);        dos.writeUTF(&quot;你好，客户端，我接收到你的信息了&quot;);</code></pre><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745158011137.png" alt="1745158011137"></p><p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745158025293.png" alt="1745158025293"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155002448.png&quot; alt=&quot;1745155002448&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="开发" scheme="http://example.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>数据库SQLite</title>
@@ -204,6 +325,27 @@
   </entry>
   
   <entry>
+    <title>buuctf_solutions</title>
+    <link href="http://example.com/2025/02/23/buuctf-solutions/"/>
+    <id>http://example.com/2025/02/23/buuctf-solutions/</id>
+    <published>2025-02-22T16:00:00.000Z</published>
+    <updated>2025-02-25T14:29:23.429Z</updated>
+    
+    <content type="html"><![CDATA[<p> buuctf 上的一些错题</p><span id="more"></span> <h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p><p><img src="/../images/buuctf-solutions/1732106594993.png" alt="1732106594993"></p><p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p><p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p><p> 而有些却不能，这个时候就需要自己把字符串<strong>倒过来</strong>，比如我们在伪代码看到的 str 是 <strong>SLCDN</strong> ，可实际用这个字符串的时候应该用 <strong>NDCLS</strong> 同理，<strong>wodah</strong> 改成 <strong>hadow</strong> 然后继续分析代码<img src="/../images/buuctf-solutions/1732106686344.png" alt="1732106686344"></p><h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p><p><img src="/../images/buuctf-solutions/1732173119194.png" alt="1732173119194"></p><p> 2、输入指令：cd lib，进入lib目录，再输入启动指令：java -jar jadx-gui-1.4.4.jar </p><p><img src="/../images/buuctf-solutions/1732173147984.png" alt="1732173147984"></p><p><img src="/../images/buuctf-solutions/1732173163869.png" alt="1732173163869"></p><p><img src="/../images/buuctf-solutions/1732173182539.png" alt="1732173182539"></p><h1 id="BJDCTF2020-JustRE"><a href="#BJDCTF2020-JustRE" class="headerlink" title="[BJDCTF2020]JustRE"></a>[BJDCTF2020]JustRE</h1><p> 遵循这个原则，有main函数找main函数，没有main函数找敏感字符串，拖入ida32之后<a href="https://so.csdn.net/so/search?q=%E5%8F%8D%E7%BC%96%E8%AF%91&spm=1001.2101.3001.7020">反编译</a>，你会得到。 </p><p><img src="/../images/buuctf-solutions/1732175940643.png" alt="1732175940643"></p><p>但是点了一圈，发现没有什么可用的地方，那么就去寻找字符串，ida的使用方法，f5</p><p>反编译，shift+f12<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">查找字符串</a>，之后你发现了一个类似于flag的东西。</p><p><img src="/../images/buuctf-solutions/1732175972276.png" alt="1732175972276"></p><p> 之后继续下一步，双击跟过去，跳转到了这个页面。 </p><p><img src="/../images/buuctf-solutions/1732176002120.png" alt="1732176002120"></p><p>  在光标在那上面的时候，ctrl + x，会进行交叉使用列表，跳转回对应在哪个汇编的位置。 </p><p><img src="/../images/buuctf-solutions/1732176023422.png" alt="1732176023422"></p><p>会跳转到所在的汇编的位置。</p><p><img src="/../images/buuctf-solutions/1732176048530.png" alt="1732176048530"></p><p>之后反编译进去 ，会发现一句话。</p><p><img src="/../images/buuctf-solutions/1732176067574.png" alt="1732176067574"></p><p>上一个语句应该是代表点击次数如果等于19999的话就输出flag。</p><h1 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h1><p>前言：学习笔记。(不是为了做题而做题，reverse和pwn都需要深入学习。)</p><p>常规思路： 下载 解压 查壳 </p><p><img src="/../images/buuctf-solutions/1732716250731.png" alt="1732716250731"></p><p>32bit&gt;&gt;&gt;32位 IDA Pro打开</p><p>常规：先查找字符串【东点西看】&gt;&gt;&gt;再进入main函数【这题是winmain】&gt;&gt;&gt;WIN32编程写的。</p><p>查找字符串</p><p><img src="/../images/buuctf-solutions/1732716275389.png" alt="1732716275389"></p><p>WinMain：</p><p><img src="/../images/buuctf-solutions/1732716290804.png" alt="1732716290804"></p><p>可疑参数：</p><p>跟进去看看</p><p><img src="/../images/buuctf-solutions/1732716306445.png" alt="1732716306445"></p><p>哎不想看，先直接看反。。。【截图不完。。直接和分析一起看吧。】</p><p>分析：<br>第一部分：</p><p><img src="/../images/buuctf-solutions/1732716331424.png" alt="1732716331424"></p><p>第二部分：</p><p>对于v7数组的范围：(这样看应该更简单些):【汇编中，连续的地址引用一般都是数组】</p><p><img src="/../images/buuctf-solutions/1732716374438.png" alt="1732716374438"></p><p><img src="/../images/buuctf-solutions/1732716343787.png" alt="1732716343787"></p><p>sub_4010F0(v7, 0, 10)：（如何还原:C伪代码&gt;&gt;&gt;C语言）&gt;&gt;&gt;涨经验了。<br>关键点：类型确定[是char类型&gt;&gt;&gt;【1】还是int类型【4】、数组寻址原理、C代码风格等等。。]</p><p>还原并运行：</p><pre><code class="c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;#define _DWORD charint __cdecl sub_4010F0(char * a1, int a2, int a3)&#123;    int result; // eax    int i; // esi    int v5; // ecx    int v6; // edx     result = a3;    for (i = a2; i &lt;= a3; a2 = i)    &#123;        v5 = i;        v6 = *(_DWORD *)(i + a1);        if (a2 &lt; result &amp;&amp; i &lt; result)        &#123;            do            &#123;                if (v6 &gt; *(_DWORD *)(a1 +result))                &#123;                    if (i &gt;= result)                        break;                    ++i;                    *(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + result);                    if (i &gt;= result)                        break;                    while (*(_DWORD *)(a1 + i) &lt;= v6)                    &#123;                        if (++i &gt;= result)                            goto LABEL_13;                    &#125;                    if (i &gt;= result)                        break;                    v5 = i;                    *(_DWORD *)(a1 + result) = *(_DWORD *)( i + a1);                &#125;                --result;            &#125; while (i &lt; result);        &#125;    LABEL_13:        *(_DWORD *)(a1 + result) = v6;        sub_4010F0(a1, a2, i - 1);        result = a3;        ++i;    &#125;    return result;&#125;int main()&#123;    char v7[] = &#123; 90,74,83,69,67,97,78,72,51,110,103,0&#125;;     sub_4010F0(v7, 0, 10);    printf(&quot;%s&quot;, v7);    return 0;&#125;</code></pre><p>得到：</p><p><img src="/../images/buuctf-solutions/1732716471728.png" alt="1732716471728"></p><p>说明&gt;&gt;&gt;</p><p>①sub_4010F0对v7进行了重新排序。</p><p>②v7 &#x3D; “3CEHJNSZagn”;【变形后的值】</p><p>第三部分：</p><p><img src="/../images/buuctf-solutions/1732716496205.png" alt="1732716496205"></p><p>第四部分：</p><p><img src="/../images/buuctf-solutions/1732716516696.png" alt="1732716516696"></p><p>大意：</p><p>当它条件全部成立且String长度为8[已知] &gt;&gt;&gt;猜测 String&#x3D; flag{}       </p><p>v4 v5 加密后的值 是 ak1w 和V1Ax【在线解密就行 C实现挺困难的。。】</p><p>【猜测是base64，不知道就直接使用 随波逐流 &gt;&gt;&gt;一键解码 0.0】</p><p>眼睛看得肉疼，直接写C脚本：</p><p>对比发现，只有base64中连续含有WP&gt;&gt;&gt;说明base64加密猜测正确。</p><p>最终String结果顺序:</p><p><img src="/../images/buuctf-solutions/1732716547588.png" alt="1732716547588"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt; buuctf 上的一些错题&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="题解" scheme="http://example.com/categories/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+    <category term="ctf" scheme="http://example.com/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Pointer_Topic</title>
     <link href="http://example.com/2025/02/23/Pointer-Topic/"/>
     <id>http://example.com/2025/02/23/Pointer-Topic/</id>
@@ -242,27 +384,6 @@
     
     
     <category term="cgg" scheme="http://example.com/tags/cgg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>buuctf_solutions</title>
-    <link href="http://example.com/2025/02/23/buuctf-solutions/"/>
-    <id>http://example.com/2025/02/23/buuctf-solutions/</id>
-    <published>2025-02-22T16:00:00.000Z</published>
-    <updated>2025-02-25T14:29:23.429Z</updated>
-    
-    <content type="html"><![CDATA[<p> buuctf 上的一些错题</p><span id="more"></span> <h1 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h1><p>函数看似复杂，实际分析后发现还是很复杂，代码中的字符串 src &#x3D; 357761762382LL ；v9 &#x3D; 512969957736LL 这是不能直接用的，需要选中然后右键转成字符，如图所示</p><p><img src="/../images/buuctf-solutions/1732106594993.png" alt="1732106594993"></p><p> 你以为转成这样就完了吗？这里要给大家提个醒，涉及<strong>大小端</strong>存储问题，<strong>elf文件这种通常使用小端存储</strong>，而IDA会把内存中的数据<strong>自动</strong>转成<strong>大端存储</strong>，但是有些变量双击过去，在文本视图能直接看到转好的字符串，以key3为例</p><p><img src="/../images/buuctf-solutions/1732106613363.png" alt="1732106613363"></p><p> 而有些却不能，这个时候就需要自己把字符串<strong>倒过来</strong>，比如我们在伪代码看到的 str 是 <strong>SLCDN</strong> ，可实际用这个字符串的时候应该用 <strong>NDCLS</strong> 同理，<strong>wodah</strong> 改成 <strong>hadow</strong> 然后继续分析代码<img src="/../images/buuctf-solutions/1732106686344.png" alt="1732106686344"></p><h1 id="java逆向"><a href="#java逆向" class="headerlink" title="java逆向"></a>java逆向</h1><h2 id="jadx使用教程"><a href="#jadx使用教程" class="headerlink" title="jadx使用教程"></a>jadx使用教程</h2><p>在解压jdax的目录输入cmd，再按回车键(Entry)进入Dos命令窗口 ，</p><p><img src="/../images/buuctf-solutions/1732173119194.png" alt="1732173119194"></p><p> 2、输入指令：cd lib，进入lib目录，再输入启动指令：java -jar jadx-gui-1.4.4.jar </p><p><img src="/../images/buuctf-solutions/1732173147984.png" alt="1732173147984"></p><p><img src="/../images/buuctf-solutions/1732173163869.png" alt="1732173163869"></p><p><img src="/../images/buuctf-solutions/1732173182539.png" alt="1732173182539"></p><h1 id="BJDCTF2020-JustRE"><a href="#BJDCTF2020-JustRE" class="headerlink" title="[BJDCTF2020]JustRE"></a>[BJDCTF2020]JustRE</h1><p> 遵循这个原则，有main函数找main函数，没有main函数找敏感字符串，拖入ida32之后<a href="https://so.csdn.net/so/search?q=%E5%8F%8D%E7%BC%96%E8%AF%91&spm=1001.2101.3001.7020">反编译</a>，你会得到。 </p><p><img src="/../images/buuctf-solutions/1732175940643.png" alt="1732175940643"></p><p>但是点了一圈，发现没有什么可用的地方，那么就去寻找字符串，ida的使用方法，f5</p><p>反编译，shift+f12<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">查找字符串</a>，之后你发现了一个类似于flag的东西。</p><p><img src="/../images/buuctf-solutions/1732175972276.png" alt="1732175972276"></p><p> 之后继续下一步，双击跟过去，跳转到了这个页面。 </p><p><img src="/../images/buuctf-solutions/1732176002120.png" alt="1732176002120"></p><p>  在光标在那上面的时候，ctrl + x，会进行交叉使用列表，跳转回对应在哪个汇编的位置。 </p><p><img src="/../images/buuctf-solutions/1732176023422.png" alt="1732176023422"></p><p>会跳转到所在的汇编的位置。</p><p><img src="/../images/buuctf-solutions/1732176048530.png" alt="1732176048530"></p><p>之后反编译进去 ，会发现一句话。</p><p><img src="/../images/buuctf-solutions/1732176067574.png" alt="1732176067574"></p><p>上一个语句应该是代表点击次数如果等于19999的话就输出flag。</p><h1 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h1><p>前言：学习笔记。(不是为了做题而做题，reverse和pwn都需要深入学习。)</p><p>常规思路： 下载 解压 查壳 </p><p><img src="/../images/buuctf-solutions/1732716250731.png" alt="1732716250731"></p><p>32bit&gt;&gt;&gt;32位 IDA Pro打开</p><p>常规：先查找字符串【东点西看】&gt;&gt;&gt;再进入main函数【这题是winmain】&gt;&gt;&gt;WIN32编程写的。</p><p>查找字符串</p><p><img src="/../images/buuctf-solutions/1732716275389.png" alt="1732716275389"></p><p>WinMain：</p><p><img src="/../images/buuctf-solutions/1732716290804.png" alt="1732716290804"></p><p>可疑参数：</p><p>跟进去看看</p><p><img src="/../images/buuctf-solutions/1732716306445.png" alt="1732716306445"></p><p>哎不想看，先直接看反。。。【截图不完。。直接和分析一起看吧。】</p><p>分析：<br>第一部分：</p><p><img src="/../images/buuctf-solutions/1732716331424.png" alt="1732716331424"></p><p>第二部分：</p><p>对于v7数组的范围：(这样看应该更简单些):【汇编中，连续的地址引用一般都是数组】</p><p><img src="/../images/buuctf-solutions/1732716374438.png" alt="1732716374438"></p><p><img src="/../images/buuctf-solutions/1732716343787.png" alt="1732716343787"></p><p>sub_4010F0(v7, 0, 10)：（如何还原:C伪代码&gt;&gt;&gt;C语言）&gt;&gt;&gt;涨经验了。<br>关键点：类型确定[是char类型&gt;&gt;&gt;【1】还是int类型【4】、数组寻址原理、C代码风格等等。。]</p><p>还原并运行：</p><pre><code class="c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;#define _DWORD charint __cdecl sub_4010F0(char * a1, int a2, int a3)&#123;    int result; // eax    int i; // esi    int v5; // ecx    int v6; // edx     result = a3;    for (i = a2; i &lt;= a3; a2 = i)    &#123;        v5 = i;        v6 = *(_DWORD *)(i + a1);        if (a2 &lt; result &amp;&amp; i &lt; result)        &#123;            do            &#123;                if (v6 &gt; *(_DWORD *)(a1 +result))                &#123;                    if (i &gt;= result)                        break;                    ++i;                    *(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + result);                    if (i &gt;= result)                        break;                    while (*(_DWORD *)(a1 + i) &lt;= v6)                    &#123;                        if (++i &gt;= result)                            goto LABEL_13;                    &#125;                    if (i &gt;= result)                        break;                    v5 = i;                    *(_DWORD *)(a1 + result) = *(_DWORD *)( i + a1);                &#125;                --result;            &#125; while (i &lt; result);        &#125;    LABEL_13:        *(_DWORD *)(a1 + result) = v6;        sub_4010F0(a1, a2, i - 1);        result = a3;        ++i;    &#125;    return result;&#125;int main()&#123;    char v7[] = &#123; 90,74,83,69,67,97,78,72,51,110,103,0&#125;;     sub_4010F0(v7, 0, 10);    printf(&quot;%s&quot;, v7);    return 0;&#125;</code></pre><p>得到：</p><p><img src="/../images/buuctf-solutions/1732716471728.png" alt="1732716471728"></p><p>说明&gt;&gt;&gt;</p><p>①sub_4010F0对v7进行了重新排序。</p><p>②v7 &#x3D; “3CEHJNSZagn”;【变形后的值】</p><p>第三部分：</p><p><img src="/../images/buuctf-solutions/1732716496205.png" alt="1732716496205"></p><p>第四部分：</p><p><img src="/../images/buuctf-solutions/1732716516696.png" alt="1732716516696"></p><p>大意：</p><p>当它条件全部成立且String长度为8[已知] &gt;&gt;&gt;猜测 String&#x3D; flag{}       </p><p>v4 v5 加密后的值 是 ak1w 和V1Ax【在线解密就行 C实现挺困难的。。】</p><p>【猜测是base64，不知道就直接使用 随波逐流 &gt;&gt;&gt;一键解码 0.0】</p><p>眼睛看得肉疼，直接写C脚本：</p><p>对比发现，只有base64中连续含有WP&gt;&gt;&gt;说明base64加密猜测正确。</p><p>最终String结果顺序:</p><p><img src="/../images/buuctf-solutions/1732716547588.png" alt="1732716547588"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt; buuctf 上的一些错题&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="题解" scheme="http://example.com/categories/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-    <category term="ctf" scheme="http://example.com/tags/ctf/"/>
     
   </entry>
   
