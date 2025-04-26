@@ -176,7 +176,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #ffa2c4">
+                <a href="/tags/java/" style="color: #00a596">
                     java
                 </a>
             </span>
@@ -345,7 +345,132 @@ password=root
 &lt;/configuration&gt;
 </code></pre>
 <h2 id="MyBatis启动日志功能"><a href="#MyBatis启动日志功能" class="headerlink" title="MyBatis启动日志功能"></a>MyBatis启动日志功能</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745505302231.png" alt="1745505302231"></p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2>
+<h2 id="接口绑定方案"><a href="#接口绑定方案" class="headerlink" title="接口绑定方案"></a>接口绑定方案</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745557468921.png" alt="1745557468921"></p>
+<h3 id="创建接口"><a href="#创建接口" class="headerlink" title="创建接口"></a>创建接口</h3><p>一般创建在java下的com.zxy（公司名）.mapper下</p>
+<pre><code class="java">package com.zxy.mapper;
+
+import java.util.List;
+
+public interface BookMapper &#123;
+    List selectAllBooks();
+&#125;
+</code></pre>
+<h3 id="创建映射文件"><a href="#创建映射文件" class="headerlink" title="创建映射文件"></a>创建映射文件</h3><p>路径与java下的mapper相同，只不过是创建在resources目录下</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.zxy.mapper.BookMapper&quot;&gt;
+    &lt;select id=&quot;selectAllBooks&quot; resultType=&quot;com.zxy.pojo.Book&quot;&gt;
+        select * from t_book
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<p>注意mapper的命名空间</p>
+<h3 id="编写测试类-1"><a href="#编写测试类-1" class="headerlink" title="编写测试类"></a>编写测试类</h3><pre><code class="java">package com.zxy.test;
+
+import com.zxy.mapper.BookMapper;
+import com.zxy.pojo.Book;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+public class Test &#123;
+    public static void main(String[] args) throws IOException &#123;
+        String resource = &quot;Mybatis.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        
+        //相当于BookMapper mapper = BookMapper实现类
+        BookMapper mapper = sqlSession.getMapper(BookMapper.class);
+        List&lt;Book&gt; selectAllBooks = mapper.selectAllBooks();
+
+        for (Book book: selectAllBooks) &#123;
+            System.out.println(book.getAuthor() + &quot;---&quot; + book.getName() + &quot;----&quot; + book.getPrice());
+        &#125;
+
+        sqlSession.close();
+        inputStream.close();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="参数传递问题"><a href="#参数传递问题" class="headerlink" title="参数传递问题"></a>参数传递问题</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745557255483.png" alt="1745557255483"></p>
+<h2 id="获取数据方式"><a href="#获取数据方式" class="headerlink" title="获取数据方式"></a>获取数据方式</h2><h3 id="通过内置名称"><a href="#通过内置名称" class="headerlink" title="通过内置名称"></a>通过内置名称</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745559435932.png" alt="1745559435932"></p>
+<pre><code class="xml">    &lt;select id=&quot;selectOneBook&quot; resultType=&quot;com.zxy.pojo.Book&quot;&gt;
+        select * from t_book where name =#&#123;arg0&#125; and author = #&#123;arg1&#125;
+    &lt;/select&gt;
+</code></pre>
+<pre><code class="java">BookMapper mapper = sqlSession.getMapper(BookMapper.class);
+        Book book1 = mapper.selectOneBook(&quot;小红书&quot;, &quot;郑晓羽&quot;);
+
+        System.out.println(book1.getAuthor() + &quot;---&quot; + book1.getName() + &quot;----&quot; + book1.getPrice());
+</code></pre>
+<h3 id="通过封装成具体对象"><a href="#通过封装成具体对象" class="headerlink" title="通过封装成具体对象"></a>通过封装成具体对象</h3><pre><code class="xml">    &lt;select id=&quot;selectOneBook2&quot; resultType=&quot;com.zxy.pojo.Book&quot;&gt;
+        select * from t_book where name =#&#123;name&#125; and author = #&#123;author&#125;
+    &lt;/select&gt;
+</code></pre>
+<pre><code class="java">Book b = new Book();
+        b.setAuthor(&quot;脑浆糊&quot;);
+        b.setName(&quot;你啊&quot;);
+        Book book2 = mapper.selectOneBook2(b);
+
+        System.out.println(book2.getAuthor() + &quot;---&quot; + book2.getName() + &quot;----&quot; + book2.getPrice());
+</code></pre>
+<h3 id="多个参数且参数有对象，获取参数如何处理呢？"><a href="#多个参数且参数有对象，获取参数如何处理呢？" class="headerlink" title="多个参数且参数有对象，获取参数如何处理呢？"></a>多个参数且参数有对象，获取参数如何处理呢？</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745560032761.png" alt="1745560032761"></p>
+<pre><code class="xml">    &lt;select id=&quot;selectOneBook3&quot; resultType=&quot;com.zxy.pojo.Book&quot;&gt;
+        select * from t_book where name =#&#123;param1&#125; and author = #&#123;param2.author&#125;
+    &lt;/select&gt;
+</code></pre>
+<pre><code class="java">Book b1 = new Book();
+        b1.setAuthor(&quot;郑晓羽&quot;);
+        Book book3 = mapper.selectOneBook3(&quot;小黄书&quot;,b1);
+
+        System.out.println(book3.getAuthor() + &quot;---&quot; + book3.getName() + &quot;----&quot; + book3.getPrice());
+</code></pre>
+<h2 id="增删改操作"><a href="#增删改操作" class="headerlink" title="增删改操作"></a>增删改操作</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745563311291.png" alt="1745563311291"></p>
+<p>注意：要记得提交事务。</p>
+<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745593753781.png" alt="1745593753781"></p>
+<h2 id="Spring-Ioc-DI"><a href="#Spring-Ioc-DI" class="headerlink" title="Spring  Ioc&#x2F;DI"></a>Spring  Ioc&#x2F;DI</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745594488686.png" alt="1745594488686"></p>
+<h3 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745595604487.png" alt="1745595604487"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745595635465.png" alt="1745595635465"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745595653205.png" alt="1745595653205"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745596022401.png" alt="1745596022401"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745656605563.png" alt="1745656605563"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745656826437.png" alt="1745656826437"></p>
+<p><strong>applicationContext.xml文件</strong></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+    &lt;bean id=&quot;book&quot; class=&quot;com.zxy.pojo.Book&quot;/&gt;
+&lt;/beans&gt;
+</code></pre>
+<p><strong>测试类</strong></p>
+<pre><code class="java">package com.zxy.test;
+
+import com.zxy.pojo.Book;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test &#123;
+    public static void main(String[] args) &#123;
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+
+        Book book = (Book) context.getBean(&quot;book&quot;);
+
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745657978917.png" alt="1745657978917"></p>
+<p>在创建容器的时候对象就已经存在了。</p>
+
     </div>
     
     
