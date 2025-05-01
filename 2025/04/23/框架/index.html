@@ -470,6 +470,151 @@ public class Test &#123;
 </code></pre>
 <p><img src="/../images/%E6%A1%86%E6%9E%B6/1745657978917.png" alt="1745657978917"></p>
 <p>在创建容器的时候对象就已经存在了。</p>
+<h3 id="属性注入"><a href="#属性注入" class="headerlink" title="属性注入"></a>属性注入</h3><h4 id="setter注入"><a href="#setter注入" class="headerlink" title="setter注入"></a>setter注入</h4><pre><code class="xml">    &lt;bean id=&quot;book&quot; class=&quot;com.zxy.pojo.Book&quot;&gt;
+        &lt;property name=&quot;id&quot; value=&quot;1&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;name&quot; value=&quot;小红书&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+</code></pre>
+<p>底层调用的是实例类的set函数。</p>
+<h4 id="构造器注入"><a href="#构造器注入" class="headerlink" title="构造器注入"></a>构造器注入</h4><pre><code class="xml">    &lt;bean id=&quot;book2&quot; class=&quot;com.zxy.pojo.Book&quot;&gt;
+        &lt;constructor-arg name=&quot;id&quot; value=&quot;2&quot;&gt;&lt;/constructor-arg&gt;
+        &lt;constructor-arg name=&quot;name&quot; value=&quot;小黄书&quot;&gt;&lt;/constructor-arg&gt;
+    &lt;/bean&gt;
+</code></pre>
+<p>要保证实例类有相应参数的构造函数。</p>
+<h4 id="引用数据类型属性注入"><a href="#引用数据类型属性注入" class="headerlink" title="引用数据类型属性注入"></a>引用数据类型属性注入</h4><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745677996755.png" alt="1745677996755"></p>
+<pre><code class="xml">    &lt;bean id=&quot;boy&quot; class=&quot;com.zxy.pojo.Boy&quot;&gt;
+        &lt;property name=&quot;age&quot; value=&quot;25&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;name&quot; value=&quot;小明&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;girl&quot; class=&quot;com.zxy.pojo.Girl&quot;&gt;
+        &lt;property name=&quot;name&quot; value=&quot;丽丽&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;age&quot; value=&quot;25&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;boyfriend&quot; ref=&quot;boy&quot; &gt;&lt;/property&gt;
+    &lt;/bean&gt;
+</code></pre>
+<h4 id="IoC-DI的相关注解"><a href="#IoC-DI的相关注解" class="headerlink" title="IoC&#x2F;DI的相关注解"></a>IoC&#x2F;DI的相关注解</h4><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745678438972.png" alt="1745678438972"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745678540319.png" alt="1745678540319"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745678961355.png" alt="1745678961355"></p>
+<h5 id="注解创建对象的属性注入"><a href="#注解创建对象的属性注入" class="headerlink" title="注解创建对象的属性注入"></a>注解创建对象的属性注入</h5><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745679023806.png" alt="1745679023806"></p>
+<p>不需要依赖set方法。</p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745679195959.png" alt="1745679195959"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745679177941.png" alt="1745679177941"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745679209803.png" alt="1745679209803"></p>
+<h1 id="通过Maven搭建web项目"><a href="#通过Maven搭建web项目" class="headerlink" title="通过Maven搭建web项目"></a>通过Maven搭建web项目</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-04-27%20215520.png"></p>
+<h2 id="配置自带的tomcat插件"><a href="#配置自带的tomcat插件" class="headerlink" title="配置自带的tomcat插件"></a>配置自带的tomcat插件</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745763790032.png" alt="1745763790032"></p>
+<h1 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745764311944.png" alt="1745764311944"></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745840399954.png" alt="1745840399954"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745764329847.png" alt="1745764329847"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745840359763.png" alt="1745840359763"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745841674569.png" alt="1745841674569"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745842882514.png" alt="1745842882514"></p>
+<p><strong>TestController</strong></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745843515539.png" alt="1745843515539"></p>
+<pre><code class="java">package com.zxy.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class TestController &#123;
+    @RequestMapping(&quot;/test1&quot;)
+    public String text1()&#123;
+        //响应给浏览器index.jsp页面
+        return &quot;index.jsp&quot;;
+        //这里返回的为文件的名称，在web-app包下
+    &#125;
+&#125;
+</code></pre>
+<p><strong>springmvc.xml</strong></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+
+    &lt;context:component-scan base-package=&quot;com.zxy.controller&quot;&gt;&lt;/context:component-scan&gt;
+    &lt;mvc:annotation-driven&gt;&lt;/mvc:annotation-driven&gt;
+&lt;/beans&gt;
+</code></pre>
+<p><strong>web.xml</strong></p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+        version=&quot;4.0&quot;
+
+         metadata-complete=&quot;true&quot;&gt;
+
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+  
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+<h2 id="前后端参数交互"><a href="#前后端参数交互" class="headerlink" title="前后端参数交互"></a>前后端参数交互</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844485538.png" alt="1745844485538"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844227203.png" alt="1745844227203"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844244237.png" alt="1745844244237"></p>
+<pre><code class="java">@RequestMapping(&quot;/testParam&quot;)
+public String testParam(String name,int age)&#123;
+    System.out.println(name + &quot;----&quot; + age);
+    return &quot;index2.jsp&quot;;
+&#125;
+</code></pre>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844497524.png" alt="1745844497524"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844475960.png" alt="1745844475960"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844787181.png" alt="1745844787181"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1745844802635.png" alt="1745844802635"></p>
+<pre><code class="java">    @RequestMapping(&quot;/testParam2&quot;)
+    public String testParam2(Person person)&#123;
+        System.out.println(person.getName() + &quot;----&quot; + person.getAge() + &quot;----&quot; + person.getScore());
+        return &quot;index2.jsp&quot;;
+    &#125;
+</code></pre>
+<h1 id="springBoot"><a href="#springBoot" class="headerlink" title="springBoot"></a>springBoot</h1><p><img src="/../images/%E6%A1%86%E6%9E%B6/1746086414531.png" alt="1746086414531"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1746086469782.png" alt="1746086469782"></p>
+<h2 id="SpringBoot项目搭建"><a href="#SpringBoot项目搭建" class="headerlink" title="SpringBoot项目搭建"></a>SpringBoot项目搭建</h2><p><img src="/../images/%E6%A1%86%E6%9E%B6/1746087743658.png" alt="1746087743658"></p>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1746087910275.png" alt="1746087910275"></p>
+<h3 id="启动器、启动类"><a href="#启动器、启动类" class="headerlink" title="启动器、启动类"></a>启动器、启动类</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1746088018955.png" alt="1746088018955"></p>
+<pre><code class="xml">    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+            &lt;version&gt;2.7.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre>
+<p><img src="/../images/%E6%A1%86%E6%9E%B6/1746088464267.png" alt="1746088464267"></p>
+<h2 id="SpringBoot的相关配置"><a href="#SpringBoot的相关配置" class="headerlink" title="SpringBoot的相关配置"></a>SpringBoot的相关配置</h2><p>用application.properties配置</p>
+<pre><code class="properties">server.port=8888
+server.servlet.context-path=/springboot01
+</code></pre>
+<p>用application.yml配置</p>
+<h3 id="yml配置文件介绍"><a href="#yml配置文件介绍" class="headerlink" title="yml配置文件介绍"></a>yml配置文件介绍</h3><p><img src="/../images/%E6%A1%86%E6%9E%B6/1746089643476.png" alt="1746089643476"></p>
+<pre><code class="yml">server:
+  port: 9999
+  servlet:
+    context-path: /sb01
+</code></pre>
 
     </div>
     
