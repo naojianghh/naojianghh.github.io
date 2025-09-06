@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>数据库搭建 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>数据库搭建</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/6
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><strong>SQLite</strong>的使用</p>
+<p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
+<span id="more"></span>
+
+<h1 id="项目数据库搭建详解"><a href="#项目数据库搭建详解" class="headerlink" title="项目数据库搭建详解"></a>项目数据库搭建详解</h1><p>该仿哔哩哔哩项目采用 <strong>SQLite</strong> 作为本地数据库，主要用于存储用户收藏相关数据，通过 <code>FavoriteDatabaseHelper</code> 类实现数据库的创建、升级及数据 CRUD 操作，以下是具体实现细节：</p>
+<h2 id="一、数据库核心设计"><a href="#一、数据库核心设计" class="headerlink" title="一、数据库核心设计"></a>一、数据库核心设计</h2><h3 id="1-数据库与表结构"><a href="#1-数据库与表结构" class="headerlink" title="1. 数据库与表结构"></a>1. 数据库与表结构</h3><p>项目包含两个核心表，分别用于存储收藏内容和收藏夹信息：</p>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>作用</th>
+<th>核心字段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>favorites</code></td>
+<td>存储用户收藏的视频数据</td>
+<td>自增 ID、原始视频 ID、所属文件夹名、视频描述、资源 ID 等</td>
+</tr>
+<tr>
+<td><code>folders</code></td>
+<td>存储收藏夹信息</td>
+<td>收藏夹 ID、显示名称、封面图路径</td>
+</tr>
+</tbody></table>
+<h3 id="2-核心常量定义"><a href="#2-核心常量定义" class="headerlink" title="2. 核心常量定义"></a>2. 核心常量定义</h3><p>在 <code>FavoriteDatabaseHelper</code> 中定义数据库名称、版本及表结构常量：</p>
+<pre><code class="java">// 数据库名称和版本
+private static final String DATABASE_NAME = &quot;favorite.db&quot;;
+private static final int DATABASE_VERSION = 4; // 版本号随结构变更递增
+
+// 收藏内容表（favorites）
+private static final String TABLE_FAVORITES = &quot;favorites&quot;;
+private static final String COLUMN_ID = &quot;id&quot;; // 数据库自增主键
+private static final String COLUMN_ORIGINAL_ID = &quot;original_id&quot;; // 视频原始ID（关联源数据）
+private static final String COLUMN_FOLDER_NAME = &quot;title&quot;; // 所属文件夹名称
+private static final String COLUMN_DESCRIPTION = &quot;description&quot;; // 视频描述
+private static final String COLUMN_IMAGE_VIDEO_LIST_ID = &quot;image_video_list_id&quot;; // 列表封面资源ID
+// 其他资源ID字段...
+
+// 收藏夹表（folders）
+private static final String TABLE_FOLDERS = &quot;folders&quot;;
+private static final String COLUMN_FOLDER_ID = &quot;folder_id&quot;; // 收藏夹自增ID
+private static final String COLUMN_FOLDER_DISPLAY_NAME = &quot;folder_display_name&quot;; // 显示名称
+private static final String COLUMN_FOLDER_COVER = &quot;folder_cover&quot;; // 封面图路径
+</code></pre>
+<h2 id="二、数据库创建与升级"><a href="#二、数据库创建与升级" class="headerlink" title="二、数据库创建与升级"></a>二、数据库创建与升级</h2><h3 id="1-表创建-SQL-语句"><a href="#1-表创建-SQL-语句" class="headerlink" title="1. 表创建 SQL 语句"></a>1. 表创建 SQL 语句</h3><p>通过 <code>CREATE TABLE</code> 语句定义表结构，包含字段类型和约束：</p>
+<pre><code class="java">// 创建收藏内容表（包含原始视频ID字段，用于关联源数据）
+private static final String CREATE_TABLE_FAVORITES = &quot;CREATE TABLE &quot; + TABLE_FAVORITES + &quot; (&quot; +
+        COLUMN_ID + &quot; INTEGER PRIMARY KEY AUTOINCREMENT, &quot; +
+        COLUMN_ORIGINAL_ID + &quot; INTEGER, &quot; + // 关联视频原始ID
+        COLUMN_FOLDER_NAME + &quot; TEXT, &quot; +
+        COLUMN_DESCRIPTION + &quot; TEXT, &quot; +
+        COLUMN_IMAGE_ID + &quot; INTEGER, &quot; +
+        COLUMN_IMAGE_VIDEO_ID + &quot; INTEGER, &quot; +
+        COLUMN_IMAGE_VIDEO_LIST_ID + &quot; INTEGER);&quot;;
+
+// 创建收藏夹表（包含封面图字段）
+private static final String CREATE_TABLE_FOLDERS = &quot;CREATE TABLE &quot; + TABLE_FOLDERS + &quot; (&quot; +
+        COLUMN_FOLDER_ID + &quot; INTEGER PRIMARY KEY AUTOINCREMENT, &quot; +
+        COLUMN_FOLDER_DISPLAY_NAME + &quot; TEXT, &quot; +
+        COLUMN_FOLDER_COVER + &quot; TEXT);&quot;;
+</code></pre>
+<h3 id="2-初始化数据库"><a href="#2-初始化数据库" class="headerlink" title="2. 初始化数据库"></a>2. 初始化数据库</h3><p>在 <code>onCreate</code> 中执行表创建，并初始化默认收藏夹：</p>
+<pre><code class="java">@Override
+public void onCreate(SQLiteDatabase db) &#123;
+    // 创建两个核心表
+    db.execSQL(CREATE_TABLE_FAVORITES);
+    db.execSQL(CREATE_TABLE_FOLDERS);
+    
+    // 初始化默认收藏夹
+    ContentValues values = new ContentValues();
+    values.put(COLUMN_FOLDER_DISPLAY_NAME, &quot;默认收藏夹&quot;);
+    values.put(COLUMN_FOLDER_COVER, (String) null); // 初始无封面
+    db.insert(TABLE_FOLDERS, null, values);
+&#125;
+</code></pre>
+<h3 id="3-数据库升级策略"><a href="#3-数据库升级策略" class="headerlink" title="3. 数据库升级策略"></a>3. 数据库升级策略</h3><p>通过 <code>onUpgrade</code> 处理版本变更，支持新增字段或表结构调整：</p>
+<pre><code class="java">@Override
+public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;
+    // 版本3→4：为收藏表新增original_id字段（兼容旧数据）
+    if (oldVersion &lt; 4) &#123;
+        db.execSQL(&quot;ALTER TABLE &quot; + TABLE_FAVORITES +
+                &quot; ADD COLUMN &quot; + COLUMN_ORIGINAL_ID + &quot; INTEGER DEFAULT -1;&quot;);
+    &#125;
+    // 版本2→3：为收藏夹表新增封面字段
+    if (oldVersion &lt; 3) &#123;
+        db.execSQL(&quot;ALTER TABLE &quot; + TABLE_FOLDERS +
+                &quot; ADD COLUMN &quot; + COLUMN_FOLDER_COVER + &quot; TEXT DEFAULT NULL;&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="三、核心数据操作（CRUD）"><a href="#三、核心数据操作（CRUD）" class="headerlink" title="三、核心数据操作（CRUD）"></a>三、核心数据操作（CRUD）</h2><h3 id="1-收藏内容管理"><a href="#1-收藏内容管理" class="headerlink" title="1. 收藏内容管理"></a>1. 收藏内容管理</h3><h4 id="（1）添加收藏"><a href="#（1）添加收藏" class="headerlink" title="（1）添加收藏"></a>（1）添加收藏</h4><pre><code class="java">public void addFavorite(FavoriteData favorite) &#123;
+    SQLiteDatabase db = this.getWritableDatabase();
+    // 构建插入SQL（处理特殊字符转义，如单引号）
+    String insertQuery = &quot;INSERT INTO &quot; + TABLE_FAVORITES + &quot; (&quot; +
+            COLUMN_ORIGINAL_ID + &quot;, &quot; + // 关联视频原始ID
+            COLUMN_FOLDER_NAME + &quot;, &quot; +
+            COLUMN_DESCRIPTION + &quot;, &quot; +
+            COLUMN_IMAGE_ID + &quot;, &quot; +
+            COLUMN_IMAGE_VIDEO_ID + &quot;, &quot; +
+            COLUMN_IMAGE_VIDEO_LIST_ID + &quot;) VALUES (&quot; +
+            favorite.getOriginalId() + &quot;, &#39;&quot; + 
+            favorite.getFolderName().replace(&quot;&#39;&quot;, &quot;&#39;&#39;&quot;) + &quot;&#39;, &#39;&quot; + // 转义单引号
+            favorite.getDescription().replace(&quot;&#39;&quot;, &quot;&#39;&#39;&quot;) + &quot;&#39;, &quot; +
+            favorite.getImageResourceId() + &quot;, &quot; +
+            favorite.getVideoImageResourceId() + &quot;, &quot; +
+            favorite.getVideoListImageResourceId() + &quot;);&quot;;
+    db.execSQL(insertQuery);
+    db.close();
+&#125;
+</code></pre>
+<h4 id="（2）查询所有收藏"><a href="#（2）查询所有收藏" class="headerlink" title="（2）查询所有收藏"></a>（2）查询所有收藏</h4><pre><code class="java">public List&lt;FavoriteData&gt; getALLFavorites() &#123;
+    List&lt;FavoriteData&gt; favorites = new ArrayList&lt;&gt;();
+    SQLiteDatabase db = this.getReadableDatabase();
+    Cursor cursor = db.query(TABLE_FAVORITES, null, null, null, null, null, null);
+    
+    if (cursor.moveToFirst()) &#123;
+        do &#123;
+            int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+            int originalId = cursor.getInt(cursor.getColumnIndex(COLUMN_ORIGINAL_ID)); // 读取原始ID
+            String title = cursor.getString(cursor.getColumnIndex(COLUMN_FOLDER_NAME));
+            // 其他字段读取...
+            favorites.add(new FavoriteData(description, imageId, videoImageId, videoListImageId, title, id, originalId));
+        &#125; while (cursor.moveToNext());
+    &#125;
+    cursor.close();
+    db.close();
+    return favorites;
+&#125;
+</code></pre>
+<h4 id="（3）删除收藏"><a href="#（3）删除收藏" class="headerlink" title="（3）删除收藏"></a>（3）删除收藏</h4><pre><code class="java">// 根据视频原始ID删除（更高效的关联删除）
+public void deleteFavorite(Data data) &#123;
+    SQLiteDatabase db = getWritableDatabase();
+    db.delete(
+            TABLE_FAVORITES,
+            COLUMN_ORIGINAL_ID + &quot; = ?&quot;, // 条件：原始ID匹配
+            new String[]&#123;String.valueOf(data.getId())&#125;
+    );
+&#125;
+</code></pre>
+<h4 id="（4）判断是否已收藏"><a href="#（4）判断是否已收藏" class="headerlink" title="（4）判断是否已收藏"></a>（4）判断是否已收藏</h4><pre><code class="java">public boolean isFavoriteExists(Data data) &#123;
+    SQLiteDatabase db = this.getReadableDatabase();
+    // 通过原始ID查询，避免重复收藏
+    String query = &quot;SELECT * FROM &quot; + TABLE_FAVORITES
+            + &quot; WHERE &quot; + COLUMN_ORIGINAL_ID + &quot; = ?&quot;;
+    Cursor cursor = db.rawQuery(query, new String[]&#123;String.valueOf(data.getId())&#125;);
+    boolean exists = cursor.getCount() &gt; 0;
+    cursor.close();
+    return exists;
+&#125;
+</code></pre>
+<h3 id="2-收藏夹管理"><a href="#2-收藏夹管理" class="headerlink" title="2. 收藏夹管理"></a>2. 收藏夹管理</h3><h4 id="（1）添加收藏夹"><a href="#（1）添加收藏夹" class="headerlink" title="（1）添加收藏夹"></a>（1）添加收藏夹</h4><pre><code class="java">public void addFolder(String folderName) &#123;
+    try (SQLiteDatabase db = this.getWritableDatabase()) &#123;
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FOLDER_DISPLAY_NAME, folderName);
+        values.put(COLUMN_FOLDER_COVER, (String) null); // 初始无封面
+        db.insert(TABLE_FOLDERS, null, values);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="（2）查询所有收藏夹"><a href="#（2）查询所有收藏夹" class="headerlink" title="（2）查询所有收藏夹"></a>（2）查询所有收藏夹</h4><pre><code class="java">public List&lt;Folder&gt; getAllFolders() &#123;
+    List&lt;Folder&gt; folders = new ArrayList&lt;&gt;();
+    try (SQLiteDatabase db = this.getReadableDatabase()) &#123;
+        Cursor cursor = db.query(
+                TABLE_FOLDERS,
+                new String[]&#123;COLUMN_FOLDER_DISPLAY_NAME, COLUMN_FOLDER_COVER&#125;,
+                null, null, null, null, null
+        );
+        if (cursor.moveToFirst()) &#123;
+            do &#123;
+                String folderName = cursor.getString(cursor.getColumnIndex(COLUMN_FOLDER_DISPLAY_NAME));
+                String folderCover = cursor.getString(cursor.getColumnIndex(COLUMN_FOLDER_COVER));
+                folders.add(new Folder(folderName, folderCover));
+            &#125; while (cursor.moveToNext());
+        &#125;
+        cursor.close();
+    &#125;
+    return folders;
+&#125;
+</code></pre>
+<h4 id="（3）删除收藏夹（级联删除下属收藏）"><a href="#（3）删除收藏夹（级联删除下属收藏）" class="headerlink" title="（3）删除收藏夹（级联删除下属收藏）"></a>（3）删除收藏夹（级联删除下属收藏）</h4><pre><code class="java">public void deleteFolder(String folderName) &#123;
+    try (SQLiteDatabase db = this.getWritableDatabase()) &#123;
+        // 1. 删除收藏夹本身
+        String whereClause = COLUMN_FOLDER_DISPLAY_NAME + &quot; =?&quot;;
+        String[] whereArgs = &#123;folderName&#125;;
+        db.delete(TABLE_FOLDERS, whereClause, whereArgs);
+        
+        // 2. 级联删除该收藏夹下的所有收藏
+        whereClause = COLUMN_FOLDER_NAME + &quot; =?&quot;;
+        db.delete(TABLE_FAVORITES, whereClause, whereArgs);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="（4）更新收藏夹封面"><a href="#（4）更新收藏夹封面" class="headerlink" title="（4）更新收藏夹封面"></a>（4）更新收藏夹封面</h4><pre><code class="java">public void setFolderCover(String folderName, String coverPathOrUri) &#123;
+    try (SQLiteDatabase db = this.getWritableDatabase()) &#123;
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FOLDER_COVER, coverPathOrUri); // 存储封面路径或URI
+        String whereClause = COLUMN_FOLDER_DISPLAY_NAME + &quot; = ?&quot;;
+        String[] whereArgs = &#123;folderName&#125;;
+        db.update(TABLE_FOLDERS, values, whereClause, whereArgs);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="四、数据模型设计"><a href="#四、数据模型设计" class="headerlink" title="四、数据模型设计"></a>四、数据模型设计</h2><h3 id="1-收藏数据模型（FavoriteData-java）"><a href="#1-收藏数据模型（FavoriteData-java）" class="headerlink" title="1. 收藏数据模型（FavoriteData.java）"></a>1. 收藏数据模型（FavoriteData.java）</h3><pre><code class="java">public class FavoriteData &#123;
+    private String description; // 视频描述
+    private int imageResourceId; // 图片资源ID
+    private int videoImageResourceId; // 视频封面资源ID
+    private int videoListImageResourceId; // 列表封面资源ID
+    private String folderName; // 所属文件夹名称
+    private int id; // 数据库自增ID
+    private int originalId; // 关联的原始视频ID（核心关联字段）
+
+    // 构造方法（包含originalId）
+    public FavoriteData(String description, int imageResourceId, int videoImageResourceId, 
+                       int videoListImageResourceId, String folderName, int id, int originalId) &#123;
+        this.description = description;
+        this.imageResourceId = imageResourceId;
+        this.videoImageResourceId = videoImageResourceId;
+        this.videoListImageResourceId = videoListImageResourceId;
+        this.folderName = folderName;
+        this.id = id;
+        this.originalId = originalId; // 关联原始视频
+    &#125;
+
+    // Getter和Setter...
+&#125;
+</code></pre>
+<h3 id="2-收藏夹模型（内部类）"><a href="#2-收藏夹模型（内部类）" class="headerlink" title="2. 收藏夹模型（内部类）"></a>2. 收藏夹模型（内部类）</h3><pre><code class="java">public static class Folder &#123;
+    private String folderName; // 收藏夹名称
+    private String folderCover; // 封面路径
+
+    public Folder(String folderName, String folderCover) &#123;
+        this.folderName = folderName;
+        this.folderCover = folderCover;
+    &#125;
+
+    // Getter和Setter...
+&#125;
+</code></pre>
+<h2 id="五、数据库使用场景"><a href="#五、数据库使用场景" class="headerlink" title="五、数据库使用场景"></a>五、数据库使用场景</h2><ol>
+<li><strong>视频收藏</strong>：在视频详情页（<code>VideoActivity</code>）中，通过 <code>isFavoriteExists</code> 检查状态，调用 <code>addFavorite</code> 或 <code>deleteFavorite</code> 切换收藏状态。</li>
+<li><strong>收藏夹管理</strong>：在 <code>CreateFolderActivity</code> 中调用 <code>addFolder</code> 创建新收藏夹，支持设置封面图（<code>setFolderCover</code>）。</li>
+<li><strong>数据展示</strong>：收藏页通过 <code>getAllFolders</code> 和 <code>getALLFavorites</code> 加载数据，展示收藏夹列表及下属视频。</li>
+<li><strong>状态同步</strong>：收藏操作后通过接口回调更新 UI，确保本地数据库状态与 UI 展示一致。</li>
+</ol>
+<h2 id="六、数据库设计亮点"><a href="#六、数据库设计亮点" class="headerlink" title="六、数据库设计亮点"></a>六、数据库设计亮点</h2><ol>
+<li><strong>关联设计</strong>：通过 <code>original_id</code> 关联视频原始数据（<code>Data</code> 类的 <code>id</code>），避免收藏数据与源数据脱节。</li>
+<li><strong>版本兼容</strong>：通过 <code>onUpgrade</code> 实现平滑升级，新增字段时保留旧数据（如 <code>DEFAULT -1</code>）。</li>
+<li><strong>安全性</strong>：插入数据时对特殊字符（如单引号）进行转义，避免 SQL 注入风险。</li>
+<li><strong>资源优化</strong>：使用 <code>try-with-resources</code> 自动关闭数据库连接，避免资源泄漏。</li>
+<li><strong>级联操作</strong>：删除收藏夹时自动删除下属所有收藏，保证数据一致性。</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

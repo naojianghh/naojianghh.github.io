@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>后端对接(Retrofit + OkHttp) | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>后端对接(Retrofit + OkHttp)</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/6
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ffa2c4">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>通过 <strong>Retrofit + OkHttp</strong> 实现与后端服务的通信</p>
+<p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
+<span id="more"></span>
+
+<h1 id="项目的后端对接方案详解"><a href="#项目的后端对接方案详解" class="headerlink" title="项目的后端对接方案详解"></a>项目的后端对接方案详解</h1><p>该仿哔哩哔哩项目通过 <strong>Retrofit + OkHttp</strong> 实现与后端服务的通信，主要涉及用户认证、视频数据获取等核心功能的接口对接，以下是具体实现细节：</p>
+<h2 id="一、网络请求框架搭建"><a href="#一、网络请求框架搭建" class="headerlink" title="一、网络请求框架搭建"></a>一、网络请求框架搭建</h2><h3 id="1-核心依赖"><a href="#1-核心依赖" class="headerlink" title="1. 核心依赖"></a>1. 核心依赖</h3><p>项目使用 <code>Retrofit</code> 作为网络请求核心框架，配合 <code>OkHttp</code> 处理底层网络通信，相关依赖在 build.gradle.kts 中声明：</p>
+<pre><code class="kotlin">// 网络请求相关依赖
+implementation(&quot;com.squareup.okhttp3:okhttp:4.12.0&quot;)
+implementation(&quot;com.squareup.retrofit2:retrofit:2.9.0&quot;)
+implementation(&quot;com.squareup.retrofit2:converter-gson:2.9.0&quot;) // Gson解析
+implementation(&quot;com.squareup.okhttp3:logging-interceptor:4.12.0&quot;) // 日志拦截器
+</code></pre>
+<h3 id="2-后端基础配置（Url-java）"><a href="#2-后端基础配置（Url-java）" class="headerlink" title="2. 后端基础配置（Url.java）"></a>2. 后端基础配置（Url.java）</h3><p>统一管理后端服务的主机地址和基础路径：</p>
+<pre><code class="java">public class Url &#123;
+    // 后端服务IP和端口（示例为本地测试地址）
+    public static String host = &quot;192.168.136.9:4523&quot;;
+    // 接口基础URL
+    public static String url = &quot;http://&quot; + host + &quot;/m1/6993757-6712033-default/&quot;;
+&#125;
+</code></pre>
+<h2 id="二、Retrofit-客户端配置（ApiClient-java）"><a href="#二、Retrofit-客户端配置（ApiClient-java）" class="headerlink" title="二、Retrofit 客户端配置（ApiClient.java）"></a>二、Retrofit 客户端配置（ApiClient.java）</h2><h3 id="1-单例模式创建-Retrofit-实例"><a href="#1-单例模式创建-Retrofit-实例" class="headerlink" title="1. 单例模式创建 Retrofit 实例"></a>1. 单例模式创建 Retrofit 实例</h3><p>通过单例模式确保 Retrofit 实例唯一，减少资源消耗：</p>
+<pre><code class="java">public class ApiClient &#123;
+    private static final String BASE_URL = Url.url;
+    private static Retrofit retrofit = null;
+    // 固定Token（实际项目中应通过登录动态获取）
+    private static final String TOKEN = &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...&quot;;
+
+    // 获取Retrofit实例
+    public static Retrofit getRetrofit() &#123;
+        if (retrofit == null) &#123;
+            // 日志拦截器：打印请求和响应信息（调试用）
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            // 配置OkHttp客户端，添加请求头和拦截器
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(chain -&gt; &#123;
+                        // 构建新请求并添加统一请求头
+                        Request newRequest = chain.request().newBuilder()
+                                .header(&quot;Authorization&quot;, TOKEN) // 认证Token
+                                .header(&quot;User-Agent&quot;, &quot;Apifox/1.0.0&quot;)
+                                .header(&quot;Accept&quot;, &quot;*/*&quot;)
+                                .header(&quot;Host&quot;, Url.host)
+                                .build();
+                        return chain.proceed(newRequest);
+                    &#125;)
+                    .addInterceptor(loggingInterceptor) // 添加日志拦截器
+                    .build();
+
+            // 初始化Retrofit
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create()) // Gson解析
+                    .build();
+        &#125;
+        return retrofit;
+    &#125;
+
+    // 获取API服务接口实例
+    public static ApiService getApiService() &#123;
+        return getRetrofit().create(ApiService.class);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="三、API-接口定义（ApiService-java）"><a href="#三、API-接口定义（ApiService-java）" class="headerlink" title="三、API 接口定义（ApiService.java）"></a>三、API 接口定义（ApiService.java）</h2><p>通过 Retrofit 注解定义后端接口，目前主要实现视频推荐数据的获取：</p>
+<pre><code class="java">public interface ApiService &#123;
+    /**
+     * 获取推荐视频数据
+     * @param page 页码（分页参数）
+     * @param pageSize 每页数量
+     * @return 视频数据响应
+     */
+    @GET(&quot;user/video/recommend&quot;) // 接口路径（拼接在BASE_URL后）
+    Call&lt;VideoResponse&gt; getVideoData(
+            @Query(&quot;page&quot;) int page,
+            @Query(&quot;pagesize&quot;) int pageSize
+    );
+&#125;
+</code></pre>
+<h2 id="四、数据模型设计"><a href="#四、数据模型设计" class="headerlink" title="四、数据模型设计"></a>四、数据模型设计</h2><h3 id="1-响应体结构（VideoResponse-java）"><a href="#1-响应体结构（VideoResponse-java）" class="headerlink" title="1. 响应体结构（VideoResponse.java）"></a>1. 响应体结构（VideoResponse.java）</h3><p>对应后端返回的 JSON 结构，使用 <code>@SerializedName</code> 注解映射字段：</p>
+<pre><code class="java">public class VideoResponse &#123;
+    @SerializedName(&quot;code&quot;) // 状态码（200表示成功）
+    private int code;
+
+    @SerializedName(&quot;msg&quot;) // 提示信息
+    private String msg;
+
+    @SerializedName(&quot;data&quot;) // 视频数据列表
+    private List&lt;VideoData&gt; data;
+
+    // Getter和Setter方法
+&#125;
+</code></pre>
+<h3 id="2-视频数据模型（VideoData-java）"><a href="#2-视频数据模型（VideoData-java）" class="headerlink" title="2. 视频数据模型（VideoData.java）"></a>2. 视频数据模型（VideoData.java）</h3><p>存储单个视频的详细信息：</p>
+<pre><code class="java">public class VideoData implements Serializable &#123;
+    @SerializedName(&quot;id&quot;) // 视频ID
+    private String id;
+
+    @SerializedName(&quot;title&quot;) // 视频标题
+    private String title;
+
+    @SerializedName(&quot;thumbPhoto&quot;) // 视频封面图URL
+    private String thumbPhoto;
+
+    @SerializedName(&quot;isLike&quot;) // 是否点赞
+    private boolean isLike;
+
+    @SerializedName(&quot;isCollect&quot;) // 是否收藏
+    private boolean isCollect;
+
+    @SerializedName(&quot;upData&quot;) // 上传者信息（嵌套对象）
+    private UpData upData;
+
+    // 其他字段（点赞数、收藏数等）及Getter/Setter
+&#125;
+</code></pre>
+<h3 id="3-上传者信息模型（UpData-java）"><a href="#3-上传者信息模型（UpData-java）" class="headerlink" title="3. 上传者信息模型（UpData.java）"></a>3. 上传者信息模型（UpData.java）</h3><p>嵌套在 <code>VideoData</code> 中，存储 UP 主信息：</p>
+<pre><code class="java">public class UpData implements Serializable &#123;
+    @SerializedName(&quot;name&quot;) // 用户名
+    private String name;
+
+    @SerializedName(&quot;fans&quot;) // 粉丝数
+    private int fans;
+
+    @SerializedName(&quot;avator&quot;) // 头像URL
+    private String avator;
+
+    // 其他字段及Getter/Setter
+&#125;
+</code></pre>
+<h2 id="五、接口调用示例（以视频数据获取为例）"><a href="#五、接口调用示例（以视频数据获取为例）" class="headerlink" title="五、接口调用示例（以视频数据获取为例）"></a>五、接口调用示例（以视频数据获取为例）</h2><p>在 <code>Tab2Fragment</code> 中调用推荐视频接口，实现数据加载：</p>
+<pre><code class="java">private void fetchData(int page, int pageSize, boolean isRefresh) &#123;
+    // 调用ApiClient获取服务实例
+    ApiService apiService = ApiClient.getApiService();
+    // 构建请求（传入分页参数）
+    Call&lt;VideoResponse&gt; call = apiService.getVideoData(page, pageSize);
+
+    // 异步执行请求
+    call.enqueue(new Callback&lt;VideoResponse&gt;() &#123;
+        @Override
+        public void onResponse(Call&lt;VideoResponse&gt; call, Response&lt;VideoResponse&gt; response) &#123;
+            if (response.isSuccessful() &amp;&amp; response.body() != null) &#123;
+                VideoResponse videoResponse = response.body();
+                if (videoResponse.getCode() == 200) &#123; // 后端约定200为成功
+                    List&lt;VideoData&gt; newData = videoResponse.getData();
+                    // 处理数据（刷新或加载更多）
+                    if (isRefresh) &#123;
+                        videoList.clear(); // 下拉刷新时清空旧数据
+                    &#125;
+                    videoList.addAll(newData); // 添加新数据
+                    adapter.notifyDataSetChanged(); // 更新列表
+                &#125; else &#123;
+                    // 处理业务错误（如参数错误）
+                    Toast.makeText(requireContext(), videoResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                &#125;
+            &#125; else &#123;
+                // 处理HTTP错误（如404、500）
+                Toast.makeText(requireContext(), &quot;请求失败&quot;, Toast.LENGTH_SHORT).show();
+            &#125;
+        &#125;
+
+        @Override
+        public void onFailure(Call&lt;VideoResponse&gt; call, Throwable t) &#123;
+            // 处理网络错误（如无网络、连接超时）
+            Toast.makeText(requireContext(), &quot;网络错误: &quot; + t.getMessage(), Toast.LENGTH_SHORT).show();
+        &#125;
+    &#125;);
+&#125;
+</code></pre>
+<h2 id="六、用户认证对接（登录功能）"><a href="#六、用户认证对接（登录功能）" class="headerlink" title="六、用户认证对接（登录功能）"></a>六、用户认证对接（登录功能）</h2><p>登录功能通过 <code>OkHttp</code> 直接发送 POST 请求（未使用 Retrofit，保持与后端登录接口的灵活性）：</p>
+<pre><code class="java">private void loginRequest(String username, String password) &#123;
+    // 构建JSON请求体（与后端约定的格式一致）
+    MediaType mediaType = MediaType.parse(&quot;application/json; charset=utf-8&quot;);
+    RequestBody body = RequestBody.create(mediaType,
+            &quot;&#123;\&quot;username\&quot;:\&quot;&quot; + username + &quot;\&quot;,\&quot;password\&quot;:\&quot;&quot; + password + &quot;\&quot;&#125;&quot;
+    );
+
+    // 构建登录请求
+    Request request = new Request.Builder()
+            .url(LOGIN_URL) // 登录接口URL（单独配置，未使用BASE_URL）
+            .post(body)
+            .build();
+
+    // 发送异步请求
+    client.newCall(request).enqueue(new okhttp3.Callback() &#123;
+        @Override
+        public void onResponse(okhttp3.Call call, Response response) throws IOException &#123;
+            if (response.isSuccessful()) &#123;
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                if (jsonObject.optInt(&quot;code&quot;) == 200) &#123;
+                    // 登录成功：保存Token到本地（使用SpUtils）
+                    String token = jsonObject.optString(&quot;data&quot;);
+                    SpUtils.saveToken(LoginActivity.this, token);
+                    // 跳转至主页
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                &#125;
+            &#125;
+        &#125;
+
+        @Override
+        public void onFailure(okhttp3.Call call, IOException e) &#123;
+            // 处理登录失败
+        &#125;
+    &#125;);
+&#125;
+</code></pre>
+<h2 id="七、后端对接的核心特点"><a href="#七、后端对接的核心特点" class="headerlink" title="七、后端对接的核心特点"></a>七、后端对接的核心特点</h2><ol>
+<li><strong>统一请求头管理</strong>：通过 OkHttp 拦截器统一添加 <code>Authorization</code>（Token）、<code>Host</code> 等请求头，避免重复代码。</li>
+<li><strong>数据解析自动化</strong>：使用 <code>GsonConverterFactory</code> 自动将 JSON 响应转换为 Java 对象，减少手动解析成本。</li>
+<li><strong>日志调试</strong>：添加 <code>HttpLoggingInterceptor</code> 打印请求详情（URL、参数、响应体），方便调试接口。</li>
+<li><strong>错误处理</strong>：区分网络错误（<code>onFailure</code>）、HTTP 错误（如 401 未授权）和业务错误（如 code 非 200），分别处理。</li>
+<li><strong>Token 管理</strong>：登录成功后将 Token 保存到本地（<code>SpUtils</code>），作为后续请求的认证凭证。</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

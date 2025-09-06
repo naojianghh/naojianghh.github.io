@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>相机和相册的对接 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>相机和相册的对接</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/6
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ffa2c4">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
+<span id="more"></span>
+
+<h1 id="照相和相册的-API-对接实现详解"><a href="#照相和相册的-API-对接实现详解" class="headerlink" title="照相和相册的 API 对接实现详解"></a>照相和相册的 API 对接实现详解</h1><p>在仿哔哩哔哩项目中，用户可以通过相机拍摄或从相册选择图片来设置收藏夹封面，这一功能主要通过 Android 系统提供的相机和相册 API 实现，核心代码集中在<code>CreateFolderActivity</code>中。以下是具体实现细节：</p>
+<h2 id="一、权限配置"><a href="#一、权限配置" class="headerlink" title="一、权限配置"></a>一、权限配置</h2><p>使用相机和相册功能需要在AndroidManifest.xml中声明相关权限：</p>
+<pre><code class="xml">&lt;!-- 相机权限 --&gt;
+&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot; /&gt;
+&lt;!-- 存储权限（针对Android 10以下） --&gt;
+&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; /&gt;
+&lt;!-- 声明明显式使用相机硬件 --&gt;
+&lt;uses-feature
+    android:name=&quot;android.hardware.camera&quot;
+    android:required=&quot;true&quot; /&gt;
+</code></pre>
+<p>同时在<code>application</code>标签中添加文件提供者配置，用于安全地共享相机拍摄的图片：</p>
+<pre><code class="xml">&lt;application ...&gt;
+    &lt;!-- 文件提供者配置，用于相机照片的安全访问 --&gt;
+    &lt;provider
+        android:name=&quot;androidx.core.content.FileProvider&quot;
+        android:authorities=&quot;com.naojianghh.bilibili3&quot;
+        android:exported=&quot;false&quot;
+        android:grantUriPermissions=&quot;true&quot;&gt;
+        &lt;meta-data
+            android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;
+            android:resource=&quot;@xml/file_paths&quot; /&gt;
+    &lt;/provider&gt;
+&lt;/application&gt;
+</code></pre>
+<h2 id="二、UI-交互入口"><a href="#二、UI-交互入口" class="headerlink" title="二、UI 交互入口"></a>二、UI 交互入口</h2><p>通过底部弹窗 (<code>BottomSheetDialog</code>) 提供相机和相册选择入口，布局文件为dialog_picture.xml：</p>
+<pre><code class="xml">&lt;!-- 相机选择按钮 --&gt;
+&lt;Button
+    android:id=&quot;@+id/btn_camera&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;60dp&quot;
+    android:backgroundTint=&quot;@android:color/transparent&quot;
+    android:text=&quot;拍照&quot;
+    android:textColor=&quot;@color/black&quot;
+    android:textSize=&quot;16sp&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+    app:layout_constraintTop_toBottomOf=&quot;@+id/btn_gallery&quot;/&gt;
+
+&lt;!-- 相册选择按钮 --&gt;
+&lt;Button
+    android:id=&quot;@+id/btn_gallery&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;60dp&quot;
+    android:backgroundTint=&quot;@android:color/transparent&quot;
+    android:text=&quot;从相册选择&quot;
+    android:textColor=&quot;@color/black&quot;
+    android:textSize=&quot;16sp&quot;
+    app:layout_constraintTop_toTopOf=&quot;parent&quot;
+    app:layout_constraintBottom_toTopOf=&quot;@+id/btn_camera&quot;/&gt;
+</code></pre>
+<p>在<code>CreateFolderActivity</code>中初始化弹窗并设置点击事件：</p>
+<pre><code class="java">private void showImagePickerBottomSheet() &#123;
+    // 初始化BottomSheetDialog
+    bottomSheetDialog = new BottomSheetDialog(this);
+    // 加载布局
+    View view = LayoutInflater.from(this).inflate(R.layout.dialog_picture, null);
+    bottomSheetDialog.setContentView(view);
+
+    // 相机按钮点击事件
+    view.findViewById(R.id.btn_camera).setOnClickListener(v -&gt; &#123;
+        checkPermissionsAndOpenCamera(); // 检查权限后打开相机
+        bottomSheetDialog.dismiss();
+    &#125;);
+
+    // 相册按钮点击事件
+    view.findViewById(R.id.btn_gallery).setOnClickListener(v -&gt; &#123;
+        openGallery(); // 打开相册
+        bottomSheetDialog.dismiss();
+    &#125;);
+
+    // 显示对话框
+    bottomSheetDialog.show();
+&#125;
+</code></pre>
+<h2 id="三、相机-API-对接"><a href="#三、相机-API-对接" class="headerlink" title="三、相机 API 对接"></a>三、相机 API 对接</h2><h3 id="1-权限检查"><a href="#1-权限检查" class="headerlink" title="1. 权限检查"></a>1. 权限检查</h3><p>在打开相机前检查并请求必要权限：</p>
+<pre><code class="java">private void checkPermissionsAndOpenCamera() &#123;
+    // 检查相机和存储权限
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED ||
+        ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) &#123;
+
+        // 请求权限
+        ActivityCompat.requestPermissions(this,
+                new String[]&#123;Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE&#125;,
+                REQUEST_PERMISSIONS);
+    &#125; else &#123;
+        // 权限已授予，直接打开相机
+        openCamera();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="2-打开相机"><a href="#2-打开相机" class="headerlink" title="2. 打开相机"></a>2. 打开相机</h3><p>使用<code>MediaStore.ACTION_IMAGE_CAPTURE</code>意图打开系统相机：</p>
+<pre><code class="java">private void openCamera() &#123;
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    // 检查是否有相机应用可以响应
+    if (takePictureIntent.resolveActivity(getPackageManager()) != null) &#123;
+        File photoFile = null;
+        try &#123;
+            // 创建临时图片文件
+            photoFile = createImageFile();
+        &#125; catch (IOException ex) &#123;
+            ex.printStackTrace();
+        &#125;
+        if (photoFile != null) &#123;
+            // 通过FileProvider获取安全的Uri
+            Uri photoURI = FileProvider.getUriForFile(this,
+                    &quot;com.naojianghh.bilibili3&quot;, // 与Manifest中配置的authorities一致
+                    photoFile);
+            // 设置图片保存路径
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            // 启动相机，等待返回结果
+            startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="3-创建图片文件"><a href="#3-创建图片文件" class="headerlink" title="3. 创建图片文件"></a>3. 创建图片文件</h3><pre><code class="java">private File createImageFile() throws IOException &#123;
+    // 生成唯一文件名（基于时间戳）
+    String timeStamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;, Locale.getDefault()).format(new Date());
+    String imageFileName = &quot;JPEG_&quot; + timeStamp + &quot;_&quot;;
+    // 获取应用私有图片目录
+    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    // 创建临时文件
+    File image = File.createTempFile(
+            imageFileName,  // 文件名前缀
+            &quot;.jpg&quot;,         // 文件后缀
+            storageDir      // 存储目录
+    );
+    // 保存图片路径用于后续处理
+    currentPhotoPath = image.getAbsolutePath();
+    return image;
+&#125;
+</code></pre>
+<h2 id="四、相册-API-对接"><a href="#四、相册-API-对接" class="headerlink" title="四、相册 API 对接"></a>四、相册 API 对接</h2><p>使用<code>ACTION_OPEN_DOCUMENT</code>意图打开系统相册，支持持久化访问权限：</p>
+<pre><code class="java">private void openGallery() &#123;
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.setType(&quot;image/*&quot;); // 只显示图片类型
+    // 请求持久化访问权限
+    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    // 启动相册，等待返回结果
+    startActivityForResult(intent, REQUEST_GALLERY);
+&#125;
+</code></pre>
+<h2 id="五、处理返回结果"><a href="#五、处理返回结果" class="headerlink" title="五、处理返回结果"></a>五、处理返回结果</h2><p>在<code>onActivityResult</code>中处理相机和相册返回的图片：</p>
+<pre><code class="java">@Override
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) &#123;
+    super.onActivityResult(requestCode, resultCode, data);
+    
+    // 处理相机返回结果
+    if (requestCode == REQUEST_CAMERA &amp;&amp; resultCode == RESULT_OK) &#123;
+        // 通过路径加载图片
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+        ivSelectedImage.setImageBitmap(bitmap);
+        // 保存图片路径用于后续存储
+        selectedImageIdentifier = currentPhotoPath;
+    &#125;
+    // 处理相册返回结果
+    else if (requestCode == REQUEST_GALLERY &amp;&amp; resultCode == RESULT_OK &amp;&amp; data != null) &#123;
+        Uri selectedImageUri = data.getData();
+        if (selectedImageUri != null) &#123;
+            // 显示选中的图片
+            ivSelectedImage.setImageURI(selectedImageUri);
+            
+            try &#123;
+                // 获取持久化访问权限
+                int takeFlags = data.getFlags() &amp; (Intent.FLAG_GRANT_READ_URI_PERMISSION | 
+                                                  Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
+                // 保存带权限标记的Uri
+                selectedImageIdentifier = selectedImageUri.toString() + &quot;|with_permission&quot;;
+            &#125; catch (SecurityException e) &#123;
+                Log.e(&quot;PermissionError&quot;, &quot;无法获取持久化权限: &quot; + e.getMessage());
+                selectedImageIdentifier = selectedImageUri.toString();
+                Toast.makeText(this, &quot;无法永久访问该图片，仅本次有效&quot;, Toast.LENGTH_SHORT).show();
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="六、图片展示与存储"><a href="#六、图片展示与存储" class="headerlink" title="六、图片展示与存储"></a>六、图片展示与存储</h2><p>在<code>FolderActivity</code>中加载并展示选中的图片（区分相机图片和相册图片）：</p>
+<pre><code class="java">// 获取数据库中存储的封面路径
+String coverPath = databaseHelper.getFolderCover(folderName);
+if (coverPath != null &amp;&amp; !coverPath.isEmpty()) &#123;
+    setPicture.setVisibility(View.VISIBLE);
+    // 区分封面类型：路径（相机图）/ Uri字符串（相册图）
+    if (coverPath.startsWith(&quot;/&quot;)) &#123;
+        // 相机图：通过路径加载图片（压缩避免OOM）
+        Bitmap compressedBitmap = decodeCompressedBitmap(coverPath, 80, 80);
+        setPicture.setImageBitmap(compressedBitmap);
+    &#125; else if (coverPath.startsWith(&quot;content://&quot;)) &#123;
+        // 相册图：通过Uri加载
+        String[] coverParts = coverPath.split(&quot;\\|&quot;);
+        Uri coverUri = Uri.parse(coverParts[0]);
+        
+        try &#123;
+            setPicture.setImageURI(coverUri);
+        &#125; catch (SecurityException e) &#123;
+            // 权限不足时的备选方案
+            try (InputStream inputStream = getContentResolver().openInputStream(coverUri)) &#123;
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                setPicture.setImageBitmap(bitmap);
+            &#125; catch (Exception ex) &#123;
+                ex.printStackTrace();
+                setPicture.setVisibility(View.GONE);
+            &#125;
+        &#125;
+    &#125;
+&#125; else &#123;
+    setPicture.setVisibility(View.GONE);
+&#125;
+</code></pre>
+<h2 id="七、关键技术点"><a href="#七、关键技术点" class="headerlink" title="七、关键技术点"></a>七、关键技术点</h2><ol>
+<li><strong>权限管理</strong>：<ul>
+<li>动态请求相机和存储权限</li>
+<li>使用<code>takePersistableUriPermission</code>获取相册图片的持久化访问权</li>
+</ul>
+</li>
+<li><strong>安全机制</strong>：<ul>
+<li>通过<code>FileProvider</code>生成 content:&#x2F;&#x2F; 类型的 Uri，避免暴露文件路径</li>
+<li>对相机拍摄的图片进行压缩处理，防止 OOM</li>
+</ul>
+</li>
+<li><strong>兼容性处理</strong>：<ul>
+<li>区分相机图片（文件路径）和相册图片（Uri）的不同处理方式</li>
+<li>处理权限获取失败的异常情况</li>
+</ul>
+</li>
+<li><strong>数据存储</strong>：<ul>
+<li>相机图片存储在应用私有目录，避免权限问题</li>
+<li>相册图片存储 Uri 字符串，配合权限标记实现持久访问</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

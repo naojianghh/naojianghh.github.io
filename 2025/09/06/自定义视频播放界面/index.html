@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>自定义视频播放界面 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>自定义视频播放界面</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/6
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
+<span id="more"></span>
+
+<h1 id="VideoActivity-的视频播放设计详解"><a href="#VideoActivity-的视频播放设计详解" class="headerlink" title="VideoActivity 的视频播放设计详解"></a>VideoActivity 的视频播放设计详解</h1><p>VideoActivity 是仿哔哩哔哩项目中负责视频详情展示与播放控制的核心组件，其设计围绕视频播放体验优化，实现了完整的播放控制功能。以下是具体设计细节：</p>
+<h2 id="一、核心功能架构"><a href="#一、核心功能架构" class="headerlink" title="一、核心功能架构"></a>一、核心功能架构</h2><p>VideoActivity 主要实现了四大核心功能模块：</p>
+<ul>
+<li>视频播放控制（播放 &#x2F; 暂停、进度调整）</li>
+<li>全屏切换与状态保持</li>
+<li>控制栏交互（自动隐藏 &#x2F; 显示）</li>
+<li>推荐视频列表展示</li>
+</ul>
+<p>核心组件关系：</p>
+<pre><code class="plaintext">VideoActivity
+├── VideoView（视频播放核心）
+├── 控制栏组件（顶部+底部）
+│   ├── 播放/暂停按钮
+│   ├── 进度条（SeekBar）
+│   ├── 时间显示（TextView）
+│   └── 全屏切换按钮
+├── Handler（进度更新与UI控制）
+└── RecyclerView（推荐视频列表）
+</code></pre>
+<h2 id="二、布局设计（activity-video-xml）"><a href="#二、布局设计（activity-video-xml）" class="headerlink" title="二、布局设计（activity_video.xml）"></a>二、布局设计（activity_video.xml）</h2><p>采用 LinearLayout 作为根布局，分为视频播放区和推荐列表区两部分：</p>
+<ol>
+<li><strong>视频播放区</strong>：<ul>
+<li>使用 ConstraintLayout 实现视频容器，包含 VideoView 和控制栏</li>
+<li>顶部控制栏（videoTopController）：返回按钮和主页跳转按钮，背景使用渐变透明效果</li>
+<li>底部控制栏（videoBottomController）：播放 &#x2F; 暂停按钮、进度条、时间显示和全屏按钮</li>
+</ul>
+</li>
+<li><strong>布局关键代码</strong>：</li>
+</ol>
+<pre><code class="xml">&lt;!-- 视频播放核心组件 --&gt;
+&lt;VideoView
+    android:id=&quot;@+id/video&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+    app:layout_constraintStart_toStartOf=&quot;parent&quot;
+    app:layout_constraintTop_toTopOf=&quot;parent&quot;
+    android:clickable=&quot;true&quot;/&gt;
+
+&lt;!-- 底部控制栏 --&gt;
+&lt;LinearLayout
+    android:id=&quot;@+id/videoBottomController&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;@id/video&quot;
+    android:background=&quot;@drawable/gradient_transparent&quot;
+    android:visibility=&quot;gone&quot;&gt;
+    
+    &lt;ImageView
+        android:id=&quot;@+id/pause_or_start&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_weight=&quot;148&quot;
+        android:src=&quot;@drawable/start&quot;/&gt;
+
+    &lt;LinearLayout
+        android:id=&quot;@+id/schedule&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_weight=&quot;812&quot;&gt;
+        
+        &lt;SeekBar
+            android:id=&quot;@+id/seek_bar&quot;
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;540&quot;
+            android:progressDrawable=&quot;@drawable/custom_seekbar&quot;
+            android:thumb=&quot;@drawable/custom_cursor&quot;/&gt;
+
+        &lt;TextView
+            android:id=&quot;@id/video_time&quot;
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:layout_weight=&quot;272&quot;
+            android:textColor=&quot;@color/white&quot;/&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;ImageView
+        android:id=&quot;@+id/full_screen&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_weight=&quot;300&quot;
+        android:src=&quot;@drawable/full_screen&quot;/&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<h2 id="三、核心播放逻辑实现"><a href="#三、核心播放逻辑实现" class="headerlink" title="三、核心播放逻辑实现"></a>三、核心播放逻辑实现</h2><h3 id="1-视频初始化流程"><a href="#1-视频初始化流程" class="headerlink" title="1. 视频初始化流程"></a>1. 视频初始化流程</h3><pre><code class="java">private void initVideoPlayLogic() &#123;
+    // 设置视频源（默认使用raw目录下的视频）
+    Uri videoUri = Uri.parse(&quot;android.resource://&quot; + getPackageName() + &quot;/&quot; + R.raw.video);
+    videoView.setVideoURI(videoUri);
+    videoView.setMediaController(null); // 禁用系统默认控制器
+    videoView.requestFocus();
+    videoView.start();
+    btnPlayPause.setImageResource(R.drawable.pause);
+
+    // 视频准备完成监听
+    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() &#123;
+        @Override
+        public void onPrepared(MediaPlayer mp) &#123;
+            totalDuration = mp.getDuration(); // 获取总时长
+            seekBar.setMax(totalDuration);
+            startProgressUpdate(); // 启动进度更新
+            videoTime.setText(convertTime(0));
+        &#125;
+    &#125;);
+
+    // 播放完成监听
+    videoView.setOnCompletionListener(mp -&gt; &#123;
+        seekBar.setProgress(0);
+        videoTime.setText(convertTime(0));
+        btnPlayPause.setImageResource(R.drawable.start);
+        stopProgressUpdate();
+    &#125;);
+&#125;
+</code></pre>
+<h3 id="2-进度更新机制"><a href="#2-进度更新机制" class="headerlink" title="2. 进度更新机制"></a>2. 进度更新机制</h3><p>使用 Handler 实现每秒更新一次进度：</p>
+<pre><code class="java">private void initRunnables() &#123;
+    // 进度更新Runnable
+    progressRunnable = new Runnable() &#123;
+        @Override
+        public void run() &#123;
+            if (!isFinishing() &amp;&amp; !isDragging) &#123;
+                int currentPosition = videoView.getCurrentPosition();
+                seekBar.setProgress(currentPosition);
+                videoTime.setText(convertTime(currentPosition));
+                handler.postDelayed(this, 1000); // 每秒更新一次
+            &#125;
+        &#125;
+    &#125;;
+
+    // 控制栏自动隐藏Runnable
+    controlHideRunnable = new Runnable() &#123;
+        @Override
+        public void run() &#123;
+            if (isControlVisible &amp;&amp; !isFinishing() &amp;&amp; !isDragging) &#123;
+                topController.setVisibility(View.GONE);
+                bottomController.setVisibility(View.GONE);
+                isControlVisible = false;
+            &#125;
+        &#125;
+    &#125;;
+&#125;
+</code></pre>
+<h3 id="3-进度条拖动处理"><a href="#3-进度条拖动处理" class="headerlink" title="3. 进度条拖动处理"></a>3. 进度条拖动处理</h3><p>解决进度条拖动与视频同步问题：</p>
+<pre><code class="java">seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() &#123;
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) &#123;
+        if (fromUser &amp;&amp; isDragging) &#123;
+            videoView.seekTo(progress);
+            // 延迟更新时间显示，确保跳转完成
+            handler.postDelayed(() -&gt; &#123;
+                int actualPosition = videoView.getCurrentPosition();
+                videoTime.setText(convertTime(actualPosition));
+            &#125;, 50);
+        &#125;
+    &#125;
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) &#123;
+        isDragging = true;
+        wasPlayingBeforeDrag = videoView.isPlaying();
+        videoView.pause(); // 拖动时暂停播放
+        stopProgressUpdate();
+        refreshControlHideTime(); // 延长控制栏显示时间
+    &#125;
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) &#123;
+        isDragging = false;
+        // 延迟获取实际位置，确保seekTo完成
+        handler.postDelayed(() -&gt; &#123;
+            int finalActualPosition = videoView.getCurrentPosition();
+            seekBar.setProgress(finalActualPosition);
+            videoTime.setText(convertTime(finalActualPosition));
+        &#125;, 100);
+
+        // 恢复播放状态
+        if (wasPlayingBeforeDrag) &#123;
+            videoView.start();
+            btnPlayPause.setImageResource(R.drawable.pause);
+        &#125; else &#123;
+            btnPlayPause.setImageResource(R.drawable.start);
+        &#125;
+
+        startProgressUpdate();
+        refreshControlHideTime();
+    &#125;
+&#125;);
+</code></pre>
+<h2 id="四、全屏切换功能"><a href="#四、全屏切换功能" class="headerlink" title="四、全屏切换功能"></a>四、全屏切换功能</h2><p>实现 VideoActivity 与 FullScreenActivity 之间的无缝切换：</p>
+<h3 id="1-跳转至全屏"><a href="#1-跳转至全屏" class="headerlink" title="1. 跳转至全屏"></a>1. 跳转至全屏</h3><pre><code class="java">// 全屏按钮点击事件
+btnFullScreen.setOnClickListener(v -&gt; &#123;
+    Intent intent = new Intent(VideoActivity.this, FullScreenActivity.class);
+    // 传递当前播放状态
+    intent.putExtra(&quot;current_position&quot;, videoView.getCurrentPosition());
+    intent.putExtra(&quot;is_playing&quot;, videoView.isPlaying());
+    intent.putExtra(&quot;video_path&quot;, getVideoPath()); // 传递视频路径
+    fullScreenResultLauncher.launch(intent);
+&#125;);
+</code></pre>
+<h3 id="2-从全屏返回恢复状态"><a href="#2-从全屏返回恢复状态" class="headerlink" title="2. 从全屏返回恢复状态"></a>2. 从全屏返回恢复状态</h3><pre><code class="java">private void initFullScreenResultLauncher() &#123;
+    fullScreenResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback&lt;ActivityResult&gt;() &#123;
+                @Override
+                public void onActivityResult(ActivityResult result) &#123;
+                    if (result.getResultCode() == RESULT_OK &amp;&amp; result.getData() != null) &#123;
+                        Intent data = result.getData();
+                        int returnPosition = data.getIntExtra(&quot;current_position&quot;, 0);
+                        boolean returnIsPlaying = data.getBooleanExtra(&quot;is_playing&quot;, false);
+                        restoreVideoState(returnPosition, returnIsPlaying);
+                    &#125;
+                &#125;
+            &#125;
+    );
+&#125;
+
+// 恢复视频播放状态
+private void restoreVideoState(int targetPosition, boolean isPlaying) &#123;
+    if (videoView != null &amp;&amp; totalDuration &gt; 0) &#123;
+        stopProgressUpdate();
+        videoView.seekTo(targetPosition);
+        
+        if (isPlaying) &#123;
+            videoView.start();
+            btnPlayPause.setImageResource(R.drawable.pause);
+            startProgressUpdate();
+        &#125; else &#123;
+            videoView.pause();
+            btnPlayPause.setImageResource(R.drawable.start);
+        &#125;
+        
+        seekBar.setProgress(targetPosition);
+        videoTime.setText(convertTime(targetPosition));
+        if (!isControlVisible) &#123;
+            toggleControlVisibility(); // 显示控制栏
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="五、控制栏交互设计"><a href="#五、控制栏交互设计" class="headerlink" title="五、控制栏交互设计"></a>五、控制栏交互设计</h2><ol>
+<li><strong>触摸显示 &#x2F; 隐藏控制栏</strong>：</li>
+</ol>
+<pre><code class="java">videoView.setOnTouchListener(new View.OnTouchListener() &#123;
+    @Override
+    public boolean onTouch(View v, MotionEvent event) &#123;
+        if (event.getAction() == MotionEvent.ACTION_UP) &#123;
+            toggleControlVisibility(); // 切换控制栏可见性
+            return true;
+        &#125;
+        return false;
+    &#125;
+&#125;);
+</code></pre>
+<ol>
+<li><strong>自动隐藏逻辑</strong>：</li>
+</ol>
+<pre><code class="java">private void startControlHideTimer() &#123;
+    handler.removeCallbacks(controlHideRunnable);
+    handler.postDelayed(controlHideRunnable, 3000); // 3秒后自动隐藏
+&#125;
+
+private void refreshControlHideTime() &#123;
+    handler.removeCallbacks(controlHideRunnable);
+    handler.postDelayed(controlHideRunnable, 3000); // 刷新隐藏倒计时
+&#125;
+</code></pre>
+<h2 id="六、时间格式转换工具"><a href="#六、时间格式转换工具" class="headerlink" title="六、时间格式转换工具"></a>六、时间格式转换工具</h2><p>将毫秒转换为 “分：秒 &#x2F; 总时长” 格式：</p>
+<pre><code class="java">private String convertTime(int currentTimeMs) &#123;
+    if (totalDuration &lt;= 0) return &quot;00:00/00:00&quot;;
+
+    int currentSec = currentTimeMs / 1000;
+    int currentMin = currentSec / 60;
+    currentSec = currentSec % 60;
+
+    int totalSec = totalDuration / 1000;
+    int totalMin = totalSec / 60;
+    totalSec = totalSec % 60;
+
+    return String.format(&quot;%02d:%02d/%02d:%02d&quot;, currentMin, currentSec, totalMin, totalSec);
+&#125;
+</code></pre>
+<h2 id="七、关键技术亮点"><a href="#七、关键技术亮点" class="headerlink" title="七、关键技术亮点"></a>七、关键技术亮点</h2><ol>
+<li><strong>状态保持机制</strong>：通过 Intent 传递播放进度和状态，实现全屏切换时的无缝衔接</li>
+<li><strong>进度同步优化</strong>：使用延迟更新解决 SeekBar 拖动与视频实际进度不同步问题</li>
+<li><strong>用户体验优化</strong>：控制栏自动隐藏 &#x2F; 显示，触摸交互响应及时</li>
+<li><strong>模块化设计</strong>：将初始化、播放逻辑、控制逻辑分离，便于维护</li>
+</ol>
+<h1 id="FullScreenActivity-视频播放设计详解"><a href="#FullScreenActivity-视频播放设计详解" class="headerlink" title="FullScreenActivity 视频播放设计详解"></a>FullScreenActivity 视频播放设计详解</h1><p>FullScreenActivity 是仿哔哩哔哩项目中负责负责视频全屏播放的核心组件，专注于提供沉浸式视频观看体验，其设计围绕全屏场景下的播放控制优化，实现了与竖屏播放状态的无缝衔接。</p>
+<h2 id="一、核心功能定位"><a href="#一、核心功能定位" class="headerlink" title="一、核心功能定位"></a>一、核心功能定位</h2><p>FullScreenActivity 作为 VideoActivity 的补充，主要解决以下核心问题：</p>
+<ul>
+<li>提供沉浸式全屏播放体验</li>
+<li>保持与竖屏播放状态的完全同步（进度、播放状态）</li>
+<li>优化横屏场景下的控制栏布局与交互</li>
+<li>解决全屏 &#x2F; 窗口模式切换时的状态一致性问题</li>
+</ul>
+<h2 id="二、布局设计（activity-full-screen-xml）"><a href="#二、布局设计（activity-full-screen-xml）" class="headerlink" title="二、布局设计（activity_full_screen.xml）"></a>二、布局设计（activity_full_screen.xml）</h2><p>采用 ConstraintLayout 作为根布局，专为横屏优化：</p>
+<ol>
+<li><strong>视频播放区</strong>：<ul>
+<li>VideoView 占据整个屏幕空间，确保全屏显示</li>
+<li>背景设置为黑色，消除边缘色差</li>
+</ul>
+</li>
+<li><strong>控制栏设计</strong>：<ul>
+<li>顶部控制栏（top_controller）：仅保留返回按钮，最小化干扰</li>
+<li>底部控制栏（bottom_controller）：包含播放 &#x2F; 暂停按钮、进度条、时间显示</li>
+<li>控制栏背景使用渐变透明效果，既影响视频内容观看</li>
+</ul>
+</li>
+</ol>
+<pre><code class="xml">&lt;!-- 全屏视频核心布局 --&gt;
+&lt;VideoView
+    android:id=&quot;@+id/videoView&quot;
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;match_parent&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+    app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+    app:layout_constraintStart_toStartOf=&quot;parent&quot;
+    app:layout_constraintTop_toTopOf=&quot;parent&quot;
+    android:clickable=&quot;true&quot;/&gt;
+
+&lt;!-- 底部控制栏 --&gt;
+&lt;LinearLayout
+    android:id=&quot;@+id/bottom_controller&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+    android:background=&quot;@drawable/gradient_transparent&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/video_time&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:textColor=&quot;@color/white&quot;
+        android:textSize=&quot;12dp&quot;/&gt;
+
+    &lt;SeekBar
+        android:id=&quot;@+id/seek_bar&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:progressDrawable=&quot;@drawable/custom_seekbar&quot;
+        android:thumb=&quot;@drawable/custom_cursor2&quot;/&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+        &lt;ImageView
+            android:id=&quot;@+id/play_or_pause&quot;
+            android:layout_width=&quot;0dp&quot;
+            android:layout_weight=&quot;460&quot;
+            android:src=&quot;@drawable/video_controller_bottom_left_pause&quot;/&gt;
+    &lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<h2 id="三、核心播放逻辑实现-1"><a href="#三、核心播放逻辑实现-1" class="headerlink" title="三、核心播放逻辑实现"></a>三、核心播放逻辑实现</h2><h3 id="1-状态传递与初始化"><a href="#1-状态传递与初始化" class="headerlink" title="1. 状态传递与初始化"></a>1. 状态传递与初始化</h3><p>全屏 Activity 通过 Intent 接收来自 VideoActivity 的播放状态：</p>
+<pre><code class="java">private void getVideoStateFromIntent() &#123;
+    Intent intent = getIntent();
+    currentPosition = intent.getIntExtra(&quot;current_position&quot;, 0);
+    isPlaying = intent.getBooleanExtra(&quot;is_playing&quot;, false);
+    videoPath = intent.getStringExtra(&quot;video_path&quot;);
+&#125;
+</code></pre>
+<p>初始化时恢复播放状态：</p>
+<pre><code class="java">videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() &#123;
+    @Override
+    public void onPrepared(MediaPlayer mp) &#123;
+        // 设置seek完成监听，解决进度同步问题
+        mp.setOnSeekCompleteListener(mp1 -&gt; &#123;
+            int newPos = videoView.getCurrentPosition();
+            seekBar.setProgress(newPos);
+            videoTime.setText(convertTime(newPos));
+        &#125;);
+
+        totalDuration = mp.getDuration();
+        seekBar.setMax(totalDuration);
+        videoView.seekTo(currentPosition); // 恢复到竖屏时的进度
+
+        // 恢复播放状态
+        if (isPlaying) &#123;
+            videoView.start();
+            playOrPause.setImageResource(R.drawable.video_controller_controller_bottom_left_pause);
+            startProgressUpdate();
+        &#125; else &#123;
+            playOrPause.setImageResource(R.drawable.video_controller_bottom_left_play);
+        &#125;
+    &#125;
+&#125;);
+</code></pre>
+<h3 id="2-进度同步优化"><a href="#2-进度同步优化" class="headerlink" title="2. 进度同步优化"></a>2. 进度同步优化</h3><p>针对视频 seek 操作延迟问题，引入目标位置跟踪机制：</p>
+<pre><code class="java">// 进度更新Runnable优化
+progressRunnable = new Runnable() &#123;
+    @Override
+    public void run() &#123;
+        if (!isFinishing() &amp;&amp; !isDragging) &#123;
+            int currentPos = videoView.getCurrentPosition();
+
+            // 处理seek操作的进度同步
+            if (targetSeekPosition != -1) &#123;
+                // 当实际位置接近目标位置时，视为seek完成
+                if (Math.abs.abs(currentPos - targetSeekPosition) &lt; 500) &#123;
+                    targetSeekPosition = -1;
+                &#125;
+            &#125;
+
+            seekBar.setProgress(currentPos);
+            videoTime.setText(convertTime(currentPos));
+            handler.postDelayed(this, 1000);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h3 id="3-进度条拖动处理-1"><a href="#3-进度条拖动处理-1" class="headerlink" title="3. 进度条拖动处理"></a>3. 进度条拖动处理</h3><p>优化拖动体验，避免 UI 与实际进度不同步：</p>
+<pre><code class="java">seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() &#123;
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) &#123;
+        if (fromUser &amp;&amp; isDragging) &#123;
+            // 拖动时先更新时间显示，不立即同步到视频
+            videoTime.setText(convertTime(progress));
+            targetSeekPosition = progress; // 记录目标位置
+        &#125;
+    &#125;
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) &#123;
+        isDragging = true;
+        wasPlayingBeforeDrag = videoView.isPlaying();
+        videoView.pause(); // 拖动时暂停
+        stopProgressUpdate();
+    &#125;
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) &#123;
+        isDragging = false;
+        // 执行seek操作，等待完成后更新UI
+        if (targetSeekPosition != -1) &#123;
+            videoView.seekTo(targetSeekPosition);
+        &#125;
+        // 恢复播放状态
+        if (wasPlayingBeforeDrag) &#123;
+            videoView.start();
+            startProgressUpdate();
+        &#125;
+    &#125;
+&#125;);
+</code></pre>
+<h2 id="四、控制栏交互设计"><a href="#四、控制栏交互设计" class="headerlink" title="四、控制栏交互设计"></a>四、控制栏交互设计</h2><ol>
+<li><strong>自动隐藏机制</strong>：</li>
+</ol>
+<pre><code class="java">controlHideRunnable = new Runnable() &#123;
+    @Override
+    public void run() &#123;
+        if (isControlVisible &amp;&amp; !isFinishing() &amp;&amp; !isDragging &amp;&amp; videoView.isPlaying()) &#123;
+            hideControls(); // 播放状态下自动隐藏控制栏
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<ol>
+<li><strong>触摸交互</strong>：</li>
+</ol>
+<pre><code class="java">videoView.setOnTouchListener(new View.OnTouchListener() &#123;
+    private long lastTouchTime = 0;
+    private static final long DOUBLE_TAP_THRESHOLD = 300;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) &#123;
+        if (event.getAction() == MotionEvent.ACTION_UP) &#123;
+            long currentTime = System.currentTimeMillis();
+            // 处理双击事件（预留扩展）
+            if (currentTime - lastTouchTime &lt; DOUBLE_TAP_THRESHOLD) &#123;
+                lastTouchTime = 0;
+                return true;
+            &#125;
+            lastTouchTime = currentTime;
+            
+            toggleControlVisibility(); // 单击切换控制栏显示状态
+            return true;
+        &#125;
+        return false;
+    &#125;
+&#125;);
+</code></pre>
+<h2 id="五、返回竖屏状态处理"><a href="#五、返回竖屏状态处理" class="headerlink" title="五、返回竖屏状态处理"></a>五、返回竖屏状态处理</h2><p>实现全屏到窗口模式的无缝切换：</p>
+<pre><code class="java">private void returnToVideoActivity() &#123;
+    // 准备返回数据
+    Intent intent = new Intent();
+    intent.putExtra(&quot;current_position&quot;, videoView.getCurrentPosition());
+    intent.putExtra(&quot;is_playing&quot;, videoView.isPlaying());
+    setResult(RESULT_OK, intent);
+    finish();
+    // 添加转场动画
+    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+&#125;
+</code></pre>
+<h2 id="六、技术亮点"><a href="#六、技术亮点" class="headerlink" title="六、技术亮点"></a>六、技术亮点</h2><ol>
+<li><strong>状态无缝衔接</strong>：通过 Intent 精确传递播放进度和状态，实现两种模式平滑切换</li>
+<li><strong>进度同步优化</strong>：使用目标位置跟踪和 seek 完成监听，解决视频进度更新延迟问题</li>
+<li><strong>沉浸式体验</strong>：隐藏系统 UI，控制栏自动隐藏，最大化视频观看区域</li>
+<li><strong>交互一致性</strong>：保持与竖屏模式相同的操作逻辑，降低用户学习成本</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
