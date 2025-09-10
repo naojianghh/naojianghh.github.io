@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>NaoJianghh</title>
+    <title>Android动画 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -42,7 +42,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -153,40 +155,11 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background.jpg"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>NaoJianghh</h1>
-                <h3></h3>
-                <h5>Welcome to My Blog</h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>Android动画</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/2025/09/10/Android%E5%8A%A8%E7%94%BB/">
-        <h2 class="post-title">Android动画</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
@@ -195,11 +168,25 @@
         </span>
         
         
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
             
-            <span id="more"></span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <span id="more"></span>
 
 <h3 id="逐帧动画（frame-by-frame-animation）"><a href="#逐帧动画（frame-by-frame-animation）" class="headerlink" title="逐帧动画（frame-by-frame animation）"></a>逐帧动画（frame-by-frame animation）</h3><ul>
 <li><strong>原理</strong>：通过按顺序连续播放一系列预先定义好的图片（帧），从而形成动画效果，类似于传统的胶片动画 。</li>
@@ -421,235 +408,17 @@ class MainActivity : AppCompatActivity() &#123;
 &#125;
 </code></pre>
 
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #ffa2c4">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/09/10/Android%E5%8A%A8%E7%94%BB/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/09/06/RecyclerView%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/">
-        <h2 class="post-title">页面展示与交互（进阶）</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/6
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #00bcd4">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/09/06/RecyclerView%E7%9A%84%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/09/06/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E7%95%8C%E9%9D%A2/">
-        <h2 class="post-title">自定义视频播放界面</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/6
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #ff7d73">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/09/06/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E7%95%8C%E9%9D%A2/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/09/06/%E7%9B%B8%E6%9C%BA%E5%92%8C%E7%9B%B8%E5%86%8C%E7%9A%84%E5%AF%B9%E6%8E%A5/">
-        <h2 class="post-title">相机和相册的对接</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/6
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #ffa2c4">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/09/06/%E7%9B%B8%E6%9C%BA%E5%92%8C%E7%9B%B8%E5%86%8C%E7%9A%84%E5%AF%B9%E6%8E%A5/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/09/06/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%AD%E5%BB%BA/">
-        <h2 class="post-title">数据库搭建</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/9/6
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><strong>SQLite</strong>的使用</p>
-<p>复刻bilibiliUI项目学习<br>Github项目链接： <a target="_blank" rel="noopener" href="https://github.com/naojianghh/bilibili">naojianghh&#x2F;bilibili</a> </p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #ff7d73">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/09/06/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%90%AD%E5%BB%BA/" class="go-post">阅读全文</a>
-</div>
-
-
-        <div class="page-current">
-    
-    <span class="current">1</span>
-    
-    <a class="page-num" href="/page/2">
-        2
-    </a>
-    
-    
-    <a class="page-num" href="/page/3">
-        3
-    </a>
-    
-    
-    <span class="page-omit">...</span>
-    <a class="page-num" href="/page/6">6</a>
-    
-    
-    <a class="page-num" href="/page/2/">
-        <i class="fa-solid fa-caret-right fa-fw"></i>
-    </a>
-    
-</div>
-
     </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">脑浆糊</div>
-        <div class="description">
-            <p>这个博主很懒~是真的懒~~<br>…</p>
-
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
     </div>
-</div>
-
-    </div>
+    
+    
+    
     
 </div>
 
@@ -681,6 +450,29 @@ class MainActivity : AppCompatActivity() &#123;
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas
