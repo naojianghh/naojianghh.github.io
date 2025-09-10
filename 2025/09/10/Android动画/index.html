@@ -176,7 +176,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #00bcd4">
+                <a href="/tags/Android/" style="color: #ffa2c4">
                     Android
                 </a>
             </span>
@@ -189,9 +189,11 @@
         <p> 在 Android Studio 中，常用的动画类型有逐帧动画、补间动画和属性动画，该文将详细介绍 </p>
 <span id="more"></span>
 
+
+
 <h3 id="逐帧动画（frame-by-frame-animation）"><a href="#逐帧动画（frame-by-frame-animation）" class="headerlink" title="逐帧动画（frame-by-frame animation）"></a>逐帧动画（frame-by-frame animation）</h3><ul>
 <li><strong>原理</strong>：通过按顺序连续播放一系列预先定义好的图片（帧），从而形成动画效果，类似于传统的胶片动画 。</li>
-<li><strong>实现方式</strong>：通常使用 XML 资源文件定义。在项目的<code>res/anim/</code>目录下创建 XML 文件，根元素为<code> ，通过</code>子节点定义每一帧的图片资源以及显示时长。例如：</li>
+<li><strong>实现方式</strong>：通常使用 XML 资源文件定义。在项目的<code>res/anim/</code>目录下创建 XML 文件，根元素为<code>animation-list</code> ，通过子节点定义每一帧的图片资源以及显示时长。例如：</li>
 </ul>
 <pre><code class="xml">&lt;animation-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
     android:oneshot=&quot;false&quot;&gt;
