@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>NaoJianghh</title>
+    <title>哥德巴赫猜想问题 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -42,7 +42,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -153,323 +155,140 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background.jpg"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>NaoJianghh</h1>
-                <h3></h3>
-                <h5>Welcome to My Blog</h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>哥德巴赫猜想问题</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/2025/04/22/MYSQL/">
-        <h2 class="post-title">MySQL</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/22
+            2025/9/13
         </span>
         
         
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="/../images/MYSQL/1745295711714.png" alt="1745295711714"></p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/java/" style="color: #ffa2c4">java</a>
-        </span>
-        
-    </div>
-    <a href="/2025/04/22/MYSQL/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/04/20/XML/">
-        <h2 class="post-title">XML</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/study/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                学习
-            </a>
-        </span>
-        
-        <span class="date">
+        <span class="tags">
             <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+                <i class="fa-solid fa-tags fa-fw"></i>
             </span>
-            2025/4/20
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
             
-            <p><img src="/../images/XML/1745158509549.png" alt="1745158509549"></p>
             
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/xml/" style="color: #00a596">xml</a>
-        </span>
-        
-    </div>
-    <a href="/2025/04/20/XML/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/04/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-        <h2 class="post-title">网络编程</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E5%BC%80%E5%8F%91/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                开发
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
+                    算法
+                </a>
             </span>
-            2025/4/20
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
             
-            <p><img src="/../images/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/1745155002448.png" alt="1745155002448"></p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/java/" style="color: #ff7d73">java</a>
         </span>
         
     </div>
-    <a href="/2025/04/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="go-post">阅读全文</a>
-</div>
+    
+    <div class="content" v-pre>
+        <p>计算给定的大偶数可以表示为多少对素数之和。</p>
+<span id="more"></span>
 
-<div class="post">
-    <a href="/2025/03/28/SQLite/">
-        <h2 class="post-title">数据库SQLite</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/study/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                学习
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/28
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>SQLite 数据库存储</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #ffa2c4">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/28/SQLite/" class="go-post">阅读全文</a>
-</div>
+<h1 id="哥德巴赫猜想问题"><a href="#哥德巴赫猜想问题" class="headerlink" title="哥德巴赫猜想问题"></a>哥德巴赫猜想问题</h1><h3 id="★实验任务"><a href="#★实验任务" class="headerlink" title="★实验任务"></a>★实验任务</h3><p>验证哥德巴赫猜想。计算给定的大偶数可以表示为多少对素数之和。例如，大偶数 10 可以表示为 2 对素数 3，7 和 5，5 之和。</p>
+<h3 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h3><p>输入数据只有一行，一个大偶数 N（2&lt;&#x3D;N&lt;&#x3D;30000）。</p>
+<h3 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h3><p>输出计算出的相应的素数分解数。</p>
+<h2 id="一、暴力算法"><a href="#一、暴力算法" class="headerlink" title="一、暴力算法"></a>一、暴力算法</h2><ul>
+<li>时间复杂度： <code>O (n√n) </code></li>
+</ul>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
 
-<div class="post">
-    <a href="/2025/03/23/Android%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/">
-        <h2 class="post-title">Android基础组件</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/study/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                学习
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/23
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>Activity，Service等等。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Android/" style="color: #03a9f4">Android</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/23/Android%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/" class="go-post">阅读全文</a>
-</div>
+int n;
+
+int main()
+&#123;
+    int count = 0;
+    cin &gt;&gt; n;
+    for (int i = 2; i &lt;= n/2; i++) &#123;
+        int flag = 0;
+        for (int j = 2; j &lt;= sqrt(i); j++) &#123;
+            if (i % j == 0) &#123;
+                flag = 1;
+                break;
+            &#125;
+        &#125;
+        if (!flag) &#123;
+            int flag2 = 0;
+            for (int j = 2; j &lt;= sqrt(n - i); j++) &#123;
+                if ((n - i) % j == 0) &#123;
+                    flag2 = 1;
+                    break;
+                &#125;
+            &#125;
+            if (!flag2) &#123;
+                count++;
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; count;
+    return 0;
+&#125;
+</code></pre>
+<h2 id="二、埃拉托斯特尼筛法"><a href="#二、埃拉托斯特尼筛法" class="headerlink" title="二、埃拉托斯特尼筛法"></a>二、埃拉托斯特尼筛法</h2><ul>
+<li>预先计算出所有小于等于 N 的素数，然后直接查表判断素数</li>
+<li>时间复杂度：<code>O (n log log n)</code>，适合多次判断素数的场景</li>
+</ul>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+int n;
 
 
-        <div class="page-current">
-    
-    <a class="page-num" href="/page/3/">
-        <i class="fa-solid fa-caret-left fa-fw"></i>
-    </a>
-    <a class="page-num" href="/">1</a>
-    <span class="page-omit">...</span>
-    
-    <span class="current">4</span>
-    
-    <a class="page-num" href="/page/5">
-        5
-    </a>
-    
-    
-    <a class="page-num" href="/page/6">
-        6
-    </a>
-    
-    
-    <span class="page-omit">...</span>
-    <a class="page-num" href="/page/7">7</a>
-    
-    
-    <a class="page-num" href="/page/5/">
-        <i class="fa-solid fa-caret-right fa-fw"></i>
-    </a>
-    
-</div>
+int main()
+&#123;
+    int count = 0;
+    cin &gt;&gt; n;
+    vector&lt;bool&gt; prime(n + 1,true);
+    prime[0] = prime[1] = false;
+    for (int i = 2; i*i &lt;= n; i++) &#123;
+        if (prime[i]) &#123;
+            for (int j = i * i; j &lt;= n; j += i) &#123;
+                prime[j] = false;
+            &#125;
+        &#125;
+    &#125;
+    for (int i = 2; i &lt;= n / 2; i++) &#123;
+        if (prime[i] &amp;&amp; prime[n - i]) &#123;
+            count++;
+        &#125;
+    &#125;
+    cout &lt;&lt; count;
+    return 0;
+&#125;
+</code></pre>
+<h3 id="核心思路：“标记非质数，保留质数”"><a href="#核心思路：“标记非质数，保留质数”" class="headerlink" title="核心思路：“标记非质数，保留质数”"></a>核心思路：“标记非质数，保留质数”</h3><p>算法的本质是利用 “<strong>质数的倍数一定是合数</strong>” 这一数学特性，通过逐步标记合数，最终筛选出所有质数。具体可拆解为 3 个核心步骤：</p>
+<h4 id="1-初始化：创建-“数字-状态”-标记数组"><a href="#1-初始化：创建-“数字-状态”-标记数组" class="headerlink" title="1. 初始化：创建 “数字 - 状态” 标记数组"></a>1. 初始化：创建 “数字 - 状态” 标记数组</h4><p>首先定义一个<strong>布尔类型数组</strong>（通常命名为<code>is_prime</code>），数组的<strong>索引代表待判断的数字</strong>，数组的<strong>值代表该数字是否为质数</strong>：</p>
+<ul>
+<li>索引范围：从 <code>0</code> 到目标范围 <code>max_num</code>（若要筛选≤100 的质数，数组长度为 101）。</li>
+<li>初始状态：<ul>
+<li>0 和 1 不是质数，直接标记为 <code>false</code>（非质数）；</li>
+<li>其余数字（2~max_num）先默认标记为 <code>true</code>（暂认为质数），后续通过筛选修正。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-筛选：从最小质数开始，标记其所有倍数为合数"><a href="#2-筛选：从最小质数开始，标记其所有倍数为合数" class="headerlink" title="2. 筛选：从最小质数开始，标记其所有倍数为合数"></a>2. 筛选：从最小质数开始，标记其所有倍数为合数</h4><p>从第一个质数（2）开始，依次遍历每个已标记为 “质数” 的数字 <code>p</code>，并将 <code>p</code> 的所有<strong>大于等于 p² 的倍数</strong>标记为 <code>false</code>（合数）：</p>
+<ul>
+<li>为什么从 <code>p²</code> 开始？<br>因为 <code>p</code> 的小于 <code>p²</code> 的倍数（如 <code>p×2</code>、<code>p×3</code>、…、<code>p×(p-1)</code>），早已被比 <code>p</code> 更小的质数（如 2、3、…、p-1）标记过了。例如筛选 <code>p=5</code> 时，<code>5×2=10</code> 已被 <code>p=2</code> 标记，<code>5×3=15</code> 已被 <code>p=3</code> 标记，无需重复操作，从 <code>5×5=25</code> 开始标记即可，减少冗余计算。</li>
+</ul>
+<h4 id="3-结果：数组中仍为-“true”-的索引即为质数"><a href="#3-结果：数组中仍为-“true”-的索引即为质数" class="headerlink" title="3. 结果：数组中仍为 “true” 的索引即为质数"></a>3. 结果：数组中仍为 “true” 的索引即为质数</h4><p>遍历结束后，<code>is_prime</code> 数组中值为 <code>true</code> 的索引，就是 <code>0~max_num</code> 范围内的所有质数。</p>
 
     </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">脑浆糊</div>
-        <div class="description">
-            <p>这个博主很懒~是真的懒~~<br>…</p>
-
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
     </div>
-</div>
-
-    </div>
+    
+    
+    
     
 </div>
 
@@ -501,6 +320,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas
