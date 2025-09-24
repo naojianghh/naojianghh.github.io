@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>流式输出显示文本 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>流式输出显示文本</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/23
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>仿AI对话流式输出文本（handler + Runnable，ValueAnimator及Coroutine）。</p>
+<span id="more"></span>
+
+<pre><code class="kotlin">import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() &#123;
+    private lateinit var textView: TextView
+    private val targetText = &quot;Hello World&quot;
+    private var index = 0
+    private val handler = Handler(Looper.getMainLooper())
+    
+    // 定义Runnable实现字符逐个输出
+    private val typingRunnable = object : Runnable &#123;
+        override fun run() &#123;
+            if (index &lt; targetText.length) &#123;
+                // 拼接当前字符
+                textView.text = targetText.substring(0, index + 1)
+                index++
+                // 延迟200毫秒执行下一次
+                handler.postDelayed(this, 200)
+            &#125;
+        &#125;
+    &#125;
+
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        textView = findViewById(R.id.textView)
+        
+        // 开始逐个输出文字
+        handler.post(typingRunnable)
+    &#125;
+
+    override fun onDestroy() &#123;
+        super.onDestroy()
+        // 移除回调，防止内存泄漏
+        handler.removeCallbacks(typingRunnable)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="方案一：用-handler-Runnable实现"><a href="#方案一：用-handler-Runnable实现" class="headerlink" title="方案一：用 handler + Runnable实现"></a>方案一：用 <code>handler + Runnable</code>实现</h2><p>核心思路：是利用 <strong><code>Handler</code> 的延迟消息机制</strong> 控制字符的逐个追加，本质是 “定时更新 UI + 字符索引递增” 的组合逻辑。下面从 “核心原理→关键组件→执行流程” 三个层面拆解思路：</p>
+<h4 id="核心原理：用-“延迟任务”-模拟-“打字节奏”"><a href="#核心原理：用-“延迟任务”-模拟-“打字节奏”" class="headerlink" title="核心原理：用 “延迟任务” 模拟 “打字节奏”"></a>核心原理：用 “延迟任务” 模拟 “打字节奏”</h4><p>Android 中 UI 更新必须在 <strong>主线程（UI 线程）</strong> 执行，而 “逐个输出文字” 需要 “每隔一段时间（如 200ms）更新一次文本”—— 这个 “定时 + 主线程更新” 的需求，正好可以用 <code>Handler</code> 实现：</p>
+<ul>
+<li><code>Handler</code> 能绑定主线程的消息队列（通过 <code>Looper.getMainLooper()</code>），确保其处理的任务在主线程执行；</li>
+<li><code>handler.postDelayed(Runnable, 延迟时间)</code> 可以让任务延迟指定时间后执行，从而模拟 “打一个字停一下” 的节奏。</li>
+</ul>
+<h4 id="关键组件：4-个核心变量的作用"><a href="#关键组件：4-个核心变量的作用" class="headerlink" title="关键组件：4 个核心变量的作用"></a>关键组件：4 个核心变量的作用</h4><p>代码中定义的 4 个变量，分别对应 “目标内容、当前进度、UI 载体、定时控制器”，是实现逻辑的基础：</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>类型</th>
+<th>核心作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>textView</code></td>
+<td><code>TextView</code></td>
+<td>最终显示文字的 UI 载体，所有字符追加操作都围绕它进行</td>
+</tr>
+<tr>
+<td><code>targetText</code></td>
+<td><code>String</code></td>
+<td>要输出的完整目标文本（如 “Hello World”），是字符追加的 “数据源”</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td><code>Int</code></td>
+<td>字符索引，记录 “当前该输出到第几个字符”（从 0 开始，每次输出后 + 1）</td>
+</tr>
+<tr>
+<td><code>handler</code></td>
+<td><code>Handler</code></td>
+<td>定时控制器，负责发送 “延迟执行的字符追加任务”，确保 UI 更新在主线程</td>
+</tr>
+<tr>
+<td><code>typingRunnable</code></td>
+<td><code>Runnable</code></td>
+<td>字符追加的 “任务体”，封装了 “判断是否还有字符要输出→追加字符→延迟下一次” 的逻辑</td>
+</tr>
+</tbody></table>
+<h4 id="完整执行流程：从启动到结束的-5-步"><a href="#完整执行流程：从启动到结束的-5-步" class="headerlink" title="完整执行流程：从启动到结束的 5 步"></a>完整执行流程：从启动到结束的 5 步</h4><p>整个 “逐个输出” 的过程，本质是 <code>typingRunnable</code> 被反复执行的循环，直到所有字符输出完成，具体流程如下：</p>
+<h5 id="1-初始化：绑定-UI-与变量"><a href="#1-初始化：绑定-UI-与变量" class="headerlink" title="1. 初始化：绑定 UI 与变量"></a>1. 初始化：绑定 UI 与变量</h5><p>在 <code>onCreate</code> 中完成基础准备：</p>
+<ul>
+<li>通过 <code>findViewById(R.id.textView)</code> 找到显示文字的 <code>TextView</code>，赋值给 <code>textView</code>；</li>
+<li>初始化 <code>handler</code> 并绑定主线程的 <code>Looper</code>（确保后续任务在主线程执行）。</li>
+</ul>
+<h5 id="2-启动任务：触发第一次字符输出"><a href="#2-启动任务：触发第一次字符输出" class="headerlink" title="2. 启动任务：触发第一次字符输出"></a>2. 启动任务：触发第一次字符输出</h5><p>调用 <code>handler.post(typingRunnable)</code>，将 “字符追加任务” 立即发送到主线程的消息队列，启动整个流程。</p>
+<h5 id="3-执行任务：追加一个字符-判断是否继续"><a href="#3-执行任务：追加一个字符-判断是否继续" class="headerlink" title="3. 执行任务：追加一个字符 + 判断是否继续"></a>3. 执行任务：追加一个字符 + 判断是否继续</h5><p><code>typingRunnable</code> 的 <code>run()</code> 方法是核心逻辑，每次执行会做 3 件事：</p>
+<ul>
+<li><strong>判断是否还有字符</strong>：检查 <code>index</code>（当前索引）是否小于 <code>targetText.length</code>（总字符数），如果小于说明还有字符没输出；</li>
+<li><strong>追加当前字符</strong>：通过 <code>targetText.substring(0, index + 1)</code> 截取 “从开头到当前索引 + 1” 的子串（比如 <code>index=0</code> 时截取 “J”，<code>index=1</code> 时截取 “He”），然后赋值给 <code>textView.text</code>，实现 “追加一个字符” 的效果；</li>
+<li><strong>递增索引 + 延迟下一次</strong>：<code>index++</code> 更新索引（准备下一个字符），再调用 <code>handler.postDelayed(this, 200)</code>，让 <code>typingRunnable</code> 自身延迟 200ms 后再次执行 —— 这样就形成了 “输出一个字符→等 200ms→输出下一个字符” 的循环。</li>
+</ul>
+<h5 id="4-结束循环：所有字符输出完成"><a href="#4-结束循环：所有字符输出完成" class="headerlink" title="4. 结束循环：所有字符输出完成"></a>4. 结束循环：所有字符输出完成</h5><p>当 <code>index</code> 递增到等于 <code>targetText.length</code> 时（比如 “Hello World” 总长度是 11，<code>index=11</code> 时），<code>if (index &lt; targetText.length)</code> 条件不成立，循环终止，整个 “逐个输出” 流程结束。</p>
+<h5 id="5-内存清理：防止泄漏"><a href="#5-内存清理：防止泄漏" class="headerlink" title="5. 内存清理：防止泄漏"></a>5. 内存清理：防止泄漏</h5><p>在 <code>onDestroy</code> 中调用 <code>handler.removeCallbacks(typingRunnable)</code>，移除所有未执行的 <code>typingRunnable</code> 任务 —— 因为如果 Activity 销毁时，<code>handler</code> 还持有 <code>typingRunnable</code> 的引用，会导致 Activity 无法被回收，引发内存泄漏。</p>
+<h2 id="方案二：用-ValueAnimator（属性动画）实现"><a href="#方案二：用-ValueAnimator（属性动画）实现" class="headerlink" title="方案二：用 ValueAnimator（属性动画）实现"></a>方案二：用 ValueAnimator（属性动画）实现</h2><h4 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h4><p><code>ValueAnimator</code> 是 Android 动画框架的核心类，可生成从 “起始值” 到 “结束值” 的连续数值变化。这里利用它生成 <strong>“从 0 到目标文本长度”</strong> 的整数变化，每次数值更新时，截取对应长度的文本赋值给 <code>TextView</code>，从而模拟 “逐个输出”。</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><pre><code class="kotlin">import androidx.appcompat.app.AppCompatActivity
+import android.animation.ValueAnimator
+import android.os.Bundle
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() &#123;
+    private lateinit var textView: TextView
+    private val targetText = &quot;Hello World (ValueAnimator 版)&quot;
+
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        textView = findViewById(R.id.textView)
+        startTypingWithAnimator() // 启动动画式逐个输出
+    &#125;
+
+    private fun startTypingWithAnimator() &#123;
+        // 1. 创建动画：数值从 0 变化到目标文本的长度（每个数值对应“当前要显示的字符数”）
+        val typingAnimator = ValueAnimator.ofInt(0, targetText.length)
+        
+        // 2. 设置动画总时长：字符数 × 每个字符的显示间隔（这里 200ms/字符，总时长动态计算）
+        typingAnimator.duration = targetText.length * 200L
+        
+        // 3. 动画更新监听：每次数值变化时，截取对应长度的文本
+        typingAnimator.addUpdateListener &#123; animation -&gt;
+            // 获取当前动画生成的数值（即“要显示的字符数”）
+            val currentCharCount = animation.animatedValue as Int
+            // 截取“从开头到 currentCharCount 长度”的文本，赋值给 TextView
+            textView.text = targetText.substring(0, currentCharCount)
+        &#125;
+        
+        // 4. 启动动画
+        typingAnimator.start()
+    &#125;
+&#125;
+</code></pre>
+<h4 id="方案特点"><a href="#方案特点" class="headerlink" title="方案特点"></a>方案特点</h4><ul>
+<li><strong>优点</strong>：代码简洁，无需手动管理 <code>index</code> 和延迟任务；支持动画暂停、取消、重复等控制（如 <code>typingAnimator.pause()</code>&#x2F;<code>resume()</code>）；自带主线程调度，无需担心 UI 线程问题。</li>
+<li><strong>缺点</strong>：若需更精细的节奏控制（如某些字符延迟更长），需额外处理；动画中途取消后重启需重新创建 <code>ValueAnimator</code>。</li>
+</ul>
+<h2 id="方案三：用-Coroutine（协程）实现"><a href="#方案三：用-Coroutine（协程）实现" class="headerlink" title="方案三：用 Coroutine（协程）实现"></a>方案三：用 Coroutine（协程）实现</h2><h4 id="核心思路-1"><a href="#核心思路-1" class="headerlink" title="核心思路"></a>核心思路</h4><p>Kotlin 协程的 <code>delay()</code> 函数可实现 “非阻塞延迟”，且在 <code>Dispatchers.Main</code> 调度器下可直接更新 UI。这里通过 <strong>“循环遍历每个字符 + 延迟后追加”</strong> 的逻辑，实现逐个输出，无需 <code>Handler</code>。</p>
+<h4 id="完整代码-1"><a href="#完整代码-1" class="headerlink" title="完整代码"></a>完整代码</h4><pre><code class="kotlin">import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.TextView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+class MainActivity : AppCompatActivity() &#123;
+    private lateinit var textView: TextView
+    private val targetText = &quot;Hello World (Coroutine 版)&quot;
+    // 协程 Job：用于控制协程（如取消），防止 Activity 销毁时协程泄漏
+    private var typingJob: Job? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) &#123;
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        textView = findViewById(R.id.textView)
+        startTypingWithCoroutine() // 启动协程式逐个输出
+    &#125;
+
+    private fun startTypingWithCoroutine() &#123;
+        // 1. 在主线程协程中执行（Dispatchers.Main 确保可直接更新 UI）
+        typingJob = CoroutineScope(Dispatchers.Main).launch &#123;
+            // 2. 清空之前的文本（避免重复输出残留）
+            textView.text = &quot;&quot;
+            
+            // 3. 遍历目标文本的每个字符
+            for (char in targetText) &#123;
+                // 4. 追加当前字符到 TextView
+                textView.append(char.toString())
+                // 5. 延迟 200ms（非阻塞延迟，不影响主线程）
+                delay(200)
+            &#125;
+        &#125;
+    &#125;
+
+    override fun onDestroy() &#123;
+        super.onDestroy()
+        // 6. 取消协程：防止 Activity 销毁后协程仍在执行，导致内存泄漏
+        typingJob?.cancel()
+    &#125;
+&#125;
+</code></pre>
+<h4 id="方案特点-1"><a href="#方案特点-1" class="headerlink" title="方案特点"></a>方案特点</h4><ul>
+<li><strong>优点</strong>：逻辑直观（直接用 <code>for</code> 循环遍历字符）；<code>delay()</code> 是非阻塞的，不会阻塞主线程；协程 <code>Job</code> 可轻松取消，内存管理更简洁（Kotlin 推荐方案）。</li>
+<li><strong>缺点</strong>：需依赖 Kotlin 协程库（AndroidX 项目默认已集成，无需额外导包）；精细控制（如暂停 &#x2F; 继续）需结合 <code>Mutex</code> 或 <code>StateFlow</code> 额外处理。</li>
+</ul>
+<h2 id="三种方案对比"><a href="#三种方案对比" class="headerlink" title="三种方案对比"></a>三种方案对比</h2><table>
+<thead>
+<tr>
+<th>实现方式</th>
+<th>核心 API</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Handler + Runnable</td>
+<td>Handler.postDelayed</td>
+<td>兼容性好（支持所有 Android 版本）</td>
+<td>需手动管理 index 和回调，代码稍繁琐</td>
+<td>需兼容低版本（如 Android 5.0 以下）</td>
+</tr>
+<tr>
+<td>ValueAnimator</td>
+<td>ValueAnimator.ofInt</td>
+<td>动画控制灵活（暂停 &#x2F; 取消 &#x2F; 重复），代码简洁</td>
+<td>精细节奏控制较麻烦</td>
+<td>偏向 “动画化” 的文字输出需求</td>
+</tr>
+<tr>
+<td>Coroutine</td>
+<td>CoroutineScope + delay</td>
+<td>逻辑直观，非阻塞延迟，内存管理简单</td>
+<td>依赖 Kotlin 协程，低版本需适配（少见）</td>
+<td>Kotlin 项目首选，追求代码简洁性</td>
+</tr>
+</tbody></table>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: Git | NaoJianghh</title>
+    <title>Jetpack全家桶介绍 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,173 +155,97 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/Android/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Android
-            </a>
+            <div class="article">
+    <div>
+        <h1>Jetpack全家桶介绍</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/23
         </span>
         
         
-        
-        <span>
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                开发
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #00a596">
+                    Android
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E9%80%86%E5%90%91/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                逆向
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/java/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                java
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/web/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                web
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/c/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                c
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Git/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Git
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/ctf/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                ctf
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/xml/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                xml
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/cgg/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                cgg
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E7%AE%97%E6%B3%95/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                算法
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/17</div>
-            <a href="/2025/03/17/Use-of-Git/">
-                <h3>Use_of_Git</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/study/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        学习
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Git/" style="color: #ff7d73">
-                            Git
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>Jetpack全家桶简单介绍</p>
+<span id="more"></span>
+
+<p>Android Jetpack 是一套库、工具和指南的集合，可帮助开发者更轻松地编写优质应用。它主要包括以下几类组件：</p>
+<ul>
+<li>架构组件（Architecture）<ul>
+<li><strong>DataBinding</strong>：以声明方式将可观察数据绑定到界面元素，通常和 ViewModel 配合使用。</li>
+<li><strong>Lifecycle</strong>：用于管理 Activity 和 Fragment 的生命周期，可帮助开发者生成更易于维护的轻量级代码。</li>
+<li><strong>LiveData</strong>：在底层数据库更改时通知视图，是一个具有生命周期感知的可观察数据持有者。</li>
+<li><strong>Navigation</strong>：处理应用内导航。</li>
+<li><strong>Paging</strong>：帮助开发者一次加载和显示小块数据，按需加载部分数据可减少网络带宽和系统资源的使用。</li>
+<li><strong>Room</strong>：在 SQLite 的基础上提供了一个抽象层，允许更友好、流畅地访问 SQLite 数据库。</li>
+<li><strong>ViewModel</strong>：以生命周期感知的方式管理界面相关的数据，通常和 DataBinding 配合使用，为实现 MVVM 架构提供支持。</li>
+<li><strong>WorkManager</strong>：管理 Android 的后台作业，即使应用程序退出或设备重新启动也可以运行可延迟的异步任务。</li>
+</ul>
+</li>
+<li>基础组件（Foundation）<ul>
+<li><strong>Android KTX</strong>：优化了供 Kotlin 使用的 Jetpack 和 Android 平台 API，帮助开发者以更简洁、更惯用的方式使用 Kotlin 进行 Android 开发。</li>
+<li><strong>AppCompat</strong>：帮助较低版本的 Android 系统进行兼容。</li>
+<li><strong>Auto</strong>：开发 Android Auto 应用的组件，提供了适用于所有车辆的标准化界面和用户交互。</li>
+<li><strong>检测</strong>：从 Android Studio 中快速检测基于 Kotlin 或 Java 的代码。</li>
+<li><strong>多 Dex 处理</strong>：为具有多个 Dex 文件的应用提供支持。</li>
+<li><strong>安全</strong>：安全的读写加密文件和共享偏好设置。</li>
+<li><strong>测试</strong>：用于单元和运行时界面测试的 Android 测试框架。</li>
+<li><strong>TV</strong>：构建可让用户在大屏幕上体验沉浸式内容的应用。</li>
+<li><strong>Wear OS</strong>：开发 Wear 应用的组件。</li>
+</ul>
+</li>
+<li>行为组件（Behavior）<ul>
+<li><strong>CameraX</strong>：帮助简化相机应用的开发工作，提供一致且易于使用的界面，适用于大多数 Android 设备，并可向后兼容至 Android 5.0（API 21）。</li>
+<li><strong>DownloadManager</strong>：处理长时间运行的 HTTP 下载的系统服务。</li>
+<li><strong>媒体和播放</strong>：用于媒体播放和路由（包括 Google Cast）的向后兼容 API。</li>
+<li><strong>通知</strong>：提供向后兼容的通知 API，支持 Wear 和 Auto。</li>
+<li><strong>权限</strong>：用于检查和请求应用权限的兼容性 API。</li>
+<li><strong>设置</strong>：创建交互式设置，建议使用 AndroidX Preference Library 库将用户可配置设置集成到应用中。</li>
+<li><strong>分享操作</strong>：可以更轻松地实现友好的用户分享操作。</li>
+<li><strong>切片</strong>：切片是一种 UI 模板，创建可在应用外部显示应用数据的灵活界面元素。</li>
+</ul>
+</li>
+<li>界面组件（UI）<ul>
+<li><strong>Animation and Transition</strong>：该框架包含用于常见效果的内置动画，并允许开发者创建自定义动画和生命周期回调。</li>
+<li><strong>Emoji Compatibility</strong>：即便用户没有更新 Android 系统也可以获取最新的表情符号。</li>
+<li><strong>Fragment</strong>：组件化界面的基本单位。</li>
+<li><strong>布局</strong>：用 XML 中声明 UI 元素或者在代码中实例化 UI 元素。</li>
+<li><strong>调色板</strong>：从调色板中提取出有用的信息。</li>
+</ul>
+</li>
+</ul>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -349,6 +277,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas

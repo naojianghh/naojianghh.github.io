@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>链表基础操作 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>链表基础操作</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/22
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>链表的定义及增删改查</p>
+<span id="more"></span>
+
+<h3 id="1-链表节点定义"><a href="#1-链表节点定义" class="headerlink" title="1. 链表节点定义"></a>1. 链表节点定义</h3><p>单链表节点包含数据域和指针域（指向下一个节点）：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// 节点结构体定义
+struct Node &#123;
+    int data;       // 数据域
+    Node* next;     // 指针域，指向下一个节点
+    // 构造函数，方便初始化
+    Node(int val) : data(val), next(nullptr) &#123;&#125;
+&#125;;
+</code></pre>
+<h3 id="2-链表初始化"><a href="#2-链表初始化" class="headerlink" title="2. 链表初始化"></a>2. 链表初始化</h3><p>创建一个空链表（通常用头指针 &#x2F; 哨兵节点表示）：</p>
+<pre><code class="cpp">// 方法1：使用头指针（初始为nullptr）
+Node* head = nullptr;
+
+// 方法2：使用哨兵节点（简化操作，不存储实际数据）
+Node* sentinel = new Node(0);  // 哨兵节点数据无意义
+</code></pre>
+<h3 id="3-插入操作"><a href="#3-插入操作" class="headerlink" title="3. 插入操作"></a>3. 插入操作</h3><h4 id="3-1-头插法（在链表头部插入）"><a href="#3-1-头插法（在链表头部插入）" class="headerlink" title="3.1 头插法（在链表头部插入）"></a>3.1 头插法（在链表头部插入）</h4><pre><code class="cpp">// 在链表头部插入新节点
+void insertAtHead(Node*&amp; head, int val) &#123;
+    Node* newNode = new Node(val);  // 创建新节点
+    newNode-&gt;next = head;           // 新节点指向原头节点
+    head = newNode;                 // 更新头指针
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtHead(head, 3);  // 链表：3
+    insertAtHead(head, 2);  // 链表：2-&gt;3
+    insertAtHead(head, 1);  // 链表：1-&gt;2-&gt;3
+    return 0;
+&#125;
+</code></pre>
+<h4 id="3-2-尾插法（在链表尾部插入）"><a href="#3-2-尾插法（在链表尾部插入）" class="headerlink" title="3.2 尾插法（在链表尾部插入）"></a>3.2 尾插法（在链表尾部插入）</h4><pre><code class="cpp">// 在链表尾部插入新节点
+void insertAtTail(Node*&amp; head, int val) &#123;
+    Node* newNode = new Node(val);
+    if (head == nullptr) &#123;  // 空链表直接作为头节点
+        head = newNode;
+        return;
+    &#125;
+    // 遍历到尾部
+    Node* curr = head;
+    while (curr-&gt;next != nullptr) &#123;
+        curr = curr-&gt;next;
+    &#125;
+    curr-&gt;next = newNode;  // 尾部节点指向新节点
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);  // 链表：1
+    insertAtTail(head, 2);  // 链表：1-&gt;2
+    insertAtTail(head, 3);  // 链表：1-&gt;2-&gt;3
+    return 0;
+&#125;
+</code></pre>
+<h4 id="3-3-中间插入（在指定位置插入）"><a href="#3-3-中间插入（在指定位置插入）" class="headerlink" title="3.3 中间插入（在指定位置插入）"></a>3.3 中间插入（在指定位置插入）</h4><pre><code class="cpp">// 在第k个节点后插入新节点（k从1开始计数）
+void insertAtPosition(Node*&amp; head, int k, int val) &#123;
+    if (k &lt;= 0) return;  // 位置无效
+    // 若插入到头部（k=0的特殊情况）
+    if (k == 1 &amp;&amp; head == nullptr) &#123;
+        insertAtHead(head, val);
+        return;
+    &#125;
+    Node* curr = head;
+    // 遍历到第k-1个节点
+    for (int i = 1; i &lt; k - 1 &amp;&amp; curr != nullptr; ++i) &#123;
+        curr = curr-&gt;next;
+    &#125;
+    if (curr == nullptr) return;  // 位置超出链表长度
+    Node* newNode = new Node(val);
+    newNode-&gt;next = curr-&gt;next;   // 新节点指向原k位置节点
+    curr-&gt;next = newNode;         // 原k-1节点指向新节点
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 3);
+    insertAtPosition(head, 2, 2);  // 在第1个节点后插入2，链表：1-&gt;2-&gt;3
+    return 0;
+&#125;
+</code></pre>
+<h3 id="4-删除操作"><a href="#4-删除操作" class="headerlink" title="4. 删除操作"></a>4. 删除操作</h3><h4 id="4-1-删除头节点"><a href="#4-1-删除头节点" class="headerlink" title="4.1 删除头节点"></a>4.1 删除头节点</h4><pre><code class="cpp">void deleteHead(Node*&amp; head) &#123;
+    if (head == nullptr) return;  // 空链表
+    Node* temp = head;    // 暂存头节点
+    head = head-&gt;next;    // 更新头指针
+    delete temp;          // 释放内存
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    deleteHead(head);  // 链表变为：2
+    return 0;
+&#125;
+</code></pre>
+<h4 id="4-2-删除尾节点"><a href="#4-2-删除尾节点" class="headerlink" title="4.2 删除尾节点"></a>4.2 删除尾节点</h4><pre><code class="cpp">void deleteTail(Node*&amp; head) &#123;
+    if (head == nullptr) return;  // 空链表
+    if (head-&gt;next == nullptr) &#123;  // 只有一个节点
+        delete head;
+        head = nullptr;
+        return;
+    &#125;
+    Node* curr = head;
+    // 遍历到倒数第二个节点
+    while (curr-&gt;next-&gt;next != nullptr) &#123;
+        curr = curr-&gt;next;
+    &#125;
+    delete curr-&gt;next;    // 释放尾节点
+    curr-&gt;next = nullptr; // 倒数第二个节点指向nullptr
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    deleteTail(head);  // 链表变为：1
+    return 0;
+&#125;
+</code></pre>
+<h4 id="4-3-删除指定值的节点"><a href="#4-3-删除指定值的节点" class="headerlink" title="4.3 删除指定值的节点"></a>4.3 删除指定值的节点</h4><pre><code class="cpp">void deleteByValue(Node*&amp; head, int val) &#123;
+    if (head == nullptr) return;
+    // 若头节点是目标值
+    if (head-&gt;data == val) &#123;
+        deleteHead(head);
+        return;
+    &#125;
+    Node* curr = head;
+    // 找到目标节点的前一个节点
+    while (curr-&gt;next != nullptr &amp;&amp; curr-&gt;next-&gt;data != val) &#123;
+        curr = curr-&gt;next;
+    &#125;
+    if (curr-&gt;next == nullptr) return;  // 未找到目标值
+    Node* temp = curr-&gt;next;
+    curr-&gt;next = curr-&gt;next-&gt;next;  // 跳过目标节点
+    delete temp;                    // 释放内存
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    insertAtTail(head, 3);
+    deleteByValue(head, 2);  // 链表变为：1-&gt;3
+    return 0;
+&#125;
+</code></pre>
+<h3 id="5-遍历操作"><a href="#5-遍历操作" class="headerlink" title="5. 遍历操作"></a>5. 遍历操作</h3><pre><code class="cpp">// 遍历并打印链表所有元素
+void traverse(Node* head) &#123;
+    Node* curr = head;
+    while (curr != nullptr) &#123;
+        cout &lt;&lt; curr-&gt;data &lt;&lt; &quot;-&gt;&quot;;
+        curr = curr-&gt;next;
+    &#125;
+    cout &lt;&lt; &quot;nullptr&quot; &lt;&lt; endl;
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    insertAtTail(head, 3);
+    traverse(head);  // 输出：1-&gt;2-&gt;3-&gt;nullptr
+    return 0;
+&#125;
+</code></pre>
+<h3 id="6-查找操作"><a href="#6-查找操作" class="headerlink" title="6. 查找操作"></a>6. 查找操作</h3><pre><code class="cpp">// 查找值为val的节点，返回是否存在
+bool find(Node* head, int val) &#123;
+    Node* curr = head;
+    while (curr != nullptr) &#123;
+        if (curr-&gt;data == val) &#123;
+            return true;
+        &#125;
+        curr = curr-&gt;next;
+    &#125;
+    return false;
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    cout &lt;&lt; find(head, 2) &lt;&lt; endl;  // 输出：1（存在）
+    cout &lt;&lt; find(head, 3) &lt;&lt; endl;  // 输出：0（不存在）
+    return 0;
+&#125;
+</code></pre>
+<h3 id="7-销毁链表（释放内存）"><a href="#7-销毁链表（释放内存）" class="headerlink" title="7. 销毁链表（释放内存）"></a>7. 销毁链表（释放内存）</h3><pre><code class="cpp">void destroy(Node*&amp; head) &#123;
+    while (head != nullptr) &#123;
+        Node* temp = head;
+        head = head-&gt;next;
+        delete temp;  // 逐个释放节点
+    &#125;
+&#125;
+
+// 示例
+int main() &#123;
+    Node* head = nullptr;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    destroy(head);  // 释放所有节点，head变为nullptr
+    return 0;
+&#125;
+</code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>单链表的核心操作围绕<strong>指针的修改</strong>展开，关键是要：</p>
+<ol>
+<li>避免空指针访问（操作前判断节点是否为<code>nullptr</code>）</li>
+<li>正确维护指针关系（插入 &#x2F; 删除时确保链表不中断）</li>
+<li>及时释放动态分配的内存（防止内存泄漏）</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
