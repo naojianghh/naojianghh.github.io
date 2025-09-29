@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>JDBC | NaoJianghh</title>
+    <title>栈value | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -157,14 +157,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>JDBC</h1>
+        <h1>栈value</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/22
+            2025/9/29
         </span>
         
         
@@ -176,8 +176,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #ff7d73">
-                    java
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
                 </a>
             </span>
             
@@ -186,85 +186,119 @@
     </div>
     
     <div class="content" v-pre>
-        <p><img src="/../images/JDBC/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-04-22%20195308.png"></p>
+        <p>单调栈的应用</p>
 <span id="more"></span>
 
-<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p><img src="/../images/JDBC/1745322888409.png" alt="1745322888409"></p>
-<h1 id="JDBC访问数据库步骤"><a href="#JDBC访问数据库步骤" class="headerlink" title="JDBC访问数据库步骤"></a>JDBC访问数据库步骤</h1><p><img src="/../images/JDBC/1745323351334.png" alt="1745323351334"></p>
-<h2 id="getConnection方法参数"><a href="#getConnection方法参数" class="headerlink" title="getConnection方法参数"></a>getConnection方法参数</h2><p><img src="/../images/JDBC/1745324040778.png" alt="1745324040778"></p>
-<h2 id="增删改操作"><a href="#增删改操作" class="headerlink" title="增删改操作"></a>增删改操作</h2><pre><code class="java">package com.naojianghh;
+<h2 id="算法与数据结构实验题-3-8-价值"><a href="#算法与数据结构实验题-3-8-价值" class="headerlink" title="算法与数据结构实验题 3.8 价值"></a>算法与数据结构实验题 3.8 价值</h2><p>★实验任务</p>
+<p>K 神最近喜欢上了刷题，一天不刷浑身难受。最近他研究发现，自己的人生价值在于他某段时间内的刷题总数乘上这几天刷题数的最小值，现在 K 神很寂寞（无敌是多么寂寞），想知道他人生价值最高的时候究竟有多高（krz）</p>
+<p>★数据输入</p>
+<p>第一行为总天数 N(1&lt;&#x3D;N&lt;&#x3D;100000)</p>
+<p>接下来一行 N 个整数 ai（1&lt;&#x3D;ai&lt;&#x3D;100000），表示 K 神第 i 天的刷题数。</p>
+<p>★数据输出</p>
+<p>输出 K 神在连续一段时间内可能的最高价值 W。</p>
+<table>
+<thead>
+<tr>
+<th>输入示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6</td>
+</tr>
+<tr>
+<td>3 1 6 4 5 2</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>输出示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>60</td>
+</tr>
+</tbody></table>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a><strong>解题思路</strong></h3><ol>
+<li><strong>核心观察</strong>：对于数组中的每个元素 <code>a[i]</code>，考虑以 <code>a[i]</code> 为最小值的所有连续子数组。在这些子数组中，找到总和最大的子数组，其价值（总和 × <code>a[i]</code>）可能是最大值。</li>
+<li><strong>单调栈应用</strong>：使用单调栈可以高效地找到每个元素 <code>a[i]</code> 左侧第一个小于它的元素（左边界）和右侧第一个小于或等于它的元素（右边界）。这样就确定了以 <code>a[i]</code> 为最小值的最大子数组范围 <code>[left+1, right-1]</code>。</li>
+<li><strong>前缀和优化</strong>：通过前缀和数组可以快速计算任意子数组的总和，避免重复求和，提高效率。</li>
+</ol>
+<pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;stack&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+using namespace std;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-public class Test &#123;
-    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;
-        //加载驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //获取数据库连接
-        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;
-        String usrName = &quot;root&quot;;
-        String passWord = &quot;root&quot;;
-        Connection connection = DriverManager.getConnection(url,usrName,passWord);
-        //创建会话
-        Statement statement = connection.createStatement();
-        //发送SQL
-        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);
-        //处理结果
-        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响
-            System.out.println(&quot;插入成功！&quot;);
-        &#125; else &#123;
-            System.out.println(&quot;插入失败！&quot;);
-        &#125;
-        //关闭资源
-        statement.close();
-        connection.close();
+stack&lt;int&gt; st;
+int n;
 
+
+int main()
+&#123;
+    cin &gt;&gt; n;
+    int* a = new int[n + 1];
+    int* value = new int[n + 1];
+    int* sum = new int[n + 1];
+    int* left = new int[n + 1];
+    int* right = new int[n + 1];
+    sum[0] = 0;
+    for (int i = 1; i &lt;= n; i++) &#123;
+        cin &gt;&gt; a[i];
+        sum[i] = sum[i - 1] + a[i];
     &#125;
+    for (int i = 1; i &lt;= n; i++) &#123;
+        while (!st.empty() &amp;&amp; a[st.top()] &gt;= a[i]) &#123;
+            st.pop();
+        &#125;
+        left[i] = st.empty() ? 0 : st.top();
+        st.push(i);
+    &#125;
+    while (!st.empty()) st.pop();
+
+    for (int i = n; i &gt;= 1; i--) &#123;
+        while (!st.empty() &amp;&amp; a[st.top()] &gt;= a[i]) &#123;
+            st.pop();
+        &#125;
+        right[i] = st.empty() ? n + 1 : st.top();
+        st.push(i);
+    &#125;
+    int ans = -1;
+    for (int i = 1; i &lt;= n; i++) &#123;
+        value[i] = (sum[right[i] - 1] - sum[left[i]]) * a[i];
+        if (value[i] &gt; ans) &#123;
+            ans = value[i];
+        &#125;
+    &#125;
+
+    cout &lt;&lt; ans;
+
+    return 0;
 &#125;
 </code></pre>
-<p>url : “jdbc:mysql:&#x2F;&#x2F;<code>localhost</code>（本机IP地址）&#x2F;<code>zxy</code>（数据库名）?useSSL&#x3D;false&amp;useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&amp;allowPublicKeyRetrieval&#x3D;true”</p>
-<p><img src="/../images/JDBC/1745324495029.png" alt="1745324495029"></p>
-<p><img src="/../images/JDBC/1745324451974.png" alt="1745324451974"></p>
-<h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><pre><code class="java">package com.naojianghh;
-
-import java.sql.*;
-
-public class Test &#123;
-    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;
-        //加载驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //获取数据库连接
-        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;
-        String usrName = &quot;root&quot;;
-        String passWord = &quot;root&quot;;
-        Connection connection = DriverManager.getConnection(url,usrName,passWord);
-        //创建会话
-        Statement statement = connection.createStatement();
-        //发送SQL
-//        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);
-        ResultSet resultSet = statement.executeQuery(&quot;select * from t_book&quot;); // 返回值为结果的一个集合
-        //处理结果
-        while (resultSet.next())&#123;
-            System.out.println(resultSet.getInt(&quot;id&quot;) + &quot;---&quot; + resultSet.getString(&quot;name&quot;)
-            + &quot;---&quot; + resultSet.getString(&quot;author&quot;) + &quot;---&quot; + resultSet.getDouble(&quot;price&quot;));
-
-        &#125;
-//        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响
-//            System.out.println(&quot;插入成功！&quot;);
-//        &#125; else &#123;
-//            System.out.println(&quot;插入失败！&quot;);
-//        &#125;
-        //关闭资源
-        statement.close();
-        connection.close();
-
-    &#125;
-&#125;
-</code></pre>
-<p><img src="/../images/JDBC/1745325214314.png" alt="1745325214314"></p>
+<h3 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a><strong>详细解释</strong></h3><ol>
+<li><strong>输入与前缀和</strong>：<ul>
+<li>读取输入的天数 <code>n</code> 和每天的刷题数 <code>a</code>。</li>
+<li>计算前缀和数组 <code>sum</code>，其中 <code>sum[i]</code> 表示前 <code>i</code> 天的刷题总数，便于快速计算任意子数组的总和。</li>
+</ul>
+</li>
+<li><strong>左边界计算</strong>：<ul>
+<li>使用单调栈找到每个元素 <code>a[i]</code> 左侧第一个小于它的元素的索引 <code>left[i]</code>。若不存在，则 <code>left[i]</code> 为 0。</li>
+<li>单调栈保证栈内元素递增，每次弹出栈顶大于等于 <code>a[i]</code> 的元素，剩余栈顶即为左边界。</li>
+</ul>
+</li>
+<li><strong>右边界计算</strong>：<ul>
+<li>类似地，使用单调栈找到每个元素 <code>a[i]</code> 右侧第一个小于或等于它的元素的索引 <code>right[i]</code>。若不存在，则 <code>right[i]</code> 为 <code>n+1</code>。</li>
+<li>单调栈保证栈内元素递增，每次弹出栈顶大于 <code>a[i]</code> 的元素，剩余栈顶即为右边界。</li>
+</ul>
+</li>
+<li><strong>最大价值计算</strong>：<ul>
+<li>对于每个元素 <code>a[i]</code>，以它为最小值的最大子数组范围是 <code>[left[i], right[i]-1]</code>。</li>
+<li>计算该子数组的总和（利用前缀和），并计算价值（总和 × <code>a[i]</code>），更新最大值。</li>
+</ul>
+</li>
+</ol>
 
     </div>
     

@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>JDBC | NaoJianghh</title>
+    <title>NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -42,9 +42,7 @@
 
 
 
-
-
-
+<script src="/js/lib/home.js"></script>
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -155,128 +153,173 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>JDBC</h1>
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.jpg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>NaoJianghh</h1>
+                <h3></h3>
+                <h5>Welcome to My Blog</h5>
+            </div>
+        </span>
     </div>
-    <div class="info">
+</div>
+<div
+    id="home-posts-wrap"
+    ref="homePostsWrap"
+    true
+>
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/2025/02/23/c-notes/">
+        <h2 class="post-title">c_notes</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/study/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                学习
+            </a>
+        </span>
+        
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/22
+            2025/2/23
         </span>
         
         
-        <span class="tags">
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p> 从0开始，向翁凯学c   ^ 0 ^</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/c/" style="color: #03a9f4">c</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/23/c-notes/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2025/02/23/cgg-notes/">
+        <h2 class="post-title">cgg_notes</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/study/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                学习
+            </a>
+        </span>
+        
+        <span class="date">
             <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
+            2025/2/23
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
             
+            <p>向黑马程序员学c++，目标成为黑马程序员</p>
             
-            <span class="tag">
-                
-                <a href="/tags/java/" style="color: #ff7d73">
-                    java
-                </a>
-            </span>
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
             
+            <a href="/tags/cgg/" style="color: #03a9f4">cgg</a>
         </span>
         
     </div>
+    <a href="/2025/02/23/cgg-notes/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
     
-    <div class="content" v-pre>
-        <p><img src="/../images/JDBC/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-04-22%20195308.png"></p>
-<span id="more"></span>
-
-<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p><img src="/../images/JDBC/1745322888409.png" alt="1745322888409"></p>
-<h1 id="JDBC访问数据库步骤"><a href="#JDBC访问数据库步骤" class="headerlink" title="JDBC访问数据库步骤"></a>JDBC访问数据库步骤</h1><p><img src="/../images/JDBC/1745323351334.png" alt="1745323351334"></p>
-<h2 id="getConnection方法参数"><a href="#getConnection方法参数" class="headerlink" title="getConnection方法参数"></a>getConnection方法参数</h2><p><img src="/../images/JDBC/1745324040778.png" alt="1745324040778"></p>
-<h2 id="增删改操作"><a href="#增删改操作" class="headerlink" title="增删改操作"></a>增删改操作</h2><pre><code class="java">package com.naojianghh;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Test &#123;
-    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;
-        //加载驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //获取数据库连接
-        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;
-        String usrName = &quot;root&quot;;
-        String passWord = &quot;root&quot;;
-        Connection connection = DriverManager.getConnection(url,usrName,passWord);
-        //创建会话
-        Statement statement = connection.createStatement();
-        //发送SQL
-        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);
-        //处理结果
-        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响
-            System.out.println(&quot;插入成功！&quot;);
-        &#125; else &#123;
-            System.out.println(&quot;插入失败！&quot;);
-        &#125;
-        //关闭资源
-        statement.close();
-        connection.close();
-
-    &#125;
-&#125;
-</code></pre>
-<p>url : “jdbc:mysql:&#x2F;&#x2F;<code>localhost</code>（本机IP地址）&#x2F;<code>zxy</code>（数据库名）?useSSL&#x3D;false&amp;useUnicode&#x3D;true&amp;characterEncoding&#x3D;UTF-8&amp;serverTimezone&#x3D;Asia&#x2F;Shanghai&amp;allowPublicKeyRetrieval&#x3D;true”</p>
-<p><img src="/../images/JDBC/1745324495029.png" alt="1745324495029"></p>
-<p><img src="/../images/JDBC/1745324451974.png" alt="1745324451974"></p>
-<h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><pre><code class="java">package com.naojianghh;
-
-import java.sql.*;
-
-public class Test &#123;
-    public static void main(String[] args) throws ClassNotFoundException, SQLException &#123;
-        //加载驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //获取数据库连接
-        String url = &quot;jdbc:mysql://localhost/zxy?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true&quot;;
-        String usrName = &quot;root&quot;;
-        String passWord = &quot;root&quot;;
-        Connection connection = DriverManager.getConnection(url,usrName,passWord);
-        //创建会话
-        Statement statement = connection.createStatement();
-        //发送SQL
-//        int i = statement.executeUpdate(&quot;insert into t_book (id,name,author,price) values (3,&#39;小黄书&#39;,&#39;郑晓羽&#39;,28)&quot;);
-        ResultSet resultSet = statement.executeQuery(&quot;select * from t_book&quot;); // 返回值为结果的一个集合
-        //处理结果
-        while (resultSet.next())&#123;
-            System.out.println(resultSet.getInt(&quot;id&quot;) + &quot;---&quot; + resultSet.getString(&quot;name&quot;)
-            + &quot;---&quot; + resultSet.getString(&quot;author&quot;) + &quot;---&quot; + resultSet.getDouble(&quot;price&quot;));
-
-        &#125;
-//        if (i &gt; 0)&#123;//证明对数据库的数据条数有影响
-//            System.out.println(&quot;插入成功！&quot;);
-//        &#125; else &#123;
-//            System.out.println(&quot;插入失败！&quot;);
-//        &#125;
-        //关闭资源
-        statement.close();
-        connection.close();
-
-    &#125;
-&#125;
-</code></pre>
-<p><img src="/../images/JDBC/1745325214314.png" alt="1745325214314"></p>
+    <a class="page-num" href="/page/7/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">8</span>
+    
+    
+    
+    
+</div>
 
     </div>
     
-    
-    
-    
-    <div id="comment">
-        <div id="giscus-container" class="giscus"></div>
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">脑浆糊</div>
+        <div class="description">
+            <p>这个博主很懒~是真的懒~~<br>…</p>
+
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
+            </div>
+            
+        </div>
+        
     </div>
-    
-    
-    
+</div>
+
+    </div>
     
 </div>
 
@@ -308,29 +351,6 @@ public class Test &#123;
         
     </div>
     <script src="/js/main.js"></script>
-    
-    
-<script
-    src="https://giscus.app/client.js"
-    data-repo="naojianghh/naojianghh.github.io"
-    data-repo-id="R_kgDON0mDmw"
-    data-category="Announcements"
-    data-category-id="DIC_kwDON0mDm84CoLx1"
-    data-mapping="url"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="preferred_color_scheme"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
     
 </body>
 <canvas
