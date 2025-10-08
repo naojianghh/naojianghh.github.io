@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-09-29T10:48:48.534Z</updated>
+  <updated>2025-10-08T06:44:36.943Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>队列4.2 Rescue the princess</title>
+    <link href="http://example.com/2025/10/08/princess/"/>
+    <id>http://example.com/2025/10/08/princess/</id>
+    <published>2025-10-08T06:00:01.000Z</published>
+    <updated>2025-10-08T06:44:36.943Z</updated>
+    
+    <content type="html"><![CDATA[<p>广度优先搜索</p><span id="more"></span><h3 id="数据结构与算法实验题-4-2-Rescue-the-princess"><a href="#数据结构与算法实验题-4-2-Rescue-the-princess" class="headerlink" title="数据结构与算法实验题 4.2 Rescue the princess"></a>数据结构与算法实验题 4.2 Rescue the princess</h3><p>★实验任务</p><p>有一天，公主被一个魔王抓走关在一个城堡里面，城堡可以用 N<em>M 的矩阵来描述，1&lt;N,M&lt;&#x3D;200。监狱由 N</em>M 个方格组成，每个方格中可能为墙壁，空地，怪物，公主或者是勇士。</p><p>现在勇士想去营救公主。他的任务是找到公主。约定，“找到公主”的意思是到达公主被关的位置。如果勇士想到达某个方格，但方格中有怪物，那么必须杀死怪物，才能到达这个方格。假设勇士只能向上，下，左，右四个方向移动一步。移动一步的需要花费 1 个单位的时间，杀死怪物也需要一个单位的时间。</p><p>试着计算勇士找到公主需要多长时间。只能上，下，左，右移动，而且墙壁不能通过。</p><p>★数据输入</p><p>输入第一行包含 2 个整数 N，M，接下来 N 行，每行 M 个字符：“.”代表空地，“a”表示公主，“r”表示勇士，“#”代表墙壁，“x”表示怪物。（测试数据中“a”和“r”只有一个）。</p><p>★数据输出</p><p>输出一个整数，表示找到公主所需要最短的时间。如果无法找到公主，输出-1。</p><table><thead><tr><th>输入示例</th></tr></thead><tbody><tr><td>7 8</td></tr><tr><td>#.#####.</td></tr><tr><td>#.a#..r.</td></tr><tr><td>#..#x…</td></tr><tr><td>..#..#.#</td></tr><tr><td>#…##..</td></tr><tr><td>.#……</td></tr><tr><td>……..</td></tr></tbody></table><table><thead><tr><th>输出示例</th></tr></thead><tbody><tr><td>13</td></tr></tbody></table><h4 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h4><pre><code class="c++">#include&lt;iostream&gt;#include&lt;stack&gt;#include&lt;string&gt;#include&lt;vector&gt;#include&lt;queue&gt;using namespace std;int n, m;int ans = 1996;queue&lt;pair&lt;int, int&gt;&gt; p;int nx[4] = &#123; 0,1,0,-1 &#125;;int ny[4] = &#123; 1,0,-1,0 &#125;;void search(char** map,pair&lt;int, int&gt; loc,char count) &#123;    int x = loc.first;    int y = loc.second;    for (int i = 0; i &lt; 4; i++) &#123;        int dx = x + nx[i];        int dy = y + ny[i];        if (map[dx][dy] == &#39;.&#39;) &#123;            map[dx][dy] = count + 1;            p.push(pair&lt;int,int&gt;(dx, dy));        &#125;        else if (map[dx][dy] == &#39;x&#39;) &#123;            map[dx][dy] = count + 2;            p.push(pair&lt;int,int&gt;(dx, dy));        &#125;        else if (map[dx][dy] == &#39;a&#39;) &#123;            int temp = (int)(count + 1 - &#39;0&#39;);            if (temp &lt; ans) &#123;                ans = temp;            &#125;            p.pop();            return;        &#125;    &#125;    p.pop();    while (!p.empty()) &#123;        search(map, p.front(), map[p.front().first][p.front().second]);    &#125;&#125;int main()&#123;    cin &gt;&gt; n &gt;&gt; m;    int x, y;    char** map = new char* [n + 2];    for (int i = 0; i &lt;= n + 1; i++) &#123;        map[i] = new char[m + 2];    &#125;    for (int i = 1; i &lt;= n; i++) &#123;        for (int j = 1; j &lt;= m; j++) &#123;            cin &gt;&gt; map[i][j];            if (map[i][j] == &#39;r&#39;) &#123;                x = i;                y = j;            &#125;        &#125;    &#125;    for (int i = 0; i &lt; m + 2; i++) &#123;        map[0][i] = &#39;#&#39;;        map[n + 1][i] = &#39;#&#39;;    &#125;    for (int i = 0; i &lt; n + 2; i++) &#123;        map[i][0] = &#39;#&#39;;        map[i][m + 1] = &#39;#&#39;;    &#125;    pair &lt;int, int&gt;temp = &#123;x,y&#125;;    p.push(temp);    search(map, temp, &#39;0&#39;);    if (ans != 1996) &#123;        cout &lt;&lt; ans;    &#125;    else&#123;        cout &lt;&lt; -1;    &#125;    return 0;&#125;</code></pre><p>自己凭感觉写的，虽然用了队列，但是更接近深度优先搜索。</p><p><strong>核心思路：</strong>尝试通过 “队列辅助的递归搜索” 从起点<code>&#39;r&#39;</code>找到终点<code>&#39;a&#39;</code>，并计算路径长度，本质上是想实现 “最短路径搜索”，但因逻辑设计问题实际偏向深度优先搜索（DFS）。具体可拆解为以下几点：</p><ol><li><strong>初始设定</strong><ul><li>用二维数组<code>map</code>存储迷宫，<code>&#39;r&#39;</code>是起点，<code>&#39;a&#39;</code>是终点，<code>&#39;.&#39;</code>和<code>&#39;x&#39;</code>是可通行区域（可能<code>&#39;x&#39;</code>被视为特殊可走节点），<code>&#39;#&#39;</code>是边界（不可通行）。</li><li>用队列<code>p</code>存储待探索的坐标，初始将起点<code>&#39;r&#39;</code>的坐标入队。</li></ul></li><li><strong>搜索逻辑</strong><ul><li>定义<code>search</code>函数，参数为当前地图、当前坐标<code>loc</code>、当前路径长度<code>count</code>（用字符表示，如<code>&#39;0&#39;</code>代表 0 步）。</li><li>对当前坐标的 4 个方向（上下左右）进行探索：<ul><li>若遇到<code>&#39;.&#39;</code>（普通可走），标记为<code>count + 1</code>（更新路径长度），并将该坐标入队。</li><li>若遇到<code>&#39;x&#39;</code>（特殊可走），标记为<code>count + 2</code>（可能想区分路径类型），并将该坐标入队。</li><li>若遇到<code>&#39;a&#39;</code>（终点），计算当前路径长度并更新最短路径<code>ans</code>，然后退出。</li></ul></li></ul></li><li><strong>队列与递归的结合</strong><ul><li>每次处理完当前节点后，弹出队列头部元素，再通过递归依次处理队列中剩余的节点，试图遍历所有可能的路径。</li></ul></li></ol><h4 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h4><pre><code class="c++">#include&lt;iostream&gt;#include&lt;stack&gt;#include&lt;string&gt;#include&lt;vector&gt;#include&lt;queue&gt;using namespace std;int n, m;int ans = 1996;queue&lt;pair&lt;int, int&gt;&gt; p;int nx[4] = &#123; 0,1,0,-1 &#125;;int ny[4] = &#123; 1,0,-1,0 &#125;;void search(char** map,pair&lt;int, int&gt; loc,char count) &#123;    while (!p.empty()) &#123;        int x = p.front().first;        int y = p.front().second;        for (int i = 0; i &lt; 4; i++) &#123;            int dx = x + nx[i];            int dy = y + ny[i];            if (map[dx][dy] == &#39;.&#39;) &#123;                map[dx][dy] = map[x][y] + 1;                p.push(pair&lt;int, int&gt;(dx, dy));            &#125;            else if (map[dx][dy] == &#39;x&#39;) &#123;                map[dx][dy] = map[x][y] + 2;                p.push(pair&lt;int, int&gt;(dx, dy));            &#125;            else if (map[dx][dy] == &#39;a&#39;) &#123;                int temp = (int)(map[x][y] + 1 - &#39;0&#39;);                if (temp &lt; ans) &#123;                    ans = temp;                &#125;            &#125;            else if (map[dx][dy] != &#39;#&#39;) &#123;                if (map[x][y] + 1 &lt; map[dx][dy]) &#123;                    map[dx][dy] = map[x][y] + 1;                &#125;            &#125;        &#125;        p.pop();    &#125;   &#125;int main()&#123;    cin &gt;&gt; n &gt;&gt; m;    int x, y;    char** map = new char* [n + 2];    for (int i = 0; i &lt;= n + 1; i++) &#123;        map[i] = new char[m + 2];    &#125;    for (int i = 1; i &lt;= n; i++) &#123;        for (int j = 1; j &lt;= m; j++) &#123;            cin &gt;&gt; map[i][j];            if (map[i][j] == &#39;r&#39;) &#123;                map[i][j] = &#39;0&#39;;                x = i;                y = j;            &#125;        &#125;    &#125;    for (int i = 0; i &lt; m + 2; i++) &#123;        map[0][i] = &#39;#&#39;;        map[n + 1][i] = &#39;#&#39;;    &#125;    for (int i = 0; i &lt; n + 2; i++) &#123;        map[i][0] = &#39;#&#39;;        map[i][m + 1] = &#39;#&#39;;    &#125;    pair &lt;int, int&gt;temp = &#123;x,y&#125;;    p.push(temp);    search(map, temp, &#39;0&#39;);    if (ans != 1996) &#123;        cout &lt;&lt; ans;    &#125;    else&#123;        cout &lt;&lt; -1;    &#125;    return 0;&#125;</code></pre><p>这个代码的核心思路是 <strong>用队列实现 BFS 框架，从起点<code>&#39;r&#39;</code>出发探索迷宫，寻找终点<code>&#39;a&#39;</code>，并尝试让节点保留更小的路径步数</strong>，具体分 4 步：</p><ol><li><p><strong>初始化与准备</strong></p><ul><li>地图外围填<code>&#39;#&#39;</code>当边界，避免越界；起点<code>&#39;r&#39;</code>改成字符<code>&#39;0&#39;</code>（作为路径长度的起始基准），并把起点坐标加入队列。</li><li>用队列<code>p</code>存储待探索的节点，按 “先进先出” 顺序处理，符合 BFS “逐层扩散” 的特点。</li></ul></li><li><p><strong>BFS 核心探索</strong></p><ul><li><p>循环从队列取节点</p><pre><code>(x,y)</code></pre><p>，遍历它的上下左右 4 个邻居</p><pre><code>(dx,dy)</code></pre><p>，根据邻居类型处理：</p><ul><li>若邻居是<code>&#39;.&#39;</code>（普通可走）：把邻居标记为 “当前节点步数 + 1”（字符累加，比如<code>&#39;0&#39;→&#39;1&#39;</code>），并加入队列；</li><li>若邻居是<code>&#39;x&#39;</code>（特殊可走）：把邻居标记为 “当前节点步数 + 2”（给<code>&#39;x&#39;</code>更高的路径成本），也加入队列；</li><li>若邻居是<code>&#39;a&#39;</code>（终点）：计算当前节点到终点的步数，更新全局最小步数<code>ans</code>。</li></ul></li></ul></li><li><p><strong>新增的 “小步数更新” 逻辑</strong></p><ul><li><p>当邻居既不是<code>&#39;.&#39;</code>,<code>&#39;x&#39;</code>,<code>&#39;a&#39;</code>,<code>&#39;#&#39;</code></p><p>（即已被标记为数字的节点）时，判断 “当前节点的步数 + 1” 是否比邻居现有步数小：</p><ul><li>若是，就把邻居的步数更新为更小的值（试图修正之前可能因<code>&#39;x&#39;</code>导致的大步数）。</li></ul></li></ul></li><li><p><strong>结果判断</strong></p><ul><li>探索结束后，若<code>ans</code>被更新（不是初始的 1996），输出最小步数；否则输出<code>-1</code>（没找到终点）。</li></ul></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;广度优先搜索&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>栈value</title>
@@ -376,25 +395,6 @@
     
     
     <category term="java" scheme="http://example.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTML,CSS and JS</title>
-    <link href="http://example.com/2025/04/22/HTML/"/>
-    <id>http://example.com/2025/04/22/HTML/</id>
-    <published>2025-04-22T12:53:41.000Z</published>
-    <updated>2025-04-22T13:51:22.494Z</updated>
-    
-    <content type="html"><![CDATA[<p>速通 web前端</p><span id="more"></span><h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><p><img src="/../images/HTML/1745326536644.png" alt="1745326536644"></p><p>要展示的内容写在body标签内部。</p><p>写中文时要把编码格式改成<code>UTF-8</code></p><h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p><img src="/../images/HTML/1745326875856.png" alt="1745326875856"></p><h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><p><img src="/../images/HTML/1745327426564.png" alt="1745327426564"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;速通 web前端&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="web" scheme="http://example.com/tags/web/"/>
     
   </entry>
   
