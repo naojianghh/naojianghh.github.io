@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: web | NaoJianghh</title>
+    <title>排序 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,164 +155,173 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/Android/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Android
-            </a>
+            <div class="article">
+    <div>
+        <h1>排序</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/12
         </span>
         
         
-        
-        <span>
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                开发
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E9%80%86%E5%90%91/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                逆向
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/web/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                web
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/java/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                java
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/c/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                c
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Git/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Git
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/xml/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                xml
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/ctf/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                ctf
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/cgg/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                cgg
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E7%AE%97%E6%B3%95/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                算法
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/4/22</div>
-            <a href="/2025/04/22/HTML/">
-                <h3>HTML,CSS and JS</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/web/" style="color: #00bcd4">
-                            web
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>简单排序（冒泡、插入、比较），快速排序，归并排序。</p>
+<span id="more"></span>
+
+<h1 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h1><h2 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h2><pre><code class="c++">void bubbleSort(vector&lt;int&gt;&amp; arr, int l, int r) &#123;
+    for (int i = l; i &lt; r; i++) &#123;
+        bool swapped = false;
+        for (int j = l; j &lt; r - (i - l); j++) &#123;
+            if (arr[j] &gt; arr[j + 1]) &#123;
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            &#125;
+        &#125;
+        if (!swapped) &#123;
+            break;
+        &#125;
+    &#125;
+&#125;
+
+int main ()
+&#123;
+    bubbleSort(arr, 0, n - 1);
+    return 0;
+&#125;
+</code></pre>
+<p><strong>核心思想</strong>：通过相邻元素的两两比较，每轮将最大的元素 “冒泡” 到当前未排序部分的末尾。优化点在于若某轮未发生交换，说明数组已有序，可提前终止。</p>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><pre><code class="c++">void insertionSort(vector&lt;int&gt;&amp; arr,int l,int r) &#123;
+    for (int i = l + 1;i &lt;= r;i ++)&#123;
+        int key = arr[i];
+        int j = i - 1;
+        while (j &gt;= l &amp;&amp; arr[j] &gt; key)&#123;
+            arr[j + 1] = arr[j];
+            j--;
+        &#125;
+        arr[j + 1] = key;
+    &#125;
+&#125;
+
+int main ()
+&#123;
+    insertionSort(arr, 0, n - 1);
+    return 0;
+&#125;
+</code></pre>
+<p><strong>核心思想</strong>：将数组分为 “已排序”（初始为 ）和 “未排序” 两部分，依次将未排序元素插入到已排序部分的合适位置（通过移动元素腾出位置）。</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><pre><code class="c++">void selectionSort(vector&lt;int&gt;&amp; arr, int l, int r) &#123;
+    for (int i = l; i &lt; r; i++) &#123;
+        int minIndex = i;
+        for (int j = i + 1; j &lt;= r; j++) &#123;
+            if (arr[j] &lt; arr[minIndex]) &#123;
+                minIndex = j;
+            &#125;
+        &#125;
+        swap(arr[i], arr[minIndex]);
+    &#125;
+&#125;
+
+int main ()
+&#123;
+    selectionSort(arr, 0, n - 1);
+    return 0;
+&#125;
+</code></pre>
+<p><strong>核心思想</strong>：每轮从当前未排序部分中找到最小元素，与未排序部分的首位交换，逐步扩大已排序部分。</p>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><pre><code class="c++">void quickSort(vector&lt;int&gt;&amp; arr, int l,int r)&#123;
+    if (l &gt;= r) return;
+    int privotIndex = partition(arr, l, r);
+    quickSort(arr, l, privotIndex - 1);
+    quickSort(arr, privotIndex + 1, r);
+&#125;
+
+int partition(vector&lt;int&gt;&amp; arr, int l, int r) &#123;
+    int privot = arr[r];
+    int i = l - 1;
+    for (int j = l; j &lt; r; j++) &#123;
+        if (arr[j] &lt;= privot) &#123;
+            i++;
+            swap(arr[i], arr[j]);
+        &#125;
+    &#125;
+    swap(arr[i + 1], arr[r]);
+    return i + 1;
+&#125;
+
+int main ()
+&#123;
+    quickSort(arr, 0, n - 1);
+    return 0;
+&#125;
+</code></pre>
+<p><strong>核心思想</strong>：基于分治，选择基准值（此处为 ），通过分区操作将数组分为 “小于等于基准” 和 “大于基准” 两部分，递归排序子数组。</p>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><pre><code class="c++">void mergeSort(vector&lt;int&gt;&amp; arr,int l, int r) &#123;
+    if (l &gt;= r) return;
+    int m = (l + r) / 2;
+    mergeSort(arr ,l, m);
+    mergeSort(arr ,m + 1, r);
+    merge(arr,l, m, r);
+&#125;
+
+void merge(vector&lt;int&gt;&amp; arr,int l, int m, int r) &#123;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    vector&lt;int&gt;L(n1);
+    vector&lt;int&gt;R(n2);
+    for (int i = 0; i &lt; n1; i++) L[i] = arr[l + i];
+    for (int i = 0; i &lt; n2; i++) R[i] = arr[m + 1 + i];
+    int i = 0, j = 0, k = l;
+    while (i &lt; n1 &amp;&amp; j &lt; n2) &#123;
+        if (L[i] &lt; R[j]) &#123;
+            arr[k++] = L[i++];
+        &#125;
+        else &#123;
+            arr[k++] = R[j++];
+        &#125;
+    &#125;
+    while (i &lt; n1) arr[k++] = L[i++];
+    while (j &lt; n2) arr[k++] = R[j++];
+&#125;
+
+int main ()
+&#123;
+    mergeSort(arr, 0, n - 1);
+    return 0;
+&#125;
+</code></pre>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -340,6 +353,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas
