@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>java与kotlin基础语法区别 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>java与kotlin基础语法区别</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/5/13
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #00bcd4">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p> Java 和 Kotlin 作为 JVM 平台上的主流语言，在基础语法上有诸多差异，Kotlin 更注重简洁性、安全性和现代编程范式。 </p>
+<span id="more"></span>
+
+<h3 id="1-变量声明"><a href="#1-变量声明" class="headerlink" title="1. 变量声明"></a>1. <strong>变量声明</strong></h3><ul>
+<li><p><strong>Java</strong>：需显式指定类型，区分<code>声明</code>与<code>初始化</code>，变量默认可变（需用<code>final</code>声明不可变）：</p>
+<pre><code class="java">String name; // 仅声明
+final int age = 20; // 不可变变量（必须初始化）
+int score = 90; // 可变变量
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：类型可推断，用<code>val</code>（不可变）和<code>var</code>（可变）声明，必须初始化（或延迟初始化）：</p>
+<pre><code class="kotlin">val name: String = &quot;Alice&quot; // 不可变，类型可省略（推断为String）
+var age = 20 // 可变，类型自动推断为Int
+lateinit var address: String // 延迟初始化（非基本类型）
+</code></pre>
+</li>
+</ul>
+<h3 id="2-函数定义"><a href="#2-函数定义" class="headerlink" title="2. 函数定义"></a>2. <strong>函数定义</strong></h3><ul>
+<li><p><strong>Java</strong>：必须用<code>public</code>&#x2F;<code>private</code>等修饰符，返回类型在前，参数需显式类型：</p>
+<pre><code class="java">public int add(int a, int b) &#123;
+    return a + b;
+&#125;
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：用<code>fun</code>关键字，返回类型在后（可省略<code>Unit</code>，类似<code>void</code>），参数类型可推断但通常显式声明：</p>
+<pre><code class="kotlin">fun add(a: Int, b: Int): Int &#123; // 返回类型Int
+    return a + b
+&#125;
+
+fun printHello() &#123; // 无返回值（默认Unit）
+    println(&quot;Hello&quot;)
+&#125;
+
+// 单表达式函数（简化写法）
+fun multiply(a: Int, b: Int) = a * b
+</code></pre>
+</li>
+</ul>
+<h3 id="3-空安全"><a href="#3-空安全" class="headerlink" title="3. 空安全"></a>3. <strong>空安全</strong></h3><ul>
+<li><p><strong>Java</strong>：默认允许 null，需手动判空，易出现<code>NullPointerException</code>：</p>
+<pre><code class="java">String str = null;
+int length = str.length(); // 运行时异常
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：默认禁止 null，通过<code>?</code>标记可空类型，强制判空：</p>
+<pre><code class="kotlin">var nonNullStr: String = &quot;abc&quot;
+nonNullStr = null // 编译错误（不可空）
+
+var nullableStr: String? = null
+// 安全调用（返回null，不崩溃）
+val length = nullableStr?.length 
+// 非空断言（确认不为null，否则崩溃）
+val len = nullableStr!!.length 
+// 空值默认值
+val l = nullableStr?.length ?: 0 
+</code></pre>
+</li>
+</ul>
+<h3 id="4-条件语句"><a href="#4-条件语句" class="headerlink" title="4. 条件语句"></a>4. <strong>条件语句</strong></h3><ul>
+<li><p><strong>Java</strong>：<code>if-else</code>是语句，无返回值；<code>switch</code>需<code>break</code>，支持常量：</p>
+<pre><code class="java">int x = 10;
+String result;
+if (x &gt; 5) &#123;
+    result = &quot;Big&quot;;
+&#125; else &#123;
+    result = &quot;Small&quot;;
+&#125;
+
+switch (x) &#123;
+    case 10:
+        System.out.println(&quot;Ten&quot;);
+        break;
+    default:
+        System.out.println(&quot;Other&quot;);
+&#125;
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：<code>if</code>是表达式（有返回值）；<code>when</code>替代<code>switch</code>，更灵活：</p>
+<pre><code class="kotlin">val x = 10
+val result = if (x &gt; 5) &quot;Big&quot; else &quot;Small&quot; // 表达式直接赋值
+
+when (x) &#123;
+    10 -&gt; println(&quot;Ten&quot;)
+    in 1..9 -&gt; println(&quot;Single digit&quot;) // 支持范围
+    else -&gt; println(&quot;Other&quot;)
+&#125;
+
+// when作为表达式返回值
+val desc = when &#123;
+    x &gt; 100 -&gt; &quot;Huge&quot;
+    x &lt; 0 -&gt; &quot;Negative&quot;
+    else -&gt; &quot;Normal&quot;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="5-循环语句"><a href="#5-循环语句" class="headerlink" title="5. 循环语句"></a>5. <strong>循环语句</strong></h3><ul>
+<li><p><strong>Java</strong>：<code>for</code>循环需下标或迭代器，<code>while</code>与<code>do-while</code>：</p>
+<pre><code class="java">List&lt;String&gt; list = Arrays.asList(&quot;a&quot;, &quot;b&quot;);
+for (int i = 0; i &lt; list.size(); i++) &#123;
+    System.out.println(list.get(i));
+&#125;
+for (String s : list) &#123; // 增强for
+    System.out.println(s);
+&#125;
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：支持<code>for-in</code>循环，范围运算符<code>..</code>，更简洁：</p>
+<pre><code class="kotlin">val list = listOf(&quot;a&quot;, &quot;b&quot;)
+for (s in list) &#123;
+    println(s)
+&#125;
+
+// 范围循环
+for (i in 1..5) &#123; // 1到5（含）
+    println(i)
+&#125;
+for (i in 5 downTo 1 step 2) &#123; // 5,3,1
+    println(i)
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="6-类与构造函数"><a href="#6-类与构造函数" class="headerlink" title="6. 类与构造函数"></a>6. <strong>类与构造函数</strong></h3><ul>
+<li><p><strong>Java</strong>：类默认不可继承（需<code>extends</code>），构造函数与类名相同：</p>
+<pre><code class="java">public class Person &#123;
+    private String name;
+    private int age;
+    
+    // 构造函数
+    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+    
+    // getter/setter（必须手动定义）
+    public String getName() &#123; return name; &#125;
+    public void setName(String name) &#123; this.name = name; &#125;
+&#125;
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：类默认<code>final</code>（需<code>open</code>才能继承），主构造函数直接声明在类头，自动生成<code>getter/setter</code>：</p>
+<pre><code class="kotlin">// 数据类（自动生成equals、hashCode等）
+data class Person(
+    val name: String, // val：只读（仅getter）
+    var age: Int      // var：可读写（getter+setter）
+)
+
+// 主构造函数带逻辑（init代码块）
+class Student(val id: Int) &#123;
+    init &#123;
+        println(&quot;Student id: $id&quot;)
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="7-继承与接口"><a href="#7-继承与接口" class="headerlink" title="7. 继承与接口"></a>7. <strong>继承与接口</strong></h3><ul>
+<li><p><strong>Java</strong>：用<code>extends</code>继承类，<code>implements</code>实现接口，单继承多实现：</p>
+<pre><code class="java">public class Student extends Person implements Study &#123;
+    // 实现父类和接口方法
+&#125;
+</code></pre>
+</li>
+<li><p><strong>Kotlin</strong>：用<code>:</code>代替<code>extends</code>和<code>implements</code>，父类构造函数需显式调用：</p>
+<pre><code class="kotlin">open class Person // 需open才能被继承
+interface Study
+
+class Student : Person(), Study &#123; // 继承类+实现接口
+    // 实现方法
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="8-其他语法糖"><a href="#8-其他语法糖" class="headerlink" title="8. 其他语法糖"></a>8. <strong>其他语法糖</strong></h3><ul>
+<li><p><strong>字符串模板</strong>：Kotlin 用<code>$</code>直接嵌入变量，Java 需<code>+</code>拼接：</p>
+<pre><code class="kotlin">val name = &quot;Bob&quot;
+println(&quot;Hello, $name&quot;) // 输出 Hello, Bob
+</code></pre>
+</li>
+<li><p><strong>集合操作</strong>：Kotlin 提供更简洁的集合 API（如<code>listOf</code>、<code>mapOf</code>），支持链式操作：</p>
+<pre><code class="kotlin">val numbers = listOf(1, 2, 3)
+val evenNumbers = numbers.filter &#123; it % 2 == 0 &#125; // 过滤偶数
+</code></pre>
+</li>
+<li><p><strong>扩展函数</strong>：Kotlin 可给现有类添加方法，无需继承：</p>
+<pre><code class="kotlin">fun String.addSuffix(): String &#123;
+    return this + &quot;_suffix&quot;
+&#125;
+&quot;test&quot;.addSuffix() // 结果为 &quot;test_suffix&quot;
+</code></pre>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Kotlin 在语法上简化了 Java 的冗余代码（如省略分号、自动生成 getter&#x2F;setter），强化了空安全和函数式编程特性，同时保持与 Java 的完全互操作性。对于熟悉 Java 的开发者，Kotlin 学习成本较低，且能显著提升开发效率。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
