@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>二叉搜索树与AVL树 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>二叉搜索树与AVL树</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/23
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>​              </p>
+<span id="more"></span>
+
+<h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><h3 id="一、二叉搜索树的定义与特性"><a href="#一、二叉搜索树的定义与特性" class="headerlink" title="一、二叉搜索树的定义与特性"></a>一、二叉搜索树的定义与特性</h3><ol>
+<li><p><strong>结构定义</strong></p>
+<p>二叉搜索树是由节点组成的二叉树，每个节点包含：</p>
+<ul>
+<li>一个值（关键字）；</li>
+<li>左子节点指针（指向左子树）；</li>
+<li>右子节点指针（指向右子树）。</li>
+</ul>
+</li>
+<li><p><strong>核心特性</strong></p>
+<p>对任意节点 ：</p>
+<ul>
+<li>左子树中所有节点的值 &lt; <code>node</code> 的值；</li>
+<li>右子树中所有节点的值 &gt; <code>node</code> 的值；</li>
+<li>左、右子树本身也必须是二叉搜索树（递归定义）；</li>
+<li>（可选）通常不允许重复值（若允许，需额外定义规则，如重复值放在右子树）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、二叉搜索树的基本操作"><a href="#二、二叉搜索树的基本操作" class="headerlink" title="二、二叉搜索树的基本操作"></a>二、二叉搜索树的基本操作</h3><h4 id="1-查找操作"><a href="#1-查找操作" class="headerlink" title="1. 查找操作"></a>1. 查找操作</h4><p><strong>思路</strong>：利用 BST 的特性，通过与当前节点值比较，逐步缩小查找范围：</p>
+<ul>
+<li>若目标值 &#x3D;&#x3D; 当前节点值：找到目标，返回节点；</li>
+<li>若目标值 &lt; 当前节点值：递归查找左子树；</li>
+<li>若目标值 &gt; 当前节点值：递归查找右子树；</li>
+<li>若遍历到空节点：目标不存在。</li>
+</ul>
+<p><strong>示例代码（C++）</strong>：</p>
+<pre><code class="cpp">struct TreeNode &#123;
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+&#125;;
+
+// 查找值为target的节点
+TreeNode* searchBST(TreeNode* root, int target) &#123;
+    if (root == nullptr || root-&gt;val == target) &#123;
+        return root; // 空树或找到目标
+    &#125;
+    if (target &lt; root-&gt;val) &#123;
+        return searchBST(root-&gt;left, target); // 查左子树
+    &#125; else &#123;
+        return searchBST(root-&gt;right, target); // 查右子树
+    &#125;
+&#125;
+</code></pre>
+<p><strong>时间复杂度</strong>：O (h)，其中 <code>h</code> 是树的高度。理想情况下（平衡树）h&#x3D;log n，最坏情况（斜树）h&#x3D;n。</p>
+<h4 id="2-插入操作"><a href="#2-插入操作" class="headerlink" title="2. 插入操作"></a>2. 插入操作</h4><p><strong>思路</strong>：类似查找，先找到插入位置（空节点），再创建新节点并连接到父节点的左 &#x2F; 右指针：</p>
+<ul>
+<li>若树为空：新节点作为根节点；</li>
+<li>若插入值 &lt; 当前节点值：递归插入到左子树；</li>
+<li>若插入值 &gt; 当前节点值：递归插入到右子树；</li>
+<li>（重复值处理）通常直接返回（不插入）。</li>
+</ul>
+<p><strong>示例代码（C++）</strong>：</p>
+<pre><code class="cpp">// 插入值为val的节点，返回新树的根
+TreeNode* insertIntoBST(TreeNode* root, int val) &#123;
+    if (root == nullptr) &#123;
+        return new TreeNode(val); // 找到插入位置
+    &#125;
+    if (val &lt; root-&gt;val) &#123;
+        root-&gt;left = insertIntoBST(root-&gt;left, val); // 插入左子树
+    &#125; else if (val &gt; root-&gt;val) &#123;
+        root-&gt;right = insertIntoBST(root-&gt;right, val); // 插入右子树
+    &#125;
+    return root; // 不处理重复值
+&#125;
+</code></pre>
+<p><strong>时间复杂度</strong>：O (h)，同查找操作。</p>
+<h4 id="3-删除操作"><a href="#3-删除操作" class="headerlink" title="3. 删除操作"></a>3. 删除操作</h4><p>删除操作较复杂，需根据目标节点的子树情况分三种情形处理，确保删除后仍满足 BST 特性：</p>
+<table>
+<thead>
+<tr>
+<th>情形</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目标节点无左、右子树（叶子节点）</td>
+<td>直接删除，父节点指针置空</td>
+</tr>
+<tr>
+<td>目标节点只有左子树或只有右子树</td>
+<td>用子树的根节点替换目标节点</td>
+</tr>
+<tr>
+<td>目标节点有左、右子树</td>
+<td>找到右子树中最小的节点（或左子树中最大的节点），用其值替换目标节点值，再删除该最小 &#x2F; 最大节点</td>
+</tr>
+</tbody></table>
+<p><strong>示例代码（C++）</strong>：</p>
+<pre><code class="cpp">// 找到以root为根的树中最小值的节点
+TreeNode* findMin(TreeNode* root) &#123;
+    while (root-&gt;left != nullptr) &#123;
+        root = root-&gt;left;
+    &#125;
+    return root;
+&#125;
+
+// 删除值为val的节点，返回新树的根
+TreeNode* deleteNode(TreeNode* root, int val) &#123;
+    if (root == nullptr) return nullptr; // 树为空，无需删除
+
+    // 1. 查找目标节点
+    if (val &lt; root-&gt;val) &#123;
+        root-&gt;left = deleteNode(root-&gt;left, val); // 左子树删除
+    &#125; else if (val &gt; root-&gt;val) &#123;
+        root-&gt;right = deleteNode(root-&gt;right, val); // 右子树删除
+    &#125; else &#123;
+        // 2. 找到目标节点，处理删除
+        if (root-&gt;left == nullptr) &#123; // 只有右子树或无子树
+            TreeNode* temp = root-&gt;right;
+            delete root;
+            return temp;
+        &#125; else if (root-&gt;right == nullptr) &#123; // 只有左子树
+            TreeNode* temp = root-&gt;left;
+            delete root;
+            return temp;
+        &#125; else &#123; // 左右子树都存在
+            // 找右子树最小节点（或左子树最大节点）
+            TreeNode* temp = findMin(root-&gt;right);
+            root-&gt;val = temp-&gt;val; // 替换值
+            // 删除右子树中最小节点
+            root-&gt;right = deleteNode(root-&gt;right, temp-&gt;val);
+        &#125;
+    &#125;
+    return root;
+&#125;
+</code></pre>
+<p><strong>时间复杂度</strong>：O (h)，同查找操作。</p>
+<h3 id="三、二叉搜索树的遍历"><a href="#三、二叉搜索树的遍历" class="headerlink" title="三、二叉搜索树的遍历"></a>三、二叉搜索树的遍历</h3><p>BST 的中序遍历（左→根→右）具有特殊意义：<strong>遍历结果是严格递增的有序序列</strong>。这是 BST 的重要特性，可用于验证树是否为 BST。</p>
+<p><strong>中序遍历示例代码（C++）</strong>：</p>
+<pre><code class="cpp">void inorderTraversal(TreeNode* root) &#123;
+    if (root == nullptr) return;
+    inorderTraversal(root-&gt;left);   // 遍历左子树
+    cout &lt;&lt; root-&gt;val &lt;&lt; &quot; &quot;;       // 访问根节点
+    inorderTraversal(root-&gt;right);  // 遍历右子树
+&#125;
+</code></pre>
+<p>例如，对如下 BST：</p>
+<pre><code class="plaintext">    4
+   / \
+  2   6
+ / \ / \
+1  3 5  7
+</code></pre>
+<p>中序遍历结果为：<code>1 2 3 4 5 6 7</code>（严格递增）。</p>
+<h2 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h2><h3 id="一、AVL-树的核心定义"><a href="#一、AVL-树的核心定义" class="headerlink" title="一、AVL 树的核心定义"></a>一、AVL 树的核心定义</h3><ol>
+<li><strong>二叉搜索树特性</strong>：对于任意节点，左子树所有节点值 &lt;该节点值，右子树所有节点值&gt; 该节点值（与 BST 一致）。</li>
+<li><strong>平衡约束</strong>：任意节点的<strong>左右子树高度差（平衡因子）的绝对值 ≤ 1</strong>。<ul>
+<li>平衡因子 &#x3D; 左子树高度 - 右子树高度。</li>
+<li>若平衡因子为 2 或 - 2，则称该节点<strong>失衡</strong>，需要通过旋转调整恢复平衡。</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、AVL-树的节点结构"><a href="#二、AVL-树的节点结构" class="headerlink" title="二、AVL 树的节点结构"></a>二、AVL 树的节点结构</h3><p>AVL 树的节点在 BST 节点基础上增加了<strong>高度（height）</strong> 字段，用于快速计算平衡因子：</p>
+<pre><code class="cpp">struct AVLNode &#123;
+    int val;           // 节点值
+    AVLNode* left;     // 左子节点
+    AVLNode* right;    // 右子节点
+    int height;        // 以该节点为根的子树高度（空节点高度为0）
+    AVLNode(int x) : val(x), left(nullptr), right(nullptr), height(1) &#123;&#125;
+&#125;;
+</code></pre>
+<ul>
+<li>新节点的初始高度为 1（自身作为叶子节点）。</li>
+<li>非叶子节点的高度 &#x3D; max (左子树高度，右子树高度) + 1。</li>
+</ul>
+<h3 id="三、AVL-树的核心操作"><a href="#三、AVL-树的核心操作" class="headerlink" title="三、AVL 树的核心操作"></a>三、AVL 树的核心操作</h3><h4 id="1-辅助函数"><a href="#1-辅助函数" class="headerlink" title="1. 辅助函数"></a>1. 辅助函数</h4><p>为实现平衡维护，需要以下辅助函数：</p>
+<ul>
+<li><p><strong>获取节点高度</strong>：处理空节点的边界情况。</p>
+<pre><code class="cpp">int getHeight(AVLNode* node) &#123;
+    return (node == nullptr) ? 0 : node-&gt;height;
+&#125;
+</code></pre>
+</li>
+<li><p><strong>计算平衡因子</strong>：判断节点是否失衡。</p>
+<pre><code class="cpp">int getBalance(AVLNode* node) &#123;
+    return (node == nullptr) ? 0 : getHeight(node-&gt;left) - getHeight(node-&gt;right);
+&#125;
+</code></pre>
+</li>
+<li><p><strong>更新节点高度</strong>：插入或旋转后需更新节点高度。</p>
+<pre><code class="cpp">void updateHeight(AVLNode* node) &#123;
+    if (node != nullptr) &#123;
+        node-&gt;height = 1 + max(getHeight(node-&gt;left), getHeight(node-&gt;right));
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h4 id="2-旋转操作（核心）"><a href="#2-旋转操作（核心）" class="headerlink" title="2. 旋转操作（核心）"></a>2. 旋转操作（核心）</h4><p>当节点失衡（平衡因子为 ±2）时，需通过<strong>旋转</strong>调整树结构以恢复平衡。旋转的目标是：</p>
+<ul>
+<li>降低失衡节点的子树高度。</li>
+<li>维持二叉搜索树的特性（左小右大）。</li>
+</ul>
+<p>根据失衡节点的左 &#x2F; 右子树的平衡状态，分为 4 种旋转场景：</p>
+<h5 id="（1）LL-旋转（左左失衡）"><a href="#（1）LL-旋转（左左失衡）" class="headerlink" title="（1）LL 旋转（左左失衡）"></a>（1）LL 旋转（左左失衡）</h5><ul>
+<li><p><strong>触发条件</strong>：失衡节点的平衡因子为 2，且其左子节点的平衡因子 ≥ 0（左子树的左子树更高）。</p>
+</li>
+<li><p><strong>操作</strong>：将失衡节点的左子节点提升为新根，失衡节点作为其右子节点，原左子节点的右子树转为失衡节点的左子树。</p>
+<p><img src="/../images/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8EAVL%E6%A0%91/1761233948568.png" alt="1761233948568"></p>
+<pre><code class="cpp">AVLNode* llRotate(AVLNode* y) &#123;
+    AVLNode* x = y-&gt;left;       // x是y的左子节点
+    AVLNode* T2 = x-&gt;right;     // T2是x的右子树
+
+    x-&gt;right = y;               // y成为x的右子节点
+    y-&gt;left = T2;               // T2成为y的左子树
+
+    // 更新高度（先更新y，再更新x，因x是y的父节点）
+    updateHeight(y);
+    updateHeight(x);
+
+    return x; // x成为新的根节点
+&#125;
+</code></pre>
+</li>
+</ul>
+<h5 id="（2）RR-旋转（右右失衡）"><a href="#（2）RR-旋转（右右失衡）" class="headerlink" title="（2）RR 旋转（右右失衡）"></a>（2）RR 旋转（右右失衡）</h5><ul>
+<li><p><strong>触发条件</strong>：失衡节点的平衡因子为 - 2，且其右子节点的平衡因子 ≤ 0（右子树的右子树更高）。</p>
+</li>
+<li><p><strong>操作</strong>：将失衡节点的右子节点提升为新根，失衡节点作为其左子节点，原右子节点的左子树转为失衡节点的右子树。</p>
+<p><img src="/../images/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8EAVL%E6%A0%91/1761234031632.png" alt="1761234031632"></p>
+</li>
+</ul>
+<pre><code class="c++">AVLNode* rrRotate(AVLNode* y) &#123;
+    AVLNode* x = y-&gt;right;      // x是y的右子节点
+    AVLNode* T2 = x-&gt;left;      // T2是x的左子树
+
+    x-&gt;left = y;                // y成为x的左子节点
+    y-&gt;right = T2;              // T2成为y的右子树
+
+    // 更新高度
+    updateHeight(y);
+    updateHeight(x);
+
+    return x; // x成为新的根节点
+&#125;
+</code></pre>
+<h5 id="（3）LR-旋转（左右失衡）"><a href="#（3）LR-旋转（左右失衡）" class="headerlink" title="（3）LR 旋转（左右失衡）"></a>（3）LR 旋转（左右失衡）</h5><ul>
+<li><p><strong>触发条件</strong>：失衡节点的平衡因子为 2，且其左子节点的平衡因子 &lt; 0（左子树的右子树更高）。</p>
+</li>
+<li><p><strong>操作</strong>：先对左子节点执行 RR 旋转（转为 LL 型），再对失衡节点执行 LL 旋转。</p>
+<p><img src="/../images/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8EAVL%E6%A0%91/1761234065591.png" alt="1761234065591"></p>
+<pre><code class="cpp">AVLNode* lrRotate(AVLNode* y) &#123;
+    y-&gt;left = rrRotate(y-&gt;left); // 先将左子树转为LL型
+    return llRotate(y);          // 再做LL旋转
+&#125;
+</code></pre>
+</li>
+</ul>
+<h5 id="（4）RL-旋转（右左失衡）"><a href="#（4）RL-旋转（右左失衡）" class="headerlink" title="（4）RL 旋转（右左失衡）"></a>（4）RL 旋转（右左失衡）</h5><ul>
+<li><p><strong>触发条件</strong>：失衡节点的平衡因子为 - 2，且其右子节点的平衡因子 &gt; 0（右子树的左子树更高）。</p>
+</li>
+<li><p><strong>操作</strong>：先对右子节点执行 LL 旋转（转为 RR 型），再对失衡节点执行 RR 旋转。</p>
+<p><img src="/../images/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8EAVL%E6%A0%91/1761234298746.png" alt="1761234298746"></p>
+</li>
+</ul>
+<pre><code class="c++">
+AVLNode* rlRotate(AVLNode* y) &#123;
+    y-&gt;right = llRotate(y-&gt;right); // 先将右子树转为RR型
+    return rrRotate(y);            // 再做RR旋转
+&#125;
+</code></pre>
+<h4 id="3-插入操作"><a href="#3-插入操作" class="headerlink" title="3. 插入操作"></a>3. 插入操作</h4><p>AVL 树的插入流程：</p>
+<ol>
+<li><strong>按 BST 规则插入</strong>：递归找到插入位置，创建新节点。</li>
+<li><strong>更新高度</strong>：从插入节点向上回溯，更新所有祖先节点的高度。</li>
+<li><strong>检查平衡</strong>：计算每个祖先节点的平衡因子，若失衡则执行对应旋转。</li>
+<li><strong>返回新根</strong>：旋转后可能改变子树的根，需将新根返回给父节点。</li>
+</ol>
+<pre><code class="cpp">AVLNode* insert(AVLNode* root, int val) &#123;
+    // 1. 按BST规则插入新节点
+    if (root == nullptr) &#123;
+        return new AVLNode(val); // 空树，直接创建节点
+    &#125;
+    if (val &lt; root-&gt;val) &#123;
+        root-&gt;left = insert(root-&gt;left, val); // 插入左子树
+    &#125; else if (val &gt; root-&gt;val) &#123;
+        root-&gt;right = insert(root-&gt;right, val); // 插入右子树
+    &#125; else &#123;
+        return root; // 不允许重复值
+    &#125;
+
+    // 2. 更新当前节点高度
+    updateHeight(root);
+
+    // 3. 计算平衡因子，检查是否失衡
+    int balance = getBalance(root);
+
+    // 4. 失衡处理（四种情况）
+    if (balance &gt; 1) &#123; // 左子树过高
+        if (val &lt; root-&gt;left-&gt;val) &#123;
+            return llRotate(root); // LL型
+        &#125; else &#123;
+            return lrRotate(root); // LR型
+        &#125;
+    &#125;
+    if (balance &lt; -1) &#123; // 右子树过高
+        if (val &gt; root-&gt;right-&gt;val) &#123;
+            return rrRotate(root); // RR型
+        &#125; else &#123;
+            return rlRotate(root); // RL型
+        &#125;
+    &#125;
+
+    // 未失衡，返回原节点
+    return root;
+&#125;
+</code></pre>
+<h4 id="4-删除操作"><a href="#4-删除操作" class="headerlink" title="4. 删除操作"></a>4. 删除操作</h4><p>删除操作与插入类似，但更复杂：</p>
+<ol>
+<li><strong>按 BST 规则删除</strong>：分三种情况（叶子节点、单孩子节点、双孩子节点）删除目标节点。</li>
+<li><strong>更新高度</strong>：从删除位置向上回溯，更新祖先节点高度。</li>
+<li><strong>检查平衡</strong>：若节点失衡，执行对应旋转（旋转逻辑与插入相同）。</li>
+</ol>
+<pre><code class="cpp">// 查找以root为根的树中的最小值节点（用于双孩子节点删除）
+AVLNode* findMin(AVLNode* root) &#123;
+    while (root-&gt;left != nullptr) root = root-&gt;left;
+    return root;
+&#125;
+
+AVLNode* deleteNode(AVLNode* root, int val) &#123;
+    // 1. 按BST规则删除节点
+    if (root == nullptr) return nullptr; // 树为空
+
+    if (val &lt; root-&gt;val) &#123;
+        root-&gt;left = deleteNode(root-&gt;left, val); // 左子树删除
+    &#125; else if (val &gt; root-&gt;val) &#123;
+        root-&gt;right = deleteNode(root-&gt;right, val); // 右子树删除
+    &#125; else &#123; // 找到目标节点
+        // 情况1：叶子节点或只有一个孩子
+        if (root-&gt;left == nullptr) &#123;
+            AVLNode* temp = root-&gt;right;
+            delete root;
+            return temp;
+        &#125; else if (root-&gt;right == nullptr) &#123;
+            AVLNode* temp = root-&gt;left;
+            delete root;
+            return temp;
+        &#125;
+        // 情况2：有两个孩子，用右子树最小值替换
+        AVLNode* temp = findMin(root-&gt;right);
+        root-&gt;val = temp-&gt;val;
+        root-&gt;right = deleteNode(root-&gt;right, temp-&gt;val); // 删除右子树最小值
+    &#125;
+
+    // 若树为空，直接返回
+    if (root == nullptr) return nullptr;
+
+    // 2. 更新当前节点高度
+    updateHeight(root);
+
+    // 3. 计算平衡因子，处理失衡
+    int balance = getBalance(root);
+
+    // 左子树失衡
+    if (balance &gt; 1) &#123;
+        if (getBalance(root-&gt;left) &gt;= 0) &#123;
+            return llRotate(root); // LL型
+        &#125; else &#123;
+            return lrRotate(root); // LR型
+        &#125;
+    &#125;
+    // 右子树失衡
+    if (balance &lt; -1) &#123;
+        if (getBalance(root-&gt;right) &lt;= 0) &#123;
+            return rrRotate(root); // RR型
+        &#125; else &#123;
+            return rlRotate(root); // RL型
+        &#125;
+    &#125;
+
+    return root;
+&#125;
+</code></pre>
+<h3 id="四、AVL-树的性能分析"><a href="#四、AVL-树的性能分析" class="headerlink" title="四、AVL 树的性能分析"></a>四、AVL 树的性能分析</h3><ul>
+<li><strong>时间复杂度</strong>：插入、删除、查找均为**O(log n)**，因平衡约束保证树高为 O (log n)（n 为节点数）。</li>
+<li><strong>空间复杂度</strong>：O (n)，需存储 n 个节点及高度信息。</li>
+<li><strong>优势</strong>：严格平衡，查询效率稳定。</li>
+<li><strong>劣势</strong>：旋转操作频繁（尤其是插入和删除时），维护成本较高，适用于查询密集、插入删除较少的场景。</li>
+</ul>
+<h3 id="五、AVL树构建C-示例"><a href="#五、AVL树构建C-示例" class="headerlink" title="五、AVL树构建C++示例"></a>五、AVL树构建C++示例</h3><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt; // 用于max函数
+using namespace std;
+
+// AVL树节点结构
+struct AVLNode &#123;
+    int data;
+    AVLNode* left;
+    AVLNode* right;
+    int height; // 节点高度
+
+    // 构造函数
+    AVLNode(int val) : data(val), left(nullptr), right(nullptr), height(1) &#123;&#125;
+&#125;;
+
+// 获取节点高度（空节点高度为0）
+int getHeight(AVLNode* node) &#123;
+    return (node == nullptr) ? 0 : node-&gt;height;
+&#125;
+
+// 计算平衡因子（左子树高度 - 右子树高度）
+int getBalance(AVLNode* node) &#123;
+    return (node == nullptr) ? 0 : getHeight(node-&gt;left) - getHeight(node-&gt;right);
+&#125;
+
+// LL旋转（左左旋转）
+AVLNode* llRotate(AVLNode* y) &#123;
+    AVLNode* x = y-&gt;left;
+    AVLNode* T2 = x-&gt;right;
+
+    // 执行旋转
+    x-&gt;right = y;
+    y-&gt;left = T2;
+
+    // 更新高度
+    y-&gt;height = 1 + max(getHeight(y-&gt;left), getHeight(y-&gt;right));
+    x-&gt;height = 1 + max(getHeight(x-&gt;left), getHeight(x-&gt;right));
+
+    // 返回新的根节点
+    return x;
+&#125;
+
+// RR旋转（右右旋转）
+AVLNode* rrRotate(AVLNode* y) &#123;
+    AVLNode* x = y-&gt;right;
+    AVLNode* T2 = x-&gt;left;
+
+    // 执行旋转
+    x-&gt;left = y;
+    y-&gt;right = T2;
+
+    // 更新高度
+    y-&gt;height = 1 + max(getHeight(y-&gt;left), getHeight(y-&gt;right));
+    x-&gt;height = 1 + max(getHeight(x-&gt;left), getHeight(x-&gt;right));
+
+    // 返回新的根节点
+    return x;
+&#125;
+
+// LR旋转（左右旋转）：先对左子树做RR旋转，再做LL旋转
+AVLNode* lrRotate(AVLNode* y) &#123;
+    y-&gt;left = rrRotate(y-&gt;left); // 先将左子树转为LL型
+    return llRotate(y);          // 再做LL旋转
+&#125;
+
+// RL旋转（右左旋转）：先对右子树做LL旋转，再做RR旋转
+AVLNode* rlRotate(AVLNode* y) &#123;
+    y-&gt;right = llRotate(y-&gt;right); // 先将右子树转为RR型
+    return rrRotate(y);            // 再做RR旋转
+&#125;
+
+// 插入节点并维持AVL平衡
+AVLNode* insert(AVLNode* node, int val) &#123;
+    // 1. 执行普通二叉搜索树插入
+    if (node == nullptr) &#123;
+        return new AVLNode(val); // 插入新节点
+    &#125;
+
+    if (val &lt; node-&gt;data) &#123;
+        node-&gt;left = insert(node-&gt;left, val); // 插入左子树
+    &#125; else if (val &gt; node-&gt;data) &#123;
+        node-&gt;right = insert(node-&gt;right, val); // 插入右子树
+    &#125; else &#123;
+        // AVL树不允许重复值（题目说明输入值不同）
+        return node;
+    &#125;
+
+    // 2. 更新当前节点高度
+    node-&gt;height = 1 + max(getHeight(node-&gt;left), getHeight(node-&gt;right));
+
+    // 3. 计算平衡因子，检查是否失衡
+    int balance = getBalance(node);
+
+    // 4. 失衡处理（四种情况）
+    // LL型：左子树的左子树插入导致失衡
+    if (balance &gt; 1 &amp;&amp; val &lt; node-&gt;left-&gt;data) &#123;
+        return llRotate(node);
+    &#125;
+    // RR型：右子树的右子树插入导致失衡
+    if (balance &lt; -1 &amp;&amp; val &gt; node-&gt;right-&gt;data) &#123;
+        return rrRotate(node);
+    &#125;
+    // LR型：左子树的右子树插入导致失衡
+    if (balance &gt; 1 &amp;&amp; val &gt; node-&gt;left-&gt;data) &#123;
+        return lrRotate(node);
+    &#125;
+    // RL型：右子树的左子树插入导致失衡
+    if (balance &lt; -1 &amp;&amp; val &lt; node-&gt;right-&gt;data) &#123;
+        return rlRotate(node);
+    &#125;
+
+    // 未失衡，返回原节点
+    return node;
+&#125;
+
+int main() &#123;
+    int n;
+    cin &gt;&gt; n;
+
+    AVLNode* root = nullptr;
+    for (int i = 0; i &lt; n; ++i) &#123;
+        int val;
+        cin &gt;&gt; val;
+        root = insert(root, val);
+    &#125;
+
+    cout &lt;&lt; root-&gt;data &lt;&lt; endl;
+
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
