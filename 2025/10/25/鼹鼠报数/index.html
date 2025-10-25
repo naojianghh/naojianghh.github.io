@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>categories | NaoJianghh</title>
+    <title>鼹鼠报数 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,45 +155,156 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/categories/study/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                学习
-            </a>
+            <div class="article">
+    <div>
+        <h1>鼹鼠报数</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/25
         </span>
         
         
-        
-        <span>
-            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">
+                    算法
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/categories/%E5%BC%80%E5%8F%91/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                开发
-            </a>
-        </span>
-        
         
     </div>
+    
+    <div class="content" v-pre>
+        <p>二叉搜索树的应用示例。</p>
+<span id="more"></span>
+
+<h2 id="鼹鼠报数"><a href="#鼹鼠报数" class="headerlink" title="鼹鼠报数"></a>鼹鼠报数</h2><h2 id="★实验任务"><a href="#★实验任务" class="headerlink" title="★实验任务"></a>★实验任务</h2><p>Winder 养了一群会报数的鼹鼠，而且Winder喜欢用数字给他的鼹鼠们编号，如“311”、“1048”等。当然，为了不混淆，鼹鼠们的编号都是不同的。为了锻炼鼹鼠们的身体健康，Winder决定让鼹鼠们进行掘土训练，顺便提高鼹鼠们的挖掘能力。<br>鼹鼠们排成一列，由第一个开始向下挖洞，并待在洞中。第二只与第一只相比，若编号值大的鼹鼠，则向右下方挖洞，否则向左下方。接下来的鼹鼠们以此类推，若比洞中所在鼹鼠编号值大，则向右下方走，否则向左下方。<br>训练结束后，Winder会让他的鼹鼠们报数（既报出各自的编号）。通过报数的序列Winder想知道经过训练之后，鼹鼠们的位置是怎样的。<br>报数规则为：如果A鼹鼠的下方分别存在ALeft鼹鼠和ARight鼹鼠，则ALeft鼹鼠在ARight鼹鼠之前报数，ARight鼹鼠在A鼹鼠之前报数。<br>位置表达式规则为：“根节点&lt;左子树表达式&gt;&lt;右子树表达式&gt;”,如左子树不存在,则只输出“根节点&lt;右子树表达式&gt;”，右子树同理。</p>
+<p><img src="/../images/%E9%BC%B9%E9%BC%A0%E6%8A%A5%E6%95%B0/1761393457224.png" alt="1761393457224"></p>
+<p>例如上图，报数顺序为2，4，7，5，3可以表示为 3&lt;2&gt;&lt;5&lt;4&gt;&lt;7&gt;&gt;</p>
+<h2 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h2><p>第一行为N（2&lt;N&lt;&#x3D;1000），表示有N只鼹鼠。<br>第二行为N个整数bi（0&lt;bi&lt;10000），表示报数顺序。</p>
+<h2 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h2><p>输出鼹鼠们的位置表达式。</p>
+<table>
+<thead>
+<tr>
+<th>输入示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+</tr>
+<tr>
+<td>2 4 7 5 3</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>输出示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3&lt;2&gt;&lt;5&lt;4&gt;&lt;7&gt;&gt;</td>
+</tr>
+</tbody></table>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><pre><code class="c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+
+using namespace std;
+
+class TreeNode &#123;
+public:
+    int id;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int id) : id(id), left(nullptr), right(nullptr) &#123;&#125;
+&#125;;
+
+TreeNode* insertBST(TreeNode* root, int id) &#123;
+    if (root == nullptr) return new TreeNode(id);
+    if (id &lt; root-&gt;id) &#123;
+        root-&gt;left = insertBST(root-&gt;left, id);
+    &#125;
+    else if (id &gt; root-&gt;id)&#123;
+        root-&gt;right = insertBST(root-&gt;right, id);
+    &#125;
+    return root;
+&#125;
+
+void preOrder(TreeNode* root) &#123;
+    if (root == nullptr) return;
+    cout &lt;&lt; root-&gt;id;
+    if (root-&gt;left) &#123;
+        cout &lt;&lt; &#39;&lt;&#39;;
+        preOrder(root-&gt;left);
+        cout &lt;&lt; &#39;&gt;&#39;;
+    &#125;
+    if (root-&gt;right) &#123;
+        cout &lt;&lt; &#39;&lt;&#39;;
+        preOrder(root-&gt;right);
+        cout &lt;&lt; &#39;&gt;&#39;;
+        
+    &#125;
+    
+    return;
+&#125;
+
+int main()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+    TreeNode* T = nullptr;
+    vector&lt;int&gt; arr;
+    for (int i = 0; i &lt; n;i ++) &#123;
+        int id;
+        cin &gt;&gt; id;
+        arr.push_back(id);
+    &#125;
+    for (int i = 0; i &lt; n; i++) &#123;
+        T = insertBST(T, arr[n - 1 - i]);
+    &#125;
+    preOrder(T);
+    return 0;
+&#125;
+</code></pre>
+<h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><p><strong>解题需要先清楚</strong>： 将 BST 的后序遍历序列逆序后，按 BST 插入规则重建的树，与原 BST 结构相同。</p>
+<p>题目给出的是BST的后序遍历序列，我们可以将其逆序，再依次插入BST，得到原BST，最后再前序遍历BST就可以得到结果。 </p>
+<h3 id="1-数据结构与核心操作"><a href="#1-数据结构与核心操作" class="headerlink" title="1. 数据结构与核心操作"></a>1. 数据结构与核心操作</h3><ul>
+<li><strong>TreeNode 类</strong>：定义二叉树节点，包含节点值<code>id</code>和左右子树指针<code>left</code>&#x2F;<code>right</code>。</li>
+<li><strong>insertBST 函数</strong>：按 BST 规则插入节点（左子树节点值小于根，右子树节点值大于根），保证树的有序性。</li>
+</ul>
+<h3 id="2-核心逻辑"><a href="#2-核心逻辑" class="headerlink" title="2. 核心逻辑"></a>2. 核心逻辑</h3><h4 id="逆序插入构建-BST"><a href="#逆序插入构建-BST" class="headerlink" title="逆序插入构建 BST"></a>逆序插入构建 BST</h4><ul>
+<li><p>输入一个整数序列<code>arr</code>（长度为<code>n</code>）。</p>
+</li>
+<li><p>从序列的</p>
+<p>最后一个元素开始，依次向前遍历（即按<code>arr[n-1] → arr[n-2] → ... → arr[0]</code>的顺序），将每个元素插入 BST。</p>
+<ul>
+<li>目的：以逆序序列的第一个元素（原序列最后一个元素）为根，逐步构建 BST。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -221,6 +336,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas
