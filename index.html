@@ -213,7 +213,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">算法</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">算法</a>
         </span>
         
     </div>
@@ -252,7 +252,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">算法</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00a596">算法</a>
         </span>
         
     </div>
@@ -316,190 +316,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <span id="more"></span>
-
-<h3 id="一、二叉树的核心概念"><a href="#一、二叉树的核心概念" class="headerlink" title="一、二叉树的核心概念"></a><strong>一、二叉树的核心概念</strong></h3><p>二叉树是每个节点最多有两个子节点（左子节点、右子节点）的树形结构，具有以下特点：</p>
-<ul>
-<li><strong>根节点</strong>：无父节点的唯一节点。</li>
-<li><strong>叶子节点</strong>：无左 &#x2F; 右子节点的节点。</li>
-<li><strong>子树</strong>：以任意节点为根的二叉树（左子树、右子树）。</li>
-<li><strong>深度</strong>：根节点到某节点的路径长度（根节点深度为 1）。</li>
-<li><strong>高度</strong>：某节点到最深叶子节点的路径长度（叶子节点高度为 1）。</li>
-</ul>
-<h4 id="性质-1：节点数量与层数的关系"><a href="#性质-1：节点数量与层数的关系" class="headerlink" title="性质 1：节点数量与层数的关系"></a><strong>性质 1：节点数量与层数的关系</strong></h4><ul>
-<li><p>第 <code>i</code> 层最多有 <code>2^(i-1)</code> 个节点<code>（i ≥ 1）</code>。</p>
-<p>例如：第 1 层（根节点）最多 1 个<code>（2^0）</code>，第 2 层最多 2 个<code>（2^1）</code>，第 3 层最多 4 个<code>（2^2）</code>，以此类推。</p>
-</li>
-</ul>
-<h4 id="性质-2：深度与总节点数的关系"><a href="#性质-2：深度与总节点数的关系" class="headerlink" title="性质 2：深度与总节点数的关系"></a><strong>性质 2：深度与总节点数的关系</strong></h4><ul>
-<li><p>深度为 <code>k</code> 的二叉树最多有 <code>2^k - 1</code> 个节点<code>（k ≥ 1）</code>。</p>
-<p>此时二叉树为满二叉树（每一层节点数都达到最大值）。</p>
-<p>例如：深度为 3 的满二叉树最多有<code>2^3 - 1 = 7</code>个节点。</p>
-</li>
-</ul>
-<h4 id="性质-3：叶子节点与度为-2-的节点的关系"><a href="#性质-3：叶子节点与度为-2-的节点的关系" class="headerlink" title="性质 3：叶子节点与度为 2 的节点的关系"></a><strong>性质 3：叶子节点与度为 2 的节点的关系</strong></h4><ul>
-<li><p>对任意非空二叉树，若叶子节点数为 <code>n₀</code>，度为 2 的节点数为 <code>n₂</code>，则 <code>n₀ = n₂ + 1</code>。</p>
-<p>（度：节点的子节点数，二叉树中节点的度只能是 0、1、2）</p>
-<p>推导：总节点数<code>n = n₀ + n₁ + n₂</code>（<code>n₁</code>为度为 1 的节点数），</p>
-<p>总边数 <code>n-1 = n₁ + 2n₂</code>（每个节点除根外都有一条父节点边），</p>
-<p>联立得<code>n₀ = n₂ + 1</code>。</p>
-</li>
-</ul>
-<h4 id="性质-4：完全二叉树的节点编号特性"><a href="#性质-4：完全二叉树的节点编号特性" class="headerlink" title="性质 4：完全二叉树的节点编号特性"></a><strong>性质 4：完全二叉树的节点编号特性</strong></h4><p>完全二叉树（除最后一层外均满，最后一层节点从左到右连续）中，若节点按层序编号（根为 1，左→右、上→下），则对任意节点 <code>i</code>（<code>i ≥ 1</code>）：</p>
-<ul>
-<li>左子节点编号为 <code>2i</code>（若存在）；</li>
-<li>右子节点编号为 <code>2i + 1</code>（若存在）；</li>
-<li>父节点编号为 <code>⌊i/2⌋</code>（若 <code>i &gt; 1</code>）。</li>
-</ul>
-<h4 id="性质-5：完全二叉树的深度计算"><a href="#性质-5：完全二叉树的深度计算" class="headerlink" title="性质 5：完全二叉树的深度计算"></a><strong>性质 5：完全二叉树的深度计算</strong></h4><ul>
-<li><p>具有 <code>n</code> 个节点的完全二叉树，深度为 <code>⌊log₂n⌋ + 1</code>（<code>⌊x⌋</code>表示向下取整）。</p>
-<p>例如：<code>n=6</code>时，<code>log₂6 ≈ 2.58</code>，深度为<code>2 + 1 = 3</code>。</p>
-</li>
-</ul>
-<h4 id="性质-6：完全二叉树的叶子节点分布"><a href="#性质-6：完全二叉树的叶子节点分布" class="headerlink" title="性质 6：完全二叉树的叶子节点分布"></a><strong>性质 6：完全二叉树的叶子节点分布</strong></h4><ul>
-<li>若完全二叉树有<code>n</code>个节点，则：<ul>
-<li>当 <code>n</code> 为奇数时，无度为 1 的节点（<code>n₁ = 0</code>）；</li>
-<li>当 <code>n</code> 为偶数时，有且仅有 1 个度为 1 的节点（<code>n₁ = 1</code>）。</li>
-</ul>
-</li>
-</ul>
-<h3 id="二、节点定义与基础结构"><a href="#二、节点定义与基础结构" class="headerlink" title="二、节点定义与基础结构"></a><strong>二、节点定义与基础结构</strong></h3><pre><code class="cpp">#include &lt;iostream&gt;
-#include &lt;queue&gt;  // 层序遍历用
-#include &lt;stack&gt;  // 迭代遍历用
-using namespace std;
-
-// 二叉树节点结构
-struct TreeNode &#123;
-    int val;         // 节点值
-    TreeNode* left;  // 左子节点指针
-    TreeNode* right; // 右子节点指针
-    // 构造函数
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
-&#125;;
-</code></pre>
-<h3 id="三、遍历算法（核心操作）"><a href="#三、遍历算法（核心操作）" class="headerlink" title="三、遍历算法（核心操作）"></a><strong>三、遍历算法（核心操作）</strong></h3><p>遍历是按规则访问所有节点，分为<strong>深度优先（DFS）</strong> 和<strong>广度优先（BFS）</strong> 两类。</p>
-<h4 id="1-深度优先遍历（DFS）"><a href="#1-深度优先遍历（DFS）" class="headerlink" title="1. 深度优先遍历（DFS）"></a><strong>1. 深度优先遍历（DFS）</strong></h4><p>包括前序、中序、后序遍历，核心是递归或用栈模拟递归。</p>
-<h5 id="（1）前序遍历（根-→-左-→-右）"><a href="#（1）前序遍历（根-→-左-→-右）" class="headerlink" title="（1）前序遍历（根 → 左 → 右）"></a><strong>（1）前序遍历（根 → 左 → 右）</strong></h5><pre><code class="cpp">// 递归实现
-void preorderRecursive(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    cout &lt;&lt; root-&gt;val &lt;&lt; &quot; &quot;;       // 访问根
-    preorderRecursive(root-&gt;left);  // 遍历左子树
-    preorderRecursive(root-&gt;right); // 遍历右子树
-&#125;
-
-// 迭代实现（用栈）
-void preorderIterative(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    stack&lt;TreeNode*&gt; st;
-    st.push(root);
-    while (!st.empty()) &#123;
-        TreeNode* cur = st.top();
-        st.pop();
-        cout &lt;&lt; cur-&gt;val &lt;&lt; &quot; &quot;;   // 访问根
-        // 右子树先入栈（栈是后进先出，保证左子树先访问）
-        if (cur-&gt;right != nullptr) st.push(cur-&gt;right);
-        if (cur-&gt;left != nullptr) st.push(cur-&gt;left);
-    &#125;
-&#125;
-</code></pre>
-<h5 id="（2）中序遍历（左-→-根-→-右）"><a href="#（2）中序遍历（左-→-根-→-右）" class="headerlink" title="（2）中序遍历（左 → 根 → 右）"></a><strong>（2）中序遍历（左 → 根 → 右）</strong></h5><p>对二叉搜索树（BST）遍历可得到升序序列。</p>
-<pre><code class="cpp">// 递归实现
-void inorderRecursive(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    inorderRecursive(root-&gt;left);   // 遍历左子树
-    cout &lt;&lt; root-&gt;val &lt;&lt; &quot; &quot;;       // 访问根
-    inorderRecursive(root-&gt;right);  // 遍历右子树
-&#125;
-
-// 迭代实现（用栈）
-void inorderIterative(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    stack&lt;TreeNode*&gt; st;
-    TreeNode* cur = root;
-    while (cur != nullptr || !st.empty()) &#123;
-        // 左子树全部入栈
-        while (cur != nullptr) &#123;
-            st.push(cur);
-            cur = cur-&gt;left;
-        &#125;
-        // 访问节点，转向右子树
-        cur = st.top();
-        st.pop();
-        cout &lt;&lt; cur-&gt;val &lt;&lt; &quot; &quot;;
-        cur = cur-&gt;right;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="（3）后序遍历（左-→-右-→-根）"><a href="#（3）后序遍历（左-→-右-→-根）" class="headerlink" title="（3）后序遍历（左 → 右 → 根）"></a><strong>（3）后序遍历（左 → 右 → 根）</strong></h5><p>常用于删除节点或计算表达式树。</p>
-<pre><code class="cpp">// 递归实现
-void postorderRecursive(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    postorderRecursive(root-&gt;left);  // 遍历左子树
-    postorderRecursive(root-&gt;right); // 遍历右子树
-    cout &lt;&lt; root-&gt;val &lt;&lt; &quot; &quot;;        // 访问根
-&#125;
-
-// 迭代实现（双栈法）
-void postorderIterative(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    stack&lt;TreeNode*&gt; st1, st2;
-    st1.push(root);
-    // 栈1弹出顺序：根→右→左，压入栈2后弹出顺序为左→右→根
-    while (!st1.empty()) &#123;
-        TreeNode* cur = st1.top();
-        st1.pop();
-        st2.push(cur);
-        if (cur-&gt;left != nullptr) st1.push(cur-&gt;left);
-        if (cur-&gt;right != nullptr) st1.push(cur-&gt;right);
-    &#125;
-    // 输出栈2
-    while (!st2.empty()) &#123;
-        cout &lt;&lt; st2.top()-&gt;val &lt;&lt; &quot; &quot;;
-        st2.pop();
-    &#125;
-&#125;
-</code></pre>
-<h4 id="2-广度优先遍历（BFS）：层序遍历"><a href="#2-广度优先遍历（BFS）：层序遍历" class="headerlink" title="2. 广度优先遍历（BFS）：层序遍历"></a><strong>2. 广度优先遍历（BFS）：层序遍历</strong></h4><p>按层次访问节点，用队列实现。</p>
-<pre><code class="cpp">void levelorder(TreeNode* root) &#123;
-    if (root == nullptr) return;
-    queue&lt;TreeNode*&gt; q;
-    q.push(root); // 根节点入队
-    while (!q.empty()) &#123;
-        int size = q.size(); // 当前层节点数
-        // 遍历当前层所有节点
-        for (int i = 0; i &lt; size; ++i) &#123;
-            TreeNode* cur = q.front();
-            q.pop();
-            cout &lt;&lt; cur-&gt;val &lt;&lt; &quot; &quot;;
-            // 子节点入队（下一层）
-            if (cur-&gt;left != nullptr) q.push(cur-&gt;left);
-            if (cur-&gt;right != nullptr) q.push(cur-&gt;right);
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="四、常用操作"><a href="#四、常用操作" class="headerlink" title="四、常用操作"></a><strong>四、常用操作</strong></h3><pre><code class="cpp">// 计算二叉树高度（递归）
-int getHeight(TreeNode* root) &#123;
-    if (root == nullptr) return 0; // 空树高度为0
-    return max(getHeight(root-&gt;left), getHeight(root-&gt;right)) + 1;
-&#125;
-
-// 计算节点总数（递归）
-int getNodeCount(TreeNode* root) &#123;
-    if (root == nullptr) return 0;
-    return 1 + getNodeCount(root-&gt;left) + getNodeCount(root-&gt;right);
-&#125;
-
-// 销毁二叉树（后序遍历释放节点，避免内存泄漏）
-void destroyTree(TreeNode*&amp; root) &#123; // 传引用，确保root置空
-    if (root == nullptr) return;
-    destroyTree(root-&gt;left);
-    destroyTree(root-&gt;right);
-    delete root;
-    root = nullptr;
-&#125;
-</code></pre>
-
+            <p>二叉树的概念及性质</p>
             
         </div>
     </div>
@@ -513,7 +330,7 @@ void destroyTree(TreeNode*&amp; root) &#123; // 传引用，确保root置空
         
         <span class="tag">
             
-            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">算法</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">算法</a>
         </span>
         
     </div>
