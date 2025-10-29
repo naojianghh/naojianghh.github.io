@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>html简介与基本框架 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>html简介与基本框架</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/29
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p> HTML（HyperText Markup Language，超文本标记语言） </p>
+<span id="more"></span>
+
+<h2 id="一、HTML-简介"><a href="#一、HTML-简介" class="headerlink" title="一、HTML 简介"></a><strong>一、HTML 简介</strong></h2><p>HTML（HyperText Markup Language，超文本标记语言）是用于创建网页的标准标记语言。它通过一系列<strong>标签（tags）</strong> 描述网页的结构和内容（如文本、图片、链接、表格等），浏览器会解析这些标签并将其渲染为可视化的网页。</p>
+<ul>
+<li>核心特点：<ul>
+<li>不是编程语言，而是标记语言（通过标签定义内容的含义和结构）。</li>
+<li>标签通常成对出现（如 &#96;&#96;），由开始标签、内容和结束标签组成。</li>
+<li>不区分大小写，但推荐使用小写（符合规范）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、HTML-基础框架"><a href="#二、HTML-基础框架" class="headerlink" title="二、HTML 基础框架"></a><strong>二、HTML 基础框架</strong></h2><p>一个完整的 HTML 文档有固定的基本结构，以下是最基础的框架：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;网页标题&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- 这里是网页的可见内容 --&gt;
+    &lt;h1&gt;这是一级标题&lt;/h1&gt;
+    &lt;p&gt;这是一段文本。&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="三、框架各部分说明"><a href="#三、框架各部分说明" class="headerlink" title="三、框架各部分说明"></a><strong>三、框架各部分说明</strong></h2><ol>
+<li><strong><code>&lt;!DOCTYPE html&gt;</code></strong><ul>
+<li>声明文档类型，告诉浏览器这是一个 HTML5 文档（必须放在文档最开头）。</li>
+<li>不属于 HTML 标签，仅作为声明。</li>
+</ul>
+</li>
+<li><strong><code>&lt;html&gt;</code>标签</strong><ul>
+<li>整个 HTML 文档的根标签，所有内容都包裹在其中。</li>
+<li><code>lang=&quot;zh-CN&quot;</code> 属性：指定文档主要语言为中文（有助于搜索引擎和辅助工具识别）。</li>
+</ul>
+</li>
+<li><strong><code>&lt;head&gt;</code> 标签</strong><ul>
+<li>包含文档的<strong>元数据（metadata）</strong>，即不直接显示在页面上的信息（如标题、编码方式、样式等）。</li>
+<li>常见子标签：<ul>
+<li><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>：指定文档编码为 UTF-8（支持中文等多语言）。</li>
+<li><code>&lt;meta name=&quot;viewport&quot; ...&gt;</code>：用于响应式设计，确保移动端页面正确缩放。</li>
+<li><code>&lt;title&gt;</code>：定义网页标题（显示在浏览器标签页上，是搜索引擎优化的重要元素）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><code>&lt;body&gt;</code> 标签</strong><ul>
+<li>包含网页的<strong>可见内容</strong>，如文本、图片、链接、按钮等，浏览器会将这里的内容渲染到页面上。</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、入门示例"><a href="#四、入门示例" class="headerlink" title="四、入门示例"></a><strong>四、入门示例</strong></h2><p>以下是一个简单的完整 HTML 页面示例，可直接保存为 <code>.html</code> 文件（如 <code>index.html</code>），用浏览器打开即可查看效果：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;我的第一个网页&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;欢迎来到我的网页&lt;/h1&gt;
+    &lt;p&gt;这是我用 HTML 写的第一个页面。&lt;/p&gt;
+    &lt;a href=&quot;https://www.example.com&quot;&gt;点击访问示例网站&lt;/a&gt;
+    &lt;img src=&quot;https://picsum.photos/200/100&quot; alt=&quot;示例图片&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="五、子标签"><a href="#五、子标签" class="headerlink" title="五、&lt;body&gt;子标签"></a>五、<code>&lt;body&gt;</code>子标签</h2><h3 id="文本与标题标签"><a href="#文本与标题标签" class="headerlink" title="文本与标题标签"></a>文本与标题标签</h3><p>用于组织页面文本内容，明确层级关系。</p>
+<ol>
+<li><p><strong>标题标签</strong>（ <code>&lt;h1&gt;</code>到<code>&lt;h6&gt;</code>）表示不同级别的标题，<code>&lt;h1&gt;</code>级别最高 （通常一个页面只有一个）， <code>&lt;h6&gt;</code>最低。</p>
+<p>属性：<code>align</code>（有left | center | right 三个值）。</p>
+<pre><code class="html">&lt;h1&gt;一级标题（页面主标题）&lt;/h1&gt;
+&lt;h2&gt;二级标题（章节标题）&lt;/h2&gt;
+&lt;h3&gt;三级标题（小节标题）&lt;/h3&gt;
+&lt;!-- 以此类推到 h6 --&gt;
+
+&lt;h6 align=&quot;left&quot;&gt;六级标题 &lt;/h6&gt;
+</code></pre>
+</li>
+<li><p><strong>段落标签</strong>（<code>&lt;p&gt;</code>）定义一段文本，浏览器会自动在段落前后添加换行和间距。</p>
+<pre><code class="html">&lt;p&gt;这是一段普通文本，用于描述内容。&lt;/p&gt;
+&lt;p&gt;段落标签会自动分隔内容，让页面更易读。&lt;/p&gt;
+</code></pre>
+</li>
+<li><p><strong>换行标签</strong>（<code>&lt;br&gt;</code>）强制换行（单标签，无需闭合），常用于段落内的换行。</p>
+<pre><code class="html">&lt;p&gt;第一行文本&lt;br&gt;第二行文本（通过 br 标签换行）&lt;/p&gt;
+</code></pre>
+</li>
+<li><p><strong>文本格式化标签</strong></p>
+<p>用于强调或修饰文本：</p>
+<pre><code class="html">&lt;strong&gt;加粗文本&lt;/strong&gt;  &lt;!-- 语义上的强调，通常显示为粗体 --&gt;
+&lt;em&gt;斜体文本&lt;/em&gt;          &lt;!-- 语义上的强调，通常显示为斜体 --&gt;
+&lt;del&gt;删除线文本&lt;/del&gt;      &lt;!-- 表示已删除的内容 --&gt;
+&lt;ins&gt;下划线文本&lt;/ins&gt;      &lt;!-- 表示新增的内容 --&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="链接标签（）"><a href="#链接标签（）" class="headerlink" title="链接标签（&lt;a&gt;）"></a>链接标签（<code>&lt;a&gt;</code>）</h3><p>定义超链接，用于跳转至其他页面、文件或同一页面的指定位置。</p>
+<p>核心属性：<code>href</code>（目标地址）<code>target</code>（打开方式，<code>_blank</code>表示新窗口）。</p>
+<pre><code class="html">&lt;!-- 跳转到外部网站 --&gt;
+&lt;a href=&quot;https://www.baidu.com&quot; target=&quot;_blank&quot;&gt;百度一下&lt;/a&gt;
+
+&lt;!-- 跳转到本地页面（同一文件夹下的 page.html） --&gt;
+&lt;a href=&quot;page.html&quot;&gt;访问内部页面&lt;/a&gt;
+
+&lt;!-- 跳转到页面内的指定位置（需配合 id 属性） --&gt;
+&lt;a href=&quot;#section1&quot;&gt;跳至第一部分&lt;/a&gt;
+&lt;h2 id=&quot;section1&quot;&gt;第一部分内容&lt;/h2&gt;
+
+&lt;!-- 邮件链接（点击打开邮件客户端） --&gt;
+&lt;a href=&quot;mailto:example@mail.com&quot;&gt;发送邮件&lt;/a&gt;
+</code></pre>
+<h3 id="图像标签（）"><a href="#图像标签（）" class="headerlink" title="图像标签（&lt;img&gt;）"></a>图像标签（<code>&lt;img&gt;</code>）</h3><p>插入图片（单标签），核心属性：</p>
+<ul>
+<li><code>src</code>：图片路径（本地路径或网络 URL）。</li>
+<li><code>alt</code>：图片加载失败时的替代文本（必填，提升可访问性）。</li>
+<li><code>width</code>&#x2F;<code>height</code>：图片宽度 &#x2F; 高度（单位：像素或百分比）。</li>
+</ul>
+<pre><code class="html">&lt;!-- 插入网络图片 --&gt;
+&lt;img src=&quot;https://picsum.photos/400/200&quot; alt=&quot;示例风景图&quot; width=&quot;400&quot;&gt;
+
+&lt;!-- 插入本地图片（假设图片在 images 文件夹下） --&gt;
+&lt;img src=&quot;images/photo.jpg&quot; alt=&quot;本地照片&quot; height=&quot;200&quot;&gt;
+</code></pre>
+<h3 id="列表标签"><a href="#列表标签" class="headerlink" title="列表标签"></a>列表标签</h3><p>用于展示有序或无序的列表项。</p>
+<ol>
+<li><p><strong>无序列表</strong>（<code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code>）列表项前默认显示圆点（样式可通过 CSS 修改）。</p>
+<pre><code class="html">&lt;ul&gt;
+  &lt;li&gt;苹果&lt;/li&gt;
+  &lt;li&gt;香蕉&lt;/li&gt;
+  &lt;li&gt;橙子&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+</li>
+<li><p><strong>有序列表</strong>（<code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code>）列表项前显示数字（默认）、字母等序号。</p>
+<pre><code class="html">&lt;ol&gt;
+  &lt;li&gt;第一步：打开浏览器&lt;/li&gt;
+  &lt;li&gt;第二步：输入网址&lt;/li&gt;
+  &lt;li&gt;第三步：按下回车&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+</li>
+<li><p><strong>定义列表</strong>（<code>&lt;dl&gt;</code> + <code>&lt;dt&gt;</code> + <code>&lt;dd&gt;</code>）用于展示 “术语 - 解释” 类内容。</p>
+<pre><code class="html">&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;超文本标记语言，用于构建网页结构。&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;层叠样式表，用于美化网页。&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="容器标签"><a href="#容器标签" class="headerlink" title="容器标签"></a>容器标签</h3><p>用于布局和分组内容，无默认样式，需配合 CSS 使用。</p>
+<ol>
+<li><p><code>&lt;div&gt;</code>：块级容器（独占一行），常用于大区块布局（如头部、主体、底部）。</p>
+</li>
+<li><p><code>&lt;span&gt;</code>：行内容器（不独占一行），常用于包裹文本中的部分内容（如单独修饰某段文字）。</p>
+<pre><code class="html">&lt;p&gt;我喜欢 &lt;span style=&quot;color: red;&quot;&gt;红色&lt;/span&gt; 和 &lt;span style=&quot;color: blue;&quot;&gt;蓝色&lt;/span&gt;。&lt;/p&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="表格标签（）"><a href="#表格标签（）" class="headerlink" title="表格标签（&lt;table&gt;）"></a>表格标签（<code>&lt;table&gt;</code>）</h3><p>用于展示结构化数据（如成绩单、价格表）。</p>
+<p>核心标签：<code>&lt;table&gt;</code>（表格）、<code>&lt;tr&gt;</code>（行）、<code>&lt;td&gt;</code>（单元格）、<code>&lt;th&gt;</code>（表头单元格，默认加粗居中）。</p>
+<pre><code class="html">&lt;table border=&quot;1&quot;&gt;  &lt;!-- border 属性添加边框（仅示例用，实际推荐用 CSS） --&gt;
+  &lt;tr&gt;
+    &lt;th&gt;姓名&lt;/th&gt;
+    &lt;th&gt;年龄&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;张三&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;李四&lt;/td&gt;
+    &lt;td&gt;22&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<h3 id="表单标签（）"><a href="#表单标签（）" class="headerlink" title="表单标签（&lt;form&gt;）"></a>表单标签（<code>&lt;form&gt;</code>）</h3><p>用于收集用户输入（如登录、注册、搜索），配合输入类标签使用。</p>
+<p>核心属性：<code>action</code>（提交数据的地址）、<code>method</code>（提交方式、<code>get</code>或<code>post</code>）</p>
+<p>常用输入标签：</p>
+<ul>
+<li><code>&lt;input&gt;</code>：单行文本、密码、复选框等（通过 <code>type</code> 属性控制类型）。</li>
+<li><code>&lt;textarea&gt;</code>：多行文本输入。</li>
+<li><code>&lt;select&gt;</code> + <code>&lt;option&gt;</code>：下拉选择框。</li>
+<li><code>&lt;button&gt;</code>：提交或重置按钮。</li>
+</ul>
+<pre><code class="html">&lt;form action=&quot;/submit&quot; method=&quot;post&quot;&gt;
+  &lt;p&gt;
+    &lt;label for=&quot;name&quot;&gt;姓名：&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;username&quot;&gt;  &lt;!-- name 用于后端接收数据 --&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for=&quot;pwd&quot;&gt;密码：&lt;/label&gt;
+    &lt;input type=&quot;password&quot; id=&quot;pwd&quot; name=&quot;password&quot;&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label&gt;性别：&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;male&quot;&gt; 男
+    &lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;female&quot;&gt; 女
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;
+    &lt;button type=&quot;reset&quot;&gt;重置&lt;/button&gt;
+  &lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p>这些标签是构建网页内容的基础，实际开发中会结合 CSS（美化样式）和 JavaScript（添加交互），让页面更丰富。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
