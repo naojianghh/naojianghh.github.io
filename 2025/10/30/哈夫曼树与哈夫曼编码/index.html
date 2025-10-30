@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>哈夫曼树与哈夫曼编码 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>哈夫曼树与哈夫曼编码</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/10/30
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>QAQ</p>
+<span id="more"></span>
+
+<h1 id="哈夫曼树与哈夫曼编码详解"><a href="#哈夫曼树与哈夫曼编码详解" class="headerlink" title="哈夫曼树与哈夫曼编码详解"></a>哈夫曼树与哈夫曼编码详解</h1><h2 id="一、哈夫曼树构建原理"><a href="#一、哈夫曼树构建原理" class="headerlink" title="一、哈夫曼树构建原理"></a>一、哈夫曼树构建原理</h2><h3 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h3><p><strong>哈夫曼树（Huffman Tree）</strong>：是一种带权路径长度最短的二叉树，也称为最优二叉树。</p>
+<p><strong>关键术语：</strong></p>
+<ul>
+<li><strong>权值（Weight）</strong>：每个字符的出现频率或概率</li>
+<li><strong>路径长度</strong>：从根节点到该节点的边数</li>
+<li><strong>节点的带权路径长度</strong>：权值 × 路径长度</li>
+<li><strong>树的带权路径长度（WPL）</strong>：所有叶子节点的带权路径长度之和</li>
+</ul>
+<h3 id="1-2-构建算法步骤"><a href="#1-2-构建算法步骤" class="headerlink" title="1.2 构建算法步骤"></a>1.2 构建算法步骤</h3><h4 id="步骤1：初始化"><a href="#步骤1：初始化" class="headerlink" title="步骤1：初始化"></a>步骤1：初始化</h4><p>将每个字符看作一个独立的二叉树，权值为该字符的频率，组成森林F。</p>
+<p><strong>示例</strong>：假设有字符集 {A, B, C, D}，频率分别为 {5, 3, 2, 1}</p>
+<p>初始森林：</p>
+<pre><code>A(5)  B(3)  C(2)  D(1)
+</code></pre>
+<h4 id="步骤2：选择最小权值树"><a href="#步骤2：选择最小权值树" class="headerlink" title="步骤2：选择最小权值树"></a>步骤2：选择最小权值树</h4><p>从森林F中选择<strong>权值最小的两棵树</strong>（如果有多棵树权值相同，任意选择）。</p>
+<p>第一次选择：C(2) 和 D(1) 最小</p>
+<h4 id="步骤3：合并树"><a href="#步骤3：合并树" class="headerlink" title="步骤3：合并树"></a>步骤3：合并树</h4><p>将选中的两棵树合并，新树的根节点权值为两棵树权值之和，原来的两棵树作为新树的左右子树。</p>
+<p>合并C和D：</p>
+<pre><code>新根节点(3)
+     /   \
+   C(2)  D(1)
+</code></pre>
+<p>更新后的森林：</p>
+<pre><code>A(5)  B(3)  新树(3)
+</code></pre>
+<h4 id="步骤4：重复过程"><a href="#步骤4：重复过程" class="headerlink" title="步骤4：重复过程"></a>步骤4：重复过程</h4><p>重复步骤2-3，直到森林中只剩一棵树。</p>
+<p><strong>第二次选择</strong>：B(3) 和新树(3) 最小（权值相同，任意选择）</p>
+<pre><code>  新根节点(6)
+       /    \
+     B(3)   新树(3)
+              /   \
+            C(2)  D(1)
+</code></pre>
+<p>更新后的森林：</p>
+<pre><code>A(5)  新树(6)
+</code></pre>
+<p><strong>第三次选择</strong>：A(5) 和新树(6) 合并</p>
+<pre><code>    根节点(11)
+        /    \
+     A(5)    新树(6)
+              /   \
+            B(3)   子树(3)
+                    /   \
+                  C(2)  D(1)
+</code></pre>
+<h3 id="1-3-构建过程可视化"><a href="#1-3-构建过程可视化" class="headerlink" title="1.3 构建过程可视化"></a>1.3 构建过程可视化</h3><pre><code>初始: A(5)  B(3)  C(2)  D(1)
+
+第1次合并: 
+   C(2) + D(1) = 新树1(3)
+   森林: A(5)  B(3)  新树1(3)
+
+第2次合并:
+   B(3) + 新树1(3) = 新树2(6)
+   森林: A(5)  新树2(6)
+
+第3次合并:
+   A(5) + 新树2(6) = 根节点(11)
+   完成构建
+</code></pre>
+<p>最终哈夫曼树：</p>
+<pre><code>      11
+     /  \
+    5     6
+   A(5)  / \
+       3     3
+      B(3)  / \
+          2     1
+         C(2) D(1)
+</code></pre>
+<h2 id="二、哈夫曼编码原理"><a href="#二、哈夫曼编码原理" class="headerlink" title="二、哈夫曼编码原理"></a>二、哈夫曼编码原理</h2><h3 id="2-1-编码规则"><a href="#2-1-编码规则" class="headerlink" title="2.1 编码规则"></a>2.1 编码规则</h3><p><strong>前缀编码特性</strong>：任何一个字符的编码都不是另一个字符编码的前缀，保证了解码的唯一性。</p>
+<p><strong>编码规则：</strong></p>
+<ol>
+<li>从根节点开始，向左子树走编码为’0’，向右子树走编码为’1’</li>
+<li>到达叶子节点时，路径上的0和1序列就是该字符的编码</li>
+</ol>
+<h3 id="2-2-编码过程"><a href="#2-2-编码过程" class="headerlink" title="2.2 编码过程"></a>2.2 编码过程</h3><p>基于上面构建的哈夫曼树：</p>
+<pre><code>       11
+     0/  \1
+    5     6
+   A    0/ \1
+       3     3
+      B    0/ \1
+          2     1
+         C     D
+</code></pre>
+<p><strong>编码生成：</strong></p>
+<ul>
+<li><strong>A</strong>：从根向左 → <code>0</code></li>
+<li><strong>B</strong>：从根向右(1)，再向左(0) → <code>10</code></li>
+<li><strong>C</strong>：从根向右(1)，再向右(1)，再向左(0) → <code>110</code></li>
+<li><strong>D</strong>：从根向右(1)，再向右(1)，再向右(1) → <code>111</code></li>
+</ul>
+<p>编码表：</p>
+<pre><code>A: 0
+B: 10  
+C: 110
+D: 111
+</code></pre>
+<h3 id="2-3-编码验证"><a href="#2-3-编码验证" class="headerlink" title="2.3 编码验证"></a>2.3 编码验证</h3><p><strong>前缀编码验证：</strong></p>
+<ul>
+<li>A的编码<code>0</code>不是B<code>10</code>、C<code>110</code>、D<code>111</code>的前缀</li>
+<li>B的编码<code>10</code>不是C<code>110</code>、D<code>111</code>的前缀</li>
+<li>C的编码<code>110</code>不是D<code>111</code>的前缀</li>
+</ul>
+<p><strong>满足前缀编码条件，可以无歧义解码。</strong></p>
+<h3 id="2-4-编码示例"><a href="#2-4-编码示例" class="headerlink" title="2.4 编码示例"></a>2.4 编码示例</h3><p>文本：<code>&quot;ABACABAD&quot;</code></p>
+<p>编码过程：</p>
+<pre><code>A: 0
+B: 10
+A: 0  
+C: 110
+A: 0
+B: 10
+A: 0
+D: 111
+</code></pre>
+<p>编码结果：<code>0 10 0 110 0 10 0 111</code>→ <code>01001100100111</code></p>
+<h3 id="2-5-解码过程"><a href="#2-5-解码过程" class="headerlink" title="2.5 解码过程"></a>2.5 解码过程</h3><p>编码流：<code>01001100100111</code></p>
+<p>解码：</p>
+<ol>
+<li>从根开始，读入<code>0</code>→ 到达A，输出A，回到根</li>
+<li>读入<code>1</code>→ 向右，读入<code>0</code>→ 到达B，输出B，回到根</li>
+<li>读入<code>0</code>→ 到达A，输出A，回到根</li>
+<li>读入<code>1</code>→ 向右，读入<code>1</code>→ 向右，读入<code>0</code>→ 到达C，输出C，回到根</li>
+<li>继续解码…</li>
+</ol>
+<p>最终得到：<code>ABACABAD</code></p>
+<h2 id="三、数学原理分析"><a href="#三、数学原理分析" class="headerlink" title="三、数学原理分析"></a>三、数学原理分析</h2><h3 id="3-1-最优性证明"><a href="#3-1-最优性证明" class="headerlink" title="3.1 最优性证明"></a>3.1 最优性证明</h3><p><strong>贪心选择性质</strong>：每次选择频率最小的两个节点合并，可以保证全局最优。</p>
+<p><strong>数学证明思路：</strong></p>
+<ol>
+<li>频率最小的两个字符在最优编码中深度最大</li>
+<li>这两个字符应该是兄弟节点</li>
+<li>将问题规模缩小，数学归纳法证明</li>
+</ol>
+<h3 id="3-2-压缩效率计算"><a href="#3-2-压缩效率计算" class="headerlink" title="3.2 压缩效率计算"></a>3.2 压缩效率计算</h3><p><strong>原始编码</strong>（定长编码）：</p>
+<ul>
+<li>4个字符需要2位：A:00, B:01, C:10, D:11</li>
+<li>文本”ABACABAD”长度：8字符 × 2位 &#x3D; 16位</li>
+</ul>
+<p><strong>哈夫曼编码</strong>：</p>
+<ul>
+<li>A(频率5): 1位 × 5次 &#x3D; 5位</li>
+<li>B(频率3): 2位 × 3次 &#x3D; 6位</li>
+<li>C(频率2): 3位 × 2次 &#x3D; 6位</li>
+<li>D(频率1): 3位 × 1次 &#x3D; 3位</li>
+<li>总位数：5 + 6 + 6 + 3 &#x3D; 20位</li>
+</ul>
+<p><strong>压缩率</strong>：(16 - 20)&#x2F;16 × 100% &#x3D; -25%（实际是膨胀，因为示例数据量小）</p>
+<p><strong>注意</strong>：对于实际的大文本，高频字符用短编码，总体效果是压缩。</p>
+<h3 id="3-3-复杂度分析"><a href="#3-3-复杂度分析" class="headerlink" title="3.3 复杂度分析"></a>3.3 复杂度分析</h3><p><strong>时间复杂度</strong>：O(n log n)</p>
+<ul>
+<li>使用最小堆选择最小权值节点</li>
+</ul>
+<p><strong>空间复杂度</strong>：O(n)</p>
+<ul>
+<li>存储哈夫曼树节点和编码表</li>
+</ul>
+<h2 id="四、核心特点总结"><a href="#四、核心特点总结" class="headerlink" title="四、核心特点总结"></a>四、核心特点总结</h2><h3 id="4-1-哈夫曼树特点"><a href="#4-1-哈夫曼树特点" class="headerlink" title="4.1 哈夫曼树特点"></a>4.1 哈夫曼树特点</h3><ol>
+<li><strong>带权路径最短</strong>：WPL最小</li>
+<li><strong>没有度为1的节点</strong>：严格的二叉树</li>
+<li><strong>频率高的字符靠近根节点</strong></li>
+<li><strong>频率低的字符在深层</strong></li>
+</ol>
+<h3 id="4-2-哈夫曼编码特点"><a href="#4-2-哈夫曼编码特点" class="headerlink" title="4.2 哈夫曼编码特点"></a>4.2 哈夫曼编码特点</h3><ol>
+<li><strong>前缀编码</strong>：无歧义解码</li>
+<li><strong>最优压缩</strong>：对于给定频率分布是最优的</li>
+<li><strong>变长编码</strong>：高频字符用短编码，低频字符用长编码</li>
+<li><strong>需要编码表</strong>：解码时需要哈夫曼树或编码表</li>
+</ol>
+<h2 id="五、哈夫曼树构建示例（cpp）"><a href="#五、哈夫曼树构建示例（cpp）" class="headerlink" title="五、哈夫曼树构建示例（cpp）"></a>五、哈夫曼树构建示例（cpp）</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;unordered_map&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+// 哈夫曼树节点结构
+struct HuffmanNode &#123;
+    char data;           // 字符
+    int frequency;       // 频率
+    HuffmanNode *left;   // 左子树
+    HuffmanNode *right;  // 右子树
+    
+    // 构造函数
+    HuffmanNode(char data, int frequency) : data(data), frequency(frequency), 
+                                           left(nullptr), right(nullptr) &#123;&#125;
+&#125;;
+
+// 比较器，用于优先队列（最小堆）
+struct CompareNodes &#123;
+    bool operator()(HuffmanNode* a, HuffmanNode* b) &#123;
+        return a-&gt;frequency &gt; b-&gt;frequency; // 频率小的节点优先级高
+    &#125;
+&#125;;
+
+// 构建哈夫曼树
+HuffmanNode* buildHuffmanTree(const unordered_map&lt;char, int&gt;&amp; frequencies) &#123;
+    // 创建优先队列（最小堆）
+    priority_queue&lt;HuffmanNode*, vector&lt;HuffmanNode*&gt;, CompareNodes&gt; minHeap;
+    
+    // 将所有字符节点加入堆
+    for (const auto&amp; pair : frequencies) &#123;
+        minHeap.push(new HuffmanNode(pair.first, pair.second));
+    &#125;
+    
+    // 构建哈夫曼树
+    while (minHeap.size() &gt; 1) &#123;
+        // 取出频率最小的两个节点
+        HuffmanNode* left = minHeap.top();
+        minHeap.pop();
+        
+        HuffmanNode* right = minHeap.top();
+        minHeap.pop();
+        
+        // 创建新的内部节点，频率为两个节点频率之和
+        HuffmanNode* internalNode = new HuffmanNode(&#39;$&#39;, left-&gt;frequency + right-&gt;frequency);
+        internalNode-&gt;left = left;
+        internalNode-&gt;right = right;
+        
+        // 将新节点加入堆
+        minHeap.push(internalNode);
+    &#125;
+    
+    // 剩下的节点就是根节点
+    return minHeap.top();
+&#125;
+
+// 生成哈夫曼编码
+void generateHuffmanCodes(HuffmanNode* root, string currentCode, 
+                         unordered_map&lt;char, string&gt;&amp; huffmanCodes) &#123;
+    if (root == nullptr) &#123;
+        return;
+    &#125;
+    
+    // 如果是叶子节点，保存其编码
+    if (root-&gt;data != &#39;$&#39;) &#123;
+        huffmanCodes[root-&gt;data] = currentCode;
+        return;
+    &#125;
+    
+    // 递归遍历左子树和右子树
+    generateHuffmanCodes(root-&gt;left, currentCode + &quot;0&quot;, huffmanCodes);
+    generateHuffmanCodes(root-&gt;right, currentCode + &quot;1&quot;, huffmanCodes);
+&#125;
+
+// 编码字符串
+string encodeString(const string&amp; text, const unordered_map&lt;char, string&gt;&amp; huffmanCodes) &#123;
+    string encodedString;
+    for (char c : text) &#123;
+        encodedString += huffmanCodes.at(c);
+    &#125;
+    return encodedString;
+&#125;
+
+// 解码哈夫曼编码
+string decodeString(const string&amp; encodedString, HuffmanNode* root) &#123;
+    string decodedString;
+    HuffmanNode* current = root;
+    
+    for (char bit : encodedString) &#123;
+        if (bit == &#39;0&#39;) &#123;
+            current = current-&gt;left;
+        &#125; else &#123;
+            current = current-&gt;right;
+        &#125;
+        
+        // 如果到达叶子节点
+        if (current-&gt;left == nullptr &amp;&amp; current-&gt;right == nullptr) &#123;
+            decodedString += current-&gt;data;
+            current = root; // 回到根节点，开始下一个字符的解码
+        &#125;
+    &#125;
+    
+    return decodedString;
+&#125;
+
+// 计算字符频率
+unordered_map&lt;char, int&gt; calculateFrequencies(const string&amp; text) &#123;
+    unordered_map&lt;char, int&gt; frequencies;
+    for (char c : text) &#123;
+        frequencies[c]++;
+    &#125;
+    return frequencies;
+&#125;
+
+// 释放哈夫曼树内存
+void deleteHuffmanTree(HuffmanNode* root) &#123;
+    if (root == nullptr) return;
+    deleteHuffmanTree(root-&gt;left);
+    deleteHuffmanTree(root-&gt;right);
+    delete root;
+&#125;
+
+int main() &#123;
+    string text = &quot;this is an example for huffman encoding&quot;;
+    
+    // 计算字符频率
+    unordered_map&lt;char, int&gt; frequencies = calculateFrequencies(text);
+    
+    // 构建哈夫曼树
+    HuffmanNode* root = buildHuffmanTree(frequencies);
+    
+    // 生成哈夫曼编码
+    unordered_map&lt;char, string&gt; huffmanCodes;
+    generateHuffmanCodes(root, &quot;&quot;, huffmanCodes);
+    
+    // 输出哈夫曼编码
+    cout &lt;&lt; &quot;哈夫曼编码：&quot; &lt;&lt; endl;
+    for (const auto&amp; pair : huffmanCodes) &#123;
+        cout &lt;&lt; pair.first &lt;&lt; &quot; : &quot; &lt;&lt; pair.second &lt;&lt; endl;
+    &#125;
+    
+    // 编码字符串
+    string encodedString = encodeString(text, huffmanCodes);
+    cout &lt;&lt; &quot;\n编码后的字符串：&quot; &lt;&lt; encodedString &lt;&lt; endl;
+    
+    // 解码字符串
+    string decodedString = decodeString(encodedString, root);
+    cout &lt;&lt; &quot;\n解码后的字符串：&quot; &lt;&lt; decodedString &lt;&lt; endl;
+    
+    // 计算压缩率
+    int originalSize = text.size() * 8; // 假设每个字符占8位
+    int compressedSize = encodedString.size();
+    double compressionRatio = (1.0 - (double)compressedSize / originalSize) * 100;
+    cout &lt;&lt; &quot;\n原始大小：&quot; &lt;&lt; originalSize &lt;&lt; &quot; 位&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;压缩后大小：&quot; &lt;&lt; compressedSize &lt;&lt; &quot; 位&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;压缩率：&quot; &lt;&lt; compressionRatio &lt;&lt; &quot;%&quot; &lt;&lt; endl;
+    
+    // 释放内存
+    deleteHuffmanTree(root);
+    
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
