@@ -51,13 +51,13 @@ http://example.com/about/index.html
 http://example.com/
 http://example.com/tags/Android/
 http://example.com/tags/%E5%BC%80%E5%8F%91/
-http://example.com/tags/web/
 http://example.com/tags/%E9%80%86%E5%90%91/
+http://example.com/tags/web/
 http://example.com/tags/java/
 http://example.com/tags/c/
 http://example.com/tags/Git/
-http://example.com/tags/xml/
 http://example.com/tags/ctf/
+http://example.com/tags/xml/
 http://example.com/tags/cgg/
 http://example.com/tags/web%E5%89%8D%E7%AB%AF/
 http://example.com/tags/%E7%AE%97%E6%B3%95/
