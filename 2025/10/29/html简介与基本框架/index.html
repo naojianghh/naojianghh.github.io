@@ -176,7 +176,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #00a596">
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #03a9f4">
                     web前端
                 </a>
             </span>
@@ -276,18 +276,29 @@
 <pre><code class="html">&lt;p&gt;第一行文本&lt;br&gt;第二行文本（通过 br 标签换行）&lt;/p&gt;
 </code></pre>
 </li>
+<li><p><strong>水平线标签</strong>（<code>&lt;hr&gt;</code>）</p>
+<pre><code class="html">&lt;hr color=&quot;grean&quot; width=&quot;300px&quot; size=&quot;20px&quot; align=&quot;left | right&quot; /&gt;
+&lt;!-- 默认居中 --&gt;
+</code></pre>
+</li>
 <li><p><strong>文本格式化标签</strong></p>
 <p>用于强调或修饰文本：</p>
-<pre><code class="html">&lt;strong&gt;加粗文本&lt;/strong&gt;  &lt;!-- 语义上的强调，通常显示为粗体 --&gt;
-&lt;em&gt;斜体文本&lt;/em&gt;          &lt;!-- 语义上的强调，通常显示为斜体 --&gt;
-&lt;del&gt;删除线文本&lt;/del&gt;      &lt;!-- 表示已删除的内容 --&gt;
-&lt;ins&gt;下划线文本&lt;/ins&gt;      &lt;!-- 表示新增的内容 --&gt;
+<pre><code class="html">
 </code></pre>
 </li>
 </ol>
-<h3 id="链接标签（）"><a href="#链接标签（）" class="headerlink" title="链接标签（&lt;a&gt;）"></a>链接标签（<code>&lt;a&gt;</code>）</h3><p>定义超链接，用于跳转至其他页面、文件或同一页面的指定位置。</p>
-<p>核心属性：<code>href</code>（目标地址）<code>target</code>（打开方式，<code>_blank</code>表示新窗口）。</p>
-<pre><code class="html">&lt;!-- 跳转到外部网站 --&gt;
+<p><strong>加重语气</strong>  <!-- 语义上的强调，定义加重语气 --><br><em>定义着重字</em>        <!-- 语义上的强调，定义着重字 --><br><del>删除线文本</del>      <!-- 定义删除字 --><br><i>定义斜体文本</i>        <!-- 定义斜体文本 --><br><b>定义粗体文本</b>        <!-- 定义粗体文本 --><br><span> </spans>          <!-- 元素没有特定含义 --></p>
+<pre><code>
+![1762346266156](../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762346266156.png)
+
+### 链接标签（`&lt;a&gt;`）
+
+定义超链接，用于跳转至其他页面、文件或同一页面的指定位置。
+
+核心属性：`href`（目标地址）`target`（打开方式，`_blank`表示新窗口）。
+
+```html
+&lt;!-- 跳转到外部网站 --&gt;
 &lt;a href=&quot;https://www.baidu.com&quot; target=&quot;_blank&quot;&gt;百度一下&lt;/a&gt;
 
 &lt;!-- 跳转到本地页面（同一文件夹下的 page.html） --&gt;
@@ -309,8 +320,11 @@
 <pre><code class="html">&lt;!-- 插入网络图片 --&gt;
 &lt;img src=&quot;https://picsum.photos/400/200&quot; alt=&quot;示例风景图&quot; width=&quot;400&quot;&gt;
 
-&lt;!-- 插入本地图片（假设图片在 images 文件夹下） --&gt;
+&lt;!-- 插入本地图片（假设图片在 images 文件夹下 --&gt;
 &lt;img src=&quot;images/photo.jpg&quot; alt=&quot;本地照片&quot; height=&quot;200&quot;&gt;
+
+&lt;!-- alt为规定图片替代的文本，title为鼠标指向时显示的图片文本 --&gt;
+&lt;img src=&quot;&quot; width=&quot;&quot; height=&quot;&quot; alt=&quot;&quot; tile&quot;&quot;&gt;
 </code></pre>
 <h3 id="列表标签"><a href="#列表标签" class="headerlink" title="列表标签"></a>列表标签</h3><p>用于展示有序或无序的列表项。</p>
 <ol>
@@ -321,8 +335,11 @@
   &lt;li&gt;橙子&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762347245808.png" alt="1762347245808"></p>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762347744621.png" alt="1762347744621"></p>
 </li>
 <li><p><strong>有序列表</strong>（<code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code>）列表项前显示数字（默认）、字母等序号。</p>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762346818862.png" alt="1762346818862"></p>
 <pre><code class="html">&lt;ol&gt;
   &lt;li&gt;第一步：打开浏览器&lt;/li&gt;
   &lt;li&gt;第二步：输入网址&lt;/li&gt;
@@ -366,8 +383,34 @@
   &lt;/tr&gt;
 &lt;/table&gt;
 </code></pre>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762348075853.png" alt="1762348075853"></p>
+<p><img src="C:/Users/zxy/AppData/Roaming/Typora/typora-user-images/1762348197398.png" alt="1762348197398"></p>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762348658556.png" alt="1762348658556"></p>
+<pre><code class="html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td colspan=&quot;2&quot;&gt;单元格1和2&lt;/td&gt;
+        &lt;td&gt;单元格3&lt;/td&gt;
+        &lt;td&gt;单元格4&lt;/td&gt;
+    &lt;/tr&gt;
+    
+    &lt;tr&gt;
+        &lt;td&gt;单元格5&lt;/td&gt;
+        &lt;td&gt;单元格6&lt;/td&gt;
+        &lt;td&gt;单元格7&lt;/td&gt;
+        &lt;td rowspan=&quot;2&quot;&gt;单元格8和12&lt;/td&gt;
+    &lt;/tr&gt;
+    
+    &lt;tr&gt;
+        &lt;td&gt;单元格9&lt;/td&gt;
+        &lt;td&gt;单元格10&lt;/td&gt;
+        &lt;td&gt;单元格11&lt;/td&gt;
+    &lt;/tr&gt;
+    
+&lt;/table&gt;
+</code></pre>
 <h3 id="表单标签（）"><a href="#表单标签（）" class="headerlink" title="表单标签（&lt;form&gt;）"></a>表单标签（<code>&lt;form&gt;</code>）</h3><p>用于收集用户输入（如登录、注册、搜索），配合输入类标签使用。</p>
 <p>核心属性：<code>action</code>（提交数据的地址）、<code>method</code>（提交方式、<code>get</code>或<code>post</code>）</p>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762349731335.png" alt="1762349731335"></p>
 <p>常用输入标签：</p>
 <ul>
 <li><code>&lt;input&gt;</code>：单行文本、密码、复选框等（通过 <code>type</code> 属性控制类型）。</li>
@@ -396,6 +439,11 @@
 &lt;/form&gt;
 </code></pre>
 <p>这些标签是构建网页内容的基础，实际开发中会结合 CSS（美化样式）和 JavaScript（添加交互），让页面更丰富。</p>
+<h2 id="六、块元素与内联元素"><a href="#六、块元素与内联元素" class="headerlink" title="六、块元素与内联元素"></a>六、块元素与内联元素</h2><p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762351373456.png" alt="1762351373456"></p>
+<p><img src="C:/Users/zxy/AppData/Roaming/Typora/typora-user-images/1762351394120.png" alt="1762351394120"></p>
+<h2 id="七、HTML5新增标签"><a href="#七、HTML5新增标签" class="headerlink" title="七、HTML5新增标签"></a>七、HTML5新增标签</h2><p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762352492016.png" alt="1762352492016"></p>
+<p><img src="/../images/html%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6/1762352305826.png" alt="1762352305826"></p>
+<p>上方为传统写法，下方为新标签。</p>
 
     </div>
     

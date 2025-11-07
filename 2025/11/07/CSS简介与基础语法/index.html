@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS简介与基础语法 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS简介与基础语法</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/7
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>CSS（层叠样式表）的核心作用是为 HTML 元素设置样式，其语法规则简洁清晰，核心由「选择器」「声明块」「属性 - 值对」三部分构成，同时包含注释、引入方式等基础规范。</p>
+<span id="more"></span>
+
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="一、核心语法结构"><a href="#一、核心语法结构" class="headerlink" title="一、核心语法结构"></a>一、核心语法结构</h2><p>CSS 规则的基本格式如下，核心是「选中元素 + 定义样式」：</p>
+<pre><code class="css">/* 选择器：指定要样式化的 HTML 元素 */
+选择器 &#123;
+  /* 声明块：包裹一组样式声明（属性-值对） */
+  属性1: 值1; /* 样式声明：属性和值用冒号分隔，结尾必须加分号（可省略最后一个，但推荐都加） */
+  属性2: 值2;
+&#125;
+</code></pre>
+<h3 id="1-关键组成部分说明"><a href="#1-关键组成部分说明" class="headerlink" title="1. 关键组成部分说明"></a>1. 关键组成部分说明</h3><table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择器</td>
+<td>定位 HTML 中需要样式化的元素（如标签、类、ID 等）</td>
+<td><code>p</code>（选中所有 &#96;&#96; 标签）、<code>.box</code>（选中所有 <code>class=&quot;box&quot;</code> 的元素）</td>
+</tr>
+<tr>
+<td>声明块</td>
+<td>用 <code>&#123;&#125;</code> 包裹，包含一个或多个样式声明</td>
+<td><code>&#123; color: red; font-size: 16px; &#125;</code></td>
+</tr>
+<tr>
+<td>属性</td>
+<td>CSS 预定义的样式名（如颜色、字体、宽度等）</td>
+<td><code>color</code>（文字颜色）、<code>width</code>（宽度）、<code>background</code>（背景）</td>
+</tr>
+<tr>
+<td>值</td>
+<td>对应属性的具体设置（需符合属性的取值规范）</td>
+<td><code>red</code>（颜色值）、<code>16px</code>（尺寸值）、<code>center</code>（对齐方式）</td>
+</tr>
+</tbody></table>
+<h3 id="2-基础示例"><a href="#2-基础示例" class="headerlink" title="2. 基础示例"></a>2. 基础示例</h3><pre><code class="css">/* 选中所有 &lt;h1&gt; 标签，设置文字颜色红色、字体大小 24px */
+h1 &#123;
+  color: red;
+  font-size: 24px;
+&#125;
+
+/* 选中 class=&quot;container&quot; 的元素，设置宽度 1200px、水平居中 */
+.container &#123;
+  width: 1200px;
+  margin: 0 auto;
+&#125;
+</code></pre>
+<h2 id="二、选择器：如何选中元素？"><a href="#二、选择器：如何选中元素？" class="headerlink" title="二、选择器：如何选中元素？"></a>二、选择器：如何选中元素？</h2><p>选择器是 CSS 的核心，用于精准定位 HTML 元素，以下是最常用的基础选择器：</p>
+<table>
+<thead>
+<tr>
+<th>选择器类型</th>
+<th>语法</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>元素选择器</td>
+<td>标签名</td>
+<td>选中所有该标签的元素</td>
+<td><code>div &#123; ... &#125;</code>（选中所有 <code>&lt;div&gt;</code>）</td>
+</tr>
+<tr>
+<td>类选择器</td>
+<td><code>.类名</code></td>
+<td>选中所有 <code>class=&quot;类名&quot;</code> 的元素（可复用）</td>
+<td><code>.active &#123; color: blue; &#125;</code>（选中 <code>&lt;p class=&quot;active&quot;&gt;</code>）</td>
+</tr>
+<tr>
+<td>ID 选择器</td>
+<td><code>#ID名</code></td>
+<td>选中唯一 <code>id=&quot;ID名&quot;</code> 的元素（不可重复）</td>
+<td><code>#header &#123; height: 80px; &#125;</code>（选中 <code>&lt;header id=&quot;header&quot;&gt;</code>）</td>
+</tr>
+<tr>
+<td>通配符选择器</td>
+<td><code>*</code></td>
+<td>选中页面所有元素（慎用，性能较低）</td>
+<td><code>* &#123; margin: 0; padding: 0; &#125;</code>（清除所有元素默认边距）</td>
+</tr>
+<tr>
+<td>后代选择器</td>
+<td>选择器 1 选择器 2</td>
+<td>选中选择器 1 内部的所有选择器 2 元素</td>
+<td><code>nav a &#123; text-decoration: none; &#125;</code>（选中 <code>&lt;nav&gt;</code> 内所有 <code>&lt;a&gt;</code>）</td>
+</tr>
+<tr>
+<td>交集选择器</td>
+<td>选择器 1 选择器 2</td>
+<td>同时满足两个选择器的元素（无空格）</td>
+<td><code>p.active &#123; font-weight: bold; &#125;</code>（选中 <code>&lt;p class=&quot;active&quot;&gt;</code>）</td>
+</tr>
+<tr>
+<td>并集选择器</td>
+<td>选择器 1, 选择器 2</td>
+<td>同时选中多个选择器的元素（用逗号分隔）</td>
+<td><code>h1, h2, h3 &#123; color: #333; &#125;</code>（选中所有 <code>h1/h2/h3</code>）</td>
+</tr>
+</tbody></table>
+<h2 id="三、样式声明：属性与值的规则"><a href="#三、样式声明：属性与值的规则" class="headerlink" title="三、样式声明：属性与值的规则"></a>三、样式声明：属性与值的规则</h2><h3 id="1-属性值的常见类型"><a href="#1-属性值的常见类型" class="headerlink" title="1. 属性值的常见类型"></a>1. 属性值的常见类型</h3><p>CSS 属性值需符合对应属性的规范，常见类型：</p>
+<ul>
+<li>颜色值：<code>red</code>（英文）、<code>#ff0000</code>（十六进制）、<code>rgb(255,0,0)</code>（RGB）、<code>rgba(255,0,0,0.5)</code>（带透明度）</li>
+<li>尺寸值：<code>10px</code>（像素，固定尺寸）、<code>2em</code>（相对当前字体大小）、<code>50%</code>（相对父元素尺寸）、<code>auto</code>（自动）</li>
+<li>关键字：<code>center</code>（居中）、<code>block</code>（块级）、<code>none</code>（无）、<code>bold</code>（加粗）</li>
+</ul>
+<h3 id="2-声明的注意事项"><a href="#2-声明的注意事项" class="headerlink" title="2. 声明的注意事项"></a>2. 声明的注意事项</h3><ul>
+<li>分号必须：每个声明结尾必须加 <code>;</code>，否则后续样式可能失效（最后一个声明可省略，但推荐统一添加，避免出错）</li>
+<li>大小写不敏感：CSS 对大小写不敏感（如 <code>Color: Red</code> 等价于 <code>color: red</code>），但建议统一小写（规范）</li>
+<li>空格不影响：声明中可适当加空格（如 <code>font-size: 16px</code> 等价于 <code>font-size:16px</code>），增强可读性</li>
+</ul>
+<h2 id="四、注释：代码说明（不生效）"><a href="#四、注释：代码说明（不生效）" class="headerlink" title="四、注释：代码说明（不生效）"></a>四、注释：代码说明（不生效）</h2><p>CSS 注释用于解释代码，浏览器会忽略注释内容，语法：</p>
+<pre><code class="css">/* 单行注释 */
+p &#123;
+  color: #333; /* 文字颜色：深灰色（行内注释） */
+&#125;
+
+/*
+  多行注释
+  选中 .box 元素，设置背景色和内边距
+*/
+.box &#123;
+  background: #f5f5f5;
+  padding: 20px;
+&#125;
+</code></pre>
+<blockquote>
+<p>注意：CSS 没有 <code>//</code> 注释语法，<code>//</code> 会导致后续代码失效！</p>
+</blockquote>
+<h2 id="五、CSS-的引入方式（3-种核心）"><a href="#五、CSS-的引入方式（3-种核心）" class="headerlink" title="五、CSS 的引入方式（3 种核心）"></a>五、CSS 的引入方式（3 种核心）</h2><p>CSS 需引入 HTML 才能生效，3 种常用方式：</p>
+<h3 id="1-内联样式（行内样式）"><a href="#1-内联样式（行内样式）" class="headerlink" title="1. 内联样式（行内样式）"></a>1. 内联样式（行内样式）</h3><p>直接写在 HTML 元素的 <code>style</code> 属性中，优先级最高（仅作用于当前元素）：</p>
+<pre><code class="html">&lt;p style=&quot;color: green; font-size: 18px;&quot;&gt;这是内联样式的文字&lt;/p&gt;
+</code></pre>
+<blockquote>
+<p>缺点：样式与结构耦合，复用性差，仅适合临时修改单个元素。</p>
+</blockquote>
+<h3 id="2-内部样式表（嵌入式）"><a href="#2-内部样式表（嵌入式）" class="headerlink" title="2. 内部样式表（嵌入式）"></a>2. 内部样式表（嵌入式）</h3><p>写在 HTML 的 <code>标签中（通常放在</code> 内），作用于当前 HTML 文件：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    /* 内部样式表 */
+    h1 &#123; color: purple; &#125;
+    .content &#123; line-height: 1.5; &#125;
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;标题&lt;/h1&gt;
+  &lt;div class=&quot;content&quot;&gt;内容&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>优点：样式与结构分离（同一文件内），适合单页面样式。</p>
+</blockquote>
+<h3 id="3-外部样式表（链接式）"><a href="#3-外部样式表（链接式）" class="headerlink" title="3. 外部样式表（链接式）"></a>3. 外部样式表（链接式）</h3><p>将 CSS 写在独立的 <code>.css</code> 文件中，通过 &#96;&#96; 标签引入 HTML，最推荐（复用性强、维护方便）：</p>
+<h4 id="步骤-1：创建-CSS-文件（如-style-css）"><a href="#步骤-1：创建-CSS-文件（如-style-css）" class="headerlink" title="步骤 1：创建 CSS 文件（如 style.css）"></a>步骤 1：创建 CSS 文件（如 <code>style.css</code>）</h4><pre><code class="css">/* style.css */
+body &#123; background: #f9f9f9; &#125;
+a &#123; color: #0066cc; text-decoration: none; &#125;
+</code></pre>
+<h4 id="步骤-2：HTML-中引入"><a href="#步骤-2：HTML-中引入" class="headerlink" title="步骤 2：HTML 中引入"></a>步骤 2：HTML 中引入</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- 引入外部 CSS 文件 --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href=&quot;#&quot;&gt;这是链接&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>优点：样式与结构完全分离，多个页面可共用一个 CSS 文件，便于统一维护。</p>
+</blockquote>
+<h2 id="六、基础语法总结"><a href="#六、基础语法总结" class="headerlink" title="六、基础语法总结"></a>六、基础语法总结</h2><ol>
+<li>核心结构：<code>选择器 &#123; 属性: 值; &#125;</code></li>
+<li>选择器：优先掌握「类选择器」「元素选择器」「后代选择器」（最常用）</li>
+<li>声明：属性和值需匹配，分号不能漏，注释用 <code>/* */</code></li>
+<li>引入方式：推荐「外部样式表」，少量样式可用「内部样式表」，避免滥用「内联样式」</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

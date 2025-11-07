@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS核心属性 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS核心属性</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/7
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #00bcd4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>开发中最常用的 <strong>字体、背景、文本、表格</strong> 属性，包含语法、取值、示例，兼顾实用性和易理解性，直接可复制到项目中使用。</p>
+<span id="more"></span>
+
+<h1 id="CSS-核心属性详解（字体、背景、文本、表格）"><a href="#CSS-核心属性详解（字体、背景、文本、表格）" class="headerlink" title="CSS 核心属性详解（字体、背景、文本、表格）"></a>CSS 核心属性详解（字体、背景、文本、表格）</h1><h2 id="一、字体属性（控制文字样式）"><a href="#一、字体属性（控制文字样式）" class="headerlink" title="一、字体属性（控制文字样式）"></a>一、字体属性（控制文字样式）</h2><p>核心用于设置文字的 <strong>字体、大小、粗细、风格、行高</strong> 等，是页面文字排版的基础。</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+<th>取值 &#x2F; 说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>font-family</code></td>
+<td>设置字体（优先匹配）</td>
+<td>具体字体名（如 <code>Arial</code>）、通用字体族（如 <code>sans-serif</code> 无衬线、<code>serif</code> 衬线）；多个字体用逗号分隔（fallback 机制）</td>
+<td><code>font-family: &quot;微软雅黑&quot;, &quot;Microsoft YaHei&quot;, sans-serif;</code></td>
+</tr>
+<tr>
+<td><code>font-size</code></td>
+<td>设置字体大小（核心）</td>
+<td>固定值（<code>16px</code> 常用）、相对值（<code>1.2em</code> 相对于父元素、<code>120%</code> 百分比、<code>small/large</code> 关键字）</td>
+<td><code>font-size: 16px;</code>（网页默认 16px）</td>
+</tr>
+<tr>
+<td><code>font-weight</code></td>
+<td>设置字体粗细</td>
+<td>关键字（<code>normal</code> 正常 &#x2F;<code>bold</code> 加粗 &#x2F;<code>bolder</code> 更粗 &#x2F;<code>lighter</code> 更细）、数字（100-900，400&#x3D;normal，700&#x3D;bold）</td>
+<td><code>font-weight: 600;</code>（半加粗，常用）</td>
+</tr>
+<tr>
+<td><code>font-style</code></td>
+<td>设置字体风格（斜体 &#x2F; 正常）</td>
+<td><code>normal</code>（正常）、<code>italic</code>（斜体，字体自带）、<code>oblique</code>（强制斜体）</td>
+<td><code>font-style: italic;</code>（斜体文字）</td>
+</tr>
+<tr>
+<td><code>line-height</code></td>
+<td>设置行高（文字垂直间距）</td>
+<td>数字（如 <code>1.5</code>，相对于字体大小的倍数，推荐）、固定值（<code>24px</code>）、百分比（<code>150%</code>）</td>
+<td><code>line-height: 1.5;</code>（行高 &#x3D; 字体大小 ×1.5，易读）</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>复合属性（简化写法）</td>
+<td>顺序：<code>font-style font-weight font-size/line-height font-family</code>（必须包含 <code>font-size</code> 和 <code>font-family</code>）</td>
+<td><code>font: italic 600 16px/1.5 &quot;微软雅黑&quot;, sans-serif;</code></td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>设置文字颜色（关联字体）</td>
+<td>颜色值（<code>red</code>、<code>#333</code>、<code>rgb(51,51,51)</code>、<code>rgba(51,51,51,0.8)</code> 带透明度）</td>
+<td><code>color: #666;</code>（浅灰色文字）</td>
+</tr>
+</tbody></table>
+<h3 id="字体属性常用示例"><a href="#字体属性常用示例" class="headerlink" title="字体属性常用示例"></a>字体属性常用示例</h3><pre><code class="css">.text &#123;
+  font-family: &quot;PingFang SC&quot;, &quot;微软雅黑&quot;, sans-serif; /* 适配 macOS/Windows */
+  font-size: 14px;
+  font-weight: normal; /* 取消加粗 */
+  line-height: 1.6; /* 优化可读性 */
+  color: rgba(33, 33, 33, 0.9); /* 深灰带轻微透明度 */
+&#125;
+</code></pre>
+<h2 id="二、背景属性（控制元素背景）"><a href="#二、背景属性（控制元素背景）" class="headerlink" title="二、背景属性（控制元素背景）"></a>二、背景属性（控制元素背景）</h2><p>用于设置元素的 <strong>背景色、背景图、背景平铺、位置、大小</strong> 等，丰富元素视觉效果。</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+<th>取值 &#x2F; 说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>background-color</code></td>
+<td>设置背景颜色</td>
+<td>颜色值、<code>transparent</code>（透明，默认）</td>
+<td><code>background-color: #f5f5f5;</code>（浅灰背景）</td>
+</tr>
+<tr>
+<td><code>background-image</code></td>
+<td>设置背景图片</td>
+<td><code>url(&quot;图片路径&quot;)</code>（相对 &#x2F; 绝对路径）、<code>none</code>（无背景图，默认）</td>
+<td><code>background-image: url(&quot;bg.jpg&quot;);</code></td>
+</tr>
+<tr>
+<td><code>background-repeat</code></td>
+<td>控制背景图平铺方式</td>
+<td><code>repeat</code>（默认，全平铺）、<code>no-repeat</code>（不平铺）、<code>repeat-x</code>（水平平铺）、<code>repeat-y</code>（垂直平铺）</td>
+<td><code>background-repeat: no-repeat;</code></td>
+</tr>
+<tr>
+<td><code>background-position</code></td>
+<td>控制背景图位置</td>
+<td>关键字（<code>center</code> 居中、<code>left top</code> 左上）、数值（<code>50px 30px</code> 左 50px 上 30px）、百分比（<code>50% 50%</code> 居中）</td>
+<td><code>background-position: center;</code></td>
+</tr>
+<tr>
+<td><code>background-size</code></td>
+<td>控制背景图大小</td>
+<td><code>cover</code>（覆盖元素，可能裁剪）、<code>contain</code>（完全显示，可能留白）、数值（<code>100px 80px</code> 宽高）、百分比（<code>100% 100%</code> 拉伸填充）</td>
+<td><code>background-size: cover;</code>（常用背景铺满）</td>
+</tr>
+<tr>
+<td><code>background-attachment</code></td>
+<td>背景图滚动行为</td>
+<td><code>scroll</code>（随页面滚动，默认）、<code>fixed</code>（固定不动，类似视差效果）</td>
+<td><code>background-attachment: fixed;</code></td>
+</tr>
+<tr>
+<td><code>background</code></td>
+<td>复合属性（简化写法）</td>
+<td>顺序：<code>background-color background-image background-repeat background-position / background-size background-attachment</code>（<code>size</code> 前必须加 <code>/</code>）</td>
+<td><code>background: #f5f5f5 url(&quot;bg.jpg&quot;) no-repeat center / cover fixed;</code></td>
+</tr>
+</tbody></table>
+<h3 id="背景属性常用示例（全屏背景图）"><a href="#背景属性常用示例（全屏背景图）" class="headerlink" title="背景属性常用示例（全屏背景图）"></a>背景属性常用示例（全屏背景图）</h3><pre><code class="css">body &#123;
+  background: url(&quot;full-screen-bg.jpg&quot;) no-repeat center / cover;
+  background-color: #eee; /* 背景图加载失败时的 fallback 色 */
+&#125;
+</code></pre>
+<h2 id="三、文本属性（控制文本排版）"><a href="#三、文本属性（控制文本排版）" class="headerlink" title="三、文本属性（控制文本排版）"></a>三、文本属性（控制文本排版）</h2><p>用于设置文本的 <strong>对齐方式、缩进、间距、装饰线</strong> 等，优化文本布局的可读性。</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+<th>取值 &#x2F; 说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>text-align</code></td>
+<td>文本水平对齐</td>
+<td><code>left</code>（左对齐，默认）、<code>center</code>（居中）、<code>right</code>（右对齐）、<code>justify</code>（两端对齐，仅多行有效）</td>
+<td><code>text-align: center;</code>（标题居中）</td>
+</tr>
+<tr>
+<td><code>text-indent</code></td>
+<td>文本首行缩进</td>
+<td>数值（<code>2em</code> 常用，对应 2 个字符宽度）、百分比（<code>10%</code>）</td>
+<td><code>text-indent: 2em;</code>（段落首行缩进 2 字）</td>
+</tr>
+<tr>
+<td><code>letter-spacing</code></td>
+<td>字符间距（字与字之间）</td>
+<td>数值（<code>2px</code> 加宽、<code>-1px</code> 收紧）、<code>normal</code>（默认）</td>
+<td><code>letter-spacing: 1px;</code>（加宽字符间距）</td>
+</tr>
+<tr>
+<td><code>word-spacing</code></td>
+<td>单词间距（英文单词之间）</td>
+<td>数值（<code>5px</code> 加宽）、<code>normal</code>（默认）；中文无效（中文无单词概念）</td>
+<td><code>word-spacing: 3px;</code>（英文单词间距）</td>
+</tr>
+<tr>
+<td><code>text-decoration</code></td>
+<td>文本装饰线（下划线 &#x2F; 删除线等）</td>
+<td><code>none</code>（无装饰，默认，常用於清除 <code>&lt;a&gt;</code> 标签下划线）、<code>underline</code>（下划线）、<code>line-through</code>（删除线）、<code>overline</code>（上划线）；可加颜色（如 <code>underline red</code>）</td>
+<td><code>text-decoration: none;</code>（清除 a 标签下划线）</td>
+</tr>
+<tr>
+<td><code>text-transform</code></td>
+<td>英文文本大小写转换</td>
+<td><code>none</code>（默认）、<code>uppercase</code>（全大写）、<code>lowercase</code>（全小写）、<code>capitalize</code>（首字母大写）</td>
+<td><code>text-transform: uppercase;</code>（英文全大写）</td>
+</tr>
+<tr>
+<td><code>white-space</code></td>
+<td>空白字符处理（换行 &#x2F; 空格）</td>
+<td><code>normal</code>（默认，合并空格 + 自动换行）、<code>nowrap</code>（不换行，溢出隐藏或滚动）、<code>pre</code>（保留空格和换行，类似 <code>&lt;pre&gt;</code> 标签）</td>
+<td><code>white-space: nowrap;</code>（强制不换行）</td>
+</tr>
+<tr>
+<td><code>overflow-wrap</code></td>
+<td>长文本换行（防止溢出）</td>
+<td><code>normal</code>（默认）、<code>break-word</code>（单词内换行，适合中文 &#x2F; 长英文单词）</td>
+<td><code>overflow-wrap: break-word;</code>（避免长文本撑破容器）</td>
+</tr>
+</tbody></table>
+<h3 id="文本属性常用示例（段落排版）"><a href="#文本属性常用示例（段落排版）" class="headerlink" title="文本属性常用示例（段落排版）"></a>文本属性常用示例（段落排版）</h3><pre><code class="css">.paragraph &#123;
+  text-align: justify; /* 两端对齐 */
+  text-indent: 2em; /* 首行缩进2字 */
+  letter-spacing: 0.5px; /* 字符间距轻微加宽 */
+  line-height: 1.8; /* 行高优化可读性 */
+  overflow-wrap: break-word; /* 长文本换行 */
+&#125;
+
+a &#123;
+  text-decoration: none; /* 清除下划线 */
+  color: #0066cc;
+&#125;
+a:hover &#123;
+  text-decoration: underline; /* hover 时显示下划线 */
+&#125;
+</code></pre>
+<h2 id="四、表格属性（控制表格样式）"><a href="#四、表格属性（控制表格样式）" class="headerlink" title="四、表格属性（控制表格样式）"></a>四、表格属性（控制表格样式）</h2><p>用于设置表格的 <strong>边框、间距、对齐、单元格样式</strong> 等，默认表格样式简陋，需通过 CSS 美化。</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+<th>取值 &#x2F; 说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>border-collapse</code></td>
+<td>表格边框合并（核心）</td>
+<td><code>collapse</code>（边框合并，推荐）、<code>separate</code>（边框分离，默认，有间距）</td>
+<td><code>border-collapse: collapse;</code>（消除边框间隙）</td>
+</tr>
+<tr>
+<td><code>border-spacing</code></td>
+<td>表格边框间距（仅 <code>separate</code> 时有效）</td>
+<td>数值（<code>5px</code> 间距）、<code>0</code>（无间距）</td>
+<td><code>border-spacing: 2px;</code></td>
+</tr>
+<tr>
+<td><code>table-layout</code></td>
+<td>表格布局算法</td>
+<td><code>auto</code>（默认，自适应内容宽度）、<code>fixed</code>（固定列宽，性能更好，需设置 <code>width</code>）</td>
+<td><code>table-layout: fixed;</code>（固定表格宽度）</td>
+</tr>
+<tr>
+<td><code>width/height</code></td>
+<td>表格 &#x2F; 单元格宽高</td>
+<td>数值（<code>600px</code>）、百分比（<code>100%</code> 自适应父容器）</td>
+<td><code>width: 100%;</code>（表格占满父容器）</td>
+</tr>
+<tr>
+<td><code>text-align</code></td>
+<td>单元格文本水平对齐</td>
+<td>继承文本属性的 <code>left/center/right/justify</code></td>
+<td><code>td &#123; text-align: center; &#125;</code>（单元格文本居中）</td>
+</tr>
+<tr>
+<td><code>vertical-align</code></td>
+<td>单元格文本垂直对齐（核心）</td>
+<td><code>middle</code>（垂直居中，常用）、<code>top</code>（顶部对齐）、<code>bottom</code>（底部对齐）、<code>baseline</code>（基线对齐）</td>
+<td><code>td &#123; vertical-align: middle; &#125;</code>（单元格垂直居中）</td>
+</tr>
+<tr>
+<td><code>border</code></td>
+<td>表格 &#x2F; 单元格边框</td>
+<td>复合属性（<code>宽度 样式 颜色</code>），如 <code>1px solid #ddd</code>（1px 灰色实线）</td>
+<td><code>table, td, th &#123; border: 1px solid #ddd; &#125;</code></td>
+</tr>
+<tr>
+<td><code>empty-cells</code></td>
+<td>空单元格是否显示边框</td>
+<td><code>show</code>（显示，默认）、<code>hide</code>（隐藏空单元格边框）</td>
+<td><code>empty-cells: hide;</code></td>
+</tr>
+</tbody></table>
+<h3 id="表格属性常用示例（美化表格）"><a href="#表格属性常用示例（美化表格）" class="headerlink" title="表格属性常用示例（美化表格）"></a>表格属性常用示例（美化表格）</h3><pre><code class="html">&lt;!-- HTML 结构 --&gt;
+&lt;table class=&quot;beautiful-table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;年龄&lt;/th&gt;&lt;th&gt;城市&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;td&gt;北京&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;李四&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;td&gt;上海&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<pre><code class="css">/* CSS 样式 */
+.beautiful-table &#123;
+  width: 100%; /* 占满父容器 */
+  border-collapse: collapse; /* 边框合并 */
+  table-layout: fixed; /* 固定列宽 */
+  font-size: 14px;
+&#125;
+
+.beautiful-table th,
+.beautiful-table td &#123;
+  border: 1px solid #e8e8e8; /* 边框颜色 */
+  padding: 12px 8px; /* 单元格内边距 */
+  text-align: center; /* 水平居中 */
+  vertical-align: middle; /* 垂直居中 */
+&#125;
+
+.beautiful-table th &#123;
+  background-color: #f8f8f8; /* 表头背景色 */
+  font-weight: 600; /* 表头文字加粗 */
+  color: #333;
+&#125;
+
+/* 奇偶行交替颜色（斑马纹） */
+.beautiful-table tbody tr:nth-child(even) &#123;
+  background-color: #fafafa;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
