@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>优先队列 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>优先队列</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/11
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>优先队列是一种<strong>特殊的队列数据结构</strong>，核心区别于普通队列的 “先进先出（FIFO）” 规则 —— 它按元素的<strong>优先级</strong>排序，每次出队时，总是取出优先级最高（或最低）的元素。无论是算法优化（如最短路径、排序）还是工程场景（如任务调度），优先队列都是解决 “动态选择最优元素” 问题的核心工具。</p>
+<span id="more"></span>
+
+<h1 id="优先队列（Priority-Queue）"><a href="#优先队列（Priority-Queue）" class="headerlink" title="优先队列（Priority Queue）"></a>优先队列（Priority Queue）</h1><h2 id="一、核心概念与核心特性"><a href="#一、核心概念与核心特性" class="headerlink" title="一、核心概念与核心特性"></a>一、核心概念与核心特性</h2><h3 id="1-与普通队列的本质区别"><a href="#1-与普通队列的本质区别" class="headerlink" title="1. 与普通队列的本质区别"></a>1. 与普通队列的本质区别</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>普通队列（FIFO）</th>
+<th>优先队列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>排序依据</td>
+<td>元素入队顺序</td>
+<td>元素的优先级（自定义规则）</td>
+</tr>
+<tr>
+<td>出队元素</td>
+<td>最早入队的元素</td>
+<td>优先级最高 &#x2F; 最低的元素</td>
+</tr>
+<tr>
+<td>核心操作效率</td>
+<td>入队 &#x2F; 出队均 O (1)</td>
+<td>取决于实现（最优 O (logn)）</td>
+</tr>
+<tr>
+<td>典型应用</td>
+<td>消息队列、广度优先搜索（BFS）</td>
+<td>最短路径、任务调度、堆排序</td>
+</tr>
+</tbody></table>
+<h3 id="2-优先级的两种核心约定"><a href="#2-优先级的两种核心约定" class="headerlink" title="2. 优先级的两种核心约定"></a>2. 优先级的两种核心约定</h3><p>优先队列的优先级由 “关键值” 定义，最常用两种规则：</p>
+<ul>
+<li><strong>大顶堆（Max-Heap）</strong>：优先级最高 &#x3D; 关键值最大（默认优先出最大元素，如 “优先级 10&gt; 优先级 5”）；</li>
+<li><strong>小顶堆（Min-Heap）</strong>：优先级最高 &#x3D; 关键值最小（默认优先出最小元素，如 “距离 1 &lt; 距离 3”）；</li>
+<li>扩展：可自定义优先级（如任务 “截止时间早” 优先、订单 “加急标识” 优先）。</li>
+</ul>
+<h3 id="3-必须支持的核心操作"><a href="#3-必须支持的核心操作" class="headerlink" title="3. 必须支持的核心操作"></a>3. 必须支持的核心操作</h3><p>优先队列的价值在于 “高效动态维护最优元素”，标准核心操作如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作名称</th>
+<th>功能描述</th>
+<th>目标时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>insert(x)</code> &#x2F; <code>push(x)</code></td>
+<td>向队列中插入元素 x，维持优先级排序</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td><code>extract-max()</code> &#x2F; <code>extract-min()</code></td>
+<td>取出并删除优先级最高的元素</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td><code>peek()</code> &#x2F; <code>top()</code></td>
+<td>查看（不删除）优先级最高的元素</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td><code>delete(x)</code></td>
+<td>删除队列中指定元素 x（可选，按需实现）</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td><code>update-priority(x)</code></td>
+<td>修改元素 x 的优先级（可选，按需实现）</td>
+<td>O(logn)</td>
+</tr>
+</tbody></table>
+<h2 id="二、优先队列的三种实现方式（对比分析）"><a href="#二、优先队列的三种实现方式（对比分析）" class="headerlink" title="二、优先队列的三种实现方式（对比分析）"></a>二、优先队列的三种实现方式（对比分析）</h2><p>优先队列的效率核心是 “如何快速找到并维护最优元素”，三种常见实现各有优劣，<strong>堆实现是工业界标准</strong>：</p>
+<h3 id="1-数组-链表（朴素实现）"><a href="#1-数组-链表（朴素实现）" class="headerlink" title="1. 数组 &#x2F; 链表（朴素实现）"></a>1. 数组 &#x2F; 链表（朴素实现）</h3><ul>
+<li><strong>原理</strong>：元素直接存储在数组或链表中，插入时直接尾插（O (1)），取最优元素时遍历整个集合查找（O (n)）。</li>
+<li>时间复杂度：<ul>
+<li>插入：O (1)（无需排序，直接追加）；</li>
+<li>取最优元素：O (n)（遍历所有元素找最值）；</li>
+<li>删除最优元素：O (n)（查找后需移动元素填补空位）。</li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：元素数量极少（n &lt; 100），或插入操作远多于查询操作（几乎不用在实际开发）。</li>
+</ul>
+<h3 id="2-有序数组-有序链表（改进实现）"><a href="#2-有序数组-有序链表（改进实现）" class="headerlink" title="2. 有序数组 &#x2F; 有序链表（改进实现）"></a>2. 有序数组 &#x2F; 有序链表（改进实现）</h3><ul>
+<li><strong>原理</strong>：插入时维持数组 &#x2F; 链表有序（按优先级排序），取最优元素时直接取表头 &#x2F; 表尾（O (1)）。</li>
+<li>时间复杂度：<ul>
+<li>插入：O (n)（需找到插入位置，移动后续元素）；</li>
+<li>取最优元素：O (1)（有序结构的首尾即为最值）；</li>
+<li>删除最优元素：O (1)（链表表头删除，数组仍需移动元素 O (n)）。</li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：查询操作远多于插入操作（仍不推荐，效率低于堆）。</li>
+</ul>
+<h3 id="3-堆（Heap）（最优实现）"><a href="#3-堆（Heap）（最优实现）" class="headerlink" title="3. 堆（Heap）（最优实现）"></a>3. 堆（Heap）（最优实现）</h3><p>堆是优先队列的<strong>标准实现方式</strong>，本质是一棵满足 “堆性质” 的<strong>完全二叉树</strong>（完全二叉树：除最后一层外，每一层节点数均满，最后一层从左到右连续排列）。</p>
+<h4 id="堆的核心性质"><a href="#堆的核心性质" class="headerlink" title="堆的核心性质"></a>堆的核心性质</h4><ul>
+<li>大顶堆：每个父节点的关键值 ≥ 左右子节点的关键值；</li>
+<li>小顶堆：每个父节点的关键值 ≤ 左右子节点的关键值；</li>
+<li>存储优势：完全二叉树可通过<strong>数组</strong>高效存储（无需指针，通过索引计算父子关系），空间开销极小。</li>
+</ul>
+<h4 id="数组与堆的索引映射（核心！）"><a href="#数组与堆的索引映射（核心！）" class="headerlink" title="数组与堆的索引映射（核心！）"></a>数组与堆的索引映射（核心！）</h4><p>假设数组索引从 0 开始，对于任意节点 i：</p>
+<ul>
+<li>左子节点索引 &#x3D; <code>2i + 1</code></li>
+<li>右子节点索引 &#x3D; <code>2i + 2</code></li>
+<li>父节点索引 &#x3D; <code>(i - 1) // 2</code>（整数除法）</li>
+</ul>
+<p>例：索引 0（根节点）的左子节点是 1，右子节点是 2；索引 3 的父节点是 (3-1)&#x2F;2 &#x3D; 1。</p>
+<h4 id="堆的高效操作原理（核心！上浮与下沉）"><a href="#堆的高效操作原理（核心！上浮与下沉）" class="headerlink" title="堆的高效操作原理（核心！上浮与下沉）"></a>堆的高效操作原理（核心！上浮与下沉）</h4><p>堆的所有操作（插入、删除）都依赖两个核心调整动作，确保操作后仍满足堆性质，时间复杂度均为 O (logn)（树的高度为 logn）。</p>
+<h5 id="（1）插入元素（insert-push）：上浮（sift-up）"><a href="#（1）插入元素（insert-push）：上浮（sift-up）" class="headerlink" title="（1）插入元素（insert&#x2F;push）：上浮（sift up）"></a>（1）插入元素（insert&#x2F;push）：上浮（sift up）</h5><ol>
+<li>将新元素插入数组<strong>末尾</strong>（完全二叉树的最后一个位置，保证结构完整）；</li>
+<li>执行 “上浮”：将新元素与父节点比较，若不满足堆性质（如大顶堆中子节点 &gt; 父节点），则交换父子节点；</li>
+<li>重复步骤 2，直到元素到达根节点或满足堆性质。</li>
+</ol>
+<h5 id="（2）取出最优元素（extract-max-extract-min）：下沉（sift-down）"><a href="#（2）取出最优元素（extract-max-extract-min）：下沉（sift-down）" class="headerlink" title="（2）取出最优元素（extract-max&#x2F;extract-min）：下沉（sift down）"></a>（2）取出最优元素（extract-max&#x2F;extract-min）：下沉（sift down）</h5><ol>
+<li>取出数组<strong>第一个元素</strong>（根节点，即最值）；</li>
+<li>将数组<strong>末尾元素</strong>移到根节点位置（维持完全二叉树结构）；</li>
+<li>执行 “下沉”：将当前节点与左右子节点中 “符合堆性质的最值子节点”（如大顶堆找最大子节点）比较，若不满足堆性质则交换；</li>
+<li>重复步骤 3，直到元素到达叶子节点或满足堆性质。</li>
+</ol>
+<h5 id="（3）查看最优元素（top-peek）"><a href="#（3）查看最优元素（top-peek）" class="headerlink" title="（3）查看最优元素（top&#x2F;peek）"></a>（3）查看最优元素（top&#x2F;peek）</h5><p>直接返回数组第一个元素（根节点），O (1) 时间。</p>
+<h4 id="堆实现的优势"><a href="#堆实现的优势" class="headerlink" title="堆实现的优势"></a>堆实现的优势</h4><ul>
+<li>兼顾插入和查询效率：所有核心操作均为 O (logn)，是三种实现中综合性能最优的；</li>
+<li>空间高效：数组存储，无额外指针开销；</li>
+<li>实现简单：仅依赖 “上浮”“下沉” 两个核心函数，易工程化。</li>
+</ul>
+<h2 id="三、主流语言的优先队列使用（实战重点）"><a href="#三、主流语言的优先队列使用（实战重点）" class="headerlink" title="三、主流语言的优先队列使用（实战重点）"></a>三、主流语言的优先队列使用（实战重点）</h2><h3 id="C-标准库-priority-queue"><a href="#C-标准库-priority-queue" class="headerlink" title="C++ 标准库 priority_queue"></a>C++ 标准库 <code>priority_queue</code></h3><p>C++ 中 <code>priority_queue</code> 是<strong>容器适配器</strong>（定义在 &#96;&#96; 头文件），默认基于大顶堆实现，底层依赖 <code>vector</code> 存储。</p>
+<h4 id="基本模板定义"><a href="#基本模板定义" class="headerlink" title="基本模板定义"></a>基本模板定义</h4><pre><code class="cpp">template &lt;class T, class Container = vector&lt;T&gt;, class Compare = less&lt;T&gt;&gt;
+class priority_queue;
+</code></pre>
+<ul>
+<li><code>T</code>：元素类型（如 <code>int</code>、自定义结构体）；</li>
+<li><code>Container</code>：底层存储容器（默认 <code>vector</code>，支持 <code>deque</code>）；</li>
+<li><code>Compare</code>：比较函数（默认 <code>less</code> 大顶堆，<code>greater</code> 小顶堆）。</li>
+</ul>
+<h4 id="核心用法示例"><a href="#核心用法示例" class="headerlink" title="核心用法示例"></a>核心用法示例</h4><h5 id="（1）默认大顶堆（int-类型）"><a href="#（1）默认大顶堆（int-类型）" class="headerlink" title="（1）默认大顶堆（int 类型）"></a>（1）默认大顶堆（int 类型）</h5><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+int main() &#123;
+    priority_queue&lt;int&gt; max_heap;  // 大顶堆：大元素优先出队
+
+    // 插入元素
+    max_heap.push(3);
+    max_heap.push(1);
+    max_heap.push(5);
+    max_heap.push(2);
+
+    // 查看堆顶（最大值）
+    cout &lt;&lt; &quot;堆顶元素：&quot; &lt;&lt; max_heap.top() &lt;&lt; endl;  // 输出 5
+
+    // 出队（删除堆顶）
+    max_heap.pop();
+    cout &lt;&lt; &quot;出队后堆顶：&quot; &lt;&lt; max_heap.top() &lt;&lt; endl;  // 输出 3
+
+    // 遍历（需出队，遍历后队列空）
+    cout &lt;&lt; &quot;出队顺序：&quot;;
+    while (!max_heap.empty()) &#123;
+        cout &lt;&lt; max_heap.top() &lt;&lt; &quot; &quot;;
+        max_heap.pop();
+    &#125;  // 输出 3 2 1
+    return 0;
+&#125;
+</code></pre>
+<h5 id="（2）小顶堆（用-greater）"><a href="#（2）小顶堆（用-greater）" class="headerlink" title="（2）小顶堆（用 greater）"></a>（2）小顶堆（用 <code>greater</code>）</h5><p>需包含 <code>&lt;functional&gt;</code> 头文件（<code>greater</code> 定义在此）：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;functional&gt;  // 包含 greater&lt;T&gt;
+using namespace std;
+
+int main() &#123;
+    // 小顶堆：小元素优先出队
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; min_heap;
+
+    min_heap.push(3);
+    min_heap.push(1);
+    min_heap.push(5);
+    min_heap.push(2);
+
+    cout &lt;&lt; &quot;堆顶元素：&quot; &lt;&lt; min_heap.top() &lt;&lt; endl;  // 输出 1
+    cout &lt;&lt; &quot;出队顺序：&quot;;
+    while (!min_heap.empty()) &#123;
+        cout &lt;&lt; min_heap.top() &lt;&lt; &quot; &quot;;
+        min_heap.pop();
+    &#125;  // 输出 1 2 3 5
+    return 0;
+&#125;
+</code></pre>
+<h5 id="（3）自定义结构体（任务调度场景）"><a href="#（3）自定义结构体（任务调度场景）" class="headerlink" title="（3）自定义结构体（任务调度场景）"></a>（3）自定义结构体（任务调度场景）</h5><p>需重载 <code>operator&lt;</code> 或自定义比较结构体，定义优先级规则：</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;string&gt;
+using namespace std;
+
+// 自定义任务结构体：包含名称、优先级（10最高）、ID
+struct Task &#123;
+    string name;
+    int priority;
+    int id;
+
+    // 重载 &lt; 运算符：定义大顶堆规则（优先级高的先执行，同优先级ID小的先执行）
+    bool operator&lt;(const Task&amp; other) const &#123;
+        if (priority != other.priority) &#123;
+            return priority &lt; other.priority;  // 优先级大的优先
+        &#125; else &#123;
+            return id &gt; other.id;  // ID小的优先
+        &#125;
+    &#125;
+&#125;;
+
+int main() &#123;
+    priority_queue&lt;Task&gt; task_queue;
+
+    // 插入任务
+    task_queue.push(&#123;&quot;紧急修复&quot;, 10, 101&#125;);
+    task_queue.push(&#123;&quot;功能开发&quot;, 8, 102&#125;);
+    task_queue.push(&#123;&quot;优化测试&quot;, 8, 103&#125;);
+    task_queue.push(&#123;&quot;文档编写&quot;, 5, 104&#125;);
+
+    // 执行任务（按优先级排序）
+    cout &lt;&lt; &quot;任务执行顺序：\n&quot;;
+    while (!task_queue.empty()) &#123;
+        Task t = task_queue.top();
+        task_queue.pop();
+        cout &lt;&lt; &quot;ID:&quot; &lt;&lt; t.id &lt;&lt; &quot; | 名称:&quot; &lt;&lt; t.name &lt;&lt; &quot; | 优先级:&quot; &lt;&lt; t.priority &lt;&lt; endl;
+    &#125;
+    /* 输出：
+    ID:101 | 名称:紧急修复 | 优先级:10
+    ID:102 | 名称:功能开发 | 优先级:8
+    ID:103 | 名称:优化测试 | 优先级:8
+    ID:104 | 名称:文档编写 | 优先级:5
+    */
+    return 0;
+&#125;
+</code></pre>
+<h2 id="五、典型应用场景"><a href="#五、典型应用场景" class="headerlink" title="五、典型应用场景"></a>五、典型应用场景</h2><p>优先队列的核心价值是 “动态获取最优元素”，以下是最经典的应用场景：</p>
+<h3 id="1-堆排序（时间复杂度-O-nlogn-）"><a href="#1-堆排序（时间复杂度-O-nlogn-）" class="headerlink" title="1. 堆排序（时间复杂度 O (nlogn)）"></a>1. 堆排序（时间复杂度 O (nlogn)）</h3><p>利用堆的性质实现高效排序，步骤：</p>
+<ol>
+<li>构建大顶堆（O (n) 时间）；</li>
+<li>反复弹出堆顶（最大值），放入结果数组末尾，同时调整堆（O (nlogn) 时间）；</li>
+<li>最终结果数组为升序（小顶堆可实现降序）。</li>
+</ol>
+<h3 id="2-Dijkstra-最短路径算法（无负权图）"><a href="#2-Dijkstra-最短路径算法（无负权图）" class="headerlink" title="2. Dijkstra 最短路径算法（无负权图）"></a>2. Dijkstra 最短路径算法（无负权图）</h3><p>在带权无负边图中，需不断选择 “当前距离起点最近的节点” 扩展，优先队列（小顶堆）用于高效获取该节点：</p>
+<ul>
+<li>队列元素为 <code>(当前距离, 节点)</code>，按距离排序；</li>
+<li>每次弹出距离最小的节点，更新其邻接节点的距离，若更新后更优则加入队列。</li>
+</ul>
+<h3 id="3-任务调度系统"><a href="#3-任务调度系统" class="headerlink" title="3. 任务调度系统"></a>3. 任务调度系统</h3><p>按任务优先级执行，例如：</p>
+<ul>
+<li>操作系统进程调度（高优先级进程先占用 CPU）；</li>
+<li>外卖 &#x2F; 快递调度（加急订单优先配送）；</li>
+<li>服务器请求处理（VIP 用户请求优先响应）。</li>
+</ul>
+<h3 id="4-合并-k-个有序链表（LeetCode-困难题）"><a href="#4-合并-k-个有序链表（LeetCode-困难题）" class="headerlink" title="4. 合并 k 个有序链表（LeetCode 困难题）"></a>4. 合并 k 个有序链表（LeetCode 困难题）</h3><p>需反复选择 “所有链表头中最小的节点”，优先队列（小顶堆）用于高效获取：</p>
+<ul>
+<li>队列元素为 <code>(节点值, 链表索引, 节点)</code>，按节点值排序；</li>
+<li>每次弹出最小节点，将其下一个节点（若有）加入队列，直到所有链表合并完成。</li>
+</ul>
+<h3 id="5-Huffman-编码（数据压缩）"><a href="#5-Huffman-编码（数据压缩）" class="headerlink" title="5. Huffman 编码（数据压缩）"></a>5. Huffman 编码（数据压缩）</h3><p>构建最优前缀编码树时，需反复合并 “频率最低的两个节点”，优先队列（小顶堆）用于高效获取这两个节点，最终实现最小冗余编码。</p>
+<h3 id="6-求-Top-K-问题（如前-K-个高频元素、第-K-大元素）"><a href="#6-求-Top-K-问题（如前-K-个高频元素、第-K-大元素）" class="headerlink" title="6. 求 Top K 问题（如前 K 个高频元素、第 K 大元素）"></a>6. 求 Top K 问题（如前 K 个高频元素、第 K 大元素）</h3><p>用小顶堆维护 K 个元素，遍历所有元素时，若元素大于堆顶则替换堆顶并调整，最终堆内即为 Top K 大元素（时间复杂度 O (nlogK)，比排序 O (nlogn) 更高效）。</p>
+<h2 id="六、注意事项与进阶技巧"><a href="#六、注意事项与进阶技巧" class="headerlink" title="六、注意事项与进阶技巧"></a>六、注意事项与进阶技巧</h2><ol>
+<li><strong>优先级队列的 “无序性”</strong>：底层是堆结构，存储容器中的元素并非完全有序，仅保证堆顶是最优元素，不能直接遍历获取有序序列（需通过出队实现）；</li>
+<li>自定义优先级的两种方式：<ul>
+<li>基本类型：C++ 用 <code>greater</code>&#x2F;<code>less</code>，Python 用负数反转；</li>
+<li>自定义结构体：C++ 重载 <code>operator&lt;</code> 或定义比较结构体，Python 可传入自定义比较函数（需配合 <code>functools.cmp_to_key</code>）；</li>
+</ul>
+</li>
+<li>效率优化：<ul>
+<li>已知元素数量时，提前为底层容器分配空间（如 C++ <code>vector.reserve()</code>），减少扩容开销；</li>
+<li>批量构建堆时，用 <code>heapify</code>（Python）或手动实现的批量建堆（O (n) 时间），比逐个插入（O (nlogn)）更高效；</li>
+</ul>
+</li>
+<li>与其他数据结构的选择：<ul>
+<li>若需 “动态插入 + 频繁查最值”：优先队列（堆实现）是最优选择；</li>
+<li>若需 “静态查最值”（无插入删除）：直接遍历找最值（O (n)）更简单；</li>
+<li>若需 “有序遍历 + 频繁插入删除”：平衡二叉搜索树（如 C++ <code>set</code>&#x2F;<code>map</code>）更合适（但优先级队列效率更高）。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

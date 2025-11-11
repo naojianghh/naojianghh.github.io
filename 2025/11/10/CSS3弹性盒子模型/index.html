@@ -1,0 +1,754 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS3弹性盒子模型 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS3弹性盒子模型</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/10
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #ff7d73">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>CSS3 弹性盒子模型（Flexible Box，简称 Flexbox）是一种<strong>一维布局模型</strong>，专为解决传统布局（<code>float</code>、<code>position</code>）的对齐复杂、自适应繁琐等问题设计，现已成为前端布局的首选方案。它通过「容器 - 项目」的结构，轻松实现元素的对齐、分布、伸缩和自适应，兼容性覆盖所有现代浏览器（IE11 部分支持）。</p>
+<span id="more"></span>
+
+<h1 id="CSS3-弹性盒子（Flexbox"><a href="#CSS3-弹性盒子（Flexbox" class="headerlink" title="CSS3 弹性盒子（Flexbox"></a>CSS3 弹性盒子（Flexbox</h1><h2 id="一、核心原理与概念"><a href="#一、核心原理与概念" class="headerlink" title="一、核心原理与概念"></a>一、核心原理与概念</h2><p>Flexbox 的布局逻辑围绕「主轴」和「交叉轴」展开，核心是通过控制容器和项目的属性，实现灵活的布局效果。先明确以下关键概念：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义与说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>弹性容器（Flex Container）</td>
+<td>父元素通过 <code>display: flex</code> 或 <code>display: inline-flex</code> 声明，其直接子元素自动成为弹性项目</td>
+</tr>
+<tr>
+<td>弹性项目（Flex Item）</td>
+<td>弹性容器的<strong>直接子元素</strong>（不包含嵌套子元素），默认沿主轴排列</td>
+</tr>
+<tr>
+<td>主轴（Main Axis）</td>
+<td>项目排列的主方向，由 <code>flex-direction</code> 控制（默认水平向左→右）</td>
+</tr>
+<tr>
+<td>交叉轴（Cross Axis）</td>
+<td>与主轴垂直的方向（默认垂直向上→下），所有交叉轴相关属性（如 <code>align-items</code>）均作用于此方向</td>
+</tr>
+<tr>
+<td>主轴起点 &#x2F; 终点（Main Start&#x2F;End）</td>
+<td>主轴的开始和结束位置（如水平主轴的左 &#x2F; 右）</td>
+</tr>
+<tr>
+<td>交叉轴起点 &#x2F; 终点（Cross Start&#x2F;End）</td>
+<td>交叉轴的开始和结束位置（如垂直交叉轴的上 &#x2F; 下）</td>
+</tr>
+<tr>
+<td>基线（Baseline）</td>
+<td>项目内文字的基准线（<code>align-items: baseline</code> 时按此对齐）</td>
+</tr>
+</tbody></table>
+<h2 id="二、基础入门：创建弹性容器"><a href="#二、基础入门：创建弹性容器" class="headerlink" title="二、基础入门：创建弹性容器"></a>二、基础入门：创建弹性容器</h2><h3 id="1-声明弹性容器"><a href="#1-声明弹性容器" class="headerlink" title="1. 声明弹性容器"></a>1. 声明弹性容器</h3><p>给父元素添加 <code>display</code> 属性，即可将其变为弹性容器，两种取值区别如下：</p>
+<pre><code class="css">/* 1. 块级弹性容器：独占一行，宽度默认 100%（常用） */
+.container &#123;
+  display: flex;
+&#125;
+
+/* 2. 行内弹性容器：宽度自适应内容，与其他行内元素同行排列 */
+.container &#123;
+  display: inline-flex;
+&#125;
+</code></pre>
+<h3 id="2-项目的默认行为"><a href="#2-项目的默认行为" class="headerlink" title="2. 项目的默认行为"></a>2. 项目的默认行为</h3><p>容器声明为 <code>flex</code> 后，子项目（Flex Item）会自动呈现以下特性：</p>
+<ul>
+<li>沿主轴（默认水平）排列，不再独占一行（打破块级元素默认行为）</li>
+<li>项目高度默认拉伸至与容器等高（<code>align-items: stretch</code>）</li>
+<li>项目不会换行，空间不足时自动收缩（<code>flex-shrink: 1</code>）</li>
+<li>忽略 <code>float</code>、<code>clear</code>、<code>vertical-align</code> 属性（失效）</li>
+</ul>
+<h2 id="三、容器属性（控制整体布局）"><a href="#三、容器属性（控制整体布局）" class="headerlink" title="三、容器属性（控制整体布局）"></a>三、容器属性（控制整体布局）</h2><p>弹性容器的属性用于定义项目的排列方向、换行规则、对齐方式等，共 6 个核心属性，是 Flexbox 布局的核心。</p>
+<h3 id="1-flex-direction：控制主轴方向（项目排列方向）"><a href="#1-flex-direction：控制主轴方向（项目排列方向）" class="headerlink" title="1. flex-direction：控制主轴方向（项目排列方向）"></a>1. flex-direction：控制主轴方向（项目排列方向）</h3><p>决定主轴的方向，直接改变项目的排列顺序（水平 &#x2F; 垂直），取值如下：</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>主轴方向</th>
+<th>项目排列效果</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>row</code>（默认）</td>
+<td>水平（左→右）</td>
+<td>从左到右横向排列</td>
+<td>导航栏、水平布局</td>
+</tr>
+<tr>
+<td><code>row-reverse</code></td>
+<td>水平（右→左）</td>
+<td>从右到左横向排列</td>
+<td>反向水平布局</td>
+</tr>
+<tr>
+<td><code>column</code></td>
+<td>垂直（上→下）</td>
+<td>从上到下纵向排列</td>
+<td>垂直导航、表单布局</td>
+</tr>
+<tr>
+<td><code>column-reverse</code></td>
+<td>垂直（下→上）</td>
+<td>从下到上纵向排列</td>
+<td>反向垂直布局</td>
+</tr>
+</tbody></table>
+<p><strong>示例：垂直排列项目</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  flex-direction: column; /* 主轴垂直，项目从上到下排列 */
+  height: 200px; /* 容器高度决定交叉轴空间 */
+&#125;
+</code></pre>
+<h3 id="2-flex-wrap：控制项目是否换行"><a href="#2-flex-wrap：控制项目是否换行" class="headerlink" title="2. flex-wrap：控制项目是否换行"></a>2. flex-wrap：控制项目是否换行</h3><p>默认情况下，项目会压缩在一行（<code>nowrap</code>），通过 <code>flex-wrap</code> 控制溢出时的换行规则：</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>效果说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nowrap</code>（默认）</td>
+<td>不换行，项目自动收缩以适应容器宽度</td>
+<td>少量项目的水平布局</td>
+</tr>
+<tr>
+<td><code>wrap</code></td>
+<td>换行，溢出的项目在下一行排列（从上到下）</td>
+<td>响应式卡片、多项目布局</td>
+</tr>
+<tr>
+<td><code>wrap-reverse</code></td>
+<td>反向换行，溢出的项目在上一行排列（从下到上）</td>
+<td>特殊反向布局</td>
+</tr>
+</tbody></table>
+<p><strong>示例：自动换行布局</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  flex-wrap: wrap; /* 空间不足时自动换行 */
+  width: 500px; /* 容器固定宽度，触发换行 */
+&#125;
+</code></pre>
+<h3 id="3-flex-flow：flex-direction-flex-wrap-简写"><a href="#3-flex-flow：flex-direction-flex-wrap-简写" class="headerlink" title="3. flex-flow：flex-direction + flex-wrap 简写"></a>3. flex-flow：<code>flex-direction</code> + <code>flex-wrap</code> 简写</h3><p>为简化代码，将两个属性合并为 <code>flex-flow</code>，默认值 <code>row nowrap</code>：</p>
+<pre><code class="css">/* 水平排列 + 自动换行（常用组合） */
+.container &#123;
+  display: flex;
+  flex-flow: row wrap;
+&#125;
+
+/* 垂直排列 + 不换行 */
+.container &#123;
+  flex-flow: column nowrap;
+&#125;
+</code></pre>
+<h3 id="4-justify-content：主轴对齐方式（核心）"><a href="#4-justify-content：主轴对齐方式（核心）" class="headerlink" title="4. justify-content：主轴对齐方式（核心）"></a>4. justify-content：主轴对齐方式（核心）</h3><p>控制项目在<strong>主轴方向</strong>的对齐和分布，是最常用的属性之一（以 <code>flex-direction: row</code> 为例，主轴为水平方向）：</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>效果说明</th>
+<th>视觉示意（水平主轴）</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>flex-start</code>（默认）</td>
+<td>靠主轴起点对齐（左对齐）</td>
+<td>[项目 1 项目 2 项目 3] ——</td>
+<td>左对齐布局</td>
+</tr>
+<tr>
+<td><code>flex-end</code></td>
+<td>靠主轴终点对齐（右对齐）</td>
+<td>—— [项目 1 项目 2 项目 3]</td>
+<td>右对齐布局</td>
+</tr>
+<tr>
+<td><code>center</code></td>
+<td>主轴居中对齐</td>
+<td>—— [项目 1 项目 2 项目 3] ——</td>
+<td>水平居中（如弹窗内容）</td>
+</tr>
+<tr>
+<td><code>space-between</code></td>
+<td>两端对齐，项目间间距相等（无首尾间距）</td>
+<td>[项目 1] —- [项目 2] —- [项目 3]</td>
+<td>导航栏、均匀分布布局</td>
+</tr>
+<tr>
+<td><code>space-around</code></td>
+<td>项目两侧间距相等（首尾间距为项目间间距的 1&#x2F;2）</td>
+<td>– [项目 1] – [项目 2] – [项目 3] –</td>
+<td>均匀分布（需首尾留白）</td>
+</tr>
+<tr>
+<td><code>space-evenly</code></td>
+<td>项目间间距 + 首尾间距完全相等</td>
+<td>– [项目 1] – [项目 2] – [项目 3] –</td>
+<td>严格均匀分布</td>
+</tr>
+</tbody></table>
+<p><strong>示例：水平居中且项目间均匀分布</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  justify-content: space-between; /* 两端对齐，中间间距相等 */
+&#125;
+</code></pre>
+<h3 id="5-align-items：交叉轴对齐方式（核心）"><a href="#5-align-items：交叉轴对齐方式（核心）" class="headerlink" title="5. align-items：交叉轴对齐方式（核心）"></a>5. align-items：交叉轴对齐方式（核心）</h3><p>控制项目在<strong>交叉轴方向</strong>的对齐（仅适用于「单行项目」），以 <code>flex-direction: row</code> 为例（交叉轴为垂直方向）：</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>效果说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>stretch</code>（默认）</td>
+<td>项目高度拉伸至与容器等高（项目无固定高度时）</td>
+<td>等高卡片布局</td>
+</tr>
+<tr>
+<td><code>flex-start</code></td>
+<td>靠交叉轴起点对齐（顶部对齐）</td>
+<td>顶部对齐的列表</td>
+</tr>
+<tr>
+<td><code>flex-end</code></td>
+<td>靠交叉轴终点对齐（底部对齐）</td>
+<td>底部对齐的按钮组</td>
+</tr>
+<tr>
+<td><code>center</code></td>
+<td>交叉轴居中对齐（垂直居中）</td>
+<td>水平 + 垂直居中布局</td>
+</tr>
+<tr>
+<td><code>baseline</code></td>
+<td>按项目内文字基线对齐（文字底部对齐）</td>
+<td>文字对齐的卡片</td>
+</tr>
+</tbody></table>
+<p><strong>示例：水平垂直居中（最常用布局）</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  justify-content: center; /* 主轴（水平）居中 */
+  align-items: center;     /* 交叉轴（垂直）居中 */
+  height: 300px; /* 容器必须有高度，否则交叉轴无拉伸空间 */
+&#125;
+</code></pre>
+<h3 id="6-align-content：多行项目的交叉轴对齐"><a href="#6-align-content：多行项目的交叉轴对齐" class="headerlink" title="6. align-content：多行项目的交叉轴对齐"></a>6. align-content：多行项目的交叉轴对齐</h3><p>仅当项目<strong>换行</strong>（<code>flex-wrap: wrap</code>）时生效，控制「多行项目整体」在交叉轴的对齐方式（区别于 <code>align-items</code> 控制单个项目）：</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>效果说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>stretch</code>（默认）</td>
+<td>多行拉伸至容器高度，行间距相等</td>
+<td>多行等高布局</td>
+</tr>
+<tr>
+<td><code>flex-start</code></td>
+<td>多行靠交叉轴起点对齐（顶部对齐）</td>
+<td>多行顶部对齐</td>
+</tr>
+<tr>
+<td><code>flex-end</code></td>
+<td>多行靠交叉轴终点对齐（底部对齐）</td>
+<td>多行底部对齐</td>
+</tr>
+<tr>
+<td><code>center</code></td>
+<td>多行交叉轴居中对齐（整体垂直居中）</td>
+<td>多行居中布局</td>
+</tr>
+<tr>
+<td><code>space-between</code></td>
+<td>多行两端对齐，行间距相等</td>
+<td>多行均匀分布</td>
+</tr>
+<tr>
+<td><code>space-around</code></td>
+<td>多行两侧间距相等</td>
+<td>多行均匀分布（需留白）</td>
+</tr>
+</tbody></table>
+<p><strong>示例：多行项目整体垂直居中</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  flex-wrap: wrap; /* 必须换行才生效 */
+  align-content: center; /* 多行整体垂直居中 */
+  height: 500px; /* 容器高度足够容纳多行 */
+&#125;
+</code></pre>
+<h2 id="四、项目属性（控制单个项目）"><a href="#四、项目属性（控制单个项目）" class="headerlink" title="四、项目属性（控制单个项目）"></a>四、项目属性（控制单个项目）</h2><p>弹性项目的属性用于单独调整某个项目的大小、对齐方式或排列顺序，覆盖容器的默认设置，共 6 个核心属性。</p>
+<h3 id="1-flex-grow：项目的放大比例"><a href="#1-flex-grow：项目的放大比例" class="headerlink" title="1. flex-grow：项目的放大比例"></a>1. flex-grow：项目的放大比例</h3><p>控制项目在容器有<strong>剩余空间</strong>时的放大比例，默认值 <code>0</code>（不放大）：</p>
+<ul>
+<li>取值为非负数字（整数 &#x2F; 小数），比例越大，占有的剩余空间越多</li>
+<li>多个项目的 <code>flex-grow</code> 按比例分配剩余空间（如 1:2 则分别占 1&#x2F;3、2&#x2F;3）</li>
+</ul>
+<p><strong>示例：2 个项目按 1:2 分配剩余空间</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  width: 500px;
+&#125;
+.item1 &#123; flex-grow: 1; &#125; /* 占 1/3 剩余空间 */
+.item2 &#123; flex-grow: 2; &#125; /* 占 2/3 剩余空间 */
+</code></pre>
+<h3 id="2-flex-shrink：项目的收缩比例"><a href="#2-flex-shrink：项目的收缩比例" class="headerlink" title="2. flex-shrink：项目的收缩比例"></a>2. flex-shrink：项目的收缩比例</h3><p>控制项目在容器<strong>空间不足</strong>时的收缩比例，默认值 <code>1</code>（自动收缩）：</p>
+<ul>
+<li>取值为非负数字，<code>0</code> 表示不收缩（固定宽度，避免被压缩）</li>
+<li>多个项目的 <code>flex-shrink</code> 按比例收缩（如 1:2 则 item1 收缩幅度是 item2 的 1&#x2F;2）</li>
+</ul>
+<p><strong>示例：禁止项目收缩（常用）</strong></p>
+<pre><code class="css">.item &#123;
+  flex-shrink: 0; /* 容器空间不足时，项目不收缩 */
+  width: 200px; /* 固定宽度不被压缩 */
+&#125;
+</code></pre>
+<h3 id="3-flex-basis：项目的基准宽度"><a href="#3-flex-basis：项目的基准宽度" class="headerlink" title="3. flex-basis：项目的基准宽度"></a>3. flex-basis：项目的基准宽度</h3><p>定义项目在主轴上的<strong>初始宽度</strong>（在分配剩余空间前的宽度），默认值 <code>auto</code>（项目自身宽度）：</p>
+<ul>
+<li>优先级：<code>flex-basis</code> &gt; 项目自身 <code>width</code>（若同时设置，<code>width</code> 失效）</li>
+<li>可取值：<code>px</code>&#x2F;<code>%</code>&#x2F;<code>em</code> 等具体单位，或 <code>auto</code>（自动适应内容）</li>
+</ul>
+<p><strong>示例：设置项目初始宽度</strong></p>
+<pre><code class="css">.item &#123;
+  flex-basis: 200px; /* 初始宽度 200px，剩余空间按 flex-grow 分配 */
+&#125;
+</code></pre>
+<h3 id="4-flex：flex-grow-flex-shrink-flex-basis-简写（常用）"><a href="#4-flex：flex-grow-flex-shrink-flex-basis-简写（常用）" class="headerlink" title="4. flex：flex-grow + flex-shrink + flex-basis 简写（常用）"></a>4. flex：<code>flex-grow</code> + <code>flex-shrink</code> + <code>flex-basis</code> 简写（常用）</h3><p>为简化代码，将三个属性合并为 <code>flex</code>，默认值 <code>0 1 auto</code>，常用简写形式如下：</p>
+<table>
+<thead>
+<tr>
+<th>简写</th>
+<th>等价于</th>
+<th>效果说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>flex: 1</code></td>
+<td><code>1 1 0%</code></td>
+<td>项目自动放大 &#x2F; 收缩，基准宽度为 0（按比例分配空间）</td>
+<td>等分布局、自适应宽度</td>
+</tr>
+<tr>
+<td><code>flex: auto</code></td>
+<td><code>1 1 auto</code></td>
+<td>项目自动放大 &#x2F; 收缩，基准宽度为自身宽度</td>
+<td>自适应内容宽度</td>
+</tr>
+<tr>
+<td><code>flex: none</code></td>
+<td><code>0 0 auto</code></td>
+<td>项目不放大、不收缩，固定自身宽度</td>
+<td>固定宽度项目（如侧边栏）</td>
+</tr>
+<tr>
+<td><code>flex: 2 0 300px</code></td>
+<td><code>2 0 300px</code></td>
+<td>放大比例 2，不收缩，基准宽度 300px</td>
+<td>固定基准宽度的自适应项目</td>
+</tr>
+</tbody></table>
+<p><strong>示例：等分布局（最常用）</strong></p>
+<pre><code class="css">.container &#123;
+  display: flex;
+&#125;
+.item &#123;
+  flex: 1; /* 所有项目等比例分配容器宽度 */
+  margin: 0 10px; /* 项目间距 */
+&#125;
+</code></pre>
+<h3 id="5-align-self：单个项目的交叉轴对齐"><a href="#5-align-self：单个项目的交叉轴对齐" class="headerlink" title="5. align-self：单个项目的交叉轴对齐"></a>5. align-self：单个项目的交叉轴对齐</h3><p>覆盖容器的 <code>align-items</code> 属性，单独设置某个项目的交叉轴对齐方式，取值与 <code>align-items</code> 一致：</p>
+<pre><code class="css">.container &#123;
+  display: flex;
+  align-items: flex-start; /* 所有项目顶部对齐 */
+&#125;
+.item-special &#123;
+  align-self: center; /* 该项目单独垂直居中 */
+&#125;
+</code></pre>
+<h3 id="6-order：项目的排列顺序"><a href="#6-order：项目的排列顺序" class="headerlink" title="6. order：项目的排列顺序"></a>6. order：项目的排列顺序</h3><p>控制项目的显示顺序，默认值 <code>0</code>，取值为整数（负数在前，正数在后，数值越小越靠前）：</p>
+<pre><code class="css">.item1 &#123; order: 2; &#125; /* 第 2 个显示 */
+.item2 &#123; order: 1; &#125; /* 第 1 个显示 */
+.item3 &#123; order: -1; &#125; /* 最前面显示（数值最小） */
+</code></pre>
+<h2 id="五、常用应用场景（附代码）"><a href="#五、常用应用场景（附代码）" class="headerlink" title="五、常用应用场景（附代码）"></a>五、常用应用场景（附代码）</h2><p>Flexbox 几乎能解决所有前端布局问题，以下是最常用的场景示例：</p>
+<h3 id="1-水平垂直居中（弹窗、卡片内容）"><a href="#1-水平垂直居中（弹窗、卡片内容）" class="headerlink" title="1. 水平垂直居中（弹窗、卡片内容）"></a>1. 水平垂直居中（弹窗、卡片内容）</h3><pre><code class="css">.modal-content &#123;
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center;     /* 垂直居中 */
+  height: 200px;
+  width: 300px;
+&#125;
+</code></pre>
+<h3 id="2-等分布局（导航栏、选项卡）"><a href="#2-等分布局（导航栏、选项卡）" class="headerlink" title="2. 等分布局（导航栏、选项卡）"></a>2. 等分布局（导航栏、选项卡）</h3><pre><code class="css">.nav &#123;
+  display: flex;
+  list-style: none;
+  padding: 0;
+&#125;
+.nav-item &#123;
+  flex: 1; /* 等比例分配宽度 */
+  text-align: center;
+  padding: 10px 0;
+&#125;
+</code></pre>
+<h3 id="3-两栏布局（侧边栏固定-主内容自适应）"><a href="#3-两栏布局（侧边栏固定-主内容自适应）" class="headerlink" title="3. 两栏布局（侧边栏固定 + 主内容自适应）"></a>3. 两栏布局（侧边栏固定 + 主内容自适应）</h3><pre><code class="css">.container &#123;
+  display: flex;
+  height: 100vh; /* 占满视口高度 */
+&#125;
+.sidebar &#123;
+  width: 200px;
+  flex-shrink: 0; /* 侧边栏不收缩 */
+  background: #f5f5f5;
+&#125;
+.main &#123;
+  flex: 1; /* 主内容自适应剩余宽度 */
+  padding: 20px;
+&#125;
+</code></pre>
+<h3 id="4-响应式换行布局（卡片、产品列表）"><a href="#4-响应式换行布局（卡片、产品列表）" class="headerlink" title="4. 响应式换行布局（卡片、产品列表）"></a>4. 响应式换行布局（卡片、产品列表）</h3><pre><code class="css">.card-container &#123;
+  display: flex;
+  flex-wrap: wrap; /* 自动换行 */
+  gap: 16px; /* 项目间距（替代 margin，更简洁） */
+  padding: 20px;
+&#125;
+.card &#123;
+  flex: 1 1 250px; /* 最小宽度 250px，超出自动换行 */
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+&#125;
+</code></pre>
+<h3 id="5-底部固定布局（内容不足时底部贴底）"><a href="#5-底部固定布局（内容不足时底部贴底）" class="headerlink" title="5. 底部固定布局（内容不足时底部贴底）"></a>5. 底部固定布局（内容不足时底部贴底）</h3><pre><code class="css">body &#123;
+  margin: 0;
+  min-height: 100vh; /* 视口高度 */
+  display: flex;
+  flex-direction: column; /* 主轴垂直 */
+&#125;
+.header &#123;
+  height: 60px;
+  background: #333;
+  color: #fff;
+&#125;
+.content &#123;
+  flex: 1; /* 内容区占满剩余空间，推底部到底部 */
+  padding: 20px;
+&#125;
+.footer &#123;
+  height: 60px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  line-height: 60px;
+&#125;
+</code></pre>
+<h3 id="6-文字基线对齐（卡片内文字对齐）"><a href="#6-文字基线对齐（卡片内文字对齐）" class="headerlink" title="6. 文字基线对齐（卡片内文字对齐）"></a>6. 文字基线对齐（卡片内文字对齐）</h3><pre><code class="css">.card-container &#123;
+  display: flex;
+  align-items: baseline; /* 按文字基线对齐 */
+  gap: 20px;
+&#125;
+.card h3 &#123;
+  margin: 0;
+  font-size: 24px;
+&#125;
+.card p &#123;
+  margin: 0;
+  font-size: 16px;
+&#125;
+</code></pre>
+<h2 id="六、关键注意事项"><a href="#六、关键注意事项" class="headerlink" title="六、关键注意事项"></a>六、关键注意事项</h2><ol>
+<li><p><strong>容器高度与交叉轴对齐</strong>：<code>align-items: center</code>、<code>align-content: center</code> 等属性需要容器有明确高度（如 <code>height</code>、<code>min-height: 100vh</code>），否则交叉轴无空间，对齐效果失效。</p>
+</li>
+<li><p><strong><code>gap</code> 属性的使用</strong>：Flexbox 支持 <code>gap</code>（项目间距）和 <code>row-gap</code>&#x2F;<code>column-gap</code>（行列间距），无需用 <code>margin</code> 实现，更简洁（IE 不支持 <code>gap</code>，需兼容时用 <code>margin</code>）。</p>
+</li>
+<li><p>**项目的 <code>width</code> 与 <code>flex-basis</code>**：<code>flex-basis</code> 优先级高于 <code>width</code>，若同时设置，<code>width</code> 失效；若 <code>flex-basis: auto</code>，则以 <code>width</code> 为准。</p>
+</li>
+<li><p>兼容性处理：IE11 支持 Flexbox，但存在部分差异（如<code>flex-basis</code>需配合<code>width</code>，<code>gap</code>不支持），可通过以下兼容写法修复：</p>
+<pre><code class="css">/* IE11 兼容 flex-basis */
+.item &#123;
+  flex-basis: 200px;
+  width: 200px; /* 兜底 IE11 */
+&#125;
+</code></pre>
+</li>
+<li><p><strong>嵌套 Flex 布局</strong>：弹性项目可以再声明为弹性容器，实现复杂的嵌套布局（如卡片内部的元素对齐）。</p>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS_浮动 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS_浮动</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/11
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>浮动（<code>float</code>）是 CSS 中用于<strong>实现元素水平排列、文字环绕</strong>的核心属性，曾是网页布局的基础（如多列布局），虽如今被 Flex&#x2F;Grid 替代，但在文字环绕、局部布局等场景仍广泛使用。本文将从核心概念、用法、特性、问题及解决方案全面解析。</p>
+<span id="more"></span>
+
+<h1 id="CSS-浮动（float）详解"><a href="#CSS-浮动（float）详解" class="headerlink" title="CSS 浮动（float）详解"></a>CSS 浮动（float）详解</h1><h2 id="一、核心概念"><a href="#一、核心概念" class="headerlink" title="一、核心概念"></a>一、核心概念</h2><p>浮动的本质是：<strong>让元素 “脱离标准文档流”，并向左 &#x2F; 向右浮动，直到碰到父元素边界或其他浮动元素</strong>。</p>
+<ul>
+<li>标准文档流：元素默认的排列规则（块级元素独占一行、行内元素横向排列）。</li>
+<li>浮动后元素特性：<ol>
+<li>脱离文档流，但<strong>不脱离文本流</strong>（文字会环绕浮动元素）；</li>
+<li>块级元素、行内元素浮动后，都会自动转为 “行内块级元素”（可设置宽高，且不独占一行）；</li>
+<li>浮动元素的父元素若未特殊处理，会 “塌陷”（高度为 0）。</li>
+</ol>
+</li>
+</ul>
+<h2 id="二、基本用法"><a href="#二、基本用法" class="headerlink" title="二、基本用法"></a>二、基本用法</h2><h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1. 语法"></a>1. 语法</h3><pre><code class="css">float: none | left | right | inherit;
+</code></pre>
+<ul>
+<li><code>none</code>：默认值，不浮动（遵循标准文档流）；</li>
+<li><code>left</code>：元素向左浮动；</li>
+<li><code>right</code>：元素向右浮动；</li>
+<li><code>inherit</code>：继承父元素的 <code>float</code> 属性（极少用）。</li>
+</ul>
+<h3 id="2-基础示例"><a href="#2-基础示例" class="headerlink" title="2. 基础示例"></a>2. 基础示例</h3><h4 id="（1）文字环绕图片（最经典场景）"><a href="#（1）文字环绕图片（最经典场景）" class="headerlink" title="（1）文字环绕图片（最经典场景）"></a>（1）文字环绕图片（最经典场景）</h4><pre><code class="html">&lt;style&gt;
+  .img-float &#123;
+    float: left; /* 图片向左浮动 */
+    width: 150px;
+    margin-right: 15px; /* 与文字间距 */
+  &#125;
+&lt;/style&gt;
+
+&lt;div&gt;
+  &lt;img src=&quot;image.jpg&quot; class=&quot;img-float&quot; alt=&quot;示例图&quot;&gt;
+  &lt;p&gt;这是一段环绕图片的文字... 文字会自动避开浮动的图片，形成自然的环绕效果，常用于文章配图场景。&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h4 id="（2）多元素水平排列（早期布局方式）"><a href="#（2）多元素水平排列（早期布局方式）" class="headerlink" title="（2）多元素水平排列（早期布局方式）"></a>（2）多元素水平排列（早期布局方式）</h4><pre><code class="html">&lt;style&gt;
+  .box &#123;
+    float: left; /* 三个盒子均向左浮动 */
+    width: 30%;
+    height: 100px;
+    margin: 0 1.5%;
+    background: #f0f0f0;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子1&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子2&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：三个盒子横向排列（需确保总宽度 ≤ 父容器宽度，避免换行）。</li>
+</ul>
+<h2 id="三、浮动的关键特性"><a href="#三、浮动的关键特性" class="headerlink" title="三、浮动的关键特性"></a>三、浮动的关键特性</h2><h3 id="1-脱离标准文档流，但不脱离文本流"><a href="#1-脱离标准文档流，但不脱离文本流" class="headerlink" title="1. 脱离标准文档流，但不脱离文本流"></a>1. 脱离标准文档流，但不脱离文本流</h3><ul>
+<li>脱离文档流：浮动元素不再占据原文档流的位置，后续的标准流元素会 “向上顶”（覆盖浮动元素的位置）；</li>
+<li>不脱离文本流：后续的文字 &#x2F; 行内元素会自动环绕浮动元素，不会被覆盖。</li>
+</ul>
+<p>示例对比：</p>
+<pre><code class="html">&lt;style&gt;
+  .float-box &#123;
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: red;
+  &#125;
+  .normal-box &#123;
+    width: 200px;
+    height: 200px;
+    background: #ccc; /* 灰色盒子会向上顶，但文字会环绕红色浮动盒 */
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;float-box&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;normal-box&quot;&gt;我是标准流盒子的文字，会环绕浮动元素&lt;/div&gt;
+</code></pre>
+<h3 id="2-浮动元素的-“包裹性”"><a href="#2-浮动元素的-“包裹性”" class="headerlink" title="2. 浮动元素的 “包裹性”"></a>2. 浮动元素的 “包裹性”</h3><p>浮动元素的宽度默认由<strong>内容决定</strong>（类似 <code>inline-block</code>），而非占满父容器（块级元素默认行为）。</p>
+<p>示例：</p>
+<pre><code class="css">.float-box &#123;
+  float: left;
+  background: blue;
+  color: white;
+&#125;
+</code></pre>
+<pre><code class="html">&lt;div class=&quot;float-box&quot;&gt;我是浮动元素，宽度由内容决定&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：元素宽度仅包裹内容，而非占满父容器。</li>
+</ul>
+<h3 id="3-浮动元素的-“堆叠”-规则"><a href="#3-浮动元素的-“堆叠”-规则" class="headerlink" title="3. 浮动元素的 “堆叠” 规则"></a>3. 浮动元素的 “堆叠” 规则</h3><p>多个浮动元素会按浮动方向依次排列，不会重叠：</p>
+<ul>
+<li>左浮动：元素从左到右依次排列，超出父容器则换行；</li>
+<li>右浮动：元素从右到左依次排列。</li>
+</ul>
+<pre><code class="css">.box &#123;
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background: green;
+&#125;
+</code></pre>
+<pre><code class="html">&lt;div class=&quot;box&quot;&gt;1&lt;/div&gt;
+&lt;div class=&quot;box&quot;&gt;2&lt;/div&gt;
+&lt;div class=&quot;box&quot;&gt;3&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：三个盒子从左到右排列，间距由 <code>margin</code> 控制。</li>
+</ul>
+<h2 id="四、浮动的核心问题：父元素塌陷"><a href="#四、浮动的核心问题：父元素塌陷" class="headerlink" title="四、浮动的核心问题：父元素塌陷"></a>四、浮动的核心问题：父元素塌陷</h2><h3 id="1-问题现象"><a href="#1-问题现象" class="headerlink" title="1. 问题现象"></a>1. 问题现象</h3><p>当父元素的所有子元素都是浮动元素时，父元素会失去高度（高度为 0），导致页面布局错乱。</p>
+<p>示例：</p>
+<pre><code class="html">&lt;style&gt;
+  .parent &#123;
+    border: 2px solid #000; /* 父元素边框 */
+  &#125;
+  .child &#123;
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: yellow;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：父元素的边框仅显示一条线（高度为 0），子元素 “溢出” 父容器。</li>
+</ul>
+<h3 id="2-解决方案（清除浮动）"><a href="#2-解决方案（清除浮动）" class="headerlink" title="2. 解决方案（清除浮动）"></a>2. 解决方案（清除浮动）</h3><p>清除浮动的核心是：<strong>让父元素重新感知浮动子元素的高度</strong>，常用 4 种方法：</p>
+<h4 id="（1）额外标签法（最简单，不推荐）"><a href="#（1）额外标签法（最简单，不推荐）" class="headerlink" title="（1）额外标签法（最简单，不推荐）"></a>（1）额外标签法（最简单，不推荐）</h4><p>在父元素末尾添加一个空的块级元素，设置 <code>clear: both</code>：</p>
+<pre><code class="html">&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt; &lt;!-- 额外空标签 --&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>原理：<code>clear: both</code> 表示该元素不允许左右两侧有浮动元素，迫使父元素拉伸高度包裹子元素；</li>
+<li>缺点：增加无意义 DOM 元素，影响代码整洁。</li>
+</ul>
+<h4 id="（2）父元素设置-overflow-hidden（简单，慎用）"><a href="#（2）父元素设置-overflow-hidden（简单，慎用）" class="headerlink" title="（2）父元素设置 overflow: hidden（简单，慎用）"></a>（2）父元素设置 <code>overflow: hidden</code>（简单，慎用）</h4><p>给父元素添加 <code>overflow: hidden</code> 或 <code>overflow: auto</code>：</p>
+<pre><code class="css">.parent &#123;
+  border: 2px solid #000;
+  overflow: hidden; /* 触发 BFC，清除浮动 */
+&#125;
+</code></pre>
+<ul>
+<li><p>原理：<code>overflow: hidden</code> 会触发父元素的 <strong>BFC（块级格式化上下文）</strong>，BFC 元素会包裹所有子元素（包括浮动元素）；</p>
+</li>
+<li><p>缺点：若子元素有溢出（如下拉菜单、弹出层），会被父元素裁剪，适用于无溢出场景。</p>
+</li>
+<li><p>补充：<code>overflow</code></p>
+<p>CSS样式<code>overflow</code>用于控制元素内容溢出时的处理方式。<code>overflow</code>属性有以下常见取值：</p>
+<p><code>visible</code>：默认值，内容会溢出到元素框之外。<br><code>hidden</code>：内容会被裁剪，并且不可见。<br><code>scroll</code>：如果内容溢出，会显示滚动条。<br><code>auto</code>：如果内容溢出，会显示滚动条，只有在需要时才显示。<br><code>inherit</code>：继承父元素的overflow属性。</p>
+</li>
+</ul>
+<h4 id="（3）父元素也浮动（不推荐）"><a href="#（3）父元素也浮动（不推荐）" class="headerlink" title="（3）父元素也浮动（不推荐）"></a>（3）父元素也浮动（不推荐）</h4><p>给父元素添加 <code>float: left/right</code>：</p>
+<pre><code class="css">.parent &#123;
+  border: 2px solid #000;
+  float: left;
+  width: 100%; /* 需手动设置宽度，否则由内容决定 */
+&#125;
+</code></pre>
+<ul>
+<li>原理：浮动的父元素会自动包裹浮动子元素；</li>
+<li>缺点：父元素浮动后会脱离文档流，可能导致后续元素布局错乱，需嵌套更多容器解决。</li>
+</ul>
+<h4 id="（4）伪元素清除法（推荐，无副作用）"><a href="#（4）伪元素清除法（推荐，无副作用）" class="headerlink" title="（4）伪元素清除法（推荐，无副作用）"></a>（4）伪元素清除法（推荐，无副作用）</h4><p>利用父元素的 <code>::after</code> 伪元素模拟 “额外标签”，不增加真实 DOM：</p>
+<pre><code class="css">/* 通用清除浮动类 */
+.clearfix::after &#123;
+  content: &quot;&quot;; /* 伪元素必须有 content */
+  display: block; /* 转为块级元素 */
+  clear: both; /* 清除左右浮动 */
+  visibility: hidden; /* 隐藏伪元素 */
+  height: 0; /* 高度为 0，不占空间 */
+&#125;
+
+/* 兼容 IE6/7（已淘汰，可选） */
+.clearfix &#123;
+  *zoom: 1;
+&#125;
+</code></pre>
+<p>使用时给父元素添加 <code>clearfix</code> 类：</p>
+<pre><code class="html">&lt;div class=&quot;parent clearfix&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>优点：无额外 DOM、无副作用，兼容所有现代浏览器，是工业界标准方案。</li>
+</ul>
+<h2 id="五、clear-属性详解"><a href="#五、clear-属性详解" class="headerlink" title="五、clear 属性详解"></a>五、<code>clear</code> 属性详解</h2><p><code>clear</code> 用于控制元素是否允许周围有浮动元素，仅对<strong>块级元素</strong>有效。</p>
+<h3 id="1-语法-1"><a href="#1-语法-1" class="headerlink" title="1. 语法"></a>1. 语法</h3><pre><code class="css">clear: none | left | right | both;
+</code></pre>
+<ul>
+<li><code>none</code>：默认值，允许左右两侧有浮动元素；</li>
+<li><code>left</code>：不允许左侧有浮动元素；</li>
+<li><code>right</code>：不允许右侧有浮动元素；</li>
+<li><code>both</code>：不允许左右两侧有浮动元素（最常用）。</li>
+</ul>
+<h3 id="2-示例：清除右侧浮动"><a href="#2-示例：清除右侧浮动" class="headerlink" title="2. 示例：清除右侧浮动"></a>2. 示例：清除右侧浮动</h3><pre><code class="html">&lt;style&gt;
+  .float-right &#123;
+    float: right;
+    width: 100px;
+    height: 100px;
+    background: purple;
+  &#125;
+  .clear-right &#123;
+    clear: right; /* 不允许右侧有浮动元素 */
+    background: #eee;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;float-right&quot;&gt;&lt;/div&gt;
+&lt;p class=&quot;clear-right&quot;&gt;这段文字不允许右侧有浮动元素，会自动换行到浮动元素下方。&lt;/p&gt;
+</code></pre>
+<h2 id="六、浮动的适用场景与替代方案"><a href="#六、浮动的适用场景与替代方案" class="headerlink" title="六、浮动的适用场景与替代方案"></a>六、浮动的适用场景与替代方案</h2><h3 id="1-适用场景（现代开发仍常用）"><a href="#1-适用场景（现代开发仍常用）" class="headerlink" title="1. 适用场景（现代开发仍常用）"></a>1. 适用场景（现代开发仍常用）</h3><ul>
+<li>文字环绕图片 &#x2F; 元素；</li>
+<li>局部小布局（如导航栏按钮横向排列）；</li>
+<li>兼容旧浏览器的简单布局。</li>
+</ul>
+<h3 id="2-替代方案（现代布局首选）"><a href="#2-替代方案（现代布局首选）" class="headerlink" title="2. 替代方案（现代布局首选）"></a>2. 替代方案（现代布局首选）</h3><p>如今浮动已不再是布局首选，以下方案更简洁、强大：</p>
+<ul>
+<li><strong>Flex 布局</strong>：适合一维布局（横向 &#x2F; 纵向排列），替代浮动实现多列布局、居中对齐等；</li>
+<li><strong>Grid 布局</strong>：适合二维布局（行列同时控制），替代复杂的浮动嵌套布局；</li>
+<li><strong>inline-block</strong>：适合简单横向排列（无父元素塌陷问题，但需处理缝隙）。</li>
+</ul>
+<p>示例：Flex 替代浮动实现多列布局</p>
+<pre><code class="html">&lt;style&gt;
+  .container &#123;
+    display: flex; /* 父元素设为 Flex 容器 */
+    gap: 20px; /* 子元素间距（替代 margin） */
+  &#125;
+  .box &#123;
+    flex: 1; /* 子元素等分宽度 */
+    height: 100px;
+    background: #f0f0f0;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子1&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子2&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;盒子3&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<ul>
+<li>优点：无需清除浮动、自动适配、易于对齐，代码更简洁。</li>
+</ul>
+<h2 id="七、常见误区"><a href="#七、常见误区" class="headerlink" title="七、常见误区"></a>七、常见误区</h2><ol>
+<li><p>浮动元素会被 <code>margin: auto</code> 居中？ </p>
+<p>不会！<code>margin: auto</code>仅对标准流的块级元素有效，浮动元素需通过父容器<code>text-align: center</code>+ 自身<code>display: inline-block</code>实现居中（或直接用 Flex）。</p>
+</li>
+<li><p>浮动元素可以覆盖文字？</p>
+<p>不能！浮动元素脱离文档流但不脱离文本流，文字会自动环绕，若想覆盖需用 （绝对定位）。</p>
+</li>
+<li><p>清除浮动后，浮动元素会回到标准流？</p>
+<p>不会！清除浮动仅影响 “后续元素” 和 “父元素高度”，浮动元素本身仍脱离标准流。</p>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

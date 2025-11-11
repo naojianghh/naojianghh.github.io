@@ -1,0 +1,766 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS_动画 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS_动画</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/11
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #ffa2c4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>CSS 动画是通过 CSS 属性控制元素从一种样式状态平滑过渡到另一种状态的技术，无需 JavaScript 即可实现丰富的视觉效果（如渐变、旋转、缩放、位移等）。核心分为 <strong>过渡动画（<code>transition</code>）</strong> 和 <strong>关键帧动画（<code>animation</code>）</strong> 两大类，前者适合简单的 “状态切换”，后者适合复杂的 “多阶段动画”。本文将从基础概念、用法、特性、实战场景及优化全面解析。</p>
+<span id="more"></span>
+
+<h1 id="CSS-动画详解"><a href="#CSS-动画详解" class="headerlink" title="CSS 动画详解"></a>CSS 动画详解</h1><h2 id="一、核心概念"><a href="#一、核心概念" class="headerlink" title="一、核心概念"></a>一、核心概念</h2><h3 id="1-动画的本质"><a href="#1-动画的本质" class="headerlink" title="1. 动画的本质"></a>1. 动画的本质</h3><p>通过 CSS 定义元素的 “初始状态” 和 “目标状态”（或多阶段状态），浏览器自动计算中间帧，实现平滑过渡。核心优势：</p>
+<ul>
+<li>浏览器原生支持，性能优于 JS 动画（可利用 GPU 加速）；</li>
+<li>语法简洁，无需复杂脚本；</li>
+<li>支持暂停、延迟、循环等控制。</li>
+</ul>
+<h3 id="2-关键术语"><a href="#2-关键术语" class="headerlink" title="2. 关键术语"></a>2. 关键术语</h3><ul>
+<li><strong>状态</strong>：元素的 CSS 样式集合（如 <code>width: 100px</code>、<code>opacity: 0</code>）；</li>
+<li><strong>过渡（Transition）</strong>：从 “初始状态” 到 “目标状态” 的一次性平滑过渡；</li>
+<li><strong>关键帧（Keyframe）</strong>：定义动画的多个关键阶段（如开始、中间、结束），<code>animation</code> 基于关键帧实现复杂动画；</li>
+<li><strong>时间函数（Timing Function）</strong>：控制动画的速度曲线（如匀速、先慢后快）；</li>
+<li><strong>持续时间（Duration）</strong>：动画从开始到结束的总时间；</li>
+<li><strong>延迟时间（Delay）</strong>：动画触发后等待多久开始执行。</li>
+</ul>
+<h2 id="二、过渡动画（transition）：简单状态切换"><a href="#二、过渡动画（transition）：简单状态切换" class="headerlink" title="二、过渡动画（transition）：简单状态切换"></a>二、过渡动画（transition）：简单状态切换</h2><p><code>transition</code> 是最基础的 CSS 动画，用于实现 “元素状态变化时的平滑过渡”（如 hover 效果、点击切换样式），仅需定义 “过渡属性”“持续时间” 等核心参数。</p>
+<h3 id="1-语法（简写）"><a href="#1-语法（简写）" class="headerlink" title="1. 语法（简写）"></a>1. 语法（简写）</h3><pre><code class="css">transition: [过渡属性] [持续时间] [时间函数] [延迟时间];
+</code></pre>
+<ul>
+<li>各参数可选，顺序固定（后两个可省略，默认：<code>ease</code> 时间函数、<code>0s</code> 延迟）；</li>
+<li>多属性过渡：用逗号分隔（如 <code>transition: width 0.3s, background 0.5s</code>）；</li>
+<li>所有属性过渡：<code>transition: all 0.3s</code>（简单但性能略差，推荐明确指定属性）。</li>
+</ul>
+<h3 id="2-核心参数详解"><a href="#2-核心参数详解" class="headerlink" title="2. 核心参数详解"></a>2. 核心参数详解</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>过渡属性</td>
+<td>要过渡的 CSS 属性（如 <code>width</code>、<code>opacity</code>、<code>transform</code>）</td>
+<td>具体属性名 &#x2F; <code>all</code>（所有属性） &#x2F; <code>none</code></td>
+</tr>
+<tr>
+<td>持续时间</td>
+<td>动画完成的时间（必须指定，否则无效）</td>
+<td>单位 <code>s</code>（秒）或 <code>ms</code>（毫秒）（如 <code>0.3s</code>）</td>
+</tr>
+<tr>
+<td>时间函数</td>
+<td>动画速度曲线</td>
+<td><code>ease</code>（默认：先慢后快）、<code>linear</code>（匀速）、<code>ease-in-out</code>（先慢后快再慢）、<code>cubic-bezier(n,n,n,n)</code>（自定义曲线）</td>
+</tr>
+<tr>
+<td>延迟时间</td>
+<td>触发后延迟多久开始动画</td>
+<td>单位 <code>s</code>&#x2F;<code>ms</code>（如 <code>0.2s</code>，默认 <code>0s</code>）</td>
+</tr>
+</tbody></table>
+<h3 id="3-基础示例：hover-平滑缩放"><a href="#3-基础示例：hover-平滑缩放" class="headerlink" title="3. 基础示例：hover 平滑缩放"></a>3. 基础示例：hover 平滑缩放</h3><pre><code class="html">&lt;style&gt;
+  .box &#123;
+    width: 100px;
+    height: 100px;
+    background: blue;
+    /* 过渡动画：transform 属性，持续 0.3s，匀速 */
+    transition: transform 0.3s linear;
+  &#125;
+  .box:hover &#123;
+    transform: scale(1.2); /* hover 时放大 1.2 倍 */
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：鼠标悬浮时，盒子平滑放大；离开时，平滑恢复原大小。</li>
+</ul>
+<h3 id="4-多属性过渡示例"><a href="#4-多属性过渡示例" class="headerlink" title="4. 多属性过渡示例"></a>4. 多属性过渡示例</h3><pre><code class="css">.box &#123;
+  width: 100px;
+  height: 100px;
+  background: red;
+  /* 同时过渡 width、background、border-radius，各属性持续时间不同 */
+  transition: width 0.5s ease, background 0.3s, border-radius 0.8s;
+&#125;
+.box:hover &#123;
+  width: 200px;
+  background: green;
+  border-radius: 50%; /* 变为圆形 */
+&#125;
+</code></pre>
+<h3 id="5-过渡动画的触发方式"><a href="#5-过渡动画的触发方式" class="headerlink" title="5. 过渡动画的触发方式"></a>5. 过渡动画的触发方式</h3><p><code>transition</code> 需通过 “状态变化” 触发，常见触发方式：</p>
+<ul>
+<li>伪类：<code>hover</code>（悬浮）、<code>active</code>（点击）、<code>focus</code>（聚焦）；</li>
+<li>JS 操作：修改元素 <code>class</code>、直接修改 CSS 属性；</li>
+<li>表单元素状态：<code>checked</code>（复选框选中）。</li>
+</ul>
+<p>示例：JS 触发过渡</p>
+<pre><code class="html">&lt;style&gt;
+  .box &#123;
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    transition: all 0.3s;
+  &#125;
+  .box.active &#123;
+    width: 300px;
+    background: purple;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;box&quot; id=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;button onclick=&quot;document.getElementById(&#39;box&#39;).classList.toggle(&#39;active&#39;)&quot;&gt;切换状态&lt;/button&gt;
+</code></pre>
+<h2 id="三、关键帧动画（animation）：复杂多阶段动画"><a href="#三、关键帧动画（animation）：复杂多阶段动画" class="headerlink" title="三、关键帧动画（animation）：复杂多阶段动画"></a>三、关键帧动画（animation）：复杂多阶段动画</h2><p><code>animation</code> 是更强大的 CSS 动画，通过 <code>@keyframes</code> 定义多个关键帧（阶段），支持循环、暂停、反向播放等，适合实现复杂动画（如加载动画、元素穿梭、多步骤变换）。</p>
+<h3 id="1-核心语法"><a href="#1-核心语法" class="headerlink" title="1. 核心语法"></a>1. 核心语法</h3><h4 id="（1）定义关键帧（-keyframes）"><a href="#（1）定义关键帧（-keyframes）" class="headerlink" title="（1）定义关键帧（@keyframes）"></a>（1）定义关键帧（<code>@keyframes</code>）</h4><pre><code class="css">/* 方式 1：用 from（开始）和 to（结束）定义两阶段动画 */
+@keyframes 动画名称 &#123;
+  from &#123; /* 初始状态 */
+    transform: translateX(0);
+  &#125;
+  to &#123; /* 结束状态 */
+    transform: translateX(300px);
+  &#125;
+&#125;
+
+/* 方式 2：用百分比定义多阶段动画（更灵活） */
+@keyframes 动画名称 &#123;
+  0% &#123; /* 初始状态 */
+    opacity: 0;
+    transform: scale(0.5);
+  &#125;
+  50% &#123; /* 中间阶段（动画进行到一半） */
+    opacity: 1;
+    transform: scale(1.1);
+  &#125;
+  100% &#123; /* 结束状态 */
+    opacity: 1;
+    transform: scale(1);
+  &#125;
+&#125;
+</code></pre>
+<h4 id="（2）应用动画（animation-简写）"><a href="#（2）应用动画（animation-简写）" class="headerlink" title="（2）应用动画（animation 简写）"></a>（2）应用动画（<code>animation</code> 简写）</h4><pre><code class="css">animation: [动画名称] [持续时间] [时间函数] [延迟时间] [循环次数] [方向] [填充模式] [播放状态];
+</code></pre>
+<ul>
+<li>各参数顺序可灵活调整（但持续时间必须在延迟时间前）；</li>
+<li>未指定的参数取默认值。</li>
+</ul>
+<h3 id="2-animation-各参数详解"><a href="#2-animation-各参数详解" class="headerlink" title="2. animation 各参数详解"></a>2. <code>animation</code> 各参数详解</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>可选值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>动画名称</td>
+<td>对应 <code>@keyframes</code> 定义的名称（必须指定）</td>
+<td>自定义名称（如 <code>fadeIn</code>、<code>slide</code>）</td>
+</tr>
+<tr>
+<td>持续时间</td>
+<td>动画完成一次的时间（必须指定，否则无效）</td>
+<td><code>s</code>&#x2F;<code>ms</code>（如 <code>1s</code>）</td>
+</tr>
+<tr>
+<td>时间函数</td>
+<td>动画速度曲线</td>
+<td>同 <code>transition</code>（<code>linear</code>、<code>ease</code> 等）</td>
+</tr>
+<tr>
+<td>延迟时间</td>
+<td>触发后延迟多久开始</td>
+<td><code>s</code>&#x2F;<code>ms</code>（默认 <code>0s</code>）</td>
+</tr>
+<tr>
+<td>循环次数</td>
+<td>动画重复次数</td>
+<td>数字（如 <code>3</code>） &#x2F; <code>infinite</code>（无限循环，常用）</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>动画播放方向</td>
+<td><code>normal</code>（默认：正向）、<code>reverse</code>（反向）、<code>alternate</code>（交替：正向→反向→正向…）、<code>alternate-reverse</code>（反向交替）</td>
+</tr>
+<tr>
+<td>填充模式</td>
+<td>动画结束后元素保留的状态</td>
+<td><code>none</code>（默认：回到初始状态）、<code>forwards</code>（保留结束状态）、<code>backwards</code>（延迟期间显示第一帧）、<code>both</code>（同时应用 <code>forwards</code> 和 <code>backwards</code>）</td>
+</tr>
+<tr>
+<td>播放状态</td>
+<td>控制动画播放 &#x2F; 暂停</td>
+<td><code>running</code>（默认：播放）、<code>paused</code>（暂停）</td>
+</tr>
+</tbody></table>
+<h3 id="3-基础示例：加载动画（无限旋转）"><a href="#3-基础示例：加载动画（无限旋转）" class="headerlink" title="3. 基础示例：加载动画（无限旋转）"></a>3. 基础示例：加载动画（无限旋转）</h3><pre><code class="html">&lt;style&gt;
+  /* 定义关键帧：旋转 360 度 */
+  @keyframes spin &#123;
+    from &#123;
+      transform: rotate(0deg);
+    &#125;
+    to &#123;
+      transform: rotate(360deg);
+    &#125;
+  &#125;
+
+  .loader &#123;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #eee;
+    border-top: 5px solid blue;
+    border-radius: 50%; /* 圆形 */
+    /* 应用动画：无限循环、匀速、1s 一圈 */
+    animation: spin 1s linear infinite;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;loader&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：圆形持续旋转，实现经典加载动画。</li>
+</ul>
+<h3 id="4-多阶段动画示例：淡入-缩放"><a href="#4-多阶段动画示例：淡入-缩放" class="headerlink" title="4. 多阶段动画示例：淡入 + 缩放"></a>4. 多阶段动画示例：淡入 + 缩放</h3><pre><code class="html">&lt;style&gt;
+  /* 定义多阶段关键帧 */
+  @keyframes fadeInScale &#123;
+    0% &#123;
+      opacity: 0; /* 完全透明 */
+      transform: scale(0.5); /* 缩小 50% */
+    &#125;
+    70% &#123;
+      opacity: 1; /* 完全显示 */
+      transform: scale(1.2); /* 放大 20% */
+    &#125;
+    100% &#123;
+      transform: scale(1); /* 恢复原大小 */
+    &#125;
+  &#125;
+
+  .box &#123;
+    width: 100px;
+    height: 100px;
+    background: red;
+    /* 应用动画：持续 1.5s，先慢后快，保留结束状态 */
+    animation: fadeInScale 1.5s ease forwards;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：元素从透明缩小状态，逐渐淡入并放大，最后恢复原大小并保持。</li>
+</ul>
+<h3 id="5-动画控制：暂停-播放、反向"><a href="#5-动画控制：暂停-播放、反向" class="headerlink" title="5. 动画控制：暂停 &#x2F; 播放、反向"></a>5. 动画控制：暂停 &#x2F; 播放、反向</h3><pre><code class="html">&lt;style&gt;
+  @keyframes move &#123;
+    0% &#123; transform: translateX(0); &#125;
+    100% &#123; transform: translateX(300px); &#125;
+  &#125;
+
+  .box &#123;
+    width: 100px;
+    height: 100px;
+    background: green;
+    animation: move 3s linear infinite alternate; /* 交替方向循环 */
+  &#125;
+  .box:hover &#123;
+    animation-play-state: paused; /* 鼠标悬浮暂停动画 */
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre>
+<ul>
+<li>效果：盒子左右往复移动，鼠标悬浮时暂停。</li>
+</ul>
+<h2 id="四、常用动画属性（transform、opacity-等）"><a href="#四、常用动画属性（transform、opacity-等）" class="headerlink" title="四、常用动画属性（transform、opacity 等）"></a>四、常用动画属性（transform、opacity 等）</h2><p>CSS 动画通常配合 “可过渡的 CSS 属性” 使用，核心属性如下：</p>
+<h3 id="1-transform：元素变换（无布局偏移）"><a href="#1-transform：元素变换（无布局偏移）" class="headerlink" title="1. transform：元素变换（无布局偏移）"></a>1. transform：元素变换（无布局偏移）</h3><p><code>transform</code> 用于对元素进行旋转、缩放、位移、倾斜等变换，<strong>不会影响其他元素布局</strong>（性能最优），是动画核心属性。</p>
+<h4 id="常用变换函数"><a href="#常用变换函数" class="headerlink" title="常用变换函数"></a>常用变换函数</h4><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>translateX(n)</code></td>
+<td>水平位移（<code>n</code> 为 <code>px</code> 或百分比）</td>
+<td><code>translateX(50px)</code>（向右移 50px）</td>
+</tr>
+<tr>
+<td><code>translateY(n)</code></td>
+<td>垂直位移</td>
+<td><code>translateY(-20px)</code>（向上移 20px）</td>
+</tr>
+<tr>
+<td><code>translate(n,m)</code></td>
+<td>水平 + 垂直位移</td>
+<td><code>translate(30px, 40px)</code></td>
+</tr>
+<tr>
+<td><code>scale(n)</code></td>
+<td>缩放（<code>n=1</code> 原大小，<code>n&gt;1</code> 放大）</td>
+<td><code>scale(1.5)</code>（放大 1.5 倍）</td>
+</tr>
+<tr>
+<td><code>scaleX(n)</code>&#x2F;<code>scaleY(n)</code></td>
+<td>水平 &#x2F; 垂直单独缩放</td>
+<td><code>scaleX(2)</code>（水平放大 2 倍）</td>
+</tr>
+<tr>
+<td><code>rotate(ndeg)</code></td>
+<td>旋转（<code>n</code> 为角度，正顺时针，负逆时针）</td>
+<td><code>rotate(45deg)</code>（顺时针转 45 度）</td>
+</tr>
+<tr>
+<td><code>skewX(ndeg)</code>&#x2F;<code>skewY(ndeg)</code></td>
+<td>水平 &#x2F; 垂直倾斜</td>
+<td><code>skewX(10deg)</code>（水平倾斜 10 度）</td>
+</tr>
+</tbody></table>
+<p>示例：组合变换（位移 + 旋转 + 缩放）</p>
+<pre><code class="css">.box &#123;
+  transform: translateX(50px) rotate(30deg) scale(1.2);
+&#125;
+</code></pre>
+<h3 id="2-opacity：透明度（无布局偏移）"><a href="#2-opacity：透明度（无布局偏移）" class="headerlink" title="2. opacity：透明度（无布局偏移）"></a>2. opacity：透明度（无布局偏移）</h3><p>控制元素透明度（<code>0</code> 完全透明，<code>1</code> 完全不透明），适合淡入淡出效果，性能优异。</p>
+<p>示例：淡入动画</p>
+<pre><code class="css">@keyframes fadeIn &#123;
+  from &#123; opacity: 0; &#125;
+  to &#123; opacity: 1; &#125;
+&#125;
+</code></pre>
+<h3 id="3-其他可动画属性（可能触发布局重绘）"><a href="#3-其他可动画属性（可能触发布局重绘）" class="headerlink" title="3. 其他可动画属性（可能触发布局重绘）"></a>3. 其他可动画属性（可能触发布局重绘）</h3><p>以下属性也支持动画，但会改变元素布局（触发浏览器重绘 &#x2F; 回流，性能略差），尽量少用：</p>
+<ul>
+<li>尺寸类：<code>width</code>、<code>height</code>、<code>padding</code>、<code>margin</code>；</li>
+<li>位置类：<code>top</code>、<code>left</code>、<code>right</code>、<code>bottom</code>（需配合定位）；</li>
+<li>颜色类：<code>background</code>、<code>color</code>、<code>border-color</code>；</li>
+<li>其他：<code>border-radius</code>、<code>box-shadow</code>。</li>
+</ul>
+<blockquote>
+<p>性能优化建议：优先使用 <code>transform</code> + <code>opacity</code> 实现动画（浏览器可通过 GPU 加速，避免重绘回流）。</p>
+</blockquote>
+<h2 id="五、动画的性能优化"><a href="#五、动画的性能优化" class="headerlink" title="五、动画的性能优化"></a>五、动画的性能优化</h2><h3 id="1-优先使用-GPU-加速属性"><a href="#1-优先使用-GPU-加速属性" class="headerlink" title="1. 优先使用 GPU 加速属性"></a>1. 优先使用 GPU 加速属性</h3><ul>
+<li>推荐：<code>transform</code>、<code>opacity</code>（这两个属性不会触发布局重绘，仅触发合成层更新）；</li>
+<li>避免：<code>width</code>、<code>height</code>、<code>top</code>、<code>left</code> 等会改变布局的属性。</li>
+</ul>
+<h3 id="2-减少动画元素数量"><a href="#2-减少动画元素数量" class="headerlink" title="2. 减少动画元素数量"></a>2. 减少动画元素数量</h3><p>过多同时运行的动画会占用大量 GPU 资源，导致卡顿，尽量精简动画元素。</p>
+<h3 id="3-避免过度使用-animation-all"><a href="#3-避免过度使用-animation-all" class="headerlink" title="3. 避免过度使用 animation: all"></a>3. 避免过度使用 <code>animation: all</code></h3><p><code>all</code> 会让所有属性参与过渡，可能包含无需动画的属性，增加浏览器计算压力，建议明确指定动画属性。</p>
+<h3 id="4-合理设置-will-change（提前告知浏览器）"><a href="#4-合理设置-will-change（提前告知浏览器）" class="headerlink" title="4. 合理设置 will-change（提前告知浏览器）"></a>4. 合理设置 <code>will-change</code>（提前告知浏览器）</h3><p>给即将动画的元素添加 <code>will-change</code>，让浏览器提前准备优化（如分配 GPU 资源），避免动画启动时卡顿：</p>
+<pre><code class="css">.box &#123;
+  will-change: transform, opacity; /* 告知浏览器即将动画这两个属性 */
+&#125;
+</code></pre>
+<ul>
+<li>注意：不要滥用 <code>will-change</code>（如给所有元素添加），否则会占用额外资源。</li>
+</ul>
+<h3 id="5-控制动画持续时间和帧率"><a href="#5-控制动画持续时间和帧率" class="headerlink" title="5. 控制动画持续时间和帧率"></a>5. 控制动画持续时间和帧率</h3><ul>
+<li>持续时间建议在 <code>0.3s~0.6s</code> 之间（过短生硬，过长拖沓）；</li>
+<li>浏览器默认帧率 60fps（每帧约 16.7ms），确保动画每帧计算时间不超过 16.7ms。</li>
+</ul>
+<h2 id="六、动画的常见问题与解决方案"><a href="#六、动画的常见问题与解决方案" class="headerlink" title="六、动画的常见问题与解决方案"></a>六、动画的常见问题与解决方案</h2><h3 id="1-动画结束后回到初始状态"><a href="#1-动画结束后回到初始状态" class="headerlink" title="1. 动画结束后回到初始状态"></a>1. 动画结束后回到初始状态</h3><p>问题：<code>animation</code>默认动画结束后回到初始状态，无法保留结束样式。解决方案：设置<code>animation-fill-mode: forwards</code></p>
+<pre><code class="css">.box &#123;
+  animation: fadeIn 1s forwards; /* 保留结束状态 */
+&#125;
+</code></pre>
+<h3 id="2-动画触发时的-“闪烁”"><a href="#2-动画触发时的-“闪烁”" class="headerlink" title="2. 动画触发时的 “闪烁”"></a>2. 动画触发时的 “闪烁”</h3><p>问题：动画开始前元素可能出现瞬间闪烁（尤其  </p>
+<p>解决方案：</p>
+<ul>
+<li>给元素初始状态添加 <code>opacity: 0</code>（避免初始显示）；</li>
+<li>配合 <code>animation-fill-mode: backwards</code>（延迟期间显示第一帧）：</li>
+</ul>
+<pre><code class="css">.box &#123;
+  opacity: 0; /* 初始透明 */
+  animation: fadeIn 1s forwards backwards;
+&#125;
+</code></pre>
+<h3 id="3-transform-动画抖动"><a href="#3-transform-动画抖动" class="headerlink" title="3. transform 动画抖动"></a>3. transform 动画抖动</h3><p>问题：元素用 </p>
+<p>解决方案：给动画元素添加  ，避免 GPU 渲染时的 “像素对齐问题”：</p>
+<pre><code class="css">.box &#123;
+  backface-visibility: hidden;
+  perspective: 1000px;
+&#125;
+</code></pre>
+<h3 id="4-多动画冲突"><a href="#4-多动画冲突" class="headerlink" title="4. 多动画冲突"></a>4. 多动画冲突</h3><p>问题：给同一元素添加多个 </p>
+<p>解决方案：</p>
+<ul>
+<li>合并关键帧（将多个动画逻辑写在一个 <code>@keyframes</code> 中）；</li>
+<li>用逗号分隔多个动画（确保不冲突）：</li>
+</ul>
+<pre><code class="css">.box &#123;
+  animation: fadeIn 1s, move 2s; /* 同时执行两个动画 */
+&#125;
+</code></pre>
+<h2 id="七、过渡（transition）vs-关键帧（animation）：如何选择？"><a href="#七、过渡（transition）vs-关键帧（animation）：如何选择？" class="headerlink" title="七、过渡（transition）vs 关键帧（animation）：如何选择？"></a>七、过渡（transition）vs 关键帧（animation）：如何选择？</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>transition（过渡）</th>
+<th>animation（关键帧）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心用途</td>
+<td>简单状态切换（如 hover、点击）</td>
+<td>复杂多阶段动画（如加载、循环、多步骤）</td>
+</tr>
+<tr>
+<td>触发方式</td>
+<td>需状态变化触发（被动）</td>
+<td>自动触发（或 JS 控制），支持主动控制</td>
+</tr>
+<tr>
+<td>阶段数</td>
+<td>仅支持 “初始→目标” 两阶段</td>
+<td>支持任意多阶段（百分比定义）</td>
+</tr>
+<tr>
+<td>循环能力</td>
+<td>不支持循环（需 JS 反复触发状态）</td>
+<td>支持 <code>infinite</code> 无限循环、交替方向</td>
+</tr>
+<tr>
+<td>控制灵活性</td>
+<td>低（仅能控制过渡参数）</td>
+<td>高（支持暂停、反向、填充模式等）</td>
+</tr>
+</tbody></table>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
+<li>简单交互效果（如 hover 变色、缩放）→ 用 <code>transition</code>（简洁高效）；</li>
+<li>复杂动画（如加载旋转、多步骤变换、循环动画）→ 用 <code>animation</code>（灵活强大）；</li>
+<li>需 JS 控制播放 &#x2F; 暂停、循环次数 → 用 <code>animation</code>。</li>
+</ul>
+<h2 id="八、实战场景示例"><a href="#八、实战场景示例" class="headerlink" title="八、实战场景示例"></a>八、实战场景示例</h2><h3 id="1-导航栏-hover-效果（transition）"><a href="#1-导航栏-hover-效果（transition）" class="headerlink" title="1. 导航栏 hover 效果（transition）"></a>1. 导航栏 hover 效果（transition）</h3><pre><code class="css">.nav-item &#123;
+  color: #333;
+  padding: 10px 15px;
+  transition: color 0.3s, background 0.3s, transform 0.2s;
+&#125;
+.nav-item:hover &#123;
+  color: white;
+  background: #0066cc;
+  transform: translateY(-2px); /* 轻微上移，增强交互感 */
+&#125;
+</code></pre>
+<h3 id="2-弹窗淡入弹出（animation）"><a href="#2-弹窗淡入弹出（animation）" class="headerlink" title="2. 弹窗淡入弹出（animation）"></a>2. 弹窗淡入弹出（animation）</h3><pre><code class="css">@keyframes modalFadeIn &#123;
+  0% &#123;
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  &#125;
+  100% &#123;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  &#125;
+&#125;
+
+.modal &#123;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: modalFadeIn 0.4s ease forwards;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+&#125;
+</code></pre>
+<h3 id="3-滚动触发动画（JS-animation）"><a href="#3-滚动触发动画（JS-animation）" class="headerlink" title="3. 滚动触发动画（JS + animation）"></a>3. 滚动触发动画（JS + animation）</h3><pre><code class="html">&lt;style&gt;
+  @keyframes slideUp &#123;
+    from &#123;
+      opacity: 0;
+      transform: translateY(50px);
+    &#125;
+    to &#123;
+      opacity: 1;
+      transform: translateY(0);
+    &#125;
+  &#125;
+
+  .animate-on-scroll &#123;
+    opacity: 0; /* 初始透明 */
+  &#125;
+  .animate-on-scroll.active &#123;
+    animation: slideUp 0.6s ease forwards;
+  &#125;
+&lt;/style&gt;
+
+&lt;div class=&quot;animate-on-scroll&quot;&gt;滚动到此处时触发动画&lt;/div&gt;
+
+&lt;script&gt;
+  // 监听滚动事件
+  window.addEventListener(&#39;scroll&#39;, () =&gt; &#123;
+    const elements = document.querySelectorAll(&#39;.animate-on-scroll&#39;);
+    elements.forEach(el =&gt; &#123;
+      // 计算元素是否进入视口
+      const rect = el.getBoundingClientRect();
+      if (rect.top &lt; window.innerHeight - 100) &#123;
+        el.classList.add(&#39;active&#39;); // 触发动画
+      &#125;
+    &#125;);
+  &#125;);
+&lt;/script&gt;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
