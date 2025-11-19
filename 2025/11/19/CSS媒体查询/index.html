@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>CSS媒体查询 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>CSS媒体查询</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/19
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #00a596">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>媒体查询（Media Query）是 CSS3 核心特性之一，用于根据设备特性（屏幕尺寸、分辨率、方向等）或环境条件（打印、暗模式）为网页应用不同的样式规则，是实现<strong>响应式网页设计（RWD）</strong> 的核心技术。它允许开发者打破 “固定布局” 的局限，让页面在手机、平板、电脑等不同设备上自适应展示。</p>
+<span id="more"></span>
+
+<h1 id="前端开发-媒体查询"><a href="#前端开发-媒体查询" class="headerlink" title="前端开发 - 媒体查询"></a>前端开发 - 媒体查询</h1><h2 id="一、核心概念与基本语法"><a href="#一、核心概念与基本语法" class="headerlink" title="一、核心概念与基本语法"></a>一、核心概念与基本语法</h2><h3 id="1-核心作用"><a href="#1-核心作用" class="headerlink" title="1. 核心作用"></a>1. 核心作用</h3><p>判断当前浏览环境的 “媒体类型” 和 “媒体特性”，匹配成功则加载对应 CSS 样式。</p>
+<h3 id="2-完整语法结构"><a href="#2-完整语法结构" class="headerlink" title="2. 完整语法结构"></a>2. 完整语法结构</h3><pre><code class="css">/* @media 关键字 + 媒体条件 + &#123; 样式规则 &#125; */
+@media [媒体类型] [逻辑运算符] ([媒体特性]) &#123;
+  /* 仅当条件匹配时生效的 CSS */
+  选择器 &#123;
+    属性: 值;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="各部分说明："><a href="#各部分说明：" class="headerlink" title="各部分说明："></a>各部分说明：</h4><table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>作用</th>
+<th>可选值 &#x2F; 示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@media</code></td>
+<td>声明媒体查询的关键字（必需）</td>
+<td>-</td>
+</tr>
+<tr>
+<td>媒体类型（可选）</td>
+<td>指定目标设备类型（默认值 <code>all</code>，匹配所有设备）</td>
+<td><code>all</code>（所有）、<code>screen</code>（屏幕设备）、<code>print</code>（打印预览）、<code>speech</code>（屏幕阅读器）</td>
+</tr>
+<tr>
+<td>逻辑运算符（可选）</td>
+<td>组合多个媒体条件（支持 <code>and</code>、<code>or</code>、<code>not</code>、<code>only</code>）</td>
+<td><code>and</code>（同时满足）、<code>or</code>（满足其一）、<code>not</code>（排除条件）、<code>only</code>（兼容旧浏览器）</td>
+</tr>
+<tr>
+<td>媒体特性（必需）</td>
+<td>设备 &#x2F; 环境的具体属性（需用括号包裹，可带前缀 <code>min-</code>&#x2F;<code>max-</code> 表示范围）</td>
+<td><code>width</code>（屏幕宽度）、<code>height</code>（屏幕高度）、<code>orientation</code>（方向）等</td>
+</tr>
+</tbody></table>
+<h2 id="二、媒体类型（Media-Type）"><a href="#二、媒体类型（Media-Type）" class="headerlink" title="二、媒体类型（Media Type）"></a>二、媒体类型（Media Type）</h2><p>指定样式适用的设备类别，现代开发中常用 <code>screen</code>（屏幕设备）和默认的 <code>all</code>，其他类型使用场景较少：</p>
+<table>
+<thead>
+<tr>
+<th>媒体类型</th>
+<th>适用场景</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>all</code></td>
+<td>所有设备（默认值，可省略）</td>
+<td>最常用，覆盖绝大多数场景</td>
+</tr>
+<tr>
+<td><code>screen</code></td>
+<td>彩色屏幕设备（手机、电脑、平板等）</td>
+<td>响应式布局核心目标</td>
+</tr>
+<tr>
+<td><code>print</code></td>
+<td>打印预览或打印机输出</td>
+<td>用于优化打印样式（如隐藏导航）</td>
+</tr>
+<tr>
+<td><code>speech</code></td>
+<td>屏幕阅读器等语音合成设备</td>
+<td>无障碍开发常用</td>
+</tr>
+<tr>
+<td><code>tv</code></td>
+<td>电视设备（低分辨率、滚动受限）</td>
+<td>极少使用</td>
+</tr>
+<tr>
+<td><code>handheld</code></td>
+<td>手持设备（早期功能机，现代已被 <code>screen</code> 替代）</td>
+<td>不推荐使用</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>：仅在打印时隐藏导航栏</p>
+<pre><code class="css">/* 打印预览时隐藏导航 */
+@media print &#123;
+  .navbar &#123;
+    display: none;
+  &#125;
+  /* 打印时文字变黑、背景变白（节省油墨） */
+  body &#123;
+    color: #000;
+    background: #fff;
+  &#125;
+&#125;
+</code></pre>
+<h2 id="三、媒体特性（Media-Features）"><a href="#三、媒体特性（Media-Features）" class="headerlink" title="三、媒体特性（Media Features）"></a>三、媒体特性（Media Features）</h2><p>媒体查询的核心，用于描述设备 &#x2F; 环境的具体属性，支持 “精确匹配” 和 “范围匹配”（通过 <code>min-</code>&#x2F;<code>max-</code> 前缀）。</p>
+<h3 id="1-常用核心特性（重点掌握）"><a href="#1-常用核心特性（重点掌握）" class="headerlink" title="1. 常用核心特性（重点掌握）"></a>1. 常用核心特性（重点掌握）</h3><h4 id="（1）屏幕尺寸相关（最常用）"><a href="#（1）屏幕尺寸相关（最常用）" class="headerlink" title="（1）屏幕尺寸相关（最常用）"></a>（1）屏幕尺寸相关（最常用）</h4><table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>说明</th>
+<th>单位</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>width</code></td>
+<td>视口（viewport）宽度</td>
+<td><code>px</code>&#x2F;<code>em</code></td>
+<td><code>(width: 375px)</code>（精确 375px）</td>
+</tr>
+<tr>
+<td><code>min-width</code></td>
+<td>视口宽度 <strong>大于等于</strong> 指定值（移动端优先）</td>
+<td><code>px</code>&#x2F;<code>em</code></td>
+<td><code>(min-width: 768px)</code>（≥768px 生效）</td>
+</tr>
+<tr>
+<td><code>max-width</code></td>
+<td>视口宽度 <strong>小于等于</strong> 指定值（桌面端优先）</td>
+<td><code>px</code>&#x2F;<code>em</code></td>
+<td><code>(max-width: 1024px)</code>（≤1024px 生效）</td>
+</tr>
+<tr>
+<td><code>height</code>&#x2F;<code>min-height</code>&#x2F;<code>max-height</code></td>
+<td>视口高度（用法同宽度，较少用）</td>
+<td><code>px</code>&#x2F;<code>em</code></td>
+<td><code>(min-height: 600px)</code>（视口高度≥600px）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔴 注意：<code>width</code> 指<strong>视口（viewport）宽度</strong>，而非设备物理宽度。需在 HTML 头部添加 <code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&gt;&quot;</code> 确保视口正确适配（否则移动端会以 “桌面宽度” 渲染）。</p>
+</blockquote>
+<h4 id="（2）屏幕方向"><a href="#（2）屏幕方向" class="headerlink" title="（2）屏幕方向"></a>（2）屏幕方向</h4><table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>说明</th>
+<th>取值</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>orientation</code></td>
+<td>设备屏幕方向</td>
+<td><code>portrait</code>（竖屏）、<code>landscape</code>（横屏）</td>
+<td><code>(orientation: landscape)</code>（横屏生效）</td>
+</tr>
+</tbody></table>
+<h4 id="（3）分辨率-像素密度"><a href="#（3）分辨率-像素密度" class="headerlink" title="（3）分辨率 &#x2F; 像素密度"></a>（3）分辨率 &#x2F; 像素密度</h4><table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>说明</th>
+<th>单位</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>resolution</code></td>
+<td>屏幕分辨率（像素 &#x2F; 英寸）</td>
+<td><code>dpi</code>&#x2F;<code>dpcm</code></td>
+<td><code>(resolution: 300dpi)</code>（高清屏）</td>
+</tr>
+<tr>
+<td><code>min-resolution</code></td>
+<td>分辨率≥指定值（如 Retina 屏适配）</td>
+<td><code>dpi</code>&#x2F;<code>dpcm</code></td>
+<td><code>(min-resolution: 2dppx)</code>（2 倍屏）</td>
+</tr>
+</tbody></table>
+<h4 id="（4）其他实用特性"><a href="#（4）其他实用特性" class="headerlink" title="（4）其他实用特性"></a>（4）其他实用特性</h4><table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>说明</th>
+<th>取值 &#x2F; 示例</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>prefers-color-scheme</code></td>
+<td>系统配色方案（暗 &#x2F; 亮模式）</td>
+<td><code>light</code>（亮模式）、<code>dark</code>（暗模式）</td>
+<td><code>(prefers-color-scheme: dark)</code></td>
+</tr>
+<tr>
+<td><code>hover</code></td>
+<td>设备是否支持鼠标悬停</td>
+<td><code>none</code>（不支持）、<code>hover</code>（支持）</td>
+<td><code>(hover: hover)</code>（PC 端生效）</td>
+</tr>
+<tr>
+<td><code>pointer</code></td>
+<td>主要输入设备类型</td>
+<td><code>none</code>&#x2F;<code>coarse</code>（触屏）&#x2F;<code>fine</code>（鼠标）</td>
+<td><code>(pointer: coarse)</code>（触屏设备）</td>
+</tr>
+</tbody></table>
+<h3 id="2-范围匹配技巧"><a href="#2-范围匹配技巧" class="headerlink" title="2. 范围匹配技巧"></a>2. 范围匹配技巧</h3><ul>
+<li>**<code>min-xxx</code>**：“大于等于”，适合「移动端优先」开发（先写移动端样式，再逐步适配大屏）。</li>
+<li>**<code>max-xxx</code>**：“小于等于”，适合「桌面端优先」开发（先写桌面样式，再适配小屏）。</li>
+<li>避免同时使用 <code>min-xxx</code> 和 <code>max-xxx</code> 对同一特性过度限制（如 <code>(min-width: 375px) and (max-width: 768px)</code> 是合理的 “平板区间”）。</li>
+</ul>
+<h2 id="四、逻辑运算符（组合条件）"><a href="#四、逻辑运算符（组合条件）" class="headerlink" title="四、逻辑运算符（组合条件）"></a>四、逻辑运算符（组合条件）</h2><p>当需要多个条件同时满足或选择满足其一，使用逻辑运算符组合媒体条件：</p>
+<h3 id="1-and：同时满足所有条件"><a href="#1-and：同时满足所有条件" class="headerlink" title="1. and：同时满足所有条件"></a>1. <code>and</code>：同时满足所有条件</h3><p>最常用，用于组合 “媒体类型” 和 “媒体特性”，或多个 “媒体特性”。</p>
+<pre><code class="css">/* 屏幕设备 + 视口宽度≥768px + 竖屏 → 生效 */
+@media screen and (min-width: 768px) and (orientation: portrait) &#123;
+  .container &#123;
+    width: 90%;
+    margin: 0 auto;
+  &#125;
+&#125;
+</code></pre>
+<h3 id="2-or（逗号-简写）：满足任一条件"><a href="#2-or（逗号-简写）：满足任一条件" class="headerlink" title="2. or（逗号 , 简写）：满足任一条件"></a>2. <code>or</code>（逗号 <code>,</code> 简写）：满足任一条件</h3><p>逗号分隔多个条件，只要有一个匹配就生效（注意：<code>or</code> 是 CSS4 语法，部分旧浏览器不支持，推荐用逗号简写）。</p>
+<pre><code class="css">/* 视口宽度≤375px 或 横屏模式 → 生效（逗号等价于 or） */
+@media (max-width: 375px), (orientation: landscape) &#123;
+  .btn &#123;
+    padding: 8px 16px;
+    font-size: 14px;
+  &#125;
+&#125;
+</code></pre>
+<h3 id="3-not：排除匹配条件"><a href="#3-not：排除匹配条件" class="headerlink" title="3. not：排除匹配条件"></a>3. <code>not</code>：排除匹配条件</h3><p>否定整个媒体条件（仅对 “完整条件” 生效，不支持部分否定）。</p>
+<pre><code class="css">/* 除了打印设备外，所有设备都生效 */
+@media not print &#123;
+  .header &#123;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  &#125;
+&#125;
+
+/* 错误用法：not 不能只否定单个特性 */
+/* @media (not min-width: 768px) &#123; ... &#125; → 无效 */
+</code></pre>
+<h3 id="4-only：兼容旧浏览器"><a href="#4-only：兼容旧浏览器" class="headerlink" title="4. only：兼容旧浏览器"></a>4. <code>only</code>：兼容旧浏览器</h3><p>用于阻止旧浏览器（如 IE8 及以下）解析不支持的媒体查询（旧浏览器会忽略 <code>only</code> 后的条件，避免加载错误样式）。现代浏览器可省略，但建议保留兼容性。</p>
+<pre><code class="css">/* 仅现代浏览器会解析，旧浏览器忽略 */
+@media only screen and (min-width: 768px) &#123;
+  .card &#123;
+    display: flex;
+  &#125;
+&#125;
+</code></pre>
+<h2 id="五、媒体查询的使用方式"><a href="#五、媒体查询的使用方式" class="headerlink" title="五、媒体查询的使用方式"></a>五、媒体查询的使用方式</h2><h3 id="1-内部样式表（推荐，便于维护）"><a href="#1-内部样式表（推荐，便于维护）" class="headerlink" title="1. 内部样式表（推荐，便于维护）"></a>1. 内部样式表（推荐，便于维护）</h3><p>在 <code>&lt;style&gt;</code> 标签内直接写媒体查询，适合中小型项目。</p>
+<pre><code class="html">&lt;head&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;style&gt;
+    /* 基础样式（所有设备默认生效） */
+    .container &#123;
+      padding: 16px;
+    &#125;
+
+    /* 平板适配（≥768px） */
+    @media (min-width: 768px) &#123;
+      .container &#123;
+        padding: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+      &#125;
+    &#125;
+
+    /* 桌面端适配（≥1200px） */
+    @media (min-width: 1200px) &#123;
+      .container &#123;
+        max-width: 1140px;
+        padding: 32px;
+      &#125;
+    &#125;
+  &lt;/style&gt;
+&lt;/head&gt;
+</code></pre>
+<h3 id="2-外部样式表（link-标签媒体属性）"><a href="#2-外部样式表（link-标签媒体属性）" class="headerlink" title="2. 外部样式表（link 标签媒体属性）"></a>2. 外部样式表（link 标签媒体属性）</h3><p>通过 <code>&lt;link&gt;</code> 标签的 <code>media</code> 属性指定样式表的适用条件，适合大型项目拆分样式文件（仅匹配时才加载该 CSS 文件，优化性能）。</p>
+<pre><code class="html">&lt;!-- 基础样式（所有设备加载） --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;base.css&quot;&gt;
+&lt;!-- 平板样式（≥768px 才加载） --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;tablet.css&quot; media=&quot;(min-width: 768px)&quot;&gt;
+&lt;!-- 桌面端样式（≥1200px 才加载） --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;desktop.css&quot; media=&quot;(min-width: 1200px)&quot;&gt;
+</code></pre>
+<h3 id="3-内联样式（不推荐）"><a href="#3-内联样式（不推荐）" class="headerlink" title="3. 内联样式（不推荐）"></a>3. 内联样式（不推荐）</h3><p>内联样式无法直接使用媒体查询（<code>style</code> 属性中不能写 <code>@media</code>），需通过 JavaScript 辅助，仅特殊场景使用。</p>
+<h2 id="六、响应式布局实战：断点设计"><a href="#六、响应式布局实战：断点设计" class="headerlink" title="六、响应式布局实战：断点设计"></a>六、响应式布局实战：断点设计</h2><p>“断点（Breakpoint）” 是指触发样式变化的临界屏幕宽度，需根据主流设备尺寸合理设计。以下是行业通用的断点方案（移动端优先）：</p>
+<table>
+<thead>
+<tr>
+<th>设备类型</th>
+<th>断点范围（min-width）</th>
+<th>常见宽度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>移动端（手机）</td>
+<td>0 - 767px</td>
+<td>320px、375px、414px</td>
+</tr>
+<tr>
+<td>平板（竖屏）</td>
+<td>768px</td>
+<td>768px</td>
+</tr>
+<tr>
+<td>平板（横屏）&#x2F; 小桌面</td>
+<td>992px</td>
+<td>992px</td>
+</tr>
+<tr>
+<td>桌面端（大屏）</td>
+<td>1200px</td>
+<td>1200px、1440px</td>
+</tr>
+</tbody></table>
+<h3 id="实战示例：自适应导航栏"><a href="#实战示例：自适应导航栏" class="headerlink" title="实战示例：自适应导航栏"></a>实战示例：自适应导航栏</h3><pre><code class="css">/* 基础样式（移动端）：垂直导航 */
+.navbar &#123;
+  background: #333;
+  color: #fff;
+&#125;
+.navbar-list &#123;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+&#125;
+.navbar-item &#123;
+  padding: 12px 16px;
+  border-bottom: 1px solid #444;
+&#125;
+
+/* 平板适配（≥768px）：水平导航 */
+@media (min-width: 768px) &#123;
+  .navbar-list &#123;
+    display: flex;
+    justify-content: space-around;
+  &#125;
+  .navbar-item &#123;
+    border-bottom: none;
+  &#125;
+&#125;
+
+/* 桌面端适配（≥1200px）：增加间距和 hover 效果 */
+@media (min-width: 1200px) &#123;
+  .navbar-list &#123;
+    width: 1140px;
+    margin: 0 auto;
+  &#125;
+  .navbar-item:hover &#123;
+    background: #555;
+    cursor: pointer;
+  &#125;
+&#125;
+</code></pre>
+<h2 id="七、常见问题与最佳实践"><a href="#七、常见问题与最佳实践" class="headerlink" title="七、常见问题与最佳实践"></a>七、常见问题与最佳实践</h2><h3 id="1-必加-Viewport-元标签"><a href="#1-必加-Viewport-元标签" class="headerlink" title="1. 必加 Viewport 元标签"></a>1. 必加 Viewport 元标签</h3><p>移动端必须在 HTML 头部添加以下标签，否则视口宽度会默认以 “桌面端宽度”（如 980px）渲染，媒体查询失效：</p>
+<pre><code class="html">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;!-- 可选配置：禁止缩放（适合 App 类页面） --&gt;
+&lt;!-- &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;&gt; --&gt;
+</code></pre>
+<h3 id="2-避免-“像素陷阱”"><a href="#2-避免-“像素陷阱”" class="headerlink" title="2. 避免 “像素陷阱”"></a>2. 避免 “像素陷阱”</h3><ul>
+<li>使用 <code>min-width</code>&#x2F;<code>max-width</code> 而非固定 <code>width</code>，确保样式在不同尺寸间平滑过渡。</li>
+<li>优先使用相对单位（<code>%</code>、<code>em</code>、<code>rem</code>、<code>vw/vh</code>），避免固定像素（<code>px</code>）导致布局僵硬。</li>
+</ul>
+<h3 id="3-断点设计原则"><a href="#3-断点设计原则" class="headerlink" title="3. 断点设计原则"></a>3. 断点设计原则</h3><ul>
+<li>基于 “内容适配” 而非 “设备尺寸”：当内容显示异常（如文字溢出、间距拥挤）时，再设置断点，而非盲目适配所有设备型号。</li>
+<li>断点数量不宜过多（3-4 个即可），过多断点会增加维护成本。</li>
+</ul>
+<h3 id="4-性能优化"><a href="#4-性能优化" class="headerlink" title="4. 性能优化"></a>4. 性能优化</h3><ul>
+<li>避免嵌套过深的媒体查询（影响 CSS 解析速度）。</li>
+<li>大型项目使用外部样式表拆分媒体查询（仅加载当前设备所需样式）。</li>
+<li>避免在媒体查询中重复编写相同样式（提取公共样式到基础样式中）。</li>
+</ul>
+<h3 id="5-兼容旧浏览器"><a href="#5-兼容旧浏览器" class="headerlink" title="5. 兼容旧浏览器"></a>5. 兼容旧浏览器</h3><ul>
+<li>IE8 及以下不支持媒体查询，可通过 <code>respond.js</code> 插件兼容（仅支持 <code>min-width</code>&#x2F;<code>max-width</code>）。</li>
+<li>使用 <code>only</code> 关键字屏蔽旧浏览器对不支持媒体条件的解析。</li>
+</ul>
+<h2 id="八、扩展：结合-JavaScript-使用媒体查询"><a href="#八、扩展：结合-JavaScript-使用媒体查询" class="headerlink" title="八、扩展：结合 JavaScript 使用媒体查询"></a>八、扩展：结合 JavaScript 使用媒体查询</h2><p>除了 CSS，还可通过 JavaScript 监听媒体查询的匹配状态，实现更灵活的交互逻辑（如动态加载组件、修改 DOM）。</p>
+<h3 id="示例：监听屏幕尺寸变化"><a href="#示例：监听屏幕尺寸变化" class="headerlink" title="示例：监听屏幕尺寸变化"></a>示例：监听屏幕尺寸变化</h3><pre><code class="javascript">// 1. 定义媒体查询条件
+const mediaQuery = window.matchMedia(&#39;(min-width: 768px)&#39;);
+
+// 2. 定义匹配状态变化时的回调函数
+function handleScreenChange(e) &#123;
+  if (e.matches) &#123;
+    // 满足条件（≥768px）：显示桌面端组件
+    console.log(&#39;当前是平板/桌面端&#39;);
+    document.querySelector(&#39;.desktop-component&#39;).style.display = &#39;block&#39;;
+  &#125; else &#123;
+    // 不满足条件（&lt;768px）：隐藏桌面端组件
+    console.log(&#39;当前是移动端&#39;);
+    document.querySelector(&#39;.desktop-component&#39;).style.display = &#39;none&#39;;
+  &#125;
+&#125;
+
+// 3. 初始执行一次（页面加载时）
+handleScreenChange(mediaQuery);
+
+// 4. 监听媒体查询状态变化（屏幕缩放/旋转时触发）
+mediaQuery.addEventListener(&#39;change&#39;, handleScreenChange);
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

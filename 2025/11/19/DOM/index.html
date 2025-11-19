@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>DOM | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>DOM</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/19
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/web%E5%89%8D%E7%AB%AF/" style="color: #00bcd4">
+                    web前端
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>DOM（Document Object Model，文档对象模型）是浏览器将 HTML&#x2F;XML 文档解析后生成的<strong>树形结构</strong>，JavaScript 通过 DOM API 可以操作文档的结构、样式和内容，是实现页面交互的核心技术。</p>
+<span id="more"></span>
+
+<h1 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h1><h2 id="一、DOM-核心概念"><a href="#一、DOM-核心概念" class="headerlink" title="一、DOM 核心概念"></a>一、DOM 核心概念</h2><h3 id="1-DOM-树结构"><a href="#1-DOM-树结构" class="headerlink" title="1. DOM 树结构"></a>1. DOM 树结构</h3><p>文档被解析为一个树形节点集合，每个节点对应文档中的一个部分，核心节点类型：</p>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Document 节点</td>
+<td>整个文档的根节点</td>
+<td><code>document</code> 对象</td>
+</tr>
+<tr>
+<td>Element 节点</td>
+<td>HTML 元素（标签）</td>
+<td><code>&lt;div&gt;</code>、<code>&lt;p&gt;</code>、<code>&lt;a&gt;</code></td>
+</tr>
+<tr>
+<td>Text 节点</td>
+<td>元素内的文本内容</td>
+<td><code>Hello World</code></td>
+</tr>
+<tr>
+<td>Attribute 节点</td>
+<td>元素的属性</td>
+<td><code>class=&quot;box&quot;</code>、<code>id=&quot;btn&quot;</code></td>
+</tr>
+<tr>
+<td>Comment 节点</td>
+<td>注释内容</td>
+<td><code>&lt;!-- 这是注释 --&gt;</code></td>
+</tr>
+</tbody></table>
+<p><strong>树形关系示例</strong>：</p>
+<pre><code class="html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;DOM 示例&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;box&quot;&gt;Hello DOM&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>对应的 DOM 树：</p>
+<pre><code class="plaintext">Document
+└── html (Element)
+    ├── head (Element)
+    │   └── title (Element)
+    │       └── &quot;DOM 示例&quot; (Text)
+    └── body (Element)
+        └── div#box (Element)
+            └── &quot;Hello DOM&quot; (Text)
+</code></pre>
+<h3 id="2-节点关系术语"><a href="#2-节点关系术语" class="headerlink" title="2. 节点关系术语"></a>2. 节点关系术语</h3><ul>
+<li><strong>父节点（parentNode）</strong>：直接包含当前节点的节点（如 <code>div</code> 的父节点是 <code>body</code>）</li>
+<li><strong>子节点（childNodes）</strong>：当前节点直接包含的节点（如 <code>body</code> 的子节点是 <code>div</code>）</li>
+<li><strong>兄弟节点（sibling）</strong>：同一父节点下的其他节点（如 <code>head</code> 和 <code>body</code> 是兄弟节点）</li>
+<li><strong>后代节点（descendant）</strong>：当前节点包含的所有层级子节点（如 <code>html</code> 的后代包含 <code>head</code>、<code>div</code> 等）</li>
+<li><strong>祖先节点（ancestor）</strong>：包含当前节点的所有层级父节点（如 <code>div</code> 的祖先包含 <code>body</code>、<code>html</code>、<code>document</code>）</li>
+</ul>
+<h2 id="二、DOM-操作核心-API"><a href="#二、DOM-操作核心-API" class="headerlink" title="二、DOM 操作核心 API"></a>二、DOM 操作核心 API</h2><p>JavaScript 通过 <code>document</code> 对象（全局可用）访问 DOM 树，核心操作分为「查找节点」「操作节点」「操作属性」「操作样式」四类。</p>
+<h3 id="1-查找节点（获取-DOM-元素）"><a href="#1-查找节点（获取-DOM-元素）" class="headerlink" title="1. 查找节点（获取 DOM 元素）"></a>1. 查找节点（获取 DOM 元素）</h3><p>最常用的 DOM 元素查找方法，返回元素或元素集合：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>返回值</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>getElementById(id)</code></td>
+<td>通过 <code>id</code> 属性查找（唯一）</td>
+<td>单个 Element 节点（找不到为 <code>null</code>）</td>
+<td><code>document.getElementById(&quot;box&quot;)</code></td>
+</tr>
+<tr>
+<td><code>getElementsByClassName(class)</code></td>
+<td>通过 <code>class</code> 属性查找（动态集合）</td>
+<td>HTMLCollection（类数组）</td>
+<td><code>document.getElementsByClassName(&quot;btn&quot;)</code></td>
+</tr>
+<tr>
+<td><code>getElementsByTagName(tag)</code></td>
+<td>通过标签名查找（动态集合）</td>
+<td>HTMLCollection（类数组）</td>
+<td><code>document.getElementsByTagName(&quot;div&quot;)</code></td>
+</tr>
+<tr>
+<td><code>querySelector(selector)</code></td>
+<td>通过 CSS 选择器查找（第一个匹配）</td>
+<td>单个 Element 节点（找不到为 <code>null</code>）</td>
+<td><code>document.querySelector(&quot;#box .item&quot;)</code></td>
+</tr>
+<tr>
+<td><code>querySelectorAll(selector)</code></td>
+<td>通过 CSS 选择器查找（所有匹配）</td>
+<td>NodeList（类数组，静态）</td>
+<td><code>document.querySelectorAll(&quot;li&quot;)</code></td>
+</tr>
+<tr>
+<td><code>document.body</code></td>
+<td>直接获取 <code>&lt;body&gt;</code> 元素</td>
+<td>Element 节点</td>
+<td><code>document.body.style.color = &quot;red&quot;</code></td>
+</tr>
+<tr>
+<td><code>document.head</code></td>
+<td>直接获取 <code>&lt;head&gt;</code> 元素</td>
+<td>Element 节点</td>
+<td><code>document.head.appendChild(script)</code></td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>HTMLCollection 是「动态集合」（文档变化时自动更新），NodeList 是「静态集合」（不自动更新）；</li>
+<li>类数组对象（HTMLCollection&#x2F;NodeList）需转换为数组才能使用 <code>forEach</code>&#x2F;<code>map</code> 等方法：<code>Array.from(collection)</code> 或 <code>[...collection]</code>。</li>
+</ul>
+<h3 id="2-操作节点（增删改查）"><a href="#2-操作节点（增删改查）" class="headerlink" title="2. 操作节点（增删改查）"></a>2. 操作节点（增删改查）</h3><h4 id="（1）创建节点"><a href="#（1）创建节点" class="headerlink" title="（1）创建节点"></a>（1）创建节点</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>createElement(tag)</code></td>
+<td>创建元素节点</td>
+<td><code>const div = document.createElement(&quot;div&quot;)</code></td>
+</tr>
+<tr>
+<td><code>createTextNode(text)</code></td>
+<td>创建文本节点</td>
+<td><code>const text = document.createTextNode(&quot;Hello&quot;)</code></td>
+</tr>
+<tr>
+<td><code>cloneNode(deep)</code></td>
+<td>克隆节点（<code>deep=true</code> 克隆后代）</td>
+<td><code>const clone = div.cloneNode(true)</code></td>
+</tr>
+</tbody></table>
+<h4 id="（2）插入节点"><a href="#（2）插入节点" class="headerlink" title="（2）插入节点"></a>（2）插入节点</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>parent.appendChild(child)</code></td>
+<td>向父节点末尾插入子节点</td>
+<td><code>document.body.appendChild(div)</code></td>
+</tr>
+<tr>
+<td><code>parent.insertBefore(newNode, refNode)</code></td>
+<td>在参考节点 <code>refNode</code> 前插入新节点</td>
+<td><code>box.insertBefore(newDiv, box.firstChild)</code></td>
+</tr>
+<tr>
+<td><code>element.insertAdjacentHTML(position, html)</code></td>
+<td>插入 HTML 字符串（无需创建节点）</td>
+<td><code>div.insertAdjacentHTML(&quot;afterend&quot;, &quot;新段落&quot;)</code></td>
+</tr>
+</tbody></table>
+<p><code>insertAdjacentHTML</code> 的 <code>position</code> 参数：</p>
+<ul>
+<li><code>beforebegin</code>：元素自身之前</li>
+<li><code>afterbegin</code>：元素内部第一个子节点前</li>
+<li><code>beforeend</code>：元素内部最后一个子节点后</li>
+<li><code>afterend</code>：元素自身之后</li>
+</ul>
+<h4 id="（3）删除节点"><a href="#（3）删除节点" class="headerlink" title="（3）删除节点"></a>（3）删除节点</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>parent.removeChild(child)</code></td>
+<td>父节点删除子节点（需先获取父节点）</td>
+<td><code>box.parentNode.removeChild(box)</code></td>
+</tr>
+<tr>
+<td><code>element.remove()</code></td>
+<td>元素自身删除（更简洁）</td>
+<td><code>box.remove()</code>（IE 不支持）</td>
+</tr>
+</tbody></table>
+<h4 id="（4）替换节点"><a href="#（4）替换节点" class="headerlink" title="（4）替换节点"></a>（4）替换节点</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>parent.replaceChild(newNode, oldNode)</code></td>
+<td>用新节点替换旧节点</td>
+<td><code>box.parentNode.replaceChild(newDiv, box)</code></td>
+</tr>
+</tbody></table>
+<h4 id="示例：完整创建-插入-删除流程"><a href="#示例：完整创建-插入-删除流程" class="headerlink" title="示例：完整创建 + 插入 + 删除流程"></a>示例：完整创建 + 插入 + 删除流程</h4><pre><code class="javascript">// 1. 创建元素和文本
+const div = document.createElement(&quot;div&quot;);
+div.textContent = &quot;新创建的 div&quot;;
+div.className = &quot;new-box&quot;;
+
+// 2. 插入到 body 末尾
+document.body.appendChild(div);
+
+// 3. 插入到 div 之后（用 insertAdjacentHTML）
+div.insertAdjacentHTML(&quot;afterend&quot;, &quot;&lt;p&gt;插入的段落&lt;/p&gt;&quot;);
+
+// 4. 3 秒后删除 div
+setTimeout(() =&gt; &#123;
+  div.remove();
+&#125;, 3000);
+</code></pre>
+<h3 id="3-操作元素属性"><a href="#3-操作元素属性" class="headerlink" title="3. 操作元素属性"></a>3. 操作元素属性</h3><p>元素属性分为「HTML 标准属性」（如 <code>id</code>、<code>class</code>、<code>src</code>）和「自定义属性」（如 <code>data-index</code>），操作方法不同。</p>
+<h4 id="（1）标准属性操作"><a href="#（1）标准属性操作" class="headerlink" title="（1）标准属性操作"></a>（1）标准属性操作</h4><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点语法（<code>element.属性</code>）</td>
+<td>简洁，适合标准属性（<code>class</code> 需用 <code>className</code>）</td>
+<td><code>div.id = &quot;test&quot;; div.className = &quot;box&quot;; div.src = &quot;img.jpg&quot;</code></td>
+</tr>
+<tr>
+<td><code>setAttribute(name, value)</code></td>
+<td>通用，可设置任意属性（包括自定义）</td>
+<td><code>div.setAttribute(&quot;class&quot;, &quot;box&quot;); div.setAttribute(&quot;data-id&quot;, 1)</code></td>
+</tr>
+<tr>
+<td><code>getAttribute(name)</code></td>
+<td>获取属性值</td>
+<td><code>div.getAttribute(&quot;src&quot;); div.getAttribute(&quot;data-id&quot;)</code></td>
+</tr>
+<tr>
+<td><code>removeAttribute(name)</code></td>
+<td>删除属性</td>
+<td><code>div.removeAttribute(&quot;class&quot;)</code></td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>点语法无法设置自定义属性（如 <code>div.data-id = 1</code> 无效，需用 <code>setAttribute</code> 或 <code>dataset</code>）；</li>
+<li><code>class</code> 是 JavaScript 关键字，需用 <code>className</code> 或 <code>classList</code> 操作类名。</li>
+</ul>
+<h4 id="（2）类名操作（classList）"><a href="#（2）类名操作（classList）" class="headerlink" title="（2）类名操作（classList）"></a>（2）类名操作（<code>classList</code>）</h4><p><code>classList</code> 是元素类名的集合，提供更便捷的类操作方法（推荐使用）：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>add(class1, class2)</code></td>
+<td>添加一个 &#x2F; 多个类名</td>
+<td><code>div.classList.add(&quot;box&quot;, &quot;active&quot;)</code></td>
+</tr>
+<tr>
+<td><code>remove(class)</code></td>
+<td>删除类名</td>
+<td><code>div.classList.remove(&quot;active&quot;)</code></td>
+</tr>
+<tr>
+<td><code>toggle(class)</code></td>
+<td>切换类名（存在则删除，不存在则添加）</td>
+<td><code>div.classList.toggle(&quot;active&quot;)</code></td>
+</tr>
+<tr>
+<td><code>contains(class)</code></td>
+<td>判断是否包含类名（返回布尔值）</td>
+<td><code>div.classList.contains(&quot;box&quot;)</code></td>
+</tr>
+</tbody></table>
+<h4 id="（3）自定义数据属性（dataset）"><a href="#（3）自定义数据属性（dataset）" class="headerlink" title="（3）自定义数据属性（dataset）"></a>（3）自定义数据属性（<code>dataset</code>）</h4><p>HTML5 支持 <code>data-*</code> 格式的自定义属性，通过 <code>element.dataset</code> 可便捷操作：</p>
+<pre><code class="html">&lt;div id=&quot;user&quot; data-id=&quot;101&quot; data-user-name=&quot;张三&quot;&gt;&lt;/div&gt;
+</code></pre>
+<pre><code class="javascript">const user = document.getElementById(&quot;user&quot;);
+console.log(user.dataset.id); // &quot;101&quot;（自动转换为驼峰命名）
+console.log(user.dataset.userName); // &quot;张三&quot;（data-user-name → userName）
+user.dataset.age = 20; // 添加自定义属性 data-age=&quot;20&quot;
+delete user.dataset.userName; // 删除属性
+</code></pre>
+<h3 id="4-操作样式（style-与-getComputedStyle）"><a href="#4-操作样式（style-与-getComputedStyle）" class="headerlink" title="4. 操作样式（style 与 getComputedStyle）"></a>4. 操作样式（<code>style</code> 与 <code>getComputedStyle</code>）</h3><h4 id="（1）内联样式操作（element-style）"><a href="#（1）内联样式操作（element-style）" class="headerlink" title="（1）内联样式操作（element.style）"></a>（1）内联样式操作（<code>element.style</code>）</h4><p>直接操作元素的 <code>style</code> 属性（对应 HTML 中的 <code>style</code> 属性），<strong>仅影响内联样式</strong>：</p>
+<pre><code class="javascript">const div = document.querySelector(&quot;div&quot;);
+div.style.color = &quot;red&quot;; // 设置字体颜色
+div.style.fontSize = &quot;16px&quot;; // 注意驼峰命名（CSS 中的 font-size → fontSize）
+div.style.backgroundColor = &quot;#f0f0f0&quot;; // background-color → backgroundColor
+console.log(div.style.color); // &quot;red&quot;（仅能获取内联样式）
+</code></pre>
+<h4 id="（2）计算样式（getComputedStyle）"><a href="#（2）计算样式（getComputedStyle）" class="headerlink" title="（2）计算样式（getComputedStyle）"></a>（2）计算样式（<code>getComputedStyle</code>）</h4><p>获取元素最终生效的样式（包括内联、内部、外部样式表），<strong>只读</strong>：</p>
+<pre><code class="javascript">const div = document.querySelector(&quot;div&quot;);
+const computedStyle = window.getComputedStyle(div);
+console.log(computedStyle.color); // &quot;rgb(255, 0, 0)&quot;（统一转换为 rgb 格式）
+console.log(computedStyle.fontSize); // &quot;16px&quot;
+</code></pre>
+<p><strong>注意</strong>：</p>
+<ul>
+<li><code>getComputedStyle</code> 返回的是实时计算的样式，值为字符串且带单位（如 <code>px</code>、<code>rgb</code>）；</li>
+<li>IE 浏览器使用 <code>element.currentStyle</code> 替代。</li>
+</ul>
+<h2 id="三、DOM-节点遍历"><a href="#三、DOM-节点遍历" class="headerlink" title="三、DOM 节点遍历"></a>三、DOM 节点遍历</h2><p>遍历 DOM 树的常用属性（获取节点关系）：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>parentNode</code></td>
+<td>获取父节点（Element&#x2F;Document）</td>
+</tr>
+<tr>
+<td><code>childNodes</code></td>
+<td>获取所有子节点（包括 Text&#x2F;Comment 节点）</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td>获取所有子元素节点（仅 Element 节点，推荐）</td>
+</tr>
+<tr>
+<td><code>firstChild</code></td>
+<td>第一个子节点（可能是 Text&#x2F;Comment）</td>
+</tr>
+<tr>
+<td><code>firstElementChild</code></td>
+<td>第一个子元素节点（推荐）</td>
+</tr>
+<tr>
+<td><code>lastChild</code></td>
+<td>最后一个子节点</td>
+</tr>
+<tr>
+<td><code>lastElementChild</code></td>
+<td>最后一个子元素节点</td>
+</tr>
+<tr>
+<td><code>previousSibling</code></td>
+<td>前一个兄弟节点</td>
+</tr>
+<tr>
+<td><code>previousElementSibling</code></td>
+<td>前一个兄弟元素节点</td>
+</tr>
+<tr>
+<td><code>nextSibling</code></td>
+<td>后一个兄弟节点</td>
+</tr>
+<tr>
+<td><code>nextElementSibling</code></td>
+<td>后一个兄弟元素节点</td>
+</tr>
+</tbody></table>
+<p><strong>示例：遍历子元素节点</strong></p>
+<pre><code class="javascript">const box = document.getElementById(&quot;box&quot;);
+// 方式 1：用 children（推荐）
+for (let i = 0; i &lt; box.children.length; i++) &#123;
+  console.log(box.children[i]); // 仅输出子元素节点
+&#125;
+
+// 方式 2：用 firstElementChild + nextElementSibling
+let current = box.firstElementChild;
+while (current) &#123;
+  console.log(current);
+  current = current.nextElementSibling;
+&#125;
+</code></pre>
+<h2 id="四、DOM-事件基础（交互核心）"><a href="#四、DOM-事件基础（交互核心）" class="headerlink" title="四、DOM 事件基础（交互核心）"></a>四、DOM 事件基础（交互核心）</h2><p>DOM 事件是用户操作（如点击、输入）或文档状态变化（如加载完成）触发的行为，通过事件监听实现页面交互。</p>
+<h3 id="1-事件绑定方式"><a href="#1-事件绑定方式" class="headerlink" title="1. 事件绑定方式"></a>1. 事件绑定方式</h3><h4 id="（1）HTML-内联事件（不推荐）"><a href="#（1）HTML-内联事件（不推荐）" class="headerlink" title="（1）HTML 内联事件（不推荐）"></a>（1）HTML 内联事件（不推荐）</h4><pre><code class="html">&lt;button onclick=&quot;handleClick()&quot;&gt;点击&lt;/button&gt;
+&lt;script&gt;
+function handleClick() &#123;
+  alert(&quot;点击了按钮&quot;);
+&#125;
+&lt;/script&gt;
+</code></pre>
+<h4 id="（2）DOM-属性绑定（不推荐，只能绑定一个事件）"><a href="#（2）DOM-属性绑定（不推荐，只能绑定一个事件）" class="headerlink" title="（2）DOM 属性绑定（不推荐，只能绑定一个事件）"></a>（2）DOM 属性绑定（不推荐，只能绑定一个事件）</h4><pre><code class="javascript">const btn = document.querySelector(&quot;button&quot;);
+btn.onclick = function() &#123;
+  alert(&quot;点击了按钮&quot;);
+&#125;;
+// 覆盖之前的事件
+btn.onclick = function() &#123;
+  alert(&quot;新的点击事件&quot;);
+&#125;;
+</code></pre>
+<h4 id="（3）addEventListener（推荐，可绑定多个事件）"><a href="#（3）addEventListener（推荐，可绑定多个事件）" class="headerlink" title="（3）addEventListener（推荐，可绑定多个事件）"></a>（3）<code>addEventListener</code>（推荐，可绑定多个事件）</h4><pre><code class="javascript">const btn = document.querySelector(&quot;button&quot;);
+// 绑定点击事件
+btn.addEventListener(&quot;click&quot;, function() &#123;
+  alert(&quot;点击事件1&quot;);
+&#125;);
+// 绑定第二个点击事件
+btn.addEventListener(&quot;click&quot;, function() &#123;
+  alert(&quot;点击事件2&quot;);
+&#125;);
+// 移除事件（需用命名函数）
+function handleClick() &#123;
+  alert(&quot;可移除的事件&quot;);
+&#125;
+btn.addEventListener(&quot;click&quot;, handleClick);
+btn.removeEventListener(&quot;click&quot;, handleClick);
+</code></pre>
+<h3 id="2-常用-DOM-事件"><a href="#2-常用-DOM-事件" class="headerlink" title="2. 常用 DOM 事件"></a>2. 常用 DOM 事件</h3><table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>click</code></td>
+<td>鼠标点击元素</td>
+</tr>
+<tr>
+<td><code>dblclick</code></td>
+<td>鼠标双击元素</td>
+</tr>
+<tr>
+<td><code>mouseover</code></td>
+<td>鼠标移入元素</td>
+</tr>
+<tr>
+<td><code>mouseout</code></td>
+<td>鼠标移出元素</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td>输入框内容变化（实时）</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>输入框内容确认变化（如失焦）</td>
+</tr>
+<tr>
+<td><code>submit</code></td>
+<td>表单提交</td>
+</tr>
+<tr>
+<td><code>load</code></td>
+<td>页面 &#x2F; 资源加载完成</td>
+</tr>
+<tr>
+<td><code>DOMContentLoaded</code></td>
+<td>DOM 解析完成（无需等待图片等资源）</td>
+</tr>
+<tr>
+<td><code>resize</code></td>
+<td>窗口大小改变</td>
+</tr>
+</tbody></table>
+<h3 id="3-事件对象（event）"><a href="#3-事件对象（event）" class="headerlink" title="3. 事件对象（event）"></a>3. 事件对象（<code>event</code>）</h3><p>事件触发时，浏览器会传递一个 <code>event</code> 对象，包含事件相关信息（如触发元素、鼠标位置）：</p>
+<pre><code class="javascript">btn.addEventListener(&quot;click&quot;, function(e) &#123;
+  console.log(e.target); // 触发事件的元素（按钮）
+  console.log(e.clientX, e.clientY); // 鼠标相对于视口的位置
+  e.preventDefault(); // 阻止默认行为（如表单提交、链接跳转）
+  e.stopPropagation(); // 阻止事件冒泡（后续讲）
+&#125;);
+</code></pre>
+<h3 id="4-事件流（冒泡与捕获）"><a href="#4-事件流（冒泡与捕获）" class="headerlink" title="4. 事件流（冒泡与捕获）"></a>4. 事件流（冒泡与捕获）</h3><p>DOM 事件流分为三个阶段（IE 仅支持冒泡）：</p>
+<ol>
+<li><strong>捕获阶段</strong>：事件从 <code>document</code> 向下传播到目标元素；</li>
+<li><strong>目标阶段</strong>：事件到达目标元素；</li>
+<li><strong>冒泡阶段</strong>：事件从目标元素向上传播到 <code>document</code>。</li>
+</ol>
+<pre><code class="javascript">// 冒泡示例（点击子元素，父元素事件也会触发）
+const parent = document.getElementById(&quot;parent&quot;);
+const child = document.getElementById(&quot;child&quot;);
+parent.addEventListener(&quot;click&quot;, () =&gt; alert(&quot;父元素点击&quot;));
+child.addEventListener(&quot;click&quot;, () =&gt; alert(&quot;子元素点击&quot;));
+// 点击 child，先触发 &quot;子元素点击&quot;，再触发 &quot;父元素点击&quot;（冒泡）
+</code></pre>
+<p>用 <code>addEventListener</code> 第三个参数控制捕获 &#x2F; 冒泡：</p>
+<pre><code class="javascript">// 第三个参数为 true：捕获阶段触发
+parent.addEventListener(&quot;click&quot;, () =&gt; alert(&quot;父元素捕获&quot;), true);
+child.addEventListener(&quot;click&quot;, () =&gt; alert(&quot;子元素冒泡&quot;), false);
+// 点击 child，先触发 &quot;父元素捕获&quot;，再触发 &quot;子元素冒泡&quot;
+</code></pre>
+<h2 id="五、DOM-性能优化"><a href="#五、DOM-性能优化" class="headerlink" title="五、DOM 性能优化"></a>五、DOM 性能优化</h2><p>频繁操作 DOM 会导致浏览器频繁重排（Reflow）和重绘（Repaint），影响页面性能，优化方案：</p>
+<h3 id="1-批量操作-DOM"><a href="#1-批量操作-DOM" class="headerlink" title="1. 批量操作 DOM"></a>1. 批量操作 DOM</h3><p>用文档片段（<code>DocumentFragment</code>）临时存储节点，最后一次性插入：</p>
+<pre><code class="javascript">const fragment = document.createDocumentFragment();
+for (let i = 0; i &lt; 1000; i++) &#123;
+  const li = document.createElement(&quot;li&quot;);
+  li.textContent = `列表项 $&#123;i&#125;`;
+  fragment.appendChild(li); // 不触发重排
+&#125;
+document.querySelector(&quot;ul&quot;).appendChild(fragment); // 仅触发一次重排
+</code></pre>
+<h3 id="2-避免频繁查询-DOM"><a href="#2-避免频繁查询-DOM" class="headerlink" title="2. 避免频繁查询 DOM"></a>2. 避免频繁查询 DOM</h3><p>将查询结果缓存到变量中，避免重复查找：</p>
+<pre><code class="javascript">// 不好的写法（重复查询）
+for (let i = 0; i &lt; 100; i++) &#123;
+  document.getElementById(&quot;box&quot;).style.left = `$&#123;i&#125;px`;
+&#125;
+
+// 好的写法（缓存变量）
+const box = document.getElementById(&quot;box&quot;);
+for (let i = 0; i &lt; 100; i++) &#123;
+  box.style.left = `$&#123;i&#125;px`;
+&#125;
+</code></pre>
+<h3 id="3-减少重排重绘"><a href="#3-减少重排重绘" class="headerlink" title="3. 减少重排重绘"></a>3. 减少重排重绘</h3><p>避免频繁修改<code>style</code>属性，改用<code>classList</code>或<code>cssText</code>：</p>
+<pre><code class="javascript">// 不好的写法（多次重排）
+div.style.width = &quot;100px&quot;;
+div.style.height = &quot;200px&quot;;
+div.style.margin = &quot;10px&quot;;
+
+// 好的写法（一次重排）
+div.classList.add(&quot;box-style&quot;); // 提前定义 .box-style &#123; width: 100px; ... &#125;
+// 或
+div.style.cssText = &quot;width: 100px; height: 200px; margin: 10px;&quot;;
+</code></pre>
+<p>隐藏元素后操作（隐藏元素不触发重排）：</p>
+<pre><code class="javascript">div.style.display = &quot;none&quot;;
+// 批量修改样式/结构
+div.style.width = &quot;100px&quot;;
+div.appendChild(child);
+div.style.display = &quot;block&quot;; // 仅触发一次重排
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
