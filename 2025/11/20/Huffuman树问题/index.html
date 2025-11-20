@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Huffuman树问题 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Huffuman树问题</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/20
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>堆的简单应用</p>
+<span id="more"></span>
+
+<h2 id="Huffuman树问题"><a href="#Huffuman树问题" class="headerlink" title="Huffuman树问题"></a>Huffuman树问题</h2><h3 id="★问题描述"><a href="#★问题描述" class="headerlink" title="★问题描述"></a>★问题描述</h3><p>对于给定的一个数列，求出用该数列构造Huffman树的总费用。</p>
+<p>给出一列数{<em>pi</em>}&#x3D;{<em>p</em>0, <em>p</em>1, …, <em>pn</em>-1}，用这列数构造Huffman树的过程如下：</p>
+<ol>
+<li>找到{<em>pi</em>}中<strong>最小的两个数</strong>，设为<em>pa</em>和<em>pb</em>，将<em>pa</em>和<em>pb</em>从{<em>pi</em>}中<strong>删除</strong>掉，然后<strong>将它们的和加入到{<em>pi</em>}<strong>中。</strong>这个过程的费用记为pa + pb</strong>。</li>
+<li>重复步骤1，<strong>直到{pi}中只剩下一个数</strong>。</li>
+</ol>
+<p>在上面的操作过程中，把所有的费用相加，就得到了构造Huffman树的总费用。</p>
+<p>例如，对于数列{<em>pi</em>}&#x3D;{5, 3, 8, 2, 9}，Huffman树的构造过程如下：</p>
+<ol>
+<li>找到{5, 3, 8, 2, 9}中最小的两个数，分别是2和3，从{<em>pi</em>}中删除它们并将和5加入，得到{5, 8, 9, 5}，费用为5。</li>
+<li>找到{5, 8, 9, 5}中最小的两个数，分别是5和5，从{<em>pi</em>}中删除它们并将和10加入，得到{8, 9, 10}，费用为10。</li>
+<li>找到{8, 9, 10}中最小的两个数，分别是8和9，从{<em>pi</em>}中删除它们并将和17加入，得到{10, 17}，费用为17。</li>
+<li>找到{10, 17}中最小的两个数，分别是10和17，从{<em>pi</em>}中删除它们并将和27加入，得到{27}，费用为27。</li>
+<li>现在，数列中只剩下一个数27，构造过程结束，总费用为5+10+17+27&#x3D;59。</li>
+</ol>
+<h3 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h3><p>输入的第一行包含一个正整数<em>n</em>（<em>n</em>&lt;&#x3D;100）。</p>
+<p>接下来是<em>n</em>个正整数，表示<em>p</em>0, <em>p</em>1, …, <em>pn</em>-1，每个数不超过1000。</p>
+<h3 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h3><p>用这些数构造Huffman树的总费用。</p>
+<h3 id="★输入示例"><a href="#★输入示例" class="headerlink" title="★输入示例"></a>★输入示例</h3><pre><code>5
+5 3 8 2 9
+</code></pre>
+<h3 id="★输出示例"><a href="#★输出示例" class="headerlink" title="★输出示例"></a>★输出示例</h3><pre><code>59
+</code></pre>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() &#123;
+    int n;
+    cin &gt;&gt; n;        
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq;        
+    for (int i = 0; i &lt; n; i++) &#123;
+        int num;
+        cin &gt;&gt; num;
+        pq.push(num);
+    &#125;    
+    int totalCost = 0;    
+    
+    while (pq.size() &gt; 1) &#123;
+        
+        int first = pq.top(); pq.pop();
+        int second = pq.top(); pq.pop();
+        int cost = first + second;
+        totalCost += cost;        
+    
+        pq.push(cost);
+    &#125;
+    
+    cout &lt;&lt; totalCost &lt;&lt; endl;
+    
+    return 0;
+&#125;
+</code></pre>
+<h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><ol>
+<li>利用C++STL中的优先队列建小根堆。</li>
+<li>此时堆顶就是该序列的最小值，连续弹出两次堆顶，用cost记录下first与second的和。</li>
+<li>将cost累加给totalCost。</li>
+<li>直到堆只剩1个值后退出循环，并输出最终的totalCost。</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

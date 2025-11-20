@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>并查集 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>并查集</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/20
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #00bcd4">
+                    算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>并查集是一种树型的数据结构，用于处理一些不相交集合（Disjoint Sets）的合并及查询问题。</p>
+<span id="more"></span>
+
+<h2 id="1-并查集的概念"><a href="#1-并查集的概念" class="headerlink" title="1. 并查集的概念"></a>1. 并查集的概念</h2><p>并查集支持两种核心操作：</p>
+<ul>
+<li><strong>查找（Find）</strong>：确定某个元素属于哪个集合。</li>
+<li><strong>合并（Union）</strong>：将两个集合合并成一个集合。</li>
+</ul>
+<p>并查集的应用场景包括：</p>
+<ul>
+<li>连通分量问题（如判断图中两个节点是否连通）</li>
+<li>Kruskal 算法求最小生成树</li>
+<li>解决等价类问题</li>
+<li>检测图中的环</li>
+</ul>
+<hr>
+<h2 id="2-并查集的实现原理"><a href="#2-并查集的实现原理" class="headerlink" title="2. 并查集的实现原理"></a>2. 并查集的实现原理</h2><p>并查集的实现主要依赖于数组（或哈希表）来表示每个元素的父节点。每个集合都有一个根节点，根节点的父节点是它自己。</p>
+<h3 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h3><p><strong>查找（Find）</strong></p>
+<ul>
+<li>查找元素的根节点。</li>
+<li>如果元素的父节点不是自己，则递归或迭代查找父节点，直到找到根节点。</li>
+</ul>
+<p><strong>合并（Union）</strong></p>
+<ul>
+<li>找到两个元素的根节点。</li>
+<li>如果根节点不同，则将其中一个根节点的父节点指向另一个根节点。</li>
+</ul>
+<hr>
+<h2 id="3-优化策略"><a href="#3-优化策略" class="headerlink" title="3. 优化策略"></a>3. 优化策略</h2><h3 id="路径压缩（Path-Compression）"><a href="#路径压缩（Path-Compression）" class="headerlink" title="路径压缩（Path Compression）"></a>路径压缩（Path Compression）</h3><ul>
+<li>在查找过程中，将路径上的每个节点直接指向根节点，从而缩短后续查找的路径。</li>
+</ul>
+<h3 id="按秩合并（Union-by-Rank）"><a href="#按秩合并（Union-by-Rank）" class="headerlink" title="按秩合并（Union by Rank）"></a>按秩合并（Union by Rank）</h3><ul>
+<li>为每个根节点维护一个秩（rank），表示树的高度。</li>
+<li>合并时，将秩较小的树合并到秩较大的树上，以保持树的平衡。</li>
+</ul>
+<hr>
+<h2 id="4-C-实现"><a href="#4-C-实现" class="headerlink" title="4. C++ 实现"></a>4. C++ 实现</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+class DSU &#123;
+private:
+    vector&lt;int&gt; parent;  // 存储每个元素的父节点
+    vector&lt;int&gt; rank;    // 存储每个根节点的秩
+
+public:
+    // 构造函数，初始化并查集
+    DSU(int n) &#123;
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i &lt; n; i++) &#123;
+            parent[i] = i;  // 每个元素的父节点初始化为自身
+        &#125;
+    &#125;
+
+    // 查找元素 x 的根节点（带路径压缩）
+    int find(int x) &#123;
+        if (parent[x] != x) &#123;
+            parent[x] = find(parent[x]);  // 路径压缩
+        &#125;
+        return parent[x];
+    &#125;
+
+    // 合并元素 x 和 y 所在的集合（按秩合并）
+    void unionSet(int x, int y) &#123;
+        int rootX = find(x);
+        int rootY = find(y);
+
+        if (rootX == rootY) &#123;
+            return;  // 已经在同一个集合中
+        &#125;
+
+        // 按秩合并
+        if (rank[rootX] &lt; rank[rootY]) &#123;
+            parent[rootX] = rootY;
+        &#125; else if (rank[rootX] &gt; rank[rootY]) &#123;
+            parent[rootY] = rootX;
+        &#125; else &#123;
+            parent[rootY] = rootX;
+            rank[rootX]++;  // 秩相等时，合并后秩加 1
+        &#125;
+    &#125;
+
+    // 判断元素 x 和 y 是否在同一个集合中
+    bool isSameSet(int x, int y) &#123;
+        return find(x) == find(y);
+    &#125;
+&#125;;
+
+// 示例用法
+int main() &#123;
+    DSU dsu(5);  // 元素 0, 1, 2, 3, 4
+
+    dsu.unionSet(0, 1);
+    dsu.unionSet(1, 2);
+    dsu.unionSet(3, 4);
+
+    cout &lt;&lt; &quot;0 和 2 是否在同一个集合？&quot; &lt;&lt; (dsu.isSameSet(0, 2) ? &quot;是&quot; : &quot;否&quot;) &lt;&lt; endl;
+    cout &lt;&lt; &quot;2 和 3 是否在同一个集合？&quot; &lt;&lt; (dsu.isSameSet(2, 3) ? &quot;是&quot; : &quot;否&quot;) &lt;&lt; endl;
+
+    dsu.unionSet(2, 3);
+
+    cout &lt;&lt; &quot;2 和 3 是否在同一个集合？&quot; &lt;&lt; (dsu.isSameSet(2, 3) ? &quot;是&quot; : &quot;否&quot;) &lt;&lt; endl;
+
+    return 0;
+&#125;
+</code></pre>
+<hr>
+<h2 id="5-时间复杂度"><a href="#5-时间复杂度" class="headerlink" title="5. 时间复杂度"></a>5. 时间复杂度</h2><ul>
+<li>带路径压缩和按秩合并的并查集，每次操作的时间复杂度几乎是常数，可近似为 O (α(n))，其中 α 是阿克曼函数的反函数，增长极其缓慢。</li>
+<li>在实际应用中，α(n) 通常小于 5，因此并查集的操作可以看作是 O (1) 的。</li>
+</ul>
+<hr>
+<h2 id="6-常见应用场景"><a href="#6-常见应用场景" class="headerlink" title="6. 常见应用场景"></a>6. 常见应用场景</h2><ol>
+<li><strong>连通分量问题</strong>：<ul>
+<li>判断图中两个节点是否连通。</li>
+<li>计算图中的连通分量数量。</li>
+</ul>
+</li>
+<li><strong>Kruskal 算法</strong>：<ul>
+<li>用于求最小生成树，通过并查集判断边是否会形成环。</li>
+</ul>
+</li>
+<li><strong>等价类划分</strong>：<ul>
+<li>将元素按照等价关系划分成不同的集合。</li>
+</ul>
+</li>
+<li><strong>动态连通性</strong>：<ul>
+<li>在动态变化的图中，实时维护节点的连通性。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="7-注意事项"><a href="#7-注意事项" class="headerlink" title="7. 注意事项"></a>7. 注意事项</h2><ul>
+<li>并查集的元素通常需要是整数，如果是其他类型，可以通过哈希表映射成整数。</li>
+<li>在实现时，要注意数组的大小，确保能够容纳所有元素。</li>
+<li>路径压缩和按秩合并是并查集高效的关键，建议同时使用这两种优化策略。</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

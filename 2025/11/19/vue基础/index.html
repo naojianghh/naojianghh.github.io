@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Vue基础 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Vue基础</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/19
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/vue/" style="color: #ff7d73">
+                    vue
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Vue项目构建</p>
+<span id="more"></span>
+
+<h1 id="Vue基础"><a href="#Vue基础" class="headerlink" title="Vue基础"></a>Vue基础</h1><h2 id="Vue项目初始化"><a href="#Vue项目初始化" class="headerlink" title="Vue项目初始化"></a>Vue项目初始化</h2><pre><code class="bash">npm init vue@latest
+</code></pre>
+<pre><code class="bash">cd first_vue_project
+</code></pre>
+<pre><code class="bash">npm install
+</code></pre>
+<h2 id="Vue项目目录结构"><a href="#Vue项目目录结构" class="headerlink" title="Vue项目目录结构"></a>Vue项目目录结构</h2><pre><code class="plaintext">vue-project/
+├── .vscode/                # VS Code 编辑器配置（如代码格式化、插件推荐）
+│   ├── extensions.json     # 推荐安装的插件
+│   └── settings.json       # 编辑器个性化配置（如 ESLint 自动修复）
+├── public/                 # 静态资源目录（不会被构建工具处理，直接复制到输出目录）
+│   ├── favicon.ico         # 网站图标
+│   ├── robots.txt          # 搜索引擎爬虫规则
+│   └── index.html          # 入口 HTML 文件（Vite 中为模板，Vue CLI 中为入口）
+├── src/                    # 源代码核心目录（所有业务逻辑、组件、资源都在这里）
+│   ├── api/                # 接口请求模块（统一管理 API 地址和请求逻辑）
+│   │   ├── index.js        # API 入口（如 axios 实例配置、请求拦截器）
+│   │   ├── user.js         # 用户相关接口（登录、注册、信息查询）
+│   │   └── goods.js        # 商品相关接口（列表、详情、下单）
+│   ├── assets/             # 静态资源（会被构建工具处理，支持模块化引入）
+│   │   ├── icons/          # 图标资源（如 SVG、Iconfont）
+│   │   ├── images/         # 图片资源（如 PNG、JPG、WebP，可按模块分类）
+│   │   ├── styles/         # 全局样式（重置样式、变量、混入、全局组件样式）
+│   │   │   ├── reset.css    # 浏览器样式重置（如 normalize.css）
+│   │   │   ├── variables.scss # 样式变量（如颜色、字体、间距）
+│   │   │   └── global.scss # 全局共享样式（如全局组件样式、公共布局样式）
+│   │   └── fonts/          # 自定义字体文件
+│   ├── components/         # 公共组件（全局复用、非业务强相关的组件）
+│   │   ├── common/         # 基础通用组件（按钮、输入框、弹窗、加载动画等）
+│   │   │   ├── Button/
+│   │   │   │   ├── Button.vue
+│   │   │   │   └── index.js # 组件导出（方便全局注册）
+│   │   │   └── Dialog/
+│   │   └── business/       # 业务通用组件（多个页面复用的业务组件，如商品卡片、用户信息卡片）
+│   │       ├── GoodsCard.vue
+│   │       └── UserInfo.vue
+│   ├── composables/        # Vue 3 组合式函数（复用逻辑抽离，替代 Vue 2 的 mixin）
+│   │   ├── useUser.js      # 用户相关逻辑（登录状态、用户信息管理）
+│   │   ├── useRequest.js   # 请求相关逻辑（封装 axios 请求、加载状态、错误处理）
+│   │   └── usePermission.js # 权限控制逻辑（按钮权限、路由权限）
+│   ├── config/             # 项目配置文件（常量、枚举、环境配置等）
+│   │   ├── constants.js    # 全局常量（如接口状态码、存储键名）
+│   │   ├── enums.js        # 枚举类型（如订单状态、用户角色）
+│   │   └── settings.js     # 项目设置（如页面标题、分页默认条数）
+│   ├── directives/         # 自定义指令（全局指令，如权限指令、防抖指令）
+│   │   ├── permission.js   # 权限指令（v-permission，控制元素显示隐藏）
+│   │   ├── debounce.js     # 防抖指令（v-debounce，防止重复点击）
+│   │   └── index.js        # 指令注册入口（全局注册所有指令）
+│   ├── hooks/              # 自定义钩子（非 Vue 专属逻辑，如浏览器相关、第三方库钩子）
+│   │   ├── useLocalStorage.js # 本地存储钩子（封装 localStorage 操作）
+│   │   └── useWindowResize.js # 窗口resize钩子（监听窗口大小变化）
+│   ├── layouts/            # 布局组件（页面公共布局，如顶部导航、侧边栏、底部 footer）
+│   │   ├── MainLayout.vue  # 主布局（大部分页面使用的布局）
+│   │   ├── AuthLayout.vue  # 授权布局（登录、注册页面使用的布局）
+│   │   └── components/     # 布局内部组件（如 Sidebar、Header、Footer）
+│   ├── router/             # 路由配置（Vue Router）
+│   │   ├── index.js        # 路由入口（路由规则、路由守卫、路由懒加载配置）
+│   │   ├── routes.js       # 路由规则（按模块拆分，如首页路由、用户路由）
+│   │   └── guards.js       # 路由守卫（全局守卫、路由独享守卫、组件内守卫）
+│   ├── store/              # 状态管理（Pinia 或 Vuex）
+│   │   ├── index.js        # 状态管理入口（Pinia 创建实例 / Vuex 创建 Store）
+│   │   ├── modules/        # 模块拆分（按业务模块拆分状态，如用户模块、购物车模块）
+│   │   │   ├── user.js     # 用户状态（登录状态、用户信息）
+│   │   │   └── cart.js     # 购物车状态（商品列表、数量）
+│   ├── styles/             # 全局样式（与 assets/styles 二选一，或按习惯拆分）
+│   ├── utils/              # 工具函数（通用工具，如日期格式化、字符串处理、校验函数）
+│   │   ├── date.js         # 日期工具（格式化日期、计算时间差）
+│   │   ├── string.js       # 字符串工具（防抖、节流、字符串格式化）
+│   │   ├── validator.js    # 校验工具（手机号校验、邮箱校验、表单校验）
+│   │   └── index.js        # 工具函数导出入口（统一导出，方便使用）
+│   ├── views/              # 页面组件（路由对应的页面，按业务模块分类）
+│   │   ├── Home/           # 首页模块
+│   │   │   ├── Home.vue    # 首页页面
+│   │   │   └── components/ # 首页内部组件（仅首页使用，不复用的组件）
+│   │   ├── User/           # 用户模块
+│   │   │   ├── Login.vue   # 登录页面
+│   │   │   ├── Register.vue # 注册页面
+│   │   │   ├── Profile.vue # 个人中心页面
+│   │   │   └── components/ # 用户模块内部组件
+│   │   └── Goods/          # 商品模块
+│   │       ├── GoodsList.vue # 商品列表页面
+│   │       ├── GoodsDetail.vue # 商品详情页面
+│   │       └── components/ # 商品模块内部组件
+│   ├── App.vue             # 根组件（项目入口组件，通常包含 &lt;router-view&gt;）
+│   ├── main.js             # 入口文件（初始化 Vue 实例、挂载根组件、导入全局资源）
+│   └── vite-env.d.ts       # Vite 类型声明文件（TS 项目必备，识别 Vite 特有语法）
+├── .env.development        # 开发环境环境变量（如接口基础地址、调试开关）
+├── .env.production         # 生产环境环境变量（如正式接口地址、日志开关）
+├── .env.test               # 测试环境环境变量
+├── .eslintrc.js            # ESLint 配置（代码规范检查，如语法错误、格式错误）
+├── .prettierrc.js          # Prettier 配置（代码格式化，如缩进、引号、分号）
+├── .gitignore              # Git 忽略文件（如 node_modules、dist、.env.local）
+├── index.html              # Vite 入口 HTML（Vue CLI 中在 public 目录下）
+├── package.json            # 项目依赖配置（依赖包、脚本命令如 dev/build/test）
+├── README.md               # 项目说明文档（安装步骤、启动命令、目录说明、注意事项）
+├── vite.config.js          # Vite 配置（构建配置、开发服务器、插件配置，如 Vue 插件、CSS 插件）
+│                           # （Vue CLI 项目为 vue.config.js）
+└── tsconfig.json           # TypeScript 配置（TS 项目必备，如编译选项、类型声明路径）
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
