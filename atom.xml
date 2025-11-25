@@ -63,7 +63,7 @@
     <link href="http://example.com/2025/11/20/%E6%A3%AE%E6%9E%97%E5%86%B0%E7%81%AB%E4%BA%BA/"/>
     <id>http://example.com/2025/11/20/%E6%A3%AE%E6%9E%97%E5%86%B0%E7%81%AB%E4%BA%BA/</id>
     <published>2025-11-20T14:11:56.000Z</published>
-    <updated>2025-11-25T16:17:22.940Z</updated>
+    <updated>2025-11-25T16:22:28.643Z</updated>
     
     <content type="html"><![CDATA[<p>堆的简单应用</p><span id="more"></span><h1 id="算法与数据结构实验题-8-21-森林冰火人"><a href="#算法与数据结构实验题-8-21-森林冰火人" class="headerlink" title="算法与数据结构实验题 8.21 森林冰火人"></a>算法与数据结构实验题 8.21 森林冰火人</h1><h3 id="★实验任务"><a href="#★实验任务" class="headerlink" title="★实验任务"></a>★实验任务</h3><p>火人喜欢堆雪人。</p><p>已知火人在接下来的N天中，每天早上都会堆一个大小为vi的雪人。</p><p>但是火人的温度太高了！每天晚上，所有已存在的雪人的体积都会由于融化而减少ti（若雪人体积不足ti，则雪人体积融化至0）。</p><p>问，每天融化的总体积为多少？</p><h3 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h3><p>输入第一行为正整数N (1&lt;&#x3D;N&lt;&#x3D;10^5)</p><p>第二行为N个正整数vi (1&lt;&#x3D;vi&lt;&#x3D;10^5)，代表每天堆的雪人的体积。</p><p>第三行为N个正整数ti (1&lt;&#x3D;ti&lt;&#x3D;10^5)，表示每天雪人融化的体积。</p><p>对于80%的数据， 1&lt;&#x3D;N&lt;&#x3D;100</p><p>对于100%的数据， 1&lt;&#x3D;N&lt;&#x3D;10^5</p><h3 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h3><p>输出N个整数，代表每天融化的体积。（整数间以空格分隔）</p><h3 id="输入示例"><a href="#输入示例" class="headerlink" title="输入示例"></a>输入示例</h3><pre><code>310 10 55 7 2</code></pre><h3 id="输出示例"><a href="#输出示例" class="headerlink" title="输出示例"></a>输出示例</h3><pre><code>5 12 4</code></pre><h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><pre><code class="c++">#include &lt;iostream&gt;#include &lt;queue&gt;#include &lt;vector&gt;using namespace std;int main() &#123;    ios_base::sync_with_stdio(false);    cin.tie(NULL);    int n;    cin &gt;&gt; n;    vector&lt;long long&gt; v(n), t(n);    for (int i = 0; i &lt; n; i++) cin &gt;&gt; v[i];    for (int i = 0; i &lt; n; i++) cin &gt;&gt; t[i];        priority_queue&lt;long long, vector&lt;long long&gt;, greater&lt;long long&gt;&gt; pq;    long long total_melt = 0;    for (int i = 0; i &lt; n; i++) &#123;                pq.push(v[i] + total_melt);        long long day_melt = 0;        while (!pq.empty() &amp;&amp; pq.top() &lt;= total_melt + t[i]) &#123;            day_melt += pq.top() - total_melt;            pq.pop();        &#125;        day_melt += pq.size() * t[i];        total_melt += t[i];        cout &lt;&lt; day_melt &lt;&lt; (i == n - 1 ? &quot;\n&quot; : &quot; &quot;);    &#125;    return 0;&#125;</code></pre><h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a><u>核心思路</u></h2><ol><li>用<code>total_melt</code>记录下已过天数的融化累计量，例如：如何当前为第<code>i</code>天，则<code>total_melt = t[i] + ···   + t[0]</code>。</li><li>建立小根堆，遍历每一天，将每天堆的雪人的体积<code>v[i]</code>与<code>total_melt</code>之和插入小根堆中。</li><li>查看小根堆的堆顶，判断当天是否会融化完，如果会融化完，用<code>day_melt</code>累加上该雪人的剩余体积，并弹出该雪人，以此循环，直到找到下一个不会融化完的雪人为止。</li><li>用<code>dal_melt</code>再累加上不会融化完剩余雪人的数量与当天融化量之积（<code>day_melt += pq.size() * t[i];</code>），更新total_melt，输出当天的融化量。</li></ol>]]></content>
     
@@ -75,7 +75,9 @@
     <category term="算法应用" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/"/>
     
     
-    <category term="c++,堆" scheme="http://example.com/tags/c-%E5%A0%86/"/>
+    <category term="c++" scheme="http://example.com/tags/c/"/>
+    
+    <category term="堆" scheme="http://example.com/tags/%E5%A0%86/"/>
     
   </entry>
   

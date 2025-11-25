@@ -605,6 +605,13 @@
 
   
   <url>
+    <loc>http://example.com/tags/%E7%AE%80%E4%BB%8B/</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/tags/java/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -612,7 +619,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://example.com/tags/CSS/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -640,7 +647,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/CSS/</loc>
+    <loc>http://example.com/tags/c-%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -648,13 +655,6 @@
   
   <url>
     <loc>http://example.com/tags/html-javaScript/</loc>
-    <lastmod>2025-11-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/c-%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -696,14 +696,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/java-kotlin/</loc>
-    <lastmod>2025-11-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/vue/</loc>
+    <loc>http://example.com/tags/html/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -717,7 +710,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/html/</loc>
+    <loc>http://example.com/tags/java-kotlin/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -732,6 +725,13 @@
   
   <url>
     <loc>http://example.com/tags/c-%E5%A0%86/</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/vue/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -788,6 +788,13 @@
   
   <url>
     <loc>http://example.com/tags/c-%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E5%A0%86/</loc>
     <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
