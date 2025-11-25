@@ -167,6 +167,15 @@
             2025/9/10
         </span>
         
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
         
         <span class="tags">
             <span class="icon">
@@ -176,8 +185,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/Android/" style="color: #03a9f4">
-                    Android
+                <a href="/tags/kotlin-xml/" style="color: #ff7d73">
+                    kotlin xml
                 </a>
             </span>
             
@@ -244,22 +253,16 @@
 <h3 id="属性动画（property-animation）"><a href="#属性动画（property-animation）" class="headerlink" title="属性动画（property animation）"></a>属性动画（property animation）</h3><ul>
 <li><p><strong>原理</strong>：是一个功能强大的框架，允许对几乎任何对象的属性进行动画操作，可以定义动画在指定时间内改变对象的任意属性值，无论该属性是否会绘制到屏幕上。例如，不仅可以对视图的位置、颜色等属性进行动画处理，还能对自定义对象的属性进行动画变化 。</p>
 </li>
-<li><p>实现方式</p>
-<p>：一般通过</p>
-<pre><code>ObjectAnimator
-</code></pre>
-<p>或</p>
-<pre><code>ValueAnimator
-</code></pre>
-<p>来创建属性动画，也可以使用</p>
-<pre><code>AnimatorSet
-</code></pre>
-<p>将多个动画组合在一起，按一定顺序或同时播放。属性动画系统还可以定义以下特性：</p>
+<li><p>实现方式：</p>
+<p>一般通过<code>ObjectAnimator</code>或<code>ValueAnimator</code>来创建属性动画，也可以使用<code>AnimatorSet</code>将多个动画组合在一起，按一定顺序或同时播放。属性动画系统还可以定义以下特性：</p>
 <ul>
 <li><strong>持续时间（duration）</strong>：可以指定动画的持续时长，默认长度是 300 毫秒。</li>
 <li><strong>时间插值（time interpolation）</strong>：可以选择系统提供的插值器，也能自定义插值器，来指定属性值如何根据动画当前经过的时间进行计算。</li>
 <li><strong>重复次数和行为（repeat count and behavior）</strong>：可以设置动画在到达持续时间结束时是否重复，以及重复的次数，还能指定动画是否反向播放 。</li>
-<li><strong>动画集（animator sets）</strong>：将多个动画组合成逻辑组，这些动画可以一起播放、按顺序播放，或者在指定延迟后播放。</li>
+</ul>
+</li>
+<li><p><strong>动画集（animator sets）</strong>：将多个动画组合成逻辑组，这些动画可以一起播放、按顺序播放，或者在指定延迟后播放。</p>
+<ul>
 <li><strong>帧刷新延迟（frame refresh delay）</strong>：指定动画帧刷新的频率，默认设置为每 10 毫秒刷新一次，但实际刷新速度取决于系统的繁忙程度以及底层定时器的服务速度。</li>
 </ul>
 </li>
