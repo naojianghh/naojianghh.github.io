@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>categories | NaoJianghh</title>
+    <title>并查集9.9_道路 | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -151,36 +155,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/categories/study/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                学习
-            </a>
+            <div class="article">
+    <div>
+        <h1>并查集9.9_道路</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/25
         </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/%E7%AE%97%E6%B3%95/" style="background: #ffa2c4">
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -189,18 +177,125 @@
         </span>
         
         
-        
-        <span>
-            <a href="/categories/%E5%BC%80%E5%8F%91/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                开发
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/c/" style="color: #ffa2c4">
+                    c++
+                </a>
+            </span>
+            
         </span>
         
-        
     </div>
+    
+    <div class="content" v-pre>
+        <p>并查集的应用</p>
+<span id="more"></span>
+
+<h1 id="算法与数据结构实验题-9-9-道路"><a href="#算法与数据结构实验题-9-9-道路" class="headerlink" title="算法与数据结构实验题 9.9 道路"></a>算法与数据结构实验题 9.9 道路</h1><h3 id="★实验任务"><a href="#★实验任务" class="headerlink" title="★实验任务"></a>★实验任务</h3><p>某省调查城镇交通状况，得到现有城镇道路统计表，现给出每条道路连接的城镇编号，问当前的道路设计方案是否合理。</p>
+<p>合理的方案为任意两个城镇之间可以相互到达，有且只有一条通路。</p>
+<h3 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h3><p>输入a b(1&lt;&#x3D;a,b&lt;&#x3D;10,000)，表示城镇 a 和城镇 b 连通。输入包含多组数据，每组数据以 0 0 结束。</p>
+<p>整个文件以 -1 -1 结尾</p>
+<h3 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h3><p>如果方案合法，输出”Yes”,否则输出”No”。</p>
+<h3 id="输入示例"><a href="#输入示例" class="headerlink" title="输入示例"></a>输入示例</h3><pre><code>6 8 5 3 5 2 6 4 5 6 0 0
+8 1 7 3 6 2 8 9 7 5 7 4 7 8 7 6 0 0
+3 8 6 8 6 4 5 3 5 6 5 2 0 0
+1 2 3 4 0 0
+-1 -1
+</code></pre>
+<h3 id="输出示例"><a href="#输出示例" class="headerlink" title="输出示例"></a>输出示例</h3><pre><code>Yes
+Yes
+No
+No
+</code></pre>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;set&gt;
+using namespace std;
+
+vector&lt;int&gt; parent;
+
+int find(int x) &#123;
+    if (parent[x] != x) &#123;
+        parent[x] = find(parent[x]);
+    &#125;
+    return parent[x];
+&#125;
+
+bool unite(int a, int b) &#123;
+    int ra = find(a);
+    int rb = find(b);
+    if (ra == rb) return false;
+    parent[ra] = rb;
+    return true;
+&#125;
+
+int main() &#123;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    parent.resize(10001);
+
+    while (true) &#123;
+        for (int i = 1; i &lt;= 10000; i++) &#123;
+            parent[i] = i;
+        &#125;
+
+        int a, b;
+        bool valid = true;
+        set&lt;int&gt; nodes;
+
+        while (cin &gt;&gt; a &gt;&gt; b) &#123;
+            if (a == 0 &amp;&amp; b == 0) break;
+            if (a == -1 &amp;&amp; b == -1) return 0;
+
+            nodes.insert(a);
+            nodes.insert(b);
+
+            if (!unite(a, b)) &#123;
+                valid = false;
+            &#125;
+        &#125;
+        if (valid &amp;&amp; !nodes.empty()) &#123;
+            int root = find(*nodes.begin());
+            for (int node : nodes) &#123;
+                if (find(node) != root) &#123;
+                    valid = false;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+
+        cout &lt;&lt; (valid ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><ol>
+<li>利用并查集来判断是否有回路和判断最后道路是否能连通。</li>
+<li>首先初始化各个城镇，然后逐个输入连通的城镇，用<code>unite</code>和并两个城镇集合。</li>
+<li>在合并过程中，用<code>find</code>判断两个集合是否为同一集合（根相同），若为同一集合说明城镇道路有回路，用<code>valid</code>记录下不合理，直接输出答案。</li>
+<li>如果合并完各个城镇并且没有回路，那么开始判断各个城镇是否连通，用<code>nodes</code>记录下参与连通的城镇，遍历<code>nodes</code>记录下的城镇，用find找到各个城镇的集合，判断最终是否只有一个集合（即每个城镇连通），用valid记录下结果，最后输出答案</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -232,6 +327,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 <canvas
