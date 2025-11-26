@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>自定义ViewGroup流程详解 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>自定义ViewGroup流程详解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/26
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/kotlin/" style="color: #00a596">
+                    kotlin
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%8E%9F%E7%90%86/" style="color: #ff7d73">
+                    原理
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>流式布局自定义示例</p>
+<span id="more"></span>
+
+<h1 id="自定义ViewGroup流程详解"><a href="#自定义ViewGroup流程详解" class="headerlink" title="自定义ViewGroup流程详解"></a>自定义ViewGroup流程详解</h1><p>自定义 ViewGroup 一般是利用现有的组件根据特定的布局方式来组成新的组件，大多继承自 ViewGroup 或各种 Layout 。</p>
+<p>ViewGroup 的生命周期核心围绕「<strong>测量（Measure）→ 布局（Layout）→ 绘制（Draw）</strong>」三大阶段展开，其中 <strong>测量和布局是自定义 ViewGroup 的核心</strong>—— 测量阶段确定「自身和所有子 View 的尺寸」，布局阶段确定「所有子 View 的位置」，两者环环相扣，直接决定布局是否正常显示。</p>
+<h2 id="一、先明确：ViewGroup-生命周期的核心流程"><a href="#一、先明确：ViewGroup-生命周期的核心流程" class="headerlink" title="一、先明确：ViewGroup 生命周期的核心流程"></a>一、先明确：ViewGroup 生命周期的核心流程</h2><p>ViewGroup 作为「容器 View」，生命周期是 <strong>「自身生命周期 + 子 View 生命周期的协调」</strong>，核心流程顺序不可逆：</p>
+<p><img src="/../images/%E8%87%AA%E5%AE%9A%E4%B9%89ViewGroup/1764171083462.png" alt="1764171083462"></p>
+<p>其中：</p>
+<ul>
+<li>「测量 + 布局」是布局生效的关键，会在以下场景触发：<ol>
+<li>首次加载布局（Activity <code>onCreate</code> 后）；</li>
+<li>调用 <code>requestLayout()</code>（动态添加子 View、修改尺寸 &#x2F; 间距等）；</li>
+<li>屏幕旋转、窗口尺寸变化（如软键盘弹出）；</li>
+</ol>
+</li>
+<li>「绘制阶段」依赖测量和布局的结果，负责将 View 渲染到屏幕，自定义 ViewGroup 很少需要重写（除非要绘制背景、分割线等）。</li>
+</ul>
+<h2 id="二、核心阶段-1：测量阶段（Measure）——-解决「多大」的问题"><a href="#二、核心阶段-1：测量阶段（Measure）——-解决「多大」的问题" class="headerlink" title="二、核心阶段 1：测量阶段（Measure）—— 解决「多大」的问题"></a>二、核心阶段 1：测量阶段（Measure）—— 解决「多大」的问题</h2><p>测量阶段的核心目标：<strong>计算出 ViewGroup 自身的最终宽高，以及所有子 View 的宽高</strong></p>
+<p>因为 ViewGroup 没有固定尺寸（依赖子 View 和父容器限制），所以测量是「自下而上 + 自上而下」的双向过程：</p>
+<h3 id="1-测量的触发入口：measure-int-widthMeasureSpec-int-heightMeasureSpec"><a href="#1-测量的触发入口：measure-int-widthMeasureSpec-int-heightMeasureSpec" class="headerlink" title="1. 测量的触发入口：measure(int widthMeasureSpec, int heightMeasureSpec)"></a>1. 测量的触发入口：<code>measure(int widthMeasureSpec, int heightMeasureSpec)</code></h3><ul>
+<li><p>调用者：父容器（或系统）会调用 ViewGroup 的 <code>measure</code> 方法，传入「宽高限制参数（MeasureSpec）」；</p>
+</li>
+<li><p>核心参数：<code>MeasureSpec</code>（由「模式 + 尺寸」组成，是父容器对当前 ViewGroup 的约束），有三种模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>含义（父容器对 ViewGroup 的限制）</th>
+<th>对应 XML 配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EXACTLY（精确模式）</td>
+<td>父容器已确定 ViewGroup 的宽高（如固定 <code>200dp</code> 或 <code>match_parent</code>）</td>
+<td><code>layout_width=&quot;200dp&quot;</code>&#x2F;<code>match_parent</code></td>
+</tr>
+<tr>
+<td>AT_MOST（最大模式）</td>
+<td>ViewGroup 宽高不能超过父容器给定的最大值（对应 <code>wrap_content</code>）</td>
+<td><code>layout_width=&quot;wrap_content&quot;</code></td>
+</tr>
+<tr>
+<td>UNSPECIFIED（无限制）</td>
+<td>父容器不限制宽高（如 ScrollView 子 View 的高度）</td>
+<td>极少用（系统内部场景）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="2-测量的核心逻辑：ViewGroup-如何测量自己和子-View？"><a href="#2-测量的核心逻辑：ViewGroup-如何测量自己和子-View？" class="headerlink" title="2. 测量的核心逻辑：ViewGroup 如何测量自己和子 View？"></a>2. 测量的核心逻辑：ViewGroup 如何测量自己和子 View？</h3><p>ViewGroup 不能直接测量自己，必须先测量所有子 View，再根据子 View 的尺寸计算自身尺寸 —— 这是「自下而上」的关键：</p>
+<h4 id="步骤-1：遍历子-View，触发子-View-测量"><a href="#步骤-1：遍历子-View，触发子-View-测量" class="headerlink" title="步骤 1：遍历子 View，触发子 View 测量"></a>步骤 1：遍历子 View，触发子 View 测量</h4><p>ViewGroup 会调用 <code>measureChild(child, widthMeasureSpec, heightMeasureSpec)</code>（或 <code>measureChildWithMargins</code>，支持 margin），本质是：</p>
+<ul>
+<li>根据自身的 <code>MeasureSpec</code> 和子 View 的 <code>layout_params</code>（如 <code>wrap_content</code>），计算出子 View 的 <code>MeasureSpec</code>；</li>
+<li>调用子 View 的 <code>measure</code> 方法，让子 View 自己测量宽高（子 View 测量后，通过 <code>getMeasuredWidth()</code>&#x2F;<code>getMeasuredHeight()</code> 可获取其尺寸）。</li>
+</ul>
+<h4 id="步骤-2：根据子-View-尺寸，计算自身尺寸"><a href="#步骤-2：根据子-View-尺寸，计算自身尺寸" class="headerlink" title="步骤 2：根据子 View 尺寸，计算自身尺寸"></a>步骤 2：根据子 View 尺寸，计算自身尺寸</h4><p>这是自定义 ViewGroup 最需要自定义的逻辑（比如 FlowLayout 的换行计算），核心思路：</p>
+<ul>
+<li>记录所有子 View 的排列方式（如单行 &#x2F; 多行、水平 &#x2F; 垂直）；</li>
+<li>累加子 View 占用的空间（宽度 &#x2F; 高度），并考虑「子 View 间距」「自身 padding」；</li>
+<li>结合父容器的<code>MeasureSpec</code>模式，确定自身最终宽高：<ul>
+<li>若父容器是 <code>EXACTLY</code>（如 <code>match_parent</code>&#x2F; 固定尺寸）：自身宽高直接用父容器给的尺寸；</li>
+<li>若父容器是 <code>AT_MOST</code>（如 <code>wrap_content</code>）：自身宽高 &#x3D; 子 View 排列后的总宽高 + 自身 padding。</li>
+</ul>
+</li>
+</ul>
+<h4 id="步骤-3：保存测量结果"><a href="#步骤-3：保存测量结果" class="headerlink" title="步骤 3：保存测量结果"></a>步骤 3：保存测量结果</h4><p>必须调用 <code>setMeasuredDimension(int measuredWidth, int measuredHeight)</code>，将计算出的自身宽高保存 —— 这是测量阶段的「收尾动作」，不调用会导致 ViewGroup 尺寸为 0，布局完全不可见。</p>
+<h3 id="3-关键原理：为什么测量是「双向」的？"><a href="#3-关键原理：为什么测量是「双向」的？" class="headerlink" title="3. 关键原理：为什么测量是「双向」的？"></a>3. 关键原理：为什么测量是「双向」的？</h3><ul>
+<li>自上而下：父容器通过 <code>MeasureSpec</code> 给 ViewGroup 施加限制（比如 “你最多宽 300dp”）；</li>
+<li>自下而上：ViewGroup 测量完所有子 View 后，根据子 View 的总尺寸，反过来确定自己的最终尺寸（比如 “子 View 换行后总高 200dp，所以我宽 300dp、高 200dp”）。</li>
+</ul>
+<h2 id="三、核心阶段-2：布局阶段（Layout）——-解决「在哪」的问题"><a href="#三、核心阶段-2：布局阶段（Layout）——-解决「在哪」的问题" class="headerlink" title="三、核心阶段 2：布局阶段（Layout）—— 解决「在哪」的问题"></a>三、核心阶段 2：布局阶段（Layout）—— 解决「在哪」的问题</h2><p>布局阶段的核心目标：<strong>根据测量阶段的结果，确定每个子 View 在 ViewGroup 中的具体位置（坐标）</strong></p>
+<p>布局是「自上而下」的过程：ViewGroup 已经知道自己的宽高和所有子 View 的宽高，只需按排列规则分配坐标。</p>
+<h3 id="1-布局的触发入口：layout-int-l-int-t-int-r-int-b"><a href="#1-布局的触发入口：layout-int-l-int-t-int-r-int-b" class="headerlink" title="1. 布局的触发入口：layout(int l, int t, int r, int b)"></a>1. 布局的触发入口：<code>layout(int l, int t, int r, int b)</code></h3><ul>
+<li>调用者：父容器会调用 ViewGroup 的 <code>layout</code> 方法，传入 ViewGroup 自身在父容器中的坐标（<code>l=左，t=上，r=右，b=下</code>）；</li>
+<li>核心动作：ViewGroup 先通过 <code>setFrame(l, t, r, b)</code> 确定自己在父容器中的位置，然后立刻调用 <code>onLayout</code> 方法，开始摆放子 View。</li>
+</ul>
+<h3 id="2-布局的核心逻辑：ViewGroup-如何摆放子-View？"><a href="#2-布局的核心逻辑：ViewGroup-如何摆放子-View？" class="headerlink" title="2. 布局的核心逻辑：ViewGroup 如何摆放子 View？"></a>2. 布局的核心逻辑：ViewGroup 如何摆放子 View？</h3><p>自定义 ViewGroup 必须重写 <code>onLayout(boolean changed, int l, int t, int r, int b)</code>，核心思路是「遍历子 View + 分配坐标」：</p>
+<h4 id="步骤-1：确定自身的可用区域"><a href="#步骤-1：确定自身的可用区域" class="headerlink" title="步骤 1：确定自身的可用区域"></a>步骤 1：确定自身的可用区域</h4><p>ViewGroup 自身有 <code>padding</code>（内边距），子 View 不能超出这个范围，所以可用区域是：</p>
+<ul>
+<li>可用宽度 &#x3D; 自身宽度（r-l） - paddingLeft - paddingRight；</li>
+<li>可用高度 &#x3D; 自身高度（b-t） - paddingTop - paddingBottom；</li>
+<li>子 View 的起始坐标基准：<code>lineStartX = paddingLeft</code>，<code>lineStartY = paddingTop</code>（从内边距的左上角开始摆放）。</li>
+</ul>
+<h4 id="步骤-2：遍历子-View，计算子-View-的坐标"><a href="#步骤-2：遍历子-View，计算子-View-的坐标" class="headerlink" title="步骤 2：遍历子 View，计算子 View 的坐标"></a>步骤 2：遍历子 View，计算子 View 的坐标</h4><p>对每个可见的子 View（跳过 <code>GONE</code> 的），按排列规则计算其四个顶点坐标（<code>childL, childT, childR, childB</code>）：</p>
+<ul>
+<li>坐标规则：<code>childR = childL + 子 View 测量宽度</code>，<code>childB = childT + 子 View 测量高度</code>；</li>
+<li>排列规则（自定义核心）：比如 FlowLayout 的换行逻辑 —— 如果当前行剩余宽度不够放子 View，就更新 <code>lineStartY</code>（换行，累加行高 + 垂直间距），重置 <code>lineStartX</code>（回到左侧起点）；</li>
+<li>调用子 View 的 <code>layout</code> 方法：将计算好的坐标传入 <code>child.layout(childL, childT, childR, childB)</code>，子 View 会根据这个坐标确定自己的位置。</li>
+</ul>
+<h4 id="步骤-3：递归布局（如果子-View-也是-ViewGroup）"><a href="#步骤-3：递归布局（如果子-View-也是-ViewGroup）" class="headerlink" title="步骤 3：递归布局（如果子 View 也是 ViewGroup）"></a>步骤 3：递归布局（如果子 View 也是 ViewGroup）</h4><p>如果子 View 是 ViewGroup（比如 FlowLayout 里嵌套 LinearLayout），调用 <code>child.layout()</code> 会触发该子 View 的 <code>onLayout</code> 方法，继续摆放它的子 View—— 这就是布局的「递归特性」，从根布局一直传递到最底层的子 View。</p>
+<h3 id="3-关键原理：布局与测量的依赖关系"><a href="#3-关键原理：布局与测量的依赖关系" class="headerlink" title="3. 关键原理：布局与测量的依赖关系"></a>3. 关键原理：布局与测量的依赖关系</h3><ul>
+<li>测量是布局的前提：没有测量阶段的 <code>getMeasuredWidth()</code>&#x2F;<code>getMeasuredHeight()</code>，就无法计算子 View 的坐标；</li>
+<li>布局不影响测量：布局阶段只分配位置，不会修改任何 View 的宽高（宽高已在测量阶段固定）。</li>
+</ul>
+<h2 id="四、测量与布局的核心关联：为什么不能乱改？"><a href="#四、测量与布局的核心关联：为什么不能乱改？" class="headerlink" title="四、测量与布局的核心关联：为什么不能乱改？"></a>四、测量与布局的核心关联：为什么不能乱改？</h2><ol>
+<li>顺序不可逆：必须先测量（确定尺寸），再布局（确定位置）—— 没有尺寸，位置无从谈起；</li>
+<li>触发机制联动：调用 <code>requestLayout()</code> 会同时触发「重新测量 + 重新布局」（不会触发绘制，除非尺寸变化导致视觉变化）；</li>
+<li>子 View 状态影响父容器：子 View 的 <code>visibility</code>（<code>GONE</code> 会跳过测量布局）、<code>layout_params</code>（<code>wrap_content</code>&#x2F;<code>match_parent</code>）会直接影响 ViewGroup 的测量结果；</li>
+<li>父容器限制影响子 View：父容器的 <code>MeasureSpec</code> 会限制子 View 的最大尺寸（比如父容器宽 300dp，子 View <code>match_parent</code> 就只能宽 300dp）。</li>
+</ol>
+<h2 id="五、常见误区：从生命周期角度避坑"><a href="#五、常见误区：从生命周期角度避坑" class="headerlink" title="五、常见误区：从生命周期角度避坑"></a>五、常见误区：从生命周期角度避坑</h2><ol>
+<li>重写 <code>onMeasure</code> 不调用 <code>setMeasuredDimension</code>：测量结果不保存，ViewGroup 尺寸为 0；</li>
+<li>布局时不考虑 <code>padding</code>&#x2F;<code>margin</code>：子 View 超出容器范围或间距异常；</li>
+<li>跳过 <code>GONE</code> 的子 View：<code>GONE</code> 子 View 不参与测量布局，否则会导致尺寸 &#x2F; 位置计算错误；</li>
+<li>随意重写 <code>requestLayout()</code>&#x2F;<code>measure()</code>：这两个方法是生命周期的核心触发点，重写会破坏测量 - 布局的联动逻辑；</li>
+<li>布局时修改子 View 宽高：子 View 宽高已在测量阶段固定，布局阶段修改会导致尺寸与位置不匹配（比如子 View 宽 100dp，却按 200dp 布局，超出容器）。</li>
+</ol>
+<h2 id="总结：ViewGroup-生命周期的核心本质"><a href="#总结：ViewGroup-生命周期的核心本质" class="headerlink" title="总结：ViewGroup 生命周期的核心本质"></a>总结：ViewGroup 生命周期的核心本质</h2><ul>
+<li>测量阶段：「双向协商」—— 父容器给限制，子 View 报尺寸，ViewGroup 汇总计算自身尺寸；</li>
+<li>布局阶段：「单向分配」——ViewGroup 按规则给子 View 分配坐标，递归完成整个布局树的位置确定；</li>
+<li>自定义 ViewGroup 的核心：<strong>在 <code>onMeasure</code> 中实现「子 View 尺寸汇总逻辑」，在 <code>onLayout</code> 中实现「子 View 坐标分配逻辑」</strong>，其余生命周期方法（如构造函数、<code>onAttachedToWindow</code>）都是辅助，无需过度修改。</li>
+</ul>
+<h2 id="FlowLayout自定义示例代码"><a href="#FlowLayout自定义示例代码" class="headerlink" title="FlowLayout自定义示例代码"></a>FlowLayout自定义示例代码</h2><pre><code class="kotlin">package com.naojianghh.test
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
+
+class FlowLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ViewGroup(context,attrs,defStyleAttr) &#123;
+
+    var horizontalSpacing: Int = dp2px(8f)
+    var verticalSpacing: Int = dp2px(8f)
+
+    private fun dp2px(dp: Float): Int &#123;
+        return (resources.displayMetrics.density * dp + 0.5f).toInt()
+    &#125;
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) &#123;
+        // 1. 获取父容器给的宽度和高度限制
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+
+        // 2. 记录当前行的宽度和高度（用于换行计算）
+        var lineWidth = 0
+        var lineHeight = 0
+        var measuredWidth = 0
+        var measuredHeight = 0
+
+        for (i in 0 until childCount)&#123;
+            val child = getChildAt(i)
+            if (child.visibility == View.GONE) continue // 跳过隐藏的子View
+
+            // 测量子View（传入父容器的限制，让子View自己计算尺寸）
+            measureChild(child,widthMeasureSpec,heightMeasureSpec)
+
+            // 获取子View测量后的宽高
+            val childWidth = child.measuredWidth
+            val childHeight = child.measuredHeight
+
+            // 4. 判断是否需要换行：当前行已占用宽度 + 子View宽度 + 水平间距 &gt; 父容器宽度（除了EXACTLY模式）
+            if (widthMode != MeasureSpec.UNSPECIFIED &amp;&amp;
+                lineWidth + childWidth + horizontalSpacing &gt; widthSize - paddingLeft - paddingRight
+            ) &#123;
+                // 换行：更新总宽度和总高度
+                measuredWidth = measuredWidth.coerceAtLeast(lineWidth) // 总宽度取所有行的最大宽度
+                measuredHeight += lineHeight + verticalSpacing // 总高度累加当前行高度 + 垂直间距
+                // 重置当前行的宽度和高度（新行从当前子View开始）
+                lineWidth = childWidth
+                lineHeight = childHeight
+            &#125; else &#123;
+                // 不换行：累加当前行宽度，更新当前行最大高度
+                lineWidth += childWidth + horizontalSpacing
+                lineHeight = lineHeight.coerceAtLeast(childHeight)
+            &#125;
+
+            if (i == childCount - 1) &#123;
+                measuredWidth = measuredWidth.coerceAtLeast(lineWidth)
+                measuredHeight += lineHeight
+            &#125;
+
+        &#125;
+
+        // 6. 加上自身的padding（左右padding影响宽度，上下padding影响高度）
+        measuredWidth += paddingLeft + paddingRight
+        measuredHeight += paddingTop + paddingBottom
+
+        // 7. 最终确定自身的尺寸（根据父容器的模式调整）
+        val finalWidth = if (widthMode == MeasureSpec.EXACTLY) widthSize else measuredWidth
+        val finalHeight = if (heightMode == MeasureSpec.EXACTLY) heightSize else measuredHeight
+
+        setMeasuredDimension(finalWidth, finalHeight)
+
+
+    &#125;
+
+    override fun onLayout(
+        changed: Boolean,
+        l: Int,
+        t: Int,
+        r: Int,
+        b: Int
+    ) &#123;
+        // 1. 获取自身的padding（子View不能超出padding范围，局部变量相较于this访问可以减少开销）
+        val paddingLeft = paddingLeft
+        val paddingTop = paddingTop
+        // 2. 记录当前行的起始X、Y坐标
+        var lineStartX = paddingLeft
+        var lineStartY = paddingTop
+        // 3. 记录当前行的最大高度（用于计算下一行的起始Y坐标）
+        var lineMaxHeight = 0
+
+        // 遍历所有子View，摆放位置
+        for (i in 0 until childCount)&#123;
+            val child = getChildAt(i)
+            if (child.visibility == View.GONE) continue
+
+            // 在onMeasure方法中已经测量了子View的测量宽高，可以直接获取
+            val childWidth = child.measuredWidth
+            val childHeight = child.measuredHeight
+
+            // 4. 判断是否需要换行（和onMeasure的换行逻辑一致）
+            if (lineStartX + childWidth &gt; r - l - paddingRight) &#123;
+                // 换行：更新下一行的起始Y坐标，重置起始X坐标和行最大高度
+                lineStartY += lineMaxHeight + verticalSpacing
+                lineStartX = paddingLeft
+                lineMaxHeight = 0
+            &#125;
+
+            // 5. 摆放子View（left, top, right, bottom）
+            child.layout(
+                lineStartX,                // 子View的左坐标
+                lineStartY,                // 子View的上坐标
+                lineStartX + childWidth,   // 子View的右坐标（左+宽）
+                lineStartY + childHeight   // 子View的下坐标（上+高）
+            )
+
+            // 6. 更新当前行的起始X坐标（累加子View宽度+水平间距）
+            lineStartX += childWidth + horizontalSpacing
+            // 7. 更新当前行的最大高度
+            lineMaxHeight = lineMaxHeight.coerceAtLeast(childHeight)
+
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
