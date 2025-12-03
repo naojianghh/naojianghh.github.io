@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>最短路径 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>最短路径</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/12/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/c/" style="color: #ffa2c4">
+                    c++
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9B%BE/" style="color: #00bcd4">
+                    图
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Dijkstra算法，Bellman-Ford算法和Floyd算法。</p>
+<span id="more"></span>
+
+<h2 id="Dijkstra-算法（非负权图的最优解）"><a href="#Dijkstra-算法（非负权图的最优解）" class="headerlink" title="Dijkstra 算法（非负权图的最优解）"></a>Dijkstra 算法（非负权图的最优解）</h2><h3 id="1-核心定位"><a href="#1-核心定位" class="headerlink" title="1. 核心定位"></a>1. 核心定位</h3><ul>
+<li>适用场景：<strong>边权 ≥ 0</strong> 的图（无向图、有向图均可）；</li>
+<li>核心思想：<strong>贪心策略 + 优先队列</strong>，每次选择「当前最短距离的未确定顶点」，通过松弛操作确定其最短路径（非负权保证一旦确定，不会被后续更新）。</li>
+</ul>
+<h3 id="2-算法原理（分步拆解）"><a href="#2-算法原理（分步拆解）" class="headerlink" title="2. 算法原理（分步拆解）"></a>2. 算法原理（分步拆解）</h3><h4 id="步骤-1：初始化"><a href="#步骤-1：初始化" class="headerlink" title="步骤 1：初始化"></a>步骤 1：初始化</h4><ul>
+<li>距离数组 <code>dist</code>：<code>dist[v]</code> 表示起点到 <code>v</code> 的当前最短距离，初始时 <code>dist[start] = 0</code>，其余为「无穷大」（C++ 用 <code>INT_MAX</code> 表示）；</li>
+<li>前驱数组 <code>prev</code>：<code>prev[v]</code> 记录 <code>v</code> 的最短路径前驱顶点（用于还原路径），初始为 <code>-1</code>；</li>
+<li>优先队列（小根堆）：存储 <code>(当前距离, 顶点编号)</code>，堆顶是「当前距离最小的顶点」（优先处理更可能成为最短路径的顶点）。</li>
+</ul>
+<h4 id="步骤-2：迭代处理顶点"><a href="#步骤-2：迭代处理顶点" class="headerlink" title="步骤 2：迭代处理顶点"></a>步骤 2：迭代处理顶点</h4><ol>
+<li>起点 <code>(0, start)</code> 入队；</li>
+<li>弹出堆顶顶点 <code>u</code>（当前距离最小的顶点）；</li>
+<li>剪枝：若堆中存储的 <code>u</code> 的距离 &gt; <code>dist[u]</code>，说明 <code>u</code> 已确定最短路径（之前已处理过），直接跳过；</li>
+<li>松弛操作：遍历 <code>u</code> 的所有出边 <code>u→v</code>（权重 <code>w</code>），若 <code>dist[u] + w &lt; dist[v]</code>，则更新 <code>dist[v]</code> 和 <code>prev[v]</code>，并将 <code>(dist[v], v)</code> 入队；</li>
+<li>重复步骤 2-4，直到队列为空（所有可达顶点的最短路径已确定）。</li>
+</ol>
+<h4 id="关键逻辑：为何非负权是前提？"><a href="#关键逻辑：为何非负权是前提？" class="headerlink" title="关键逻辑：为何非负权是前提？"></a>关键逻辑：为何非负权是前提？</h4><p>因为边权非负，一旦顶点 <code>u</code> 被弹出堆顶（确定最短路径），后续再遇到 <code>u</code> 的邻接顶点时，不可能出现 <code>dist[u] + w &lt; dist[v]</code> 且 <code>dist[u]</code> 更小的情况 —— 非负权保证了「先确定的距离就是最短距离」，无需二次处理。</p>
+<h3 id="3-完整-C-实现（含路径还原）"><a href="#3-完整-C-实现（含路径还原）" class="headerlink" title="3. 完整 C++ 实现（含路径还原）"></a>3. 完整 C++ 实现（含路径还原）</h3><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+// pair&lt;距离, 顶点编号&gt;，小根堆按距离排序
+typedef pair&lt;int, int&gt; PII;
+
+// Dijkstra 算法：非负权图单源最短路径
+// adj: 带权邻接表, n: 顶点数, start: 起点, dist: 输出距离数组, prev: 输出前驱数组
+void dijkstra(const vector&lt;vector&lt;PII&gt;&gt;&amp; adj, int n, int start, vector&lt;int&gt;&amp; dist, vector&lt;int&gt;&amp; prev) &#123;
+    // 初始化：距离无穷大，前驱-1
+    dist.assign(n + 1, INT_MAX);
+    prev.assign(n + 1, -1);
+    // 小根堆（greater&lt;PII&gt; 转为最小堆，默认是最大堆）
+    priority_queue&lt;PII, vector&lt;PII&gt;, greater&lt;PII&gt;&gt; pq;
+
+    dist[start] = 0;
+    pq.push(&#123;0, start&#125;);  // 起点入队
+
+    while (!pq.empty()) &#123;
+        auto [cur_dist, u] = pq.top();  // C++17 结构化绑定（兼容旧编译器用 pq.top().first/second）
+        pq.pop();
+
+        // 剪枝：当前距离大于已记录的最短距离，说明u已处理过
+        if (cur_dist &gt; dist[u]) continue;
+
+        // 遍历u的所有出边，执行松弛操作
+        for (auto [v, w] : adj[u]) &#123;
+            // 避免溢出（dist[u]为无穷大时跳过）
+            if (dist[u] != INT_MAX &amp;&amp; dist[v] &gt; dist[u] + w) &#123;
+                dist[v] = dist[u] + w;  // 更新最短距离
+                prev[v] = u;            // 记录前驱
+                pq.push(&#123;dist[v], v&#125;);  // 新距离入队
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+// 还原路径：从end回溯到start，再反转得到正序路径
+vector&lt;int&gt; restorePath(const vector&lt;int&gt;&amp; prev, int start, int end) &#123;
+    vector&lt;int&gt; path;
+    for (int v = end; v != -1; v = prev[v]) &#123;
+        path.push_back(v);
+    &#125;
+    reverse(path.begin(), path.end());
+    // 不可达返回空数组
+    return path[0] == start ? path : vector&lt;int&gt;();
+&#125;
+
+// 测试：非负权有向图
+int main() &#123;
+    int n = 5;  // 顶点 1-5
+    vector&lt;vector&lt;PII&gt;&gt; adj(n + 1);
+    // 边：u→v，权重w
+    adj[1].emplace_back(2, 2);   // 1→2 (2)
+    adj[1].emplace_back(3, 4);   // 1→3 (4)
+    adj[2].emplace_back(3, 1);   // 2→3 (1)
+    adj[2].emplace_back(4, 7);   // 2→4 (7)
+    adj[3].emplace_back(4, 3);   // 3→4 (3)
+    adj[3].emplace_back(5, 5);   // 3→5 (5)
+    adj[4].emplace_back(5, 1);   // 4→5 (1)
+
+    vector&lt;int&gt; dist, prev;
+    int start = 1;
+    dijkstra(adj, n, start, dist, prev);
+
+    // 输出最短距离
+    cout &lt;&lt; &quot;Dijkstra 算法（起点 &quot; &lt;&lt; start &lt;&lt; &quot;）最短距离：&quot; &lt;&lt; endl;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (dist[i] == INT_MAX) &#123;
+            cout &lt;&lt; start &lt;&lt; &quot;→&quot; &lt;&lt; i &lt;&lt; &quot;：不可达&quot; &lt;&lt; endl;
+        &#125; else &#123;
+            cout &lt;&lt; start &lt;&lt; &quot;→&quot; &lt;&lt; i &lt;&lt; &quot;：&quot; &lt;&lt; dist[i] &lt;&lt; endl;
+        &#125;
+    &#125;
+
+    // 输出 1→5 的最短路径
+    vector&lt;int&gt; path = restorePath(prev, start, 5);
+    cout &lt;&lt; &quot;\n&quot; &lt;&lt; start &lt;&lt; &quot;→5 的最短路径：&quot;;
+    for (int v : path) cout &lt;&lt; v &lt;&lt; &quot; &quot;;  // 输出：1 2 3 4 5（权重和 2+1+3+1=7）
+    cout &lt;&lt; endl;
+
+    return 0;
+&#125;
+</code></pre>
+<h3 id="4-复杂度与优化"><a href="#4-复杂度与优化" class="headerlink" title="4. 复杂度与优化"></a>4. 复杂度与优化</h3><ul>
+<li>时间复杂度：<code>O(m log n)</code>（<code>n</code>&#x3D; 顶点数，<code>m</code>&#x3D; 边数）<ul>
+<li>每个边最多入队一次（非负权保证），堆操作时间 <code>O(log n)</code>，总操作 <code>m</code> 次；</li>
+</ul>
+</li>
+<li>空间复杂度：<code>O(n + m)</code>（邻接表 <code>O(m)</code> + 优先队列 <code>O(m)</code> + 距离 &#x2F; 前驱数组 <code>O(n)</code>）；</li>
+<li>优化点：<ol>
+<li>稠密图（<code>m≈n²</code>）：用「斐波那契堆」优化到 <code>O(n log n + m)</code>，但实际中优先队列已足够；</li>
+<li>剪枝：弹出堆顶时判断 <code>cur_dist &gt; dist[u]</code>，跳过已处理顶点（避免重复计算）。</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-常见坑"><a href="#5-常见坑" class="headerlink" title="5. 常见坑"></a>5. 常见坑</h3><ul>
+<li>边权为 0：算法仍适用（0 是非负的，不会破坏贪心逻辑）；</li>
+<li>溢出问题：<code>dist[u]</code> 为 <code>INT_MAX</code> 时，<code>dist[u] + w</code> 会溢出，需先判断 <code>dist[u] != INT_MAX</code>；</li>
+<li>无向图：邻接表需存储双向边（如 <code>u→v</code> 和 <code>v→u</code> 均加入 adj），算法逻辑不变。</li>
+</ul>
+<h2 id="Bellman-Ford-算法（含负权边-负权环检测）"><a href="#Bellman-Ford-算法（含负权边-负权环检测）" class="headerlink" title="Bellman-Ford 算法（含负权边 + 负权环检测）"></a>Bellman-Ford 算法（含负权边 + 负权环检测）</h2><h3 id="1-核心定位-1"><a href="#1-核心定位-1" class="headerlink" title="1. 核心定位"></a>1. 核心定位</h3><ul>
+<li>适用场景：<strong>含负权边</strong>的图（无向图、有向图），可检测「从起点可达的负权环」；</li>
+<li>核心思想：<strong>暴力松弛 + 多轮迭代</strong>，通过 <code>n-1</code> 轮松弛（<code>n</code>&#x3D; 顶点数）确保所有可达顶点的最短路径确定，第 <code>n</code> 轮松弛用于检测负权环。</li>
+</ul>
+<h3 id="2-算法原理（分步拆解）-1"><a href="#2-算法原理（分步拆解）-1" class="headerlink" title="2. 算法原理（分步拆解）"></a>2. 算法原理（分步拆解）</h3><h4 id="步骤-1：初始化-1"><a href="#步骤-1：初始化-1" class="headerlink" title="步骤 1：初始化"></a>步骤 1：初始化</h4><ul>
+<li>距离数组 <code>dist</code>：<code>dist[start] = 0</code>，其余为「无穷大」；</li>
+<li>前驱数组 <code>prev</code>：初始为 <code>-1</code>；</li>
+<li>边列表：存储所有边（<code>u、v、w</code>），用于暴力遍历。</li>
+</ul>
+<h4 id="步骤-2：n-1-轮松弛"><a href="#步骤-2：n-1-轮松弛" class="headerlink" title="步骤 2：n-1 轮松弛"></a>步骤 2：<code>n-1</code> 轮松弛</h4><ul>
+<li>迭代 <code>n-1</code> 次：对所有边 <code>u→v</code> 执行松弛操作（<code>dist[v] = min(dist[v], dist[u] + w)</code>）；</li>
+<li>核心理由：最短路径最多包含 <code>n-1</code> 条边（无环路径），<code>n-1</code> 轮迭代后，所有可达顶点的最短路径已确定（即使有负权边，也能松弛到最优）；</li>
+<li>优化：若某轮迭代无任何边被松弛，说明所有最短路径已确定，可提前退出。</li>
+</ul>
+<h4 id="步骤-3：负权环检测"><a href="#步骤-3：负权环检测" class="headerlink" title="步骤 3：负权环检测"></a>步骤 3：负权环检测</h4><ul>
+<li>第 <code>n</code> 轮迭代：对所有边再次执行松弛操作；</li>
+<li>若仍能找到可松弛的边 <code>u→v</code>，说明存在「从起点可达的负权环」—— 因为 <code>n-1</code> 轮后最短路径已确定，能继续松弛意味着可通过绕负权环无限减小距离。</li>
+</ul>
+<h3 id="3-完整-C-实现（含负权环检测）"><a href="#3-完整-C-实现（含负权环检测）" class="headerlink" title="3. 完整 C++ 实现（含负权环检测）"></a>3. 完整 C++ 实现（含负权环检测）</h3><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+// 边的结构体：存储起点u、终点v、权重w
+struct Edge &#123;
+    int u, v, w;
+    Edge(int u, int v, int w) : u(u), v(v), w(w) &#123;&#125;
+&#125;;
+
+// Bellman-Ford 算法：含负权边的单源最短路径（可检测负权环）
+// edges: 边列表, n: 顶点数, m: 边数, start: 起点, dist: 输出距离数组, prev: 输出前驱数组
+// 返回值：true-存在从起点可达的负权环，false-无负权环
+bool bellmanFord(const vector&lt;Edge&gt;&amp; edges, int n, int m, int start, vector&lt;int&gt;&amp; dist, vector&lt;int&gt;&amp; prev) &#123;
+    // 初始化
+    dist.assign(n + 1, INT_MAX);
+    prev.assign(n + 1, -1);
+    dist[start] = 0;
+
+    // 第 1~n-1 轮：松弛所有边
+    for (int i = 0; i &lt; n - 1; ++i) &#123;
+        bool updated = false;  // 标记本轮是否有更新
+        for (const Edge&amp; e : edges) &#123;
+            int u = e.u, v = e.v, w = e.w;
+            // 避免溢出：dist[u]为无穷大时跳过
+            if (dist[u] != INT_MAX &amp;&amp; dist[v] &gt; dist[u] + w) &#123;
+                dist[v] = dist[u] + w;
+                prev[v] = u;
+                updated = true;
+            &#125;
+        &#125;
+        if (!updated) break;  // 无更新，提前退出
+    &#125;
+
+    // 第 n 轮：检测负权环
+    for (const Edge&amp; e : edges) &#123;
+        int u = e.u, v = e.v, w = e.w;
+        if (dist[u] != INT_MAX &amp;&amp; dist[v] &gt; dist[u] + w) &#123;
+            return true;  // 仍能松弛，存在可达负权环
+        &#125;
+    &#125;
+
+    return false;
+&#125;
+
+// 复用路径还原函数 restorePath（同 Dijkstra 算法）
+vector&lt;int&gt; restorePath(const vector&lt;int&gt;&amp; prev, int start, int end) &#123;
+    vector&lt;int&gt; path;
+    for (int v = end; v != -1; v = prev[v]) &#123;
+        path.push_back(v);
+    &#125;
+    reverse(path.begin(), path.end());
+    return path[0] == start ? path : vector&lt;int&gt;();
+&#125;
+
+// 测试：含负权边的有向图
+int main() &#123;
+    int n = 5, m = 6;  // 5 顶点，6 边
+    vector&lt;Edge&gt; edges;
+    // 边：u→v，权重w（含负权边）
+    edges.emplace_back(1, 2, 2);   // 1→2 (2)
+    edges.emplace_back(1, 3, 4);   // 1→3 (4)
+    edges.emplace_back(2, 3, -1);  // 2→3 (-1)（负权边）
+    edges.emplace_back(2, 4, 7);   // 2→4 (7)
+    edges.emplace_back(3, 4, 3);   // 3→4 (3)
+    edges.emplace_back(4, 5, -2);  // 4→5 (-2)（负权边）
+
+    vector&lt;int&gt; dist, prev;
+    int start = 1;
+    bool hasNegativeCycle = bellmanFord(edges, n, m, start, dist, prev);
+
+    if (hasNegativeCycle) &#123;
+        cout &lt;&lt; &quot;图中存在从起点 &quot; &lt;&lt; start &lt;&lt; &quot; 可达的负权环，最短路径无意义！&quot; &lt;&lt; endl;
+    &#125; else &#123;
+        // 输出最短距离
+        cout &lt;&lt; &quot;Bellman-Ford 算法（起点 &quot; &lt;&lt; start &lt;&lt; &quot;）最短距离：&quot; &lt;&lt; endl;
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            if (dist[i] == INT_MAX) &#123;
+                cout &lt;&lt; start &lt;&lt; &quot;→&quot; &lt;&lt; i &lt;&lt; &quot;：不可达&quot; &lt;&lt; endl;
+            &#125; else &#123;
+                cout &lt;&lt; start &lt;&lt; &quot;→&quot; &lt;&lt; i &lt;&lt; &quot;：&quot; &lt;&lt; dist[i] &lt;&lt; endl;
+            &#125;
+        &#125;
+
+        // 输出 1→5 的最短路径
+        vector&lt;int&gt; path = restorePath(prev, start, 5);
+        cout &lt;&lt; &quot;\n&quot; &lt;&lt; start &lt;&lt; &quot;→5 的最短路径：&quot;;
+        for (int v : path) cout &lt;&lt; v &lt;&lt; &quot; &quot;;  // 输出：1 2 3 4 5（权重和 2-1+3-2=2）
+        cout &lt;&lt; endl;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+<h3 id="4-复杂度与核心特性"><a href="#4-复杂度与核心特性" class="headerlink" title="4. 复杂度与核心特性"></a>4. 复杂度与核心特性</h3><ul>
+<li>时间复杂度：<code>O(n×m)</code>（<code>n</code>&#x3D; 顶点数，<code>m</code>&#x3D; 边数）<ul>
+<li>最坏情况需 <code>n-1</code> 轮迭代，每轮遍历 <code>m</code> 条边；</li>
+</ul>
+</li>
+<li>空间复杂度：<code>O(n + m)</code>（边列表 <code>O(m)</code> + 距离 &#x2F; 前驱数组 <code>O(n)</code>）；</li>
+<li>核心特性：<ol>
+<li>支持负权边：松弛操作不受边权正负影响，能找到最短路径；</li>
+<li>检测负权环：唯一能直接检测「可达负权环」的基础算法；</li>
+<li>无向图负权边：需注意「无向图的负权边 &#x3D; 负权环」（如 <code>u-v</code> 权重 <code>-1</code>，绕环 <code>u→v→u</code> 权重和 <code>-2</code>）。</li>
+</ol>
+</li>
+</ul>
+<h3 id="5-常见坑-1"><a href="#5-常见坑-1" class="headerlink" title="5. 常见坑"></a>5. 常见坑</h3><ul>
+<li>溢出问题：同 Dijkstra，需先判断 <code>dist[u] != INT_MAX</code> 再松弛；</li>
+<li>负权环不可达：若负权环从起点不可达，算法仍能正常求其他顶点的最短路径（检测结果为 <code>false</code>）；</li>
+<li>边列表存储：无向图需存储双向边（如 <code>u→v</code> 和 <code>v→u</code>），否则会遗漏边的松弛。</li>
+</ul>
+<h2 id="Floyd-算法（多源最短路径）"><a href="#Floyd-算法（多源最短路径）" class="headerlink" title="Floyd 算法（多源最短路径）"></a>Floyd 算法（多源最短路径）</h2><p>Floyd 算法（又称 Floyd-Warshall 算法）是图论中<strong>多源最短路径</strong>的经典算法，核心优势是<strong>能一次性求出所有顶点之间的最短路径</strong>，且实现简洁（三重循环即可）。它支持含负权边的图，但不支持含负权环的图（负权环会导致路径权重和无限减小，无最短路径）。</p>
+<p>本文将从原理、实现、优化、应用场景等维度，彻底讲清 Floyd 算法的核心逻辑，所有代码基于「邻接矩阵」存储图（算法天然适配邻接矩阵）。</p>
+<h3 id="1-算法核心思想"><a href="#1-算法核心思想" class="headerlink" title="1. 算法核心思想"></a>1. 算法核心思想</h3><p>Floyd 算法基于「动态规划」思想，核心逻辑是<strong>松弛操作的传递性</strong></p>
+<p>对于任意一对顶点 ，最短路径有两种可能：</p>
+<ol>
+<li>直接路径 <code>i → j</code>（不经过其他顶点）；</li>
+<li>间接路径 <code>i → k → j</code>（经过中间顶点 <code>k</code>）。</li>
+</ol>
+<p>算法通过枚举所有中间顶点 <code>k</code>，不断更新 <code>dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])</code>，最终得到所有顶点对的最短路径。</p>
+<p>形象理解：把 <code>k</code> 看作「中转站」，依次尝试将每个顶点作为中转站，优化所有顶点对的路径。</p>
+<h3 id="2-算法原理（分步拆解）-2"><a href="#2-算法原理（分步拆解）-2" class="headerlink" title="2. 算法原理（分步拆解）"></a>2. 算法原理（分步拆解）</h3><h4 id="步骤-1：初始化邻接矩阵"><a href="#步骤-1：初始化邻接矩阵" class="headerlink" title="步骤 1：初始化邻接矩阵"></a>步骤 1：初始化邻接矩阵</h4><ul>
+<li>构建初始邻接矩阵 <code>dist</code>，存储顶点间的直接距离（无直接边则为 INF）；</li>
+<li>初始化路径记录矩阵 <code>path</code>（可选，用于还原最短路径）：<code>path[i][j] = k</code> 表示 <code>i→j</code> 的最短路径经过中转站 <code>k</code>，初始 <code>path[i][j] = -1</code>（无中转站）。</li>
+</ul>
+<h4 id="步骤-2：三重循环松弛（核心）"><a href="#步骤-2：三重循环松弛（核心）" class="headerlink" title="步骤 2：三重循环松弛（核心）"></a>步骤 2：三重循环松弛（核心）</h4><ul>
+<li>外层循环：枚举中间顶点 <code>k</code>（从 1 到 n，n 为顶点数）；</li>
+<li>中层循环：枚举起点 <code>i</code>（从 1 到 n）；</li>
+<li>内层循环：枚举终点 <code>j</code>（从 1 到 n）；</li>
+<li>松弛操作：若 <code>dist[i][j] &gt; dist[i][k] + dist[k][j]</code>，则更新 <code>dist[i][j] = dist[i][k] + dist[k][j]</code>，并记录路径 <code>path[i][j] = k</code>。</li>
+</ul>
+<h4 id="步骤-3：负权环检测-1"><a href="#步骤-3：负权环检测-1" class="headerlink" title="步骤 3：负权环检测"></a>步骤 3：负权环检测</h4><ul>
+<li>算法结束后，检查对角元素 <code>dist[i][i]</code>：若存在 <code>dist[i][i] &lt; 0</code>，说明顶点 <code>i</code> 所在的图中存在负权环（绕环一周权重和为负）；</li>
+<li>存在负权环时，涉及该环的顶点对无最短路径（可无限绕环减小权重和）。</li>
+</ul>
+<h4 id="步骤-4：路径还原"><a href="#步骤-4：路径还原" class="headerlink" title="步骤 4：路径还原"></a>步骤 4：路径还原</h4><ul>
+<li>利用 <code>path</code> 矩阵递归回溯：若 <code>path[i][j] = k</code>，则 <code>i→j</code> 的最短路径可拆分为 <code>i→k</code> 和 <code>k→j</code>，继续递归拆分 <code>i→k</code> 和 <code>k→j</code>，直到 <code>path[i][j] = -1</code>（直接路径）。</li>
+</ul>
+<h2 id="三、完整-C-实现（含路径还原-负权环检测）"><a href="#三、完整-C-实现（含路径还原-负权环检测）" class="headerlink" title="三、完整 C++ 实现（含路径还原 + 负权环检测）"></a>三、完整 C++ 实现（含路径还原 + 负权环检测）</h2><pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+const int INF = INT_MAX / 2;  // 避免溢出（INF + INF 不会超 INT_MAX）
+
+// Floyd 算法：多源最短路径（邻接矩阵实现）
+// n: 顶点数（顶点编号 1~n），dist: 输入邻接矩阵，输出最短路径矩阵
+// path: 路径记录矩阵（用于还原路径），hasNegativeCycle: 输出是否存在负权环
+void floyd(int n, vector&lt;vector&lt;int&gt;&gt;&amp; dist, vector&lt;vector&lt;int&gt;&gt;&amp; path, bool&amp; hasNegativeCycle) &#123;
+    // 初始化路径矩阵：path[i][j] = -1 表示 i→j 无中转站（直接路径）
+    path.assign(n + 1, vector&lt;int&gt;(n + 1, -1));
+
+    // 三重循环：枚举中间顶点k → 起点i → 终点j
+    for (int k = 1; k &lt;= n; ++k) &#123;
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            for (int j = 1; j &lt;= n; ++j) &#123;
+                // 松弛操作：若i→k和k→j均可达，且i→k→j更短，则更新
+                if (dist[i][k] != INF &amp;&amp; dist[k][j] != INF &amp;&amp; dist[i][j] &gt; dist[i][k] + dist[k][j]) &#123;
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    path[i][j] = k;  // 记录中转站k
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    // 检测负权环：对角元素dist[i][i] &lt; 0 表示存在负权环（i绕环一周权重和为负）
+    hasNegativeCycle = false;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (dist[i][i] &lt; 0) &#123;
+            hasNegativeCycle = true;
+            break;
+        &#125;
+    &#125;
+&#125;
+
+// 递归还原 i→j 的最短路径（辅助函数）
+void restorePath(int i, int j, const vector&lt;vector&lt;int&gt;&gt;&amp; path, vector&lt;int&gt;&amp; res) &#123;
+    if (path[i][j] == -1) &#123;  // 无中转站，直接添加路径 i→j
+        res.push_back(i);
+        if (i != j) res.push_back(j);
+        return;
+    &#125;
+    int k = path[i][j];       // 中转站k
+    restorePath(i, k, path, res);  // 还原 i→k 的路径
+    res.pop_back();           // 移除重复的k（i→k的路径末尾是k，k→j的路径开头是k）
+    restorePath(k, j, path, res);  // 还原 k→j 的路径
+&#125;
+
+// 对外接口：获取 i→j 的最短路径
+vector&lt;int&gt; getShortestPath(int i, int j, const vector&lt;vector&lt;int&gt;&gt;&amp; dist, const vector&lt;vector&lt;int&gt;&gt;&amp; path) &#123;
+    vector&lt;int&gt; res;
+    if (dist[i][j] == INF) return res;  // 不可达，返回空路径
+    restorePath(i, j, path, res);
+    return res;
+&#125;
+
+// 测试：含负权边的有向图（无负权环）
+int main() &#123;
+    int n = 4;  // 顶点 1~4
+    // 初始化邻接矩阵：dist[i][j] 表示 i→j 的直接距离
+    vector&lt;vector&lt;int&gt;&gt; dist = &#123;
+        &#123;&#125;,  // 0号顶点闲置（顶点编号从1开始）
+        &#123;0, 0, 5, INF, 10&#125;,  // 1→1:0, 1→2:5, 1→3:INF, 1→4:10
+        &#123;0, INF, 0, 3, INF&#125;, // 2→1:INF, 2→2:0, 2→3:3, 2→4:INF
+        &#123;0, INF, INF, 0, 1&#125;, // 3→1:INF, 3→2:INF, 3→3:0, 3→4:1
+        &#123;0, INF, INF, INF, 0&#125;// 4→所有顶点不可达（除自身）
+    &#125;;
+
+    vector&lt;vector&lt;int&gt;&gt; path;
+    bool hasNegativeCycle;
+    floyd(n, dist, path, hasNegativeCycle);
+
+    // 输出结果
+    if (hasNegativeCycle) &#123;
+        cout &lt;&lt; &quot;图中存在负权环，部分顶点对无最短路径！&quot; &lt;&lt; endl;
+        return 0;
+    &#125;
+
+    // 输出所有顶点对的最短距离
+    cout &lt;&lt; &quot;所有顶点对的最短距离矩阵：&quot; &lt;&lt; endl;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        for (int j = 1; j &lt;= n; ++j) &#123;
+            if (dist[i][j] == INF) cout &lt;&lt; &quot;INF\t&quot;;
+            else cout &lt;&lt; dist[i][j] &lt;&lt; &quot;\t&quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+
+    // 输出特定路径（如 1→4、2→4）
+    cout &lt;&lt; &quot;\n1→4 的最短路径：&quot;;
+    vector&lt;int&gt; path14 = getShortestPath(1, 4, dist, path);
+    for (int v : path14) cout &lt;&lt; v &lt;&lt; &quot; &quot;;  // 输出：1 2 3 4（权重和 5+3+1=9）
+    cout &lt;&lt; &quot;(权重和：&quot; &lt;&lt; dist[1][4] &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;2→4 的最短路径：&quot;;
+    vector&lt;int&gt; path24 = getShortestPath(2, 4, dist, path);
+    for (int v : path24) cout &lt;&lt; v &lt;&lt; &quot; &quot;;  // 输出：2 3 4（权重和 3+1=4）
+    cout &lt;&lt; &quot;(权重和：&quot; &lt;&lt; dist[2][4] &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+
+    return 0;
+&#125;
+</code></pre>
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><ol>
+<li>邻接矩阵初始化：<code>INF</code> 用 <code>INT_MAX/2</code> 避免溢出（若用 <code>INT_MAX</code>，<code>dist[i][k] + dist[k][j]</code> 可能超界）；</li>
+<li>顶点编号：从 1 开始（符合直觉，0 号顶点闲置）；</li>
+<li>路径还原：通过递归拆分中转站 <code>k</code>，避免路径中重复顶点；</li>
+<li>负权环检测：直接检查对角元素 <code>dist[i][i]</code>，简洁高效。</li>
+</ol>
+<h3 id="3-复杂度分析"><a href="#3-复杂度分析" class="headerlink" title="3. 复杂度分析"></a>3. 复杂度分析</h3><h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><ul>
+<li>核心三重循环：<code>O(n³)</code>（n 为顶点数）；</li>
+<li>负权环检测：<code>O(n)</code>；</li>
+<li>总体时间复杂度：<code>O(n³)</code>。</li>
+</ul>
+<p><strong>特点</strong>：时间复杂度高，适合顶点数少的图（n ≤ 1000 时可接受，n &gt; 1000 需用其他算法优化）。</p>
+<h4 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h4><ul>
+<li>邻接矩阵 <code>dist</code>：<code>O(n²)</code>；</li>
+<li>路径矩阵 <code>path</code>：<code>O(n²)</code>；</li>
+<li>总体空间复杂度：<code>O(n²)</code>。</li>
+</ul>
+<p><strong>特点</strong>：空间复杂度与顶点数平方成正比，稠密图（边数多）时空间效率高于邻接表，稀疏图则较浪费空间。</p>
+<h3 id="4-支持的图类型"><a href="#4-支持的图类型" class="headerlink" title="4. 支持的图类型"></a>4. 支持的图类型</h3><ul>
+<li>无向图：邻接矩阵需满足 <code>dist[i][j] = dist[j][i]</code>（直接边双向权重相同），算法逻辑不变；</li>
+<li>有向图：直接按邻接矩阵存储出边权重即可；</li>
+<li>含负权边：支持（如 <code>i→j</code> 权重为 -2），但需无负权环；</li>
+<li>不含负权环：必须满足（否则部分顶点对无最短路径）。</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

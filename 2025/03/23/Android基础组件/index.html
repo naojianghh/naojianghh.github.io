@@ -185,7 +185,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/java/" style="color: #ff7d73">
+                <a href="/tags/java/" style="color: #00bcd4">
                     java
                 </a>
             </span>
@@ -328,9 +328,9 @@ public class MainActivity2 extends AppCompatActivity &#123;
 </code></pre>
 <h2 id="Activity生命周期"><a href="#Activity生命周期" class="headerlink" title="Activity生命周期"></a>Activity生命周期</h2><ol>
 <li>启动阶段<ul>
-<li>**onCreate()**：Activity 第一次被创建时调用，是生命周期的起点。在这个方法中，通常进行一些初始化操作，如设置布局文件（<code>setContentView</code>）、初始化成员变量、绑定事件监听器等。但要注意避免在此处执行耗时操作，否则会导致应用启动缓慢甚至卡顿。</li>
-<li>**onStart()**：在<code>onCreate</code>之后调用，此时 Activity 对用户来说已经可见，但还未出现在前台与用户交互。可进行一些准备显示的操作，比如开始动画的准备工作。</li>
-<li>**onResume()**：Activity 进入前台，获取到焦点，此时可以与用户进行交互。像开启传感器监听、启动动画等操作可在此处进行。</li>
+<li><code>onCreate()</code>：Activity 第一次被创建时调用，是生命周期的起点。在这个方法中，通常进行一些初始化操作，如设置布局文件（<code>setContentView</code>）、初始化成员变量、绑定事件监听器等。但要注意避免在此处执行耗时操作，否则会导致应用启动缓慢甚至卡顿。</li>
+<li><code>onStart()</code>：在<code>onCreate</code>之后调用，此时 Activity 对用户来说已经可见，但还未出现在前台与用户交互。可进行一些准备显示的操作，比如开始动画的准备工作。</li>
+<li><code>onResume()</code>：Activity 进入前台，获取到焦点，此时可以与用户进行交互。像开启传感器监听、启动动画等操作可在此处进行。</li>
 </ul>
 </li>
 <li>运行阶段<ul>
@@ -338,19 +338,19 @@ public class MainActivity2 extends AppCompatActivity &#123;
 </ul>
 </li>
 <li>暂停阶段<ul>
-<li>**onPause()**：当 Activity 失去焦点，比如有新的 Activity 部分遮挡它（如弹出一个对话框）或者切换到其他应用时，该方法被调用。在这个方法中，通常要保存一些重要的状态数据，停止动画、释放一些系统资源（如关闭传感器监听）等，但不能执行耗时操作，因为只有当<code>onPause</code>执行完，新的 Activity 才会完全显示。</li>
+<li><code>onPause()</code>：当 Activity 失去焦点，比如有新的 Activity 部分遮挡它（如弹出一个对话框）或者切换到其他应用时，该方法被调用。在这个方法中，通常要保存一些重要的状态数据，停止动画、释放一些系统资源（如关闭传感器监听）等，但不能执行耗时操作，因为只有当<code>onPause</code>执行完，新的 Activity 才会完全显示。</li>
 </ul>
 </li>
 <li>停止阶段<ul>
-<li>**onStop()**：当 Activity 完全被其他 Activity 遮挡，对用户不可见时调用。相比<code>onPause</code>，此时 Activity 对用户来说已经不可见，可执行一些更重量级的资源释放操作，如停止后台线程、关闭数据库连接等。</li>
+<li><code>onStop()</code>：当 Activity 完全被其他 Activity 遮挡，对用户不可见时调用。相比<code>onPause</code>，此时 Activity 对用户来说已经不可见，可执行一些更重量级的资源释放操作，如停止后台线程、关闭数据库连接等。</li>
 </ul>
 </li>
 <li>销毁阶段<ul>
-<li>**onDestroy()**：Activity 被销毁前调用，这是生命周期的终点。通常在 Activity 不再需要，或者应用退出等情况下触发。在此方法中，要确保释放所有的资源，避免内存泄漏，比如取消所有的监听器绑定、关闭文件流等。</li>
+<li><code>onDestroy()</code>：Activity 被销毁前调用，这是生命周期的终点。通常在 Activity 不再需要，或者应用退出等情况下触发。在此方法中，要确保释放所有的资源，避免内存泄漏，比如取消所有的监听器绑定、关闭文件流等。</li>
 </ul>
 </li>
 <li>恢复阶段<ul>
-<li>**onRestart()**：当 Activity 由停止状态再次启动时调用，比如用户从其他应用切换回该应用。在这个方法之后，会依次调用<code>onStart()</code>和<code>onResume()</code>，使 Activity 重新回到前台可交互状态。</li>
+<li><code>onRestart()</code>：当 Activity 由停止状态再次启动时调用，比如用户从其他应用切换回该应用。在这个方法之后，会依次调用<code>onStart()</code>和<code>onResume()</code>，使 Activity 重新回到前台可交互状态。</li>
 </ul>
 </li>
 </ol>

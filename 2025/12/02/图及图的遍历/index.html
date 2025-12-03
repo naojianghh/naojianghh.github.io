@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>图及图的遍历 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>图及图的遍历</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/12/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                算法
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/c/" style="color: #00bcd4">
+                    c++
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%9B%BE/" style="color: #03a9f4">
+                    图
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><strong>DFS（深度优先搜索）</strong> 和 <strong>BFS（广度优先搜索）</strong></p>
+<span id="more"></span>
+
+<h1 id="图及图的遍历"><a href="#图及图的遍历" class="headerlink" title="图及图的遍历"></a>图及图的遍历</h1><p>图的遍历是图论核心操作，指从某个起始顶点出发，按一定规则访问图中所有顶点且仅访问一次。<strong>DFS（深度优先搜索）</strong> 和 <strong>BFS（广度优先搜索）</strong> 是两种最基础、最常用的遍历算法，适用于无向图、有向图、加权图（遍历不关注权重时）。</p>
+<h2 id="一、核心概念铺垫"><a href="#一、核心概念铺垫" class="headerlink" title="一、核心概念铺垫"></a>一、核心概念铺垫</h2><p>在实现算法前，先明确图的存储方式（两种常用方式）和遍历的核心目标：</p>
+<h3 id="1-图的存储方式"><a href="#1-图的存储方式" class="headerlink" title="1. 图的存储方式"></a>1. 图的存储方式</h3><h4 id="（1）邻接表（推荐，空间效率高）"><a href="#（1）邻接表（推荐，空间效率高）" class="headerlink" title="（1）邻接表（推荐，空间效率高）"></a>（1）邻接表（推荐，空间效率高）</h4><p>用数组（或 vector）存储每个顶点的邻接顶点，适合稀疏图（边数少）。</p>
+<ul>
+<li><p>结构：<code>vector&gt; adj</code>，其中 <code>adj[u]</code> 是顶点 <code>u</code> 直接相连的所有顶点列表。</p>
+</li>
+<li><p>示例：无向图</p>
+<pre><code>1-2-3-1, 2-4
+</code></pre>
+<p> 的邻接表为：</p>
+<pre><code class="plaintext">adj[1] = [2, 3]
+adj[2] = [1, 3, 4]
+adj[3] = [1, 2]
+adj[4] = [2]
+</code></pre>
+</li>
+</ul>
+<h4 id="（2）邻接矩阵（适合稠密图）"><a href="#（2）邻接矩阵（适合稠密图）" class="headerlink" title="（2）邻接矩阵（适合稠密图）"></a>（2）邻接矩阵（适合稠密图）</h4><p>用二维数组 <code>graph[u][v]</code> 表示顶点 <code>u</code> 和 <code>v</code> 是否相连（1 表示相连，0 表示不相连）。</p>
+<ul>
+<li>缺点：空间复杂度 O (n²)（n 为顶点数），稀疏图会浪费大量空间。</li>
+</ul>
+<h3 id="2-遍历核心问题"><a href="#2-遍历核心问题" class="headerlink" title="2. 遍历核心问题"></a>2. 遍历核心问题</h3><ul>
+<li>避免重复访问：用 <code>visited</code> 数组标记已访问的顶点（无向图需重点处理，有向图也需防止循环）。</li>
+<li>连通性处理：若图是<strong>非连通图</strong>，需遍历所有未访问顶点，确保覆盖所有连通分量。</li>
+</ul>
+<h2 id="二、DFS（深度优先搜索）"><a href="#二、DFS（深度优先搜索）" class="headerlink" title="二、DFS（深度优先搜索）"></a>二、DFS（深度优先搜索）</h2><h3 id="1-核心思想"><a href="#1-核心思想" class="headerlink" title="1. 核心思想"></a>1. 核心思想</h3><p>“一条路走到黑”：从起始顶点出发，优先访问当前顶点的邻接顶点，递归 &#x2F; 迭代深入到无法继续（无未访问邻接顶点）后，回溯到上一个顶点，继续探索其他路径。</p>
+<h3 id="2-形象比喻"><a href="#2-形象比喻" class="headerlink" title="2. 形象比喻"></a>2. 形象比喻</h3><p>像走迷宫时，遇到岔路就选一条走到头，走不通就退回到上一个岔路，换另一条路尝试。</p>
+<h3 id="3-实现方式（C-）"><a href="#3-实现方式（C-）" class="headerlink" title="3. 实现方式（C++）"></a>3. 实现方式（C++）</h3><h4 id="（1）递归实现（简洁，适合顶点数少的场景）"><a href="#（1）递归实现（简洁，适合顶点数少的场景）" class="headerlink" title="（1）递归实现（简洁，适合顶点数少的场景）"></a>（1）递归实现（简洁，适合顶点数少的场景）</h4><p>递归天然适合 “回溯” 逻辑，代码直观，但顶点数过多时可能栈溢出（递归深度限制）。</p>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// DFS 递归函数：当前顶点 u，邻接表 adj，访问标记数组 visited
+void dfsRecursive(int u, const vector&lt;vector&lt;int&gt;&gt;&amp; adj, vector&lt;bool&gt;&amp; visited) &#123;
+    // 1. 标记当前顶点为已访问
+    visited[u] = true;
+    cout &lt;&lt; u &lt;&lt; &quot; &quot;;  // 访问顶点（可替换为具体业务逻辑）
+
+    // 2. 遍历当前顶点的所有邻接顶点
+    for (int v : adj[u]) &#123;
+        // 3. 若邻接顶点 v 未访问，递归访问 v
+        if (!visited[v]) &#123;
+            dfsRecursive(v, adj, visited);
+        &#125;
+    &#125;
+&#125;
+
+// 图的 DFS 遍历（处理非连通图）
+void graphDFS(const vector&lt;vector&lt;int&gt;&gt;&amp; adj, int n) &#123;
+    vector&lt;bool&gt; visited(n + 1, false);  // 顶点编号从 1 开始（避免 0 号闲置）
+    cout &lt;&lt; &quot;DFS 递归遍历结果：&quot;;
+    // 遍历所有顶点，确保非连通图的所有分量都被访问
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (!visited[i]) &#123;
+            dfsRecursive(i, adj, visited);
+        &#125;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+// 测试代码
+int main() &#123;
+    int n = 4;  // 顶点数：1,2,3,4
+    // 构建邻接表（无向图：1-2-3-1, 2-4）
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(1);
+    adj[2].push_back(3);
+    adj[2].push_back(4);
+    adj[3].push_back(1);
+    adj[3].push_back(2);
+    adj[4].push_back(2);
+
+    graphDFS(adj, n);  // 输出：1 2 3 4 （或 1 3 2 4，取决于邻接表顺序）
+    return 0;
+&#125;
+</code></pre>
+<h4 id="（2）迭代实现（用栈，适合顶点数多的场景）"><a href="#（2）迭代实现（用栈，适合顶点数多的场景）" class="headerlink" title="（2）迭代实现（用栈，适合顶点数多的场景）"></a>（2）迭代实现（用栈，适合顶点数多的场景）</h4><p>用栈模拟递归的 “调用栈”，避免递归栈溢出，逻辑与递归一致：</p>
+<ol>
+<li>栈中存储待访问的顶点；</li>
+<li>弹出栈顶顶点，标记为已访问；</li>
+<li>将栈顶顶点的<strong>未访问邻接顶点逆序入栈</strong>（保证访问顺序与递归一致）。</li>
+</ol>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+// DFS 迭代实现（栈）
+void dfsIterative(const vector&lt;vector&lt;int&gt;&gt;&amp; adj, int n) &#123;
+    vector&lt;bool&gt; visited(n + 1, false);
+    stack&lt;int&gt; st;
+    cout &lt;&lt; &quot;DFS 迭代遍历结果：&quot;;
+
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (!visited[i]) &#123;
+            st.push(i);  // 起始顶点入栈
+            while (!st.empty()) &#123;
+                int u = st.top();
+                st.pop();
+
+                if (visited[u]) continue;  // 避免重复处理（栈中可能有已访问顶点）
+                visited[u] = true;
+                cout &lt;&lt; u &lt;&lt; &quot; &quot;;
+
+                // 邻接顶点逆序入栈（确保访问顺序与递归一致）
+                for (auto it = adj[u].rbegin(); it != adj[u].rend(); ++it) &#123;
+                    int v = *it;
+                    if (!visited[v]) &#123;
+                        st.push(v);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+// 测试（复用 main 函数中的邻接表）
+int main() &#123;
+    int n = 4;
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(1);
+    adj[2].push_back(3);
+    adj[2].push_back(4);
+    adj[3].push_back(1);
+    adj[3].push_back(2);
+    adj[4].push_back(2);
+
+    dfsIterative(adj, n);  // 输出：1 2 3 4 （与递归顺序一致）
+    return 0;
+&#125;
+</code></pre>
+<h3 id="4-时间复杂度与空间复杂度"><a href="#4-时间复杂度与空间复杂度" class="headerlink" title="4. 时间复杂度与空间复杂度"></a>4. 时间复杂度与空间复杂度</h3><ul>
+<li>时间复杂度：O (n + m)，n 为顶点数，m 为边数（每个顶点访问 1 次，每条边遍历 2 次（无向图）或 1 次（有向图））。</li>
+<li>空间复杂度：O (n)（递归栈 &#x2F; 栈的最大深度 + visited 数组，最坏情况为链状图，栈深度 n）。</li>
+</ul>
+<h3 id="5-应用场景"><a href="#5-应用场景" class="headerlink" title="5. 应用场景"></a>5. 应用场景</h3><ul>
+<li>路径搜索（如迷宫求解、图中是否存在从 s 到 t 的路径）；</li>
+<li>拓扑排序（有向无环图 DAG）；</li>
+<li>连通分量查找、强连通分量（Tarjan 算法）；</li>
+<li>生成树（深度优先生成树）。</li>
+</ul>
+<h2 id="三、BFS（广度优先搜索）"><a href="#三、BFS（广度优先搜索）" class="headerlink" title="三、BFS（广度优先搜索）"></a>三、BFS（广度优先搜索）</h2><h3 id="1-核心思想-1"><a href="#1-核心思想-1" class="headerlink" title="1. 核心思想"></a>1. 核心思想</h3><p>“逐层扩散”：从起始顶点出发，先访问当前顶点的<strong>所有邻接顶点</strong>（第 1 层），再依次访问每个邻接顶点的邻接顶点（第 2 层），直到所有顶点访问完毕。</p>
+<h3 id="2-形象比喻-1"><a href="#2-形象比喻-1" class="headerlink" title="2. 形象比喻"></a>2. 形象比喻</h3><p>像水波扩散：从起点扔一块石头，水波先覆盖起点周围的点，再逐步向外扩散。</p>
+<h3 id="3-实现方式（C-）-1"><a href="#3-实现方式（C-）-1" class="headerlink" title="3. 实现方式（C++）"></a>3. 实现方式（C++）</h3><p>BFS 必须用<strong>队列（queue）</strong> 实现（先进先出 FIFO），确保 “逐层访问” 的顺序：</p>
+<ol>
+<li>起始顶点入队，标记为已访问；</li>
+<li>出队队首顶点，访问其所有未访问的邻接顶点，标记后入队；</li>
+<li>重复步骤 2，直到队列为空。</li>
+</ol>
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+// BFS 迭代实现（队列）
+void graphBFS(const vector&lt;vector&lt;int&gt;&gt;&amp; adj, int n) &#123;
+    vector&lt;bool&gt; visited(n + 1, false);
+    queue&lt;int&gt; q;
+    cout &lt;&lt; &quot;BFS 遍历结果：&quot;;
+
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        if (!visited[i]) &#123;
+            q.push(i);  // 起始顶点入队
+            visited[i] = true;  // 入队时标记（避免重复入队）
+
+            while (!q.empty()) &#123;
+                int u = q.front();
+                q.pop();
+                cout &lt;&lt; u &lt;&lt; &quot; &quot;;  // 访问顶点
+
+                // 遍历当前顶点的所有邻接顶点
+                for (int v : adj[u]) &#123;
+                    if (!visited[v]) &#123;
+                        visited[v] = true;
+                        q.push(v);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+// 测试（复用之前的邻接表）
+int main() &#123;
+    int n = 4;
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(1);
+    adj[2].push_back(3);
+    adj[2].push_back(4);
+    adj[3].push_back(1);
+    adj[3].push_back(2);
+    adj[4].push_back(2);
+
+    graphBFS(adj, n);  // 输出：1 2 3 4 （逐层访问：1 → 2、3 → 4）
+    return 0;
+&#125;
+</code></pre>
+<h3 id="4-时间复杂度与空间复杂度-1"><a href="#4-时间复杂度与空间复杂度-1" class="headerlink" title="4. 时间复杂度与空间复杂度"></a>4. 时间复杂度与空间复杂度</h3><ul>
+<li>时间复杂度：O (n + m)（与 DFS 一致，每个顶点、每条边仅处理一次）。</li>
+<li>空间复杂度：O (n)（队列的最大长度 + visited 数组，最坏情况为完全图，队列长度可达 n）。</li>
+</ul>
+<h3 id="5-关键特性：最短路径"><a href="#5-关键特性：最短路径" class="headerlink" title="5. 关键特性：最短路径"></a>5. 关键特性：最短路径</h3><p>BFS 是<strong>无权图中最短路径的最优算法</strong>（权重均为 1 时）：</p>
+<ul>
+<li>因为 BFS 逐层访问，首次到达目标顶点时，经过的路径长度就是最短路径。</li>
+<li>扩展：可通过记录每个顶点的 “前驱顶点”，还原最短路径（见下文示例）。</li>
+</ul>
+<h4 id="最短路径还原示例"><a href="#最短路径还原示例" class="headerlink" title="最短路径还原示例"></a>最短路径还原示例</h4><pre><code class="cpp">// BFS 求无权图中从 start 到 end 的最短路径
+vector&lt;int&gt; shortestPathBFS(const vector&lt;vector&lt;int&gt;&gt;&amp; adj, int n, int start, int end) &#123;
+    vector&lt;bool&gt; visited(n + 1, false);
+    vector&lt;int&gt; prev(n + 1, -1);  // 记录前驱顶点（用于还原路径）
+    queue&lt;int&gt; q;
+
+    q.push(start);
+    visited[start] = true;
+
+    while (!q.empty()) &#123;
+        int u = q.front();
+        q.pop();
+
+        if (u == end) break;  // 找到目标顶点，提前退出
+
+        for (int v : adj[u]) &#123;
+            if (!visited[v]) &#123;
+                visited[v] = true;
+                prev[v] = u;  // 记录 v 的前驱是 u
+                q.push(v);
+            &#125;
+        &#125;
+    &#125;
+
+    // 还原路径（从 end 回溯到 start）
+    vector&lt;int&gt; path;
+    for (int v = end; v != -1; v = prev[v]) &#123;
+        path.push_back(v);
+    &#125;
+    reverse(path.begin(), path.end());  // 反转后得到从 start 到 end 的路径
+
+    return path.empty() || path[0] != start ? vector&lt;int&gt;() : path;  // 无路径返回空
+&#125;
+
+// 测试最短路径
+int main() &#123;
+    int n = 4;
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+    adj[1].push_back(2);
+    adj[1].push_back(3);
+    adj[2].push_back(1);
+    adj[2].push_back(3);
+    adj[2].push_back(4);
+    adj[3].push_back(1);
+    adj[3].push_back(2);
+    adj[4].push_back(2);
+
+    vector&lt;int&gt; path = shortestPathBFS(adj, n, 1, 4);
+    cout &lt;&lt; &quot;1 到 4 的最短路径：&quot;;
+    for (int v : path) &#123;
+        cout &lt;&lt; v &lt;&lt; &quot; &quot;;  // 输出：1 2 4 （长度为 2，是最短路径）
+    &#125;
+    cout &lt;&lt; endl;
+    return 0;
+&#125;
+</code></pre>
+<h3 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6. 应用场景"></a>6. 应用场景</h3><ul>
+<li>无权图最短路径（如社交网络好友推荐、地图导航最短路线）；</li>
+<li>层次遍历（如二叉树层次遍历、图的分层处理）；</li>
+<li>连通分量查找、拓扑排序；</li>
+<li>生成树（广度优先生成树）。</li>
+</ul>
+<h2 id="四、DFS-与-BFS-核心对比"><a href="#四、DFS-与-BFS-核心对比" class="headerlink" title="四、DFS 与 BFS 核心对比"></a>四、DFS 与 BFS 核心对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>DFS（深度优先搜索）</th>
+<th>BFS（广度优先搜索）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据结构</td>
+<td>递归栈 &#x2F; 显式栈（stack）</td>
+<td>队列（queue）</td>
+</tr>
+<tr>
+<td>访问顺序</td>
+<td>深度优先，回溯探索</td>
+<td>广度优先，逐层扩散</td>
+</tr>
+<tr>
+<td>核心优势</td>
+<td>空间效率（递归简洁）、适合路径探索</td>
+<td>无权图最短路径、层次化处理</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>迷宫求解、拓扑排序、强连通分量</td>
+<td>最短路径、层次遍历、好友推荐</td>
+</tr>
+<tr>
+<td>空间复杂度（最坏）</td>
+<td>O (n)（链状图，栈深度 n）</td>
+<td>O (n)（完全图，队列长度 n）</td>
+</tr>
+<tr>
+<td>时间复杂度</td>
+<td>O(n + m)</td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td>重复访问处理</td>
+<td>递归 &#x2F; 栈中可能有重复顶点，需判断</td>
+<td>入队时标记，无重复顶点</td>
+</tr>
+</tbody></table>
+<h2 id="五、关键注意事项"><a href="#五、关键注意事项" class="headerlink" title="五、关键注意事项"></a>五、关键注意事项</h2><ol>
+<li><strong>顶点编号</strong>：示例中顶点编号从 1 开始（符合直觉），若从 0 开始，需调整 <code>visited</code> 数组大小和循环范围。</li>
+<li><strong>有向图适配</strong>：邻接表仅存储 “出边”，算法逻辑无需修改（<code>adj[u]</code> 表示 u 指向的顶点）。</li>
+<li><strong>非连通图</strong>：必须遍历所有未访问顶点，否则会遗漏连通分量（示例中已处理）。</li>
+<li><strong>权重图</strong>：DFS&#x2F;BFS 仅适用于 “遍历”（不关注权重），最短路径需用 Dijkstra 算法（非负权重）或 Bellman-Ford 算法（含负权重）。</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
