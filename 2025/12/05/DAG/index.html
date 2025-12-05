@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>并查集9.9_道路 | NaoJianghh</title>
+    <title>DAG | NaoJianghh</title>
     <meta name="author" content="脑浆糊" />
     <meta name="description" content="Welcome to My Blog" />
     <meta name="keywords" content="学习" />
@@ -157,22 +157,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>并查集9.9_道路</h1>
+        <h1>DAG</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/11/25
+            2025/12/5
         </span>
         
         <span class="category">
-            <a href="/categories/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                算法应用
+                算法
             </a>
         </span>
         
@@ -185,15 +185,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/c/" style="color: #00bcd4">
+                <a href="/tags/c/" style="color: #03a9f4">
                     c++
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="color: #00a596">
-                    并查集
+                <a href="/tags/%E5%9B%BE/" style="color: #00bcd4">
+                    图
                 </a>
             </span>
             
@@ -202,95 +202,117 @@
     </div>
     
     <div class="content" v-pre>
-        <p>并查集的应用</p>
+        <p>有向无环图（Directed Acyclic Graph，简称 DAG）是图论中的核心概念之一，具有 “有向边” 且 “无环路” 的特性，广泛应用于依赖关系建模、调度优化、数据处理等领域。</p>
 <span id="more"></span>
 
-<h1 id="算法与数据结构实验题-9-9-道路"><a href="#算法与数据结构实验题-9-9-道路" class="headerlink" title="算法与数据结构实验题 9.9 道路"></a>算法与数据结构实验题 9.9 道路</h1><h3 id="★实验任务"><a href="#★实验任务" class="headerlink" title="★实验任务"></a>★实验任务</h3><p>某省调查城镇交通状况，得到现有城镇道路统计表，现给出每条道路连接的城镇编号，问当前的道路设计方案是否合理。</p>
-<p>合理的方案为任意两个城镇之间可以相互到达，有且只有一条通路。</p>
-<h3 id="★数据输入"><a href="#★数据输入" class="headerlink" title="★数据输入"></a>★数据输入</h3><p>输入a b(1&lt;&#x3D;a,b&lt;&#x3D;10,000)，表示城镇 a 和城镇 b 连通。输入包含多组数据，每组数据以 0 0 结束。</p>
-<p>整个文件以 -1 -1 结尾</p>
-<h3 id="★数据输出"><a href="#★数据输出" class="headerlink" title="★数据输出"></a>★数据输出</h3><p>如果方案合法，输出”Yes”,否则输出”No”。</p>
-<h3 id="输入示例"><a href="#输入示例" class="headerlink" title="输入示例"></a>输入示例</h3><pre><code>6 8 5 3 5 2 6 4 5 6 0 0
-8 1 7 3 6 2 8 9 7 5 7 4 7 8 7 6 0 0
-3 8 6 8 6 4 5 3 5 6 5 2 0 0
-1 2 3 4 0 0
--1 -1
-</code></pre>
-<h3 id="输出示例"><a href="#输出示例" class="headerlink" title="输出示例"></a>输出示例</h3><pre><code>Yes
-Yes
-No
-No
-</code></pre>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><pre><code class="c++">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;set&gt;
-using namespace std;
-
-vector&lt;int&gt; parent;
-
-int find(int x) &#123;
-    if (parent[x] != x) &#123;
-        parent[x] = find(parent[x]);
-    &#125;
-    return parent[x];
-&#125;
-
-bool unite(int a, int b) &#123;
-    int ra = find(a);
-    int rb = find(b);
-    if (ra == rb) return false;
-    parent[ra] = rb;
-    return true;
-&#125;
-
-int main() &#123;
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    parent.resize(10001);
-
-    while (true) &#123;
-        for (int i = 1; i &lt;= 10000; i++) &#123;
-            parent[i] = i;
-        &#125;
-
-        int a, b;
-        bool valid = true;
-        set&lt;int&gt; nodes;
-
-        while (cin &gt;&gt; a &gt;&gt; b) &#123;
-            if (a == 0 &amp;&amp; b == 0) break;
-            if (a == -1 &amp;&amp; b == -1) return 0;
-
-            nodes.insert(a);
-            nodes.insert(b);
-
-            if (!unite(a, b)) &#123;
-                valid = false;
-            &#125;
-        &#125;
-        if (valid &amp;&amp; !nodes.empty()) &#123;
-            int root = find(*nodes.begin());
-            for (int node : nodes) &#123;
-                if (find(node) != root) &#123;
-                    valid = false;
-                    break;
-                &#125;
-            &#125;
-        &#125;
-
-        cout &lt;&lt; (valid ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
-    &#125;
-
-    return 0;
-&#125;
-</code></pre>
-<h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><ol>
-<li>利用并查集来判断是否有回路和判断最后道路是否能连通。</li>
-<li>首先初始化各个城镇，然后逐个输入连通的城镇，用<code>unite</code>和并两个城镇集合。</li>
-<li>在合并过程中，用<code>find</code>判断两个集合是否为同一集合（根相同），若为同一集合说明城镇道路有回路，用<code>valid</code>记录下不合理，直接输出答案。</li>
-<li>如果合并完各个城镇并且没有回路，那么开始判断各个城镇是否连通，用<code>nodes</code>记录下参与连通的城镇，遍历<code>nodes</code>记录下的城镇，用find找到各个城镇的集合，判断最终是否只有一个集合（即每个城镇连通），用valid记录下结果，最后输出答案</li>
+<h1 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h1><h2 id="一、核心定义与性质"><a href="#一、核心定义与性质" class="headerlink" title="一、核心定义与性质"></a>一、核心定义与性质</h2><h3 id="1-基本定义"><a href="#1-基本定义" class="headerlink" title="1. 基本定义"></a>1. 基本定义</h3><ul>
+<li><strong>有向图</strong>：边带有方向的图，每条边用有序对 &#96;&#96; 表示（从顶点 <code>u</code> 指向 <code>v</code>）。</li>
+<li><strong>环</strong>：存在一条从某个顶点出发，经过若干条边后回到自身的路径（如 <code>u → v → w → u</code>）。</li>
+<li><strong>DAG</strong>：不存在环的有向图。</li>
+</ul>
+<h3 id="2-关键性质"><a href="#2-关键性质" class="headerlink" title="2. 关键性质"></a>2. 关键性质</h3><ul>
+<li><strong>拓扑排序存在性</strong>：DAG 一定可以进行拓扑排序（即顶点可以按依赖关系线性排列，所有边的起点在终点之前）。</li>
+<li><strong>最短 &#x2F; 最长路径可解</strong>：DAG 中可以用线性时间（<code>O(n+m)</code>，<code>n</code> 为顶点数，<code>m</code> 为边数）求解单源最短 &#x2F; 最长路径（无需考虑负权环问题）。</li>
+<li><strong>强连通分量性质</strong>：DAG 的强连通分量都是单个顶点（因为若存在两个顶点强连通，则构成环）。</li>
+</ul>
+<h2 id="二、DAG-的核心算法"><a href="#二、DAG-的核心算法" class="headerlink" title="二、DAG 的核心算法"></a>二、DAG 的核心算法</h2><h3 id="1-拓扑排序（Topological-Sorting）"><a href="#1-拓扑排序（Topological-Sorting）" class="headerlink" title="1. 拓扑排序（Topological Sorting）"></a>1. 拓扑排序（Topological Sorting）</h3><p>拓扑排序是 DAG 的标志性算法，用于将顶点按依赖关系排序，确保所有边的方向与排序顺序一致。</p>
+<h4 id="算法实现（两种经典方法）"><a href="#算法实现（两种经典方法）" class="headerlink" title="算法实现（两种经典方法）"></a>算法实现（两种经典方法）</h4><ul>
+<li><strong>Kahn 算法（入度表 + BFS）</strong>：<ol>
+<li>计算所有顶点的入度。</li>
+<li>将入度为 0 的顶点加入队列。</li>
+<li>每次取出队首顶点，输出并遍历其邻接顶点，将邻接顶点的入度减 1；若入度变为 0，加入队列。</li>
+<li>重复步骤 3，直到队列为空。若输出的顶点数等于总顶点数，则排序成功；否则图中存在环。</li>
 </ol>
+</li>
+<li><strong>DFS 算法（逆后序遍历）</strong>：<ol>
+<li>对每个未访问的顶点进行 DFS，记录 “后序遍历” 序列（即递归返回时记录顶点）。</li>
+<li>将后序遍历序列反转，得到拓扑排序结果。</li>
+</ol>
+</li>
+</ul>
+<h4 id="示例代码（Kahn-算法，C-）"><a href="#示例代码（Kahn-算法，C-）" class="headerlink" title="示例代码（Kahn 算法，C++）"></a>示例代码（Kahn 算法，C++）</h4><pre><code class="cpp">vector&lt;int&gt; topologicalSort(int n, vector&lt;vector&lt;int&gt;&gt;&amp; graph) &#123;
+    vector&lt;int&gt; inDegree(n, 0);
+    for (int u = 0; u &lt; n; u++) &#123;
+        for (int v : graph[u]) &#123;
+            inDegree[v]++;
+        &#125;
+    &#125;
+
+    queue&lt;int&gt; q;
+    for (int i = 0; i &lt; n; i++) &#123;
+        if (inDegree[i] == 0) &#123;
+            q.push(i);
+        &#125;
+    &#125;
+
+    vector&lt;int&gt; topo;
+    while (!q.empty()) &#123;
+        int u = q.front();
+        q.pop();
+        topo.push_back(u);
+        for (int v : graph[u]) &#123;
+            if (--inDegree[v] == 0) &#123;
+                q.push(v);
+            &#125;
+        &#125;
+    &#125;
+
+    return topo.size() == n ? topo : vector&lt;int&gt;(); // 空向量表示存在环
+&#125;
+</code></pre>
+<h3 id="2-DAG-的单源最短路径（Dijkstra-的简化版）"><a href="#2-DAG-的单源最短路径（Dijkstra-的简化版）" class="headerlink" title="2. DAG 的单源最短路径（Dijkstra 的简化版）"></a>2. DAG 的单源最短路径（Dijkstra 的简化版）</h3><p>由于 DAG 无环，可先拓扑排序，再按拓扑顺序松弛边，线性时间求解最短路径。</p>
+<h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>对 DAG 进行拓扑排序。</li>
+<li>初始化距离数组 <code>dist</code>：起点 <code>dist[s] = 0</code>，其余为无穷大。</li>
+<li>按拓扑顺序遍历每个顶点 <code>u</code>，对每条边 <code>&lt;u, v, w&gt;</code>，执行松弛操作：<code>dist[v] = min(dist[v], dist[u] + w)</code>。</li>
+</ol>
+<pre><code class="cpp">vector&lt;int&gt; shortestPathDAG(int n, vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; graph, int s) &#123;
+    // 1. 拓扑排序（复用Kahn算法）
+    vector&lt;int&gt; topo = topologicalSort(n, graph);
+    if (topo.empty()) return &#123;&#125;; // 图有环，无法处理
+
+    // 2. 初始化距离数组
+    vector&lt;int&gt; dist(n, INT_MAX);
+    dist[s] = 0;
+
+    // 3. 按拓扑顺序松弛边
+    for (int u : topo) &#123;
+        if (dist[u] == INT_MAX) continue; // 不可达
+        for (auto [v, w] : graph[u]) &#123;
+            if (dist[v] &gt; dist[u] + w) &#123;
+                dist[v] = dist[u] + w;
+            &#125;
+        &#125;
+    &#125;
+
+    return dist;
+&#125;
+</code></pre>
+<h3 id="3-DAG-的单源最长路径"><a href="#3-DAG-的单源最长路径" class="headerlink" title="3. DAG 的单源最长路径"></a>3. DAG 的单源最长路径</h3><p>与最短路径类似，只需将松弛操作改为取最大值，且初始距离设为负无穷大。</p>
+<h4 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>对 DAG 进行拓扑排序。</li>
+<li>初始化距离数组 <code>dist</code>：起点 <code>dist[s] = 0</code>，其余为负无穷大。</li>
+<li>按拓扑顺序遍历每个顶点 <code>u</code>，对每条边 <code>&lt;u, v, w&gt;</code>，执行松弛操作：<code>dist[v] = max(dist[v], dist[u] + w)</code>。</li>
+</ol>
+<h4 id="示例代码（C-）"><a href="#示例代码（C-）" class="headerlink" title="示例代码（C++）"></a>示例代码（C++）</h4><pre><code class="cpp">vector&lt;int&gt; longestPathDAG(int n, vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; graph, int s) &#123;
+    vector&lt;int&gt; topo = topologicalSort(n, graph);
+    if (topo.empty()) return &#123;&#125;;
+
+    vector&lt;int&gt; dist(n, INT_MIN);
+    dist[s] = 0;
+
+    for (int u : topo) &#123;
+        if (dist[u] == INT_MIN) continue;
+        for (auto [v, w] : graph[u]) &#123;
+            if (dist[v] &lt; dist[u] + w) &#123;
+                dist[v] = dist[u] + w;
+            &#125;
+        &#125;
+    &#125;
+
+    return dist;
+&#125;
+</code></pre>
 
     </div>
     
