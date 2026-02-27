@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Flutter 入门指南 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Flutter 入门指南</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/2/27
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                移动端开发
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/flutter/" style="color: #ff7d73">
+                    flutter
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="Flutter-入门指南"><a href="#Flutter-入门指南" class="headerlink" title="Flutter 入门指南"></a>Flutter 入门指南</h1><span id="more"></span>
+
+<h2 id="Flutter-基础组件"><a href="#Flutter-基础组件" class="headerlink" title="Flutter 基础组件"></a>Flutter 基础组件</h2><p>Flutter 提供了丰富的基础组件，用于构建用户界面：</p>
+<h3 id="1-文本组件"><a href="#1-文本组件" class="headerlink" title="1. 文本组件"></a>1. 文本组件</h3><ul>
+<li><code>Text</code>：显示文本内容</li>
+<li><code>RichText</code>：显示富文本</li>
+<li><code>TextField</code>：文本输入框</li>
+</ul>
+<h3 id="2-布局组件"><a href="#2-布局组件" class="headerlink" title="2. 布局组件"></a>2. 布局组件</h3><ul>
+<li><code>Container</code>：容器组件，可设置宽高、边距、背景等</li>
+<li><code>Row</code>：水平布局</li>
+<li><code>Column</code>：垂直布局</li>
+<li><code>Stack</code>：堆叠布局</li>
+<li><code>ListView</code>：列表布局</li>
+<li><code>GridView</code>：网格布局</li>
+</ul>
+<h3 id="3-交互组件"><a href="#3-交互组件" class="headerlink" title="3. 交互组件"></a>3. 交互组件</h3><ul>
+<li><code>Button</code>：按钮</li>
+<li><code>Icon</code>：图标</li>
+<li><code>Image</code>：图片</li>
+<li><code>Checkbox</code>：复选框</li>
+<li><code>Radio</code>：单选按钮</li>
+<li><code>Switch</code>：开关</li>
+</ul>
+<h2 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h2><p>Flutter 有多种状态管理方案：</p>
+<h3 id="1-setState"><a href="#1-setState" class="headerlink" title="1. setState"></a>1. setState</h3><p>最基本的状态管理方式，适用于简单的状态管理。</p>
+<pre><code class="dart">class Counter extends StatefulWidget &#123;
+  @override
+  _CounterState createState() =&gt; _CounterState();
+&#125;
+
+class _CounterState extends State&lt;Counter&gt; &#123;
+  int _counter = 0;
+
+  void _increment() &#123;
+    setState(() &#123;
+      _counter++;
+    &#125;);
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    return Scaffold(
+      appBar: AppBar(title: Text(&#39;Counter&#39;)),
+      body: Center(
+        child: Text(&#39;Count: $_counter&#39;),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _increment,
+        child: Icon(Icons.add),
+      ),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h3 id="2-Provider"><a href="#2-Provider" class="headerlink" title="2. Provider"></a>2. Provider</h3><p>官方推荐的状态管理方案，适用于中型应用。</p>
+<h4 id="Provider-基本使用"><a href="#Provider-基本使用" class="headerlink" title="Provider 基本使用"></a>Provider 基本使用</h4><ol>
+<li><strong>添加依赖</strong></li>
+</ol>
+<pre><code class="yaml">dependencies:
+  provider: ^6.0.0
+</code></pre>
+<ol start="2">
+<li><strong>创建数据模型</strong></li>
+</ol>
+<pre><code class="dart">class CounterModel extends ChangeNotifier &#123;
+  int _count = 0;
+  int get count =&gt; _count;
+
+  void increment() &#123;
+    _count++;
+    notifyListeners(); // 通知监听器状态发生变化
+  &#125;
+
+  void decrement() &#123;
+    _count--;
+    notifyListeners();
+  &#125;
+&#125;
+</code></pre>
+<ol start="3">
+<li><strong>在应用中提供数据</strong></li>
+</ol>
+<pre><code class="dart">void main() &#123;
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) =&gt; CounterModel(),
+      child: MyApp(),
+    ),
+  );
+&#125;
+</code></pre>
+<ol start="4">
+<li><strong>在组件中使用数据</strong></li>
+</ol>
+<pre><code class="dart">class CounterWidget extends StatelessWidget &#123;
+  @override
+  Widget build(BuildContext context) &#123;
+    return Consumer&lt;CounterModel&gt;(
+      builder: (context, counter, child) &#123;
+        return Column(
+          children: [
+            Text(&#39;Count: &#123;counter.count&#125;&#39;),
+            ElevatedButton(
+              onPressed: counter.increment,
+              child: Text(&#39;Increment&#39;),
+            ),
+            ElevatedButton(
+              onPressed: counter.decrement,
+              child: Text(&#39;Decrement&#39;),
+            ),
+          ],
+        );
+      &#125;,
+    );
+  &#125;
+&#125;
+</code></pre>
+<ol start="5">
+<li><strong>多个 Provider 的使用</strong></li>
+</ol>
+<pre><code class="dart">void main() &#123;
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) =&gt; CounterModel()),
+        ChangeNotifierProvider(create: (context) =&gt; UserModel()),
+      ],
+      child: MyApp(),
+    ),
+  );
+&#125;
+</code></pre>
+<h3 id="3-Bloc"><a href="#3-Bloc" class="headerlink" title="3. Bloc"></a>3. Bloc</h3><p>适用于大型应用的状态管理方案，采用事件驱动架构。</p>
+<h3 id="4-Riverpod"><a href="#4-Riverpod" class="headerlink" title="4. Riverpod"></a>4. Riverpod</h3><p>Provider 的改进版，提供了更灵活的状态管理方式。</p>
+<h2 id="Dio-请求"><a href="#Dio-请求" class="headerlink" title="Dio 请求"></a>Dio 请求</h2><p>Dio 是 Flutter 中常用的网络请求库，支持 RESTful API、文件上传下载等功能。</p>
+<h3 id="1-安装-Dio"><a href="#1-安装-Dio" class="headerlink" title="1. 安装 Dio"></a>1. 安装 Dio</h3><p>在 <code>pubspec.yaml</code> 文件中添加依赖：</p>
+<pre><code class="yaml">dependencies:
+  dio: ^5.0.0
+</code></pre>
+<h3 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2. 基本使用"></a>2. 基本使用</h3><pre><code class="dart">import &#39;package:dio/dio.dart&#39;;
+
+void fetchData() async &#123;
+  try &#123;
+    var dio = Dio();
+    var response = await dio.get(&#39;https://api.example.com/data&#39;);
+    print(response.data);
+  &#125; catch (e) &#123;
+    print(e);
+  &#125;
+&#125;
+</code></pre>
+<h3 id="3-高级用法"><a href="#3-高级用法" class="headerlink" title="3. 高级用法"></a>3. 高级用法</h3><ul>
+<li>拦截器：用于添加请求头、处理认证等</li>
+<li>超时设置：设置请求超时时间</li>
+<li>取消请求：支持取消正在进行的请求</li>
+<li>表单提交：支持提交表单数据</li>
+<li>文件上传下载：支持上传和下载文件</li>
+</ul>
+<h2 id="Dio-封装使用"><a href="#Dio-封装使用" class="headerlink" title="Dio 封装使用"></a>Dio 封装使用</h2><p>为了方便使用，我们可以对 Dio 进行封装，创建一个网络请求工具类。</p>
+<h3 id="1-创建网络请求工具类"><a href="#1-创建网络请求工具类" class="headerlink" title="1. 创建网络请求工具类"></a>1. 创建网络请求工具类</h3><pre><code class="dart">import &#39;package:dio/dio.dart&#39;;
+
+class HttpUtil &#123;
+  static final HttpUtil _instance = HttpUtil._internal();
+  factory HttpUtil() =&gt; _instance;
+
+  Dio? dio;
+
+  HttpUtil._internal() &#123;
+    BaseOptions options = BaseOptions(
+      baseUrl: &#39;https://api.example.com&#39;, // 基础 URL
+      connectTimeout: 10000, // 连接超时时间
+      receiveTimeout: 10000, // 接收超时时间
+      headers: &#123;
+        &#39;Content-Type&#39;: &#39;application/json&#39;,
+      &#125;,
+    );
+
+    dio = Dio(options);
+
+    // 添加请求拦截器
+    dio?.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) &#123;
+        // 可以在这里添加 token 等认证信息
+        // options.headers[&#39;Authorization&#39;] = &#39;Bearer token&#39;;
+        return handler.next(options);
+      &#125;,
+      onResponse: (response, handler) &#123;
+        // 对响应数据进行处理
+        return handler.next(response);
+      &#125;,
+      onError: (DioError e, handler) &#123;
+        // 对错误进行处理
+        print(&#39;请求错误: $&#123;e.message&#125;&#39;);
+        return handler.next(e);
+      &#125;,
+    ));
+  &#125;
+
+  // GET 请求
+  Future&lt;dynamic&gt; get(String url, &#123;Map&lt;String, dynamic&gt;? queryParameters&#125;) async &#123;
+    try &#123;
+      Response response = await dio!.get(url, queryParameters: queryParameters);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;GET 请求错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+
+  // POST 请求
+  Future&lt;dynamic&gt; post(String url, &#123;dynamic data&#125;) async &#123;
+    try &#123;
+      Response response = await dio!.post(url, data: data);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;POST 请求错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+
+  // PUT 请求
+  Future&lt;dynamic&gt; put(String url, &#123;dynamic data&#125;) async &#123;
+    try &#123;
+      Response response = await dio!.put(url, data: data);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;PUT 请求错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+
+  // DELETE 请求
+  Future&lt;dynamic&gt; delete(String url) async &#123;
+    try &#123;
+      Response response = await dio!.delete(url);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;DELETE 请求错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+
+  // 上传文件
+  Future&lt;dynamic&gt; uploadFile(String url, String filePath) async &#123;
+    try &#123;
+      FormData formData = FormData.fromMap(&#123;
+        &#39;file&#39;: await MultipartFile.fromFile(filePath),
+      &#125;);
+      Response response = await dio!.post(url, data: formData);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;上传文件错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+
+  // 下载文件
+  Future&lt;dynamic&gt; downloadFile(String url, String savePath) async &#123;
+    try &#123;
+      Response response = await dio!.download(url, savePath);
+      return response.data;
+    &#125; catch (e) &#123;
+      print(&#39;下载文件错误: $e&#39;);
+      rethrow;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h3 id="2-使用封装的网络请求工具"><a href="#2-使用封装的网络请求工具" class="headerlink" title="2. 使用封装的网络请求工具"></a>2. 使用封装的网络请求工具</h3><pre><code class="dart">// 初始化网络请求工具
+final httpUtil = HttpUtil();
+
+// GET 请求
+void fetchData() async &#123;
+  try &#123;
+    var response = await httpUtil.get(&#39;/api/data&#39;, queryParameters: &#123;&#39;page&#39;: 1, &#39;size&#39;: 10&#125;);
+    print(response);
+  &#125; catch (e) &#123;
+    print(&#39;请求失败: $e&#39;);
+  &#125;
+&#125;
+
+// POST 请求
+void submitData() async &#123;
+  try &#123;
+    var response = await httpUtil.post(&#39;/api/login&#39;, data: &#123;
+      &#39;username&#39;: &#39;user&#39;,
+      &#39;password&#39;: &#39;pass&#39;,
+    &#125;);
+    print(response);
+  &#125; catch (e) &#123;
+    print(&#39;请求失败: $e&#39;);
+  &#125;
+&#125;
+
+// 上传文件
+void uploadImage() async &#123;
+  try &#123;
+    var response = await httpUtil.uploadFile(&#39;/api/upload&#39;, &#39;/path/to/image.jpg&#39;);
+    print(response);
+  &#125; catch (e) &#123;
+    print(&#39;上传失败: $e&#39;);
+  &#125;
+&#125;
+
+// 下载文件
+void downloadImage() async &#123;
+  try &#123;
+    var response = await httpUtil.downloadFile(&#39;https://example.com/image.jpg&#39;, &#39;/path/to/save/image.jpg&#39;);
+    print(&#39;下载成功&#39;);
+  &#125; catch (e) &#123;
+    print(&#39;下载失败: $e&#39;);
+  &#125;
+&#125;
+</code></pre>
+<h3 id="3-错误处理"><a href="#3-错误处理" class="headerlink" title="3. 错误处理"></a>3. 错误处理</h3><p>在实际应用中，我们可以进一步完善错误处理，例如：</p>
+<pre><code class="dart">// 错误处理工具类
+class ErrorUtil &#123;
+  static String handleError(dynamic error) &#123;
+    if (error is DioError) &#123;
+      switch (error.type) &#123;
+        case DioErrorType.connectTimeout:
+          return &#39;连接超时，请检查网络&#39;;
+        case DioErrorType.sendTimeout:
+          return &#39;发送超时，请稍后重试&#39;;
+        case DioErrorType.receiveTimeout:
+          return &#39;接收超时，请稍后重试&#39;;
+        case DioErrorType.response:
+          return &#39;服务器错误，状态码: $&#123;error.response?.statusCode&#125;&#39;;
+        case DioErrorType.cancel:
+          return &#39;请求已取消&#39;;
+        case DioErrorType.other:
+          return &#39;网络错误，请检查网络连接&#39;;
+        default:
+          return &#39;未知错误&#39;;
+      &#125;
+    &#125; else &#123;
+      return error.toString();
+    &#125;
+  &#125;
+&#125;
+
+// 使用错误处理
+void fetchData() async &#123;
+  try &#123;
+    var response = await httpUtil.get(&#39;/api/data&#39;);
+    print(response);
+  &#125; catch (e) &#123;
+    String errorMessage = ErrorUtil.handleError(e);
+    print(&#39;请求失败: $errorMessage&#39;);
+    // 显示错误信息给用户
+  &#125;
+&#125;
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Flutter 是一个强大的跨平台开发框架，通过学习基础组件、状态管理和网络请求等核心概念，你可以快速构建出高质量的移动应用。随着学习的深入，你可以探索更多高级特性，如动画、自定义组件、原生集成等，进一步提升应用的用户体验。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
