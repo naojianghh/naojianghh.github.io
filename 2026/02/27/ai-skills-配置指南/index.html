@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>AI 技能库配置指南：解锁 Cursor/Trae 的完全体工作流 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>AI 技能库配置指南：解锁 Cursor/Trae 的完全体工作流</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/2/27
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E5%BC%80%E5%8F%91/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                开发
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/ai/" style="color: #ff7d73">
+                    ai
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="AI-技能库配置指南：解锁-Cursor-Trae-的完全体工作流"><a href="#AI-技能库配置指南：解锁-Cursor-Trae-的完全体工作流" class="headerlink" title="AI 技能库配置指南：解锁 Cursor&#x2F;Trae 的完全体工作流"></a>AI 技能库配置指南：解锁 Cursor&#x2F;Trae 的完全体工作流</h1><span id="more"></span>
+
+<h2 id="为什么你需要-Skills？"><a href="#为什么你需要-Skills？" class="headerlink" title="为什么你需要 Skills？"></a>为什么你需要 Skills？</h2><p>在 Chat 框里写 Prompt 是”软约束”，AI 可能会听，也可能会幻觉。而 Skills 是”硬约束”，它本质上是一套标准化的 SOP（标准作业程序）和工具包。当你调用 Skill 时，AI 不再是瞎猜，而是严格按照你定义的步骤去执行任务——查文件、跑脚本、生成报表。</p>
+<p>确定性，是工程化的第一原则。</p>
+<h2 id="极简部署指南-3步走"><a href="#极简部署指南-3步走" class="headerlink" title="极简部署指南 (3步走)"></a>极简部署指南 (3步走)</h2><p>要在 Cursor&#x2F;Trae 中使用 Skills，我们需要一个中间件：OpenSkills。</p>
+<h3 id="第一步：安装”连接器”"><a href="#第一步：安装”连接器”" class="headerlink" title="第一步：安装”连接器”"></a>第一步：安装”连接器”</h3><p>打开你的终端（Terminal），输入以下命令安装 openskills 工具：</p>
+<pre><code class="bash">npm install -g openskills
+</code></pre>
+<h3 id="第二步：进货”技能包”"><a href="#第二步：进货”技能包”" class="headerlink" title="第二步：进货”技能包”"></a>第二步：进货”技能包”</h3><p>安装完成后，我们需要下载技能。Anthropic 官方提供了一套高质量的 Skills（包含 PPT 生成、文档分析等）。在你的项目根目录下运行：</p>
+<pre><code class="bash"># 安装到当前项目
+openskills install anthropics/skills
+</code></pre>
+<p>运行后，你会看到一个交互界面，按 Space 键选择你想要的技能。建议全选，特别是 pptx 和 skill-creator。</p>
+<p>安装成功后，你的文件列表里会出现一个 <code>.claude/skills</code> 文件夹。这就是你的”军火库”。</p>
+<h3 id="第三步：注入灵魂-关键！"><a href="#第三步：注入灵魂-关键！" class="headerlink" title="第三步：注入灵魂 (关键！)"></a>第三步：注入灵魂 (关键！)</h3><p>这是最容易被忽略的一步。光下载没用，你得让 Cursor 的 AI “看见” 这些技能。我们需要生成一个 AGENTS.md 文件，作为 AI 的行动指南。</p>
+<p>在根目录运行：</p>
+<pre><code class="bash">openskills sync
+</code></pre>
+<p>系统会自动创建一个 AGENTS.md。这个文件告诉 AI：”嘿，我有这些新本事（Skills），当用户问相关问题时，请查阅这里。”</p>
+<h2 id="实战：它能干什么？"><a href="#实战：它能干什么？" class="headerlink" title="实战：它能干什么？"></a>实战：它能干什么？</h2><p>部署完毕，现在的 Cursor 已经不是昨天的 Cursor 了。</p>
+<h3 id="场景一：一句话生成技术-PPT-📊"><a href="#场景一：一句话生成技术-PPT-📊" class="headerlink" title="场景一：一句话生成技术 PPT 📊"></a>场景一：一句话生成技术 PPT 📊</h3><p>以前写汇报 PPT：找模板、填内容、调格式，耗时 2 小时。</p>
+<p>现在，直接在 Cursor 对话框输入：</p>
+<p>“调用 pptx skills，根据最近的 git commit 记录，整理一份最近改动点的汇总 PPT。”</p>
+<p>Cursor 的思考路径：</p>
+<ol>
+<li>读取 AGENTS.md 发现有 pptx 技能。</li>
+<li>自动抓取 git log。</li>
+<li>调用 Python 脚本生成 .pptx 文件。</li>
+</ol>
+<p>结果？一份结构清晰、配色专业的 PPT 直接出现在你的目录里。你只需要微调即可。</p>
+<h3 id="场景二：让-AI-自己写-Skill-🛠️"><a href="#场景二：让-AI-自己写-Skill-🛠️" class="headerlink" title="场景二：让 AI 自己写 Skill 🛠️"></a>场景二：让 AI 自己写 Skill 🛠️</h3><p>Anthropic 提供了一个 skill-creator。你可以让 AI 根据你的需求，自己写一个新的 Skill。</p>
+<p>需求示例：<br>“我经常需要分析 &#x2F;fixes 目录下的修改记录。请调用 skill-creator，帮我做一个自动生成‘改动报表’的 Skill。”</p>
+<p>AI 的操作：<br>它会分析你的需求，自动编写 Python 脚本，定义输入输出，并将其注册到 AGENTS.md 中。</p>
+<p>从此，你拥有了一个专属的”改动分析员”。</p>
+<h2 id="技术复盘与思考"><a href="#技术复盘与思考" class="headerlink" title="技术复盘与思考"></a>技术复盘与思考</h2><p>这套工作流的本质是什么？是 RAG (检索增强生成) + Tool Use (工具调用) 的本地化实践。</p>
+<p>以前：我们需要把所有上下文塞给 AI，祈祷它记住。<br>现在：我们将能力封装成 Skill（代码+文档）。AI 变成了”调度员”，它不需要知道怎么画 PPT 的每一个像素，它只需要知道何时调用那个画 PPT 的工具。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>✅ <strong>节省 Token</strong>：不需要每次都把规则重复一遍。<br>✅ <strong>高确定性</strong>：代码逻辑保证了输出格式的稳定。<br>✅ <strong>可复用性</strong>：一次编写，所有项目通用。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
