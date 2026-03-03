@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Flutter 代码生成工具实战指南 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Flutter 代码生成工具实战指南</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/3
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                移动端开发
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/flutter/" style="color: #00bcd4">
+                    flutter
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B7%A5%E5%85%B7/" style="color: #ffa2c4">
+                    工具
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="Flutter-代码生成工具实战指南"><a href="#Flutter-代码生成工具实战指南" class="headerlink" title="Flutter 代码生成工具实战指南"></a>Flutter 代码生成工具实战指南</h1><span id="more"></span>
+
+<h2 id="什么是代码生成？"><a href="#什么是代码生成？" class="headerlink" title="什么是代码生成？"></a>什么是代码生成？</h2><p>在 Flutter 开发中，我们经常需要编写大量重复性的样板代码，比如：</p>
+<ul>
+<li>JSON 序列化&#x2F;反序列化</li>
+<li>equals()、hashCode()、toString() 方法</li>
+<li>不可变数据类</li>
+<li>Provider 状态管理</li>
+</ul>
+<p>代码生成工具能够根据我们的定义自动生成这些代码，让我们专注于业务逻辑。</p>
+<h2 id="为什么需要代码生成？"><a href="#为什么需要代码生成？" class="headerlink" title="为什么需要代码生成？"></a>为什么需要代码生成？</h2><h3 id="手动编写的问题"><a href="#手动编写的问题" class="headerlink" title="手动编写的问题"></a>手动编写的问题</h3><pre><code class="dart">// 手动编写的数据类
+class User &#123;
+  final String name;
+  final int age;
+  final String email;
+
+  User(&#123;
+    required this.name,
+    required this.age,
+    required this.email,
+  &#125;);
+
+  // 需要手动实现大量方法
+  @override
+  bool operator ==(Object other) &#123;
+    if (identical(this, other)) return true;
+    return other is User &amp;&amp;
+        other.name == name &amp;&amp;
+        other.age == age &amp;&amp;
+        other.email == email;
+  &#125;
+
+  @override
+  int get hashCode =&gt; name.hashCode ^ age.hashCode ^ email.hashCode;
+
+  @override
+  String toString() =&gt; &#39;User(name: $name, age: $age, email: $email)&#39;;
+
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) &#123;
+    return User(
+      name: json[&#39;name&#39;] as String,
+      age: json[&#39;age&#39;] as int,
+      email: json[&#39;email&#39;] as String,
+    );
+  &#125;
+
+  Map&lt;String, dynamic&gt; toJson() &#123;
+    return &#123;
+      &#39;name&#39;: name,
+      &#39;age&#39;: age,
+      &#39;email&#39;: email,
+    &#125;;
+  &#125;
+
+  User copyWith(&#123;
+    String? name,
+    int? age,
+    String? email,
+  &#125;) &#123;
+    return User(
+      name: name ?? this.name,
+      age: age ?? this.age,
+      email: email ?? this.email,
+    );
+  &#125;
+&#125;
+</code></pre>
+<p>使用代码生成后，只需几行代码就能实现相同的功能！</p>
+<h2 id="json-serializable-使用指南"><a href="#json-serializable-使用指南" class="headerlink" title="json_serializable 使用指南"></a>json_serializable 使用指南</h2><h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>API 接口返回数据的解析</li>
+<li>本地数据存储（SharedPreferences、SQLite）</li>
+<li>数据模型的序列化&#x2F;反序列化</li>
+</ul>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><pre><code class="yaml">dependencies:
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  build_runner: ^2.4.0
+  json_serializable: ^6.7.0
+</code></pre>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><h4 id="1-定义数据模型"><a href="#1-定义数据模型" class="headerlink" title="1. 定义数据模型"></a>1. 定义数据模型</h4><pre><code class="dart">import &#39;package:json_annotation/json_annotation.dart&#39;;
+
+part &#39;user.g.dart&#39;;
+
+@JsonSerializable()
+class User &#123;
+  final String name;
+  final int age;
+  final String? email;
+  final List&lt;String&gt; tags;
+
+  User(&#123;
+    required this.name,
+    required this.age,
+    this.email,
+    this.tags = const [],
+  &#125;);
+
+  // 自动生成 fromJson 和 toJson
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+  Map&lt;String, dynamic&gt; toJson() =&gt; _$UserToJson(this);
+&#125;
+</code></pre>
+<h4 id="2-嵌套对象"><a href="#2-嵌套对象" class="headerlink" title="2. 嵌套对象"></a>2. 嵌套对象</h4><pre><code class="dart">@JsonSerializable()
+class Address &#123;
+  final String city;
+  final String street;
+
+  Address(&#123;required this.city, required this.street&#125;);
+
+  factory Address.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$AddressFromJson(json);
+  Map&lt;String, dynamic&gt; toJson() =&gt; _$AddressToJson(this);
+&#125;
+
+@JsonSerializable()
+class User &#123;
+  final String name;
+  final Address address;
+
+  User(&#123;required this.name, required this.address&#125;);
+
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+  Map&lt;String, dynamic&gt; toJson() =&gt; _$UserToJson(this);
+&#125;
+</code></pre>
+<h4 id="3-自定义字段名"><a href="#3-自定义字段名" class="headerlink" title="3. 自定义字段名"></a>3. 自定义字段名</h4><pre><code class="dart">@JsonSerializable()
+class User &#123;
+  @JsonKey(name: &#39;user_name&#39;)
+  final String name;
+
+  @JsonKey(name: &#39;user_age&#39;)
+  final int age;
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final String? tempData;
+
+  User(&#123;required this.name, required this.age, this.tempData&#125;);
+
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+  Map&lt;String, dynamic&gt; toJson() =&gt; _$UserToJson(this);
+&#125;
+</code></pre>
+<h4 id="4-生成代码"><a href="#4-生成代码" class="headerlink" title="4. 生成代码"></a>4. 生成代码</h4><pre><code class="bash"># 生成代码
+dart run build_runner build
+
+# 监听文件变化自动重新生成
+dart run build_runner watch
+
+# 删除生成的文件
+dart run build_runner clean
+</code></pre>
+<h3 id="完整示例"><a href="#完整示例" class="headerlink" title="完整示例"></a>完整示例</h3><pre><code class="dart">// user.g.dart 自动生成内容
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of &#39;user.dart&#39;;
+
+User _$UserFromJson(Map&lt;String, dynamic&gt; json) =&gt; User(
+      name: json[&#39;name&#39;] as String,
+      age: json[&#39;age&#39;] as int,
+      email: json[&#39;email&#39;] as String?,
+      tags: (json[&#39;tags&#39;] as List&lt;dynamic&gt;?)
+          ?.map((e) =&gt; e as String)
+          .toList() ?? const [],
+    );
+
+Map&lt;String, dynamic&gt; _$UserToJson(User instance) =&gt; &lt;String, dynamic&gt;&#123;
+      &#39;name&#39;: instance.name,
+      &#39;age&#39;: instance.age,
+      &#39;email&#39;: instance.email,
+      &#39;tags&#39;: instance.tags,
+    &#125;;
+</code></pre>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><pre><code class="dart">void main() &#123;
+  // JSON 转对象
+  final json = &#123;&#39;name&#39;: &#39;张三&#39;, &#39;age&#39;: 25, &#39;email&#39;: &#39;zhangsan@example.com&#39;&#125;;
+  final user = User.fromJson(json);
+
+  // 对象转 JSON
+  final jsonString = user.toJson();
+  print(jsonString);
+&#125;
+</code></pre>
+<h2 id="freezed-使用指南"><a href="#freezed-使用指南" class="headerlink" title="freezed 使用指南"></a>freezed 使用指南</h2><h3 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>需要不可变数据类的场景</li>
+<li>需要完整的 equals、hashCode、toString 实现</li>
+<li>需要 copyWith 功能</li>
+<li>需要 union&#x2F;sealed class 功能</li>
+<li>需要数据类之间的转换</li>
+</ul>
+<h3 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h3><pre><code class="yaml">dependencies:
+  freezed_annotation: ^2.4.0
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  build_runner: ^2.4.0
+  freezed: ^2.4.0
+  json_serializable: ^6.7.0
+</code></pre>
+<h3 id="基本使用-1"><a href="#基本使用-1" class="headerlink" title="基本使用"></a>基本使用</h3><h4 id="1-定义不可变数据类"><a href="#1-定义不可变数据类" class="headerlink" title="1. 定义不可变数据类"></a>1. 定义不可变数据类</h4><pre><code class="dart">import &#39;package:freezed_annotation/freezed_annotation.dart&#39;;
+
+part &#39;user.freezed.dart&#39;;
+part &#39;user.g.dart&#39;;
+
+@freezed
+class User with _$User &#123;
+  const factory User(&#123;
+    required String name,
+    required int age,
+    String? email,
+  &#125;) = _User;
+&#125;
+</code></pre>
+<h4 id="2-使用-const-构造"><a href="#2-使用-const-构造" class="headerlink" title="2. 使用 const 构造"></a>2. 使用 const 构造</h4><pre><code class="dart">void main() &#123;
+  // 创建不可变对象
+  const user = User(name: &#39;张三&#39;, age: 25);
+
+  // 使用 copyWith
+  final newUser = user.copyWith(age: 26);
+
+  // 使用 == 和 hashCode
+  print(user == newUser); // false
+
+  // 使用 toString
+  print(user.toString());
+  // User(name: 张三, age: 25)
+&#125;
+</code></pre>
+<h4 id="3-工厂构造器"><a href="#3-工厂构造器" class="headerlink" title="3. 工厂构造器"></a>3. 工厂构造器</h4><pre><code class="dart">@freezed
+class User with _$User &#123;
+  const factory User(&#123;
+    required String name,
+    required int age,
+  &#125;) = _User;
+
+  // 工厂构造器
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+&#125;
+</code></pre>
+<h4 id="4-Union-Sealed-Class"><a href="#4-Union-Sealed-Class" class="headerlink" title="4. Union&#x2F;Sealed Class"></a>4. Union&#x2F;Sealed Class</h4><pre><code class="dart">@freezed
+class Result with _$Result &#123;
+  const factory Result.success(String data) = Success;
+  const factory Result.error(String message) = Error;
+  const factory Result.loading() = Loading;
+&#125;
+
+// 使用
+void handleResult(Result result) &#123;
+  switch (result) &#123;
+    case Success():
+      print(&#39;成功: $&#123;result.data&#125;&#39;);
+    case Error():
+      print(&#39;错误: $&#123;result.message&#125;&#39;);
+    case Loading():
+      print(&#39;加载中...&#39;);
+  &#125;
+&#125;
+</code></pre>
+<h4 id="5-复杂嵌套"><a href="#5-复杂嵌套" class="headerlink" title="5. 复杂嵌套"></a>5. 复杂嵌套</h4><pre><code class="dart">@freezed
+class Address with _$Address &#123;
+  const factory Address(&#123;
+    required String city,
+    required String street,
+  &#125;) = _Address;
+&#125;
+
+@freezed
+class User with _$User &#123;
+  const factory User(&#123;
+    required String name,
+    required Address address,
+    @Default([]) List&lt;String&gt; tags,
+  &#125;) = _User;
+&#125;
+</code></pre>
+<h3 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h3><pre><code class="bash">dart run build_runner build
+</code></pre>
+<h3 id="与-JSON-集成"><a href="#与-JSON-集成" class="headerlink" title="与 JSON 集成"></a>与 JSON 集成</h3><pre><code class="dart">@freezed
+class User with _$User &#123;
+  const factory User(&#123;
+    required String name,
+    required int age,
+  &#125;) = _User;
+
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+&#125;
+
+// 使用
+final user = User.fromJson(&#123;&#39;name&#39;:age&#39;: 25 &#39;张三&#39;, &#39;&#125;);
+final json = user.toJson();
+</code></pre>
+<h2 id="riverpod-generator-使用指南"><a href="#riverpod-generator-使用指南" class="headerlink" title="riverpod_generator 使用指南"></a>riverpod_generator 使用指南</h2><h3 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>状态管理</li>
+<li>依赖注入</li>
+<li>异步数据管理</li>
+<li>Provider 生命周期管理</li>
+</ul>
+<h3 id="安装依赖-2"><a href="#安装依赖-2" class="headerlink" title="安装依赖"></a>安装依赖</h3><pre><code class="yaml">dependencies:
+  flutter_riverpod: ^2.4.0
+  riverpod_annotation: ^2.3.0
+
+dev_dependencies:
+  build_runner: ^2.4.0
+  riverpod_generator: ^2.3.0
+</code></pre>
+<h3 id="基本使用-2"><a href="#基本使用-2" class="headerlink" title="基本使用"></a>基本使用</h3><h4 id="1-定义-Provider"><a href="#1-定义-Provider" class="headerlink" title="1. 定义 Provider"></a>1. 定义 Provider</h4><pre><code class="dart">import &#39;package:riverpod_annotation/riverpod_annotation.dart&#39;;
+
+part &#39;providers.g.dart&#39;;
+
+// 简单的值 Provider
+@riverpod
+String greeting(GreetingRef ref) &#123;
+  return &#39;Hello, World!&#39;;
+&#125;
+
+// 带参数的方法 Provider
+@riverpod
+int add(AddRef ref, int a, int b) &#123;
+  return a + b;
+&#125;
+
+// 状态 Provider
+@riverpod
+class Counter extends _$Counter &#123;
+  @override
+  int build() =&gt; 0;
+
+  void increment() =&gt; state++;
+
+  void decrement() =&gt; state--;
+&#125;
+</code></pre>
+<h4 id="2-异步-Provider"><a href="#2-异步-Provider" class="headerlink" title="2. 异步 Provider"></a>2. 异步 Provider</h4><pre><code class="dart">@riverpod
+Future&lt;String&gt; fetchData(FetchDataRef ref) async &#123;
+  await Future.delayed(const Duration(seconds: 1));
+  return &#39;数据加载完成&#39;;
+&#125;
+
+// 带错误处理的异步 Provider
+@riverpod
+class UserInfo extends _$UserInfo &#123;
+  @override
+  FutureOr&lt;String&gt; build() async &#123;
+    try &#123;
+      await Future.delayed(const Duration(seconds: 1));
+      return &#39;用户信息&#39;;
+    &#125; catch (e) &#123;
+      return &#39;加载失败: $e&#39;;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="3-依赖其他-Provider"><a href="#3-依赖其他-Provider" class="headerlink" title="3. 依赖其他 Provider"></a>3. 依赖其他 Provider</h4><pre><code class="dart">@riverpod
+int doubleValue(DoubleValueRef ref) &#123;
+  final counter = ref.watch(counterProvider);
+  return counter * 2;
+&#125;
+
+@riverpod
+class User extends _$User &#123;
+  @override
+  FutureOr&lt;String&gt; build() async &#123;
+    // 依赖其他 Provider
+    final config = ref.watch(configProvider);
+    return &#39;用户: $config&#39;;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="4-家族-Provider（带参数）"><a href="#4-家族-Provider（带参数）" class="headerlink" title="4. 家族 Provider（带参数）"></a>4. 家族 Provider（带参数）</h4><pre><code class="dart">@riverpod
+int multiplyBy(MultiplyByRef ref, int value) &#123;
+  final multiplier = ref.watch(multiplierProvider);
+  return value * multiplier;
+&#125;
+
+// 使用
+final result = ref.watch(multiplyByProvider(5)); // 5 * multiplier
+</code></pre>
+<h4 id="5-生成的代码示例"><a href="#5-生成的代码示例" class="headerlink" title="5. 生成的代码示例"></a>5. 生成的代码示例</h4><pre><code class="dart">// providers.g.dart 自动生成
+
+// Provider
+String greeting(GreetingRef ref) &#123;
+  return &#39;Hello, World!&#39;;
+&#125;
+
+// StateNotifier Provider
+class Counter extends _$Counter &#123;
+  @override
+  int build() =&gt; 0;
+
+  void increment() =&gt; state++;
+
+  void decrement() =&gt; state--;
+&#125;
+
+final counterProvider = AutoDisposeNotifierProvider&lt;Counter, int&gt;(Counter.new);
+</code></pre>
+<h3 id="使用-Widget"><a href="#使用-Widget" class="headerlink" title="使用 Widget"></a>使用 Widget</h3><pre><code class="dart">import &#39;package:flutter_riverpod/flutter_riverpod.dart&#39;;
+
+void main() &#123;
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+&#125;
+
+class MyApp extends StatelessWidget &#123;
+  const MyApp(&#123;super.key&#125;);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) &#123;
+    // 监听 Provider
+    final count = ref.watch(counterProvider);
+
+    return Scaffold(
+      body: Center(child: Text(&#39;Count: $count&#39;)),
+      floatingActionButton: FloatingActionButton(
+        // 调用方法
+        onPressed: () =&gt; ref.read(counterProvider.notifier).increment(),
+        child: const Icon(Icons.add),
+      ),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h2 id="组合使用实战"><a href="#组合使用实战" class="headerlink" title="组合使用实战"></a>组合使用实战</h2><h3 id="完整项目结构"><a href="#完整项目结构" class="headerlink" title="完整项目结构"></a>完整项目结构</h3><pre><code class="yaml"># pubspec.yaml
+dependencies:
+  flutter_riverpod: ^2.4.0
+  riverpod_annotation: ^2.3.0
+  freezed_annotation: ^2.4.0
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  build_runner: ^2.4.0
+  riverpod_generator: ^2.3.0
+  freezed: ^2.4.0
+  json_serializable: ^6.7.0
+</code></pre>
+<h3 id="完整示例-1"><a href="#完整示例-1" class="headerlink" title="完整示例"></a>完整示例</h3><pre><code class="dart">// user.dart
+import &#39;package:freezed_annotation/freezed_annotation.dart&#39;;
+import &#39;package:riverpod_annotation/riverpod_annotation.dart&#39;;
+import &#39;package:json_annotation/json_annotation.dart&#39;;
+
+part &#39;user.freezed.dart&#39;;
+part &#39;user.g.dart&#39;;
+part &#39;user.riverpod.dart&#39;;
+
+@freezed
+class User with _$User &#123;
+  const factory User(&#123;
+    required String name,
+    required int age,
+    @Default([]) List&lt;String&gt; tags,
+  &#125;) = _User;
+
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+&#125;
+
+// Riverpod Provider
+@riverpod
+class UserNotifier extends _$UserNotifier &#123;
+  @override
+  FutureOr&lt;User&gt; build() async &#123;
+    // 模拟加载用户数据
+    await Future.delayed(const Duration(seconds: 1));
+    return const User(name: &#39;张三&#39;, age: 25, tags: [&#39;开发者&#39;, &#39;程序员&#39;]);
+  &#125;
+
+  void updateName(String name) &#123;
+    state = AsyncValue.data(
+      state.value?.copyWith(name: name) ?? User(name: name, age: 0),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h2 id="常见问题与解决方案"><a href="#常见问题与解决方案" class="headerlink" title="常见问题与解决方案"></a>常见问题与解决方案</h2><h3 id="1-代码生成失败"><a href="#1-代码生成失败" class="headerlink" title="1. 代码生成失败"></a>1. 代码生成失败</h3><pre><code class="bash"># 清理并重新生成
+dart run build_runner clean
+dart run build_runner build
+</code></pre>
+<h3 id="2-import-路径错误"><a href="#2-import-路径错误" class="headerlink" title="2. import 路径错误"></a>2. import 路径错误</h3><p>确保正确导入生成的文件：</p>
+<pre><code class="dart">// 正确：使用 part 导入
+part &#39;user.g.dart&#39;;
+
+// 错误：不要手动 import
+// import &#39;user.g.dart&#39;;  // 不要这样做！
+</code></pre>
+<h3 id="3-类型不匹配"><a href="#3-类型不匹配" class="headerlink" title="3. 类型不匹配"></a>3. 类型不匹配</h3><p>检查注解使用是否正确：</p>
+<pre><code class="dart">// 错误
+@JsonKey(name: &#39;user_age&#39;)
+final int age;
+
+// 正确
+@JsonKey(name: &#39;user_age&#39;)
+final int userAge;
+</code></pre>
+<h3 id="4-build-runner-占用资源过多"><a href="#4-build-runner-占用资源过多" class="headerlink" title="4. build_runner 占用资源过多"></a>4. build_runner 占用资源过多</h3><p>使用 <code>--delete-conflicting-outputs</code> 选项：</p>
+<pre><code class="bash">dart run build_runner build --delete-conflicting-outputs
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="各工具适用场景"><a href="#各工具适用场景" class="headerlink" title="各工具适用场景"></a>各工具适用场景</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json_serializable</td>
+<td>API 数据解析、本地存储</td>
+</tr>
+<tr>
+<td>freezed</td>
+<td>不可变数据类、Union 类型</td>
+</tr>
+<tr>
+<td>riverpod_generator</td>
+<td>状态管理、依赖注入</td>
+</tr>
+</tbody></table>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><ol>
+<li><strong>小型项目</strong>：使用 json_serializable 即可</li>
+<li><strong>中型项目</strong>：json_serializable + freezed</li>
+<li><strong>大型项目</strong>：json_serializable + freezed + riverpod_generator</li>
+</ol>
+<p>代码生成工具能够显著提高开发效率，减少样板代码，让开发者专注于业务逻辑的实现！</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
