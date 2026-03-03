@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Flutter EventBus 使用指南 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Flutter EventBus 使用指南</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/3
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                移动端开发
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/flutter/" style="color: #ffa2c4">
+                    flutter
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="Flutter-EventBus-使用指南"><a href="#Flutter-EventBus-使用指南" class="headerlink" title="Flutter EventBus 使用指南"></a>Flutter EventBus 使用指南</h1><span id="more"></span>
+
+<h2 id="什么是-EventBus？"><a href="#什么是-EventBus？" class="headerlink" title="什么是 EventBus？"></a>什么是 EventBus？</h2><p>EventBus 是一个发布&#x2F;订阅模式的事件总线库，它允许 Flutter 应用中的不同组件之间进行松耦合的通信。通过 EventBus，我们可以实现跨页面、跨组件的事件传递，而无需直接依赖对方的实例。</p>
+<h3 id="EventBus-的核心概念"><a href="#EventBus-的核心概念" class="headerlink" title="EventBus 的核心概念"></a>EventBus 的核心概念</h3><ul>
+<li><strong>Event（事件）</strong>：用户自定义的事件类，用于传递数据</li>
+<li><strong>Publisher（发布者）</strong>：发送事件的一方</li>
+<li><strong>Subscriber（订阅者）</strong>：接收并处理事件的一方</li>
+<li><strong>EventBus（事件总线）</strong>：管理事件发布和订阅的核心类</li>
+</ul>
+<h2 id="为什么需要-EventBus？"><a href="#为什么需要-EventBus？" class="headerlink" title="为什么需要 EventBus？"></a>为什么需要 EventBus？</h2><p>在 Flutter 开发中，我们通常使用以下方式进行组件间通信：</p>
+<h3 id="1-构造函数传参"><a href="#1-构造函数传参" class="headerlink" title="1. 构造函数传参"></a>1. 构造函数传参</h3><p>适用于父子组件通信，但会导致代码耦合度高。</p>
+<h3 id="2-Provider-Bloc"><a href="#2-Provider-Bloc" class="headerlink" title="2. Provider&#x2F;Bloc"></a>2. Provider&#x2F;Bloc</h3><p>适用于状态管理，但学习曲线较陡峭。</p>
+<h3 id="3-EventBus"><a href="#3-EventBus" class="headerlink" title="3. EventBus"></a>3. EventBus</h3><p>适用于简单的跨组件通信，代码简洁、易于理解。</p>
+<p><strong>EventBus 的优势：</strong></p>
+<ul>
+<li>简单易用，API 直观</li>
+<li>松耦合，发布者和订阅者无需直接依赖</li>
+<li>支持任意类型的事件</li>
+<li>可以灵活地控制事件的作用域</li>
+</ul>
+<h2 id="EventBus-的基本使用"><a href="#EventBus-的基本使用" class="headerlink" title="EventBus 的基本使用"></a>EventBus 的基本使用</h2><h3 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1. 添加依赖"></a>1. 添加依赖</h3><p>在 <code>pubspec.yaml</code> 文件中添加 event_bus 依赖：</p>
+<pre><code class="yaml">dependencies:
+  event_bus: ^2.0.0
+</code></pre>
+<p>然后执行：</p>
+<pre><code class="bash">flutter pub get
+</code></pre>
+<h3 id="2-创建事件类"><a href="#2-创建事件类" class="headerlink" title="2. 创建事件类"></a>2. 创建事件类</h3><p>首先，我们需要定义我们的事件类：</p>
+<pre><code class="dart">class UserLoginEvent &#123;
+  final String username;
+  final String token;
+
+  UserLoginEvent(this.username, this.token);
+&#125;
+
+class UserLogoutEvent &#123;&#125;
+
+class MessageReceivedEvent &#123;
+  final String message;
+  final DateTime timestamp;
+
+  MessageReceivedEvent(this.message, this.timestamp);
+&#125;
+</code></pre>
+<h3 id="3-创建-EventBus-实例"><a href="#3-创建-EventBus-实例" class="headerlink" title="3. 创建 EventBus 实例"></a>3. 创建 EventBus 实例</h3><p>可以在应用入口处创建单例：</p>
+<pre><code class="dart">final eventBus = EventBus();
+</code></pre>
+<p>或者创建一个专门的 EventBus 管理类：</p>
+<pre><code class="dart">class EventBusManager &#123;
+  static final EventBusManager _instance = EventBusManager._internal();
+  factory EventBusManager() =&gt; _instance;
+
+  final EventBus _eventBus = EventBus();
+
+  EventBus get bus =&gt; _eventBus;
+
+  EventBusManager._internal();
+&#125;
+
+// 全局使用
+final eventBus = EventBusManager().bus;
+</code></pre>
+<h3 id="4-订阅事件"><a href="#4-订阅事件" class="headerlink" title="4. 订阅事件"></a>4. 订阅事件</h3><pre><code class="dart">class UserProfilePage extends StatefulWidget &#123;
+  @override
+  _UserProfilePageState createState() =&gt; _UserProfilePageState();
+&#125;
+
+class _UserProfilePageState extends State&lt;UserProfilePage&gt; &#123;
+  late StreamSubscription _loginSubscription;
+  late StreamSubscription _logoutSubscription;
+
+  @override
+  void initState() &#123;
+    super.initState();
+
+    // 订阅登录事件
+    _loginSubscription = eventBus.on&lt;UserLoginEvent&gt;().listen((event) &#123;
+      print(&#39;用户登录: $&#123;event.username&#125;, Token: $&#123;event.token&#125;&#39;);
+      // 更新UI，显示用户信息
+      setState(() &#123;
+        // 更新用户状态
+      &#125;);
+    &#125;);
+
+    // 订阅登出事件
+    _logoutSubscription = eventBus.on&lt;UserLogoutEvent&gt;().listen((event) &#123;
+      print(&#39;用户已登出&#39;);
+      // 清除用户数据，跳转登录页
+      Navigator.of(context).pushReplacementNamed(&#39;/login&#39;);
+    &#125;);
+  &#125;
+
+  @override
+  void dispose() &#123;
+    // 重要：取消订阅，避免内存泄漏
+    _loginSubscription.cancel();
+    _logoutSubscription.cancel();
+    super.dispose();
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    return Scaffold(
+      appBar: AppBar(title: Text(&#39;用户中心&#39;)),
+      body: Center(child: Text(&#39;用户信息&#39;)),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h3 id="5-发布事件"><a href="#5-发布事件" class="headerlink" title="5. 发布事件"></a>5. 发布事件</h3><pre><code class="dart">class LoginService &#123;
+  Future&lt;void&gt; login(String username, String password) async &#123;
+    // 模拟登录请求
+    try &#123;
+      // ... 登录逻辑
+
+      // 登录成功后发布事件
+      eventBus.fire(UserLoginEvent(username, &#39;mock_token_12345&#39;));
+
+      // 或者发布其他类型的事件
+      // eventBus.fire(MessageReceivedEvent(&#39;欢迎回来！&#39;, DateTime.now()));
+    &#125; catch (e) &#123;
+      print(&#39;登录失败: $e&#39;);
+    &#125;
+  &#125;
+
+  Future&lt;void&gt; logout() async &#123;
+    // 模拟登出逻辑
+    // ...
+
+    // 发布登出事件
+    eventBus.fire(UserLogoutEvent());
+  &#125;
+&#125;
+</code></pre>
+<h2 id="EventBus-的高级用法"><a href="#EventBus-的高级用法" class="headerlink" title="EventBus 的高级用法"></a>EventBus 的高级用法</h2><h3 id="1-带参数的事件"><a href="#1-带参数的事件" class="headerlink" title="1. 带参数的事件"></a>1. 带参数的事件</h3><pre><code class="dart">// 定义复杂的事件类
+class OrderEvent &#123;
+  final String orderId;
+  final double amount;
+  final List&lt;String&gt; items;
+  final DateTime createTime;
+
+  OrderEvent(&#123;
+    required this.orderId,
+    required this.amount,
+    required this.items,
+    required this.createTime,
+  &#125;);
+&#125;
+
+// 使用事件
+eventBus.fire(OrderEvent(
+  orderId: &#39;ORD20260303&#39;,
+  amount: 99.99,
+  items: [&#39;商品A&#39;, &#39;商品B&#39;],
+  createTime: DateTime.now(),
+));
+</code></pre>
+<h3 id="2-事件过滤与转换"><a href="#2-事件过滤与转换" class="headerlink" title="2. 事件过滤与转换"></a>2. 事件过滤与转换</h3><pre><code class="dart">// 监听所有事件，进行过滤处理
+eventBus.on().listen((event) &#123;
+  if (event is UserLoginEvent) &#123;
+    // 处理登录事件
+    AnalyticsService.track(&#39;user_login&#39;, &#123;&#39;username&#39;: event.username&#125;);
+  &#125; else if (event is OrderEvent) &#123;
+    // 处理订单事件
+    print(&#39;新订单: $&#123;event.orderId&#125;&#39;);
+  &#125;
+&#125;);
+
+// 使用 where 进行过滤
+eventBus.on&lt;UserLoginEvent&gt;()
+  .where((event) =&gt; event.username.isNotEmpty)
+  .listen((event) &#123;
+    print(&#39;过滤后的登录事件: $&#123;event.username&#125;&#39;);
+  &#125;);
+</code></pre>
+<h3 id="3-错误处理"><a href="#3-错误处理" class="headerlink" title="3. 错误处理"></a>3. 错误处理</h3><pre><code class="dart">try &#123;
+  // 监听事件
+  eventBus.on&lt;UserLoginEvent&gt;().listen((event) &#123;
+    // 处理事件
+  &#125;);
+&#125; catch (e) &#123;
+  print(&#39;事件监听错误: $e&#39;);
+&#125;
+</code></pre>
+<h3 id="4-条件触发事件"><a href="#4-条件触发事件" class="headerlink" title="4. 条件触发事件"></a>4. 条件触发事件</h3><pre><code class="dart">// 在某个条件下触发事件
+void processOrder(Order order) async &#123;
+  if (order.status == OrderStatus.completed) &#123;
+    eventBus.fire(OrderCompletedEvent(order));
+  &#125; else if (order.status == OrderStatus.cancelled) &#123;
+    eventBus.fire(OrderCancelledEvent(order));
+  &#125;
+&#125;
+</code></pre>
+<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><h3 id="1-用户登录状态同步"><a href="#1-用户登录状态同步" class="headerlink" title="1. 用户登录状态同步"></a>1. 用户登录状态同步</h3><pre><code class="dart">// 登录页面
+class LoginPage extends StatelessWidget &#123;
+  void _handleLogin(BuildContext context) async &#123;
+    await LoginService().login(&#39;user&#39;, &#39;pass&#39;);
+    // 登录成功后，其他页面会自动收到通知
+  &#125;
+&#125;
+
+// 首页
+class HomePage extends StatefulWidget &#123;
+  @override
+  _HomePageState createState() =&gt; _HomePageState();
+&#125;
+
+class _HomePageState extends State&lt;HomePage&gt; &#123;
+  bool _isLoggedIn = false;
+
+  @override
+  void initState() &#123;
+    super.initState();
+    eventBus.on&lt;UserLoginEvent&gt;().listen((event) &#123;
+      setState(() =&gt; _isLoggedIn = true);
+    &#125;);
+    eventBus.on&lt;UserLogoutEvent&gt;().listen((event) &#123;
+      setState(() =&gt; _isLoggedIn = false);
+    &#125;);
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    return Scaffold(
+      body: _isLoggedIn ? Text(&#39;已登录&#39;) : Text(&#39;未登录&#39;),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h3 id="2-购物车数量更新"><a href="#2-购物车数量更新" class="headerlink" title="2. 购物车数量更新"></a>2. 购物车数量更新</h3><pre><code class="dart">// 购物车事件
+class CartUpdateEvent &#123;
+  final int itemCount;
+  CartUpdateEvent(this.itemCount);
+&#125;
+
+// 购物车页面添加商品
+void addToCart(Product product) &#123;
+  // ... 添加逻辑
+  eventBus.fire(CartUpdateEvent(newCount));
+&#125;
+
+// 导航栏显示购物车数量
+class NavBar extends StatefulWidget &#123;
+  @override
+  _NavBarState createState() =&gt; _NavBarState();
+&#125;
+
+class _NavBarState extends State&lt;NavBar&gt; &#123;
+  int _cartCount = 0;
+
+  @override
+  void initState() &#123;
+    super.initState();
+    eventBus.on&lt;CartUpdateEvent&gt;().listen((event) &#123;
+      setState(() =&gt; _cartCount = event.itemCount);
+    &#125;);
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: &#39;首页&#39;),
+        BottomNavigationBarItem(
+          icon: Badge(
+            label: Text(&#39;$_cartCount&#39;),
+            isLabelVisible: _cartCount &gt; 0,
+            child: Icon(Icons.shopping_cart),
+          ),
+          label: &#39;购物车&#39;,
+        ),
+      ],
+    );
+  &#125;
+&#125;
+</code></pre>
+<h3 id="3-主题切换"><a href="#3-主题切换" class="headerlink" title="3. 主题切换"></a>3. 主题切换</h3><pre><code class="dart">class ThemeChangeEvent &#123;
+  final ThemeData theme;
+  ThemeChangeEvent(this.theme);
+&#125;
+
+// 设置页面
+class SettingsPage extends StatelessWidget &#123;
+  void _changeTheme(BuildContext context, ThemeData theme) &#123;
+    eventBus.fire(ThemeChangeEvent(theme));
+  &#125;
+&#125;
+
+// 应用根组件
+class App extends StatefulWidget &#123;
+  @override
+  _AppState createState() =&gt; _AppState();
+&#125;
+
+class _AppState extends State&lt;App&gt; &#123;
+  ThemeData _currentTheme = ThemeData.light();
+
+  @override
+  void initState() &#123;
+    super.initState();
+    eventBus.on&lt;ThemeChangeEvent&gt;().listen((event) &#123;
+      setState(() =&gt; _currentTheme = event.theme);
+    &#125;);
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    return MaterialApp(
+      theme: _currentTheme,
+      home: HomePage(),
+    );
+  &#125;
+&#125;
+</code></pre>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="1-及时取消订阅"><a href="#1-及时取消订阅" class="headerlink" title="1. 及时取消订阅"></a>1. 及时取消订阅</h3><pre><code class="dart">@override
+void dispose() &#123;
+  // 必须取消订阅，防止内存泄漏
+  _subscription.cancel();
+  super.dispose();
+&#125;
+</code></pre>
+<h3 id="2-避免订阅过多事件"><a href="#2-避免订阅过多事件" class="headerlink" title="2. 避免订阅过多事件"></a>2. 避免订阅过多事件</h3><pre><code class="dart">// 不好：订阅所有事件
+eventBus.on().listen((event) &#123; ... &#125;);
+
+// 好：只订阅需要的特定事件
+eventBus.on&lt;SpecificEvent&gt;().listen((event) &#123; ... &#125;);
+</code></pre>
+<h3 id="3-事件命名规范"><a href="#3-事件命名规范" class="headerlink" title="3. 事件命名规范"></a>3. 事件命名规范</h3><pre><code class="dart">// 使用清晰的事件命名
+class UserLoggedInEvent &#123;&#125;  // ✓
+class Login &#123;&#125;              // ✗
+
+class OrderCreatedEvent &#123;&#125;  // ✓
+class Create &#123;&#125;             // ✗
+</code></pre>
+<h3 id="4-考虑使用其他方案"><a href="#4-考虑使用其他方案" class="headerlink" title="4. 考虑使用其他方案"></a>4. 考虑使用其他方案</h3><p>对于复杂的状态管理，建议使用 Provider、Bloc 或 Riverpod 等专业状态管理方案，EventBus 适用于简单的跨组件通信场景。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>EventBus 是 Flutter 中实现组件间通信的简单有效的方式。通过发布&#x2F;订阅模式，我们可以实现松耦合的代码结构，让应用各部分之间的通信更加灵活。在实际开发中，我们应该根据具体场景选择合适的方案：简单的跨组件通信使用 EventBus，复杂的状态管理使用专业的状态管理库。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
