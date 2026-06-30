@@ -1,0 +1,872 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Kotlin协程详解 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Kotlin协程详解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/6/26
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #00a596">
+                    Android
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Kotlin/" style="color: #03a9f4">
+                    Kotlin
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>协程是 Kotlin 官方推荐的异步编程方案，它用同步的写法完成异步操作，解决了传统回调地狱和线程切换的痛点。无论是网络请求、数据库操作还是并发任务，协程都能让代码简洁且高效。</p>
+<span id="more"></span>
+
+<h2 id="什么是协程？"><a href="#什么是协程？" class="headerlink" title="什么是协程？"></a>什么是协程？</h2><p>协程（Coroutine）是一种<strong>轻量级线程</strong>，它可以在不阻塞线程的情况下挂起和恢复执行。核心特点：</p>
+<ul>
+<li><strong>挂起不阻塞</strong>：协程被挂起时，当前线程不会被阻塞，可以继续执行其他任务</li>
+<li><strong>同步写法异步执行</strong>：用看似同步的代码写异步逻辑，告别回调嵌套</li>
+<li><strong>结构化并发</strong>：协程有明确的生命周期作用域，任务可以被统一管理、取消</li>
+</ul>
+<h3 id="协程-vs-线程"><a href="#协程-vs-线程" class="headerlink" title="协程 vs 线程"></a>协程 vs 线程</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>线程</th>
+<th>协程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调度方式</td>
+<td>操作系统调度</td>
+<td>用户态调度</td>
+</tr>
+<tr>
+<td>创建开销</td>
+<td>较大（~1MB 栈空间）</td>
+<td>极小（几 KB）</td>
+</tr>
+<tr>
+<td>切换开销</td>
+<td>内核态切换，成本高</td>
+<td>用户态切换，成本低</td>
+</tr>
+<tr>
+<td>数量限制</td>
+<td>受内核限制</td>
+<td>可创建成千上万个</td>
+</tr>
+<tr>
+<td>取消支持</td>
+<td>需要手动中断</td>
+<td>内置取消机制</td>
+</tr>
+</tbody></table>
+<h2 id="为什么需要协程？"><a href="#为什么需要协程？" class="headerlink" title="为什么需要协程？"></a>为什么需要协程？</h2><h3 id="1-解决回调地狱"><a href="#1-解决回调地狱" class="headerlink" title="1. 解决回调地狱"></a>1. 解决回调地狱</h3><p>传统回调嵌套层层深入，可读性极差：</p>
+<pre><code class="kotlin">// 回调地狱
+api.login(user) &#123; token -&gt;
+    api.getProfile(token) &#123; profile -&gt;
+        api.getFriends(profile.id) &#123; friends -&gt;
+            // 终于拿到了 friends...
+        &#125;
+    &#125;
+&#125;
+
+// 协程写法：线性逻辑，一目了然
+suspend fun loadFriends() &#123;
+    val token = api.login(user)
+    val profile = api.getProfile(token)
+    val friends = api.getFriends(profile.id)
+&#125;
+</code></pre>
+<h3 id="2-线程切换简洁"><a href="#2-线程切换简洁" class="headerlink" title="2. 线程切换简洁"></a>2. 线程切换简洁</h3><p>传统方式需要 Handler、RxJava 等来回切换线程，协程用 <code>withContext</code> 一行搞定：</p>
+<pre><code class="kotlin">// 传统写法
+Thread &#123;
+    val data = fetchData()
+    runOnUiThread &#123;
+        textView.text = data
+    &#125;
+&#125;.start()
+
+// 协程写法
+lifecycleScope.launch &#123;
+    val data = withContext(Dispatchers.IO) &#123; fetchData() &#125;
+    textView.text = data  // 自动切回主线程
+&#125;
+</code></pre>
+<h3 id="3-生命周期感知"><a href="#3-生命周期感知" class="headerlink" title="3. 生命周期感知"></a>3. 生命周期感知</h3><p>协程配合 <code>lifecycleScope</code> 或 <code>viewModelScope</code>，当页面销毁时自动取消，避免内存泄漏和空指针。</p>
+<h2 id="协程基础"><a href="#协程基础" class="headerlink" title="协程基础"></a>协程基础</h2><h3 id="1-创建协程：launch-与-async"><a href="#1-创建协程：launch-与-async" class="headerlink" title="1. 创建协程：launch 与 async"></a>1. 创建协程：launch 与 async</h3><pre><code class="kotlin">// launch：不关心返回值，返回 Job
+val job = scope.launch &#123;
+    doSomething()
+&#125;
+
+// async：需要返回值，返回 Deferred
+val deferred = scope.async &#123;
+    computeResult()
+&#125;
+val result = deferred.await()  // 等待并获取结果
+</code></pre>
+<p><strong>核心区别</strong>：<code>launch</code> 是”发射后不管”，<code>async</code> 是”执行并等待结果”。</p>
+<h3 id="2-挂起函数-suspend"><a href="#2-挂起函数-suspend" class="headerlink" title="2. 挂起函数 suspend"></a>2. 挂起函数 suspend</h3><p><code>suspend</code> 关键字标记的函数可以被挂起和恢复，只能在协程或其他挂起函数中调用：</p>
+<pre><code class="kotlin">suspend fun fetchUser(): User &#123;
+    delay(1000)  // 挂起，不阻塞线程
+    return User(&quot;张三&quot;)
+&#125;
+
+// delay 是非阻塞的挂起函数
+// Thread.sleep 是阻塞的，两者完全不同
+</code></pre>
+<h3 id="3-runBlocking"><a href="#3-runBlocking" class="headerlink" title="3. runBlocking"></a>3. runBlocking</h3><p><code>runBlocking</code> 会阻塞当前线程直到协程完成，一般只用于测试和 main 函数：</p>
+<pre><code class="kotlin">fun main() = runBlocking &#123;
+    launch &#123;
+        delay(1000)
+        println(&quot;Hello&quot;)
+    &#125;
+    println(&quot;World&quot;)  // 先输出 World，1 秒后输出 Hello
+&#125;
+</code></pre>
+<h2 id="协程调度器-Dispatchers"><a href="#协程调度器-Dispatchers" class="headerlink" title="协程调度器 Dispatchers"></a>协程调度器 Dispatchers</h2><p>调度器决定了协程在哪个线程或线程池上执行：</p>
+<pre><code class="kotlin">lifecycleScope.launch(Dispatchers.Main) &#123;
+    // Dispatchers.Main：主线程，用于 UI 更新
+    textView.text = &quot;开始加载&quot;
+
+    val data = withContext(Dispatchers.IO) &#123;
+        // Dispatchers.IO：IO 线程池，用于网络、数据库等
+        api.fetchData()
+    &#125;
+
+    val processed = withContext(Dispatchers.Default) &#123;
+        // Dispatchers.Default：CPU 密集型线程池
+        processLargeData(data)
+    &#125;
+
+    textView.text = processed  // 回到主线程
+&#125;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>调度器</th>
+<th>用途</th>
+<th>线程数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Dispatchers.Main</code></td>
+<td>UI 操作</td>
+<td>主线程</td>
+</tr>
+<tr>
+<td><code>Dispatchers.IO</code></td>
+<td>网络、文件、数据库</td>
+<td>64 个（可弹性扩展）</td>
+</tr>
+<tr>
+<td><code>Dispatchers.Default</code></td>
+<td>CPU 密集型计算</td>
+<td>CPU 核心数</td>
+</tr>
+<tr>
+<td><code>Dispatchers.Unconfined</code></td>
+<td>不限制（几乎不用）</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id="协程上下文与作用域"><a href="#协程上下文与作用域" class="headerlink" title="协程上下文与作用域"></a>协程上下文与作用域</h2><h3 id="协程上下文-CoroutineContext"><a href="#协程上下文-CoroutineContext" class="headerlink" title="协程上下文 CoroutineContext"></a>协程上下文 CoroutineContext</h3><p>上下文是协程的配置集合，包含 Job、Dispatcher、CoroutineName 等元素：</p>
+<pre><code class="kotlin">scope.launch(
+    Dispatchers.IO + Job() + CoroutineName(&quot;MyCoroutine&quot;)
+) &#123;
+    // 协程名 + IO 调度器 + 独立 Job
+&#125;
+
+// 通过 coroutineContext 获取
+launch &#123;
+    println(coroutineContext[CoroutineName])  // 获取协程名
+    println(coroutineContext[Job])            // 获取 Job
+&#125;
+</code></pre>
+<h3 id="协程作用域-CoroutineScope"><a href="#协程作用域-CoroutineScope" class="headerlink" title="协程作用域 CoroutineScope"></a>协程作用域 CoroutineScope</h3><p>作用域管理协程的生命周期，不同作用域适用于不同场景：</p>
+<pre><code class="kotlin">// 1. GlobalScope：全局作用域，生命周期与 App 一致（不推荐）
+GlobalScope.launch &#123; &#125;
+
+// 2. lifecycleScope：Activity/Fragment 生命周期作用域
+lifecycleScope.launch &#123; &#125;
+
+// 3. viewModelScope：ViewModel 生命周期作用域
+viewModelScope.launch &#123; &#125;
+
+// 4. 自定义作用域
+private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+// 不再需要时取消
+scope.cancel()
+</code></pre>
+<p><strong>优先级推荐</strong>：<code>viewModelScope</code> &gt; <code>lifecycleScope</code> &gt; 自定义 Scope &gt; <code>GlobalScope</code></p>
+<h2 id="结构化并发"><a href="#结构化并发" class="headerlink" title="结构化并发"></a>结构化并发</h2><p>结构化并发是协程的核心设计理念：父协程必须等待所有子协程完成，形成了天然的依赖关系。</p>
+<h3 id="父子关系与取消传播"><a href="#父子关系与取消传播" class="headerlink" title="父子关系与取消传播"></a>父子关系与取消传播</h3><pre><code class="kotlin">scope.launch &#123;  // 父协程
+    launch &#123;  // 子协程 1
+        delay(1000)
+        println(&quot;子协程 1 完成&quot;)
+    &#125;
+    launch &#123;  // 子协程 2
+        delay(2000)
+        println(&quot;子协程 2 完成&quot;)
+    &#125;
+    println(&quot;父协程完成&quot;)
+&#125;
+// 父协程会等待所有子协程结束后才结束
+// 取消父协程 = 取消所有子协程
+</code></pre>
+<h3 id="supervisorScope-vs-coroutineScope"><a href="#supervisorScope-vs-coroutineScope" class="headerlink" title="supervisorScope vs coroutineScope"></a>supervisorScope vs coroutineScope</h3><pre><code class="kotlin">// coroutineScope：一个子协程失败 → 所有子协程取消
+coroutineScope &#123;
+    launch &#123;
+        delay(500)
+        throw RuntimeException(&quot;失败了！&quot;)
+    &#125;
+    launch &#123;
+        delay(1000)  // 这个会被取消
+    &#125;
+&#125;
+
+// supervisorScope：一个子协程失败 → 不影响其他子协程
+supervisorScope &#123;
+    launch &#123;
+        delay(500)
+        throw RuntimeException(&quot;失败了！&quot;)
+    &#125;
+    launch &#123;
+        delay(1000)  // 这个正常执行
+        println(&quot;我活下来了&quot;)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="协程的取消与会话"><a href="#协程的取消与会话" class="headerlink" title="协程的取消与会话"></a>协程的取消与会话</h2><h3 id="取消协程"><a href="#取消协程" class="headerlink" title="取消协程"></a>取消协程</h3><pre><code class="kotlin">val job = scope.launch &#123;
+    repeat(1000) &#123; i -&gt;
+        delay(100)
+        println(&quot;执行第 $i 次&quot;)
+    &#125;
+&#125;
+
+delay(1500)
+job.cancel()      // 取消协程
+job.join()        // 等待协程结束
+// 或一步到位
+job.cancelAndJoin()
+</code></pre>
+<h3 id="让协程可取消"><a href="#让协程可取消" class="headerlink" title="让协程可取消"></a>让协程可取消</h3><p>协程的取消是<strong>协作式</strong>的，需要代码配合检查：</p>
+<pre><code class="kotlin">// 方式一：调用挂起函数（delay、withContext 等会自动检查取消）
+launch &#123;
+    delay(1000)  // 取消时会抛 CancellationException
+&#125;
+
+// 方式二：手动检查 isActive
+launch &#123;
+    repeat(1000) &#123; i -&gt;
+        if (!isActive) return@launch  // 主动检查
+        // 耗时计算...
+    &#125;
+&#125;
+
+// 方式三：ensureActive()
+launch &#123;
+    repeat(1000) &#123; i -&gt;
+        ensureActive()  // 已取消则抛 CancellationException
+        // 耗时计算...
+    &#125;
+&#125;
+
+// 方式四：yield() 让出执行权
+launch &#123;
+    repeat(1000) &#123; i -&gt;
+        yield()  // 挂起并检查取消
+        // 耗时操作...
+    &#125;
+&#125;
+</code></pre>
+<h3 id="资源释放：try-finally-和-use"><a href="#资源释放：try-finally-和-use" class="headerlink" title="资源释放：try-finally 和 use"></a>资源释放：try-finally 和 use</h3><pre><code class="kotlin">launch &#123;
+    try &#123;
+        doLongRunningWork()
+    &#125; finally &#123;
+        // 清理资源（如关闭数据库连接）
+    &#125;
+&#125;
+
+// 更推荐 use（类似 Java 的 try-with-resources）
+launch &#123;
+    openResource().use &#123; resource -&gt;
+        processResource(resource)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="并行执行多个任务"><a href="#并行执行多个任务" class="headerlink" title="并行执行多个任务"></a>并行执行多个任务</h2><h3 id="async-awaitAll"><a href="#async-awaitAll" class="headerlink" title="async + awaitAll"></a>async + awaitAll</h3><pre><code class="kotlin">suspend fun loadAllData(): Triple&lt;User, List&lt;Post&gt;, Config&gt; = coroutineScope &#123;
+    // 三个请求同时发起，提速 3 倍
+    val userDeferred = async &#123; api.getUser() &#125;
+    val postsDeferred = async &#123; api.getPosts() &#125;
+    val configDeferred = async &#123; api.getConfig() &#125;
+
+    // 统一等待结果
+    Triple(
+        userDeferred.await(),
+        postsDeferred.await(),
+        configDeferred.await()
+    )
+&#125;
+
+// 更简洁的写法
+suspend fun loadAllData(): Triple&lt;User, List&lt;Post&gt;, Config&gt; = coroutineScope &#123;
+    val (user, posts, config) = awaitAll(
+        async &#123; api.getUser() &#125;,
+        async &#123; api.getPosts() &#125;,
+        async &#123; api.getConfig() &#125;
+    )
+    Triple(user, posts, config)
+&#125;
+</code></pre>
+<h3 id="并发限制"><a href="#并发限制" class="headerlink" title="并发限制"></a>并发限制</h3><pre><code class="kotlin">// 使用 Semaphore 限制并发数
+val semaphore = Semaphore(3) // 最多 3 个并发
+
+val urls = listOf(...)
+urls.map &#123; url -&gt;
+    async &#123;
+        semaphore.withPermit &#123;
+            downloadFile(url)
+        &#125;
+    &#125;
+&#125;.awaitAll()
+</code></pre>
+<h2 id="协程异常处理"><a href="#协程异常处理" class="headerlink" title="协程异常处理"></a>协程异常处理</h2><h3 id="try-catch-launch"><a href="#try-catch-launch" class="headerlink" title="try-catch + launch"></a>try-catch + launch</h3><pre><code class="kotlin">// launch 内用 try-catch
+lifecycleScope.launch &#123;
+    try &#123;
+        api.fetchData()
+    &#125; catch (e: IOException) &#123;
+        // 处理网络异常
+    &#125;
+&#125;
+</code></pre>
+<h3 id="async-的异常"><a href="#async-的异常" class="headerlink" title="async 的异常"></a>async 的异常</h3><p><code>async</code> 内部的异常只在调用 <code>await()</code> 时抛出：</p>
+<pre><code class="kotlin">val deferred = scope.async &#123;
+    throw RuntimeException(&quot;出错了！&quot;)
+&#125;
+
+try &#123;
+    deferred.await() // 异常在这里抛出
+&#125; catch (e: Exception) &#123;
+    // 处理异常
+&#125;
+</code></pre>
+<h3 id="CoroutineExceptionHandler"><a href="#CoroutineExceptionHandler" class="headerlink" title="CoroutineExceptionHandler"></a>CoroutineExceptionHandler</h3><p>顶层的全局异常处理器，只能用于 <code>launch</code>（根协程），<code>async</code> 不适用：</p>
+<pre><code class="kotlin">val handler = CoroutineExceptionHandler &#123; _, exception -&gt;
+    Log.e(&quot;Coroutine&quot;, &quot;捕获异常：$&#123;exception.message&#125;&quot;)
+&#125;
+
+scope.launch(handler) &#123;
+    throw RuntimeException(&quot;测试异常&quot;)
+&#125;
+</code></pre>
+<h3 id="异常传播规则"><a href="#异常传播规则" class="headerlink" title="异常传播规则"></a>异常传播规则</h3><table>
+<thead>
+<tr>
+<th>协程类型</th>
+<th>异常行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>launch</code></td>
+<td>异常直接抛出，父协程可能被取消</td>
+</tr>
+<tr>
+<td><code>async</code></td>
+<td>异常在 <code>await()</code> 时抛出</td>
+</tr>
+<tr>
+<td><code>supervisorScope</code></td>
+<td>子协程异常不影响兄弟协程</td>
+</tr>
+<tr>
+<td><code>coroutineScope</code></td>
+<td>一个失败全取消</td>
+</tr>
+</tbody></table>
+<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><h3 id="场景一：网络请求-UI-更新"><a href="#场景一：网络请求-UI-更新" class="headerlink" title="场景一：网络请求 + UI 更新"></a>场景一：网络请求 + UI 更新</h3><pre><code class="kotlin">class UserViewModel : ViewModel() &#123;
+    private val _user = MutableLiveData&lt;User&gt;()
+    val user: LiveData&lt;User&gt; = _user
+
+    fun loadUser(userId: String) &#123;
+        viewModelScope.launch &#123;
+            // 在 IO 线程请求
+            val user = withContext(Dispatchers.IO) &#123;
+                api.getUser(userId)
+            &#125;
+            // 自动回到主线程
+            _user.value = user
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="场景二：超时控制"><a href="#场景二：超时控制" class="headerlink" title="场景二：超时控制"></a>场景二：超时控制</h3><pre><code class="kotlin">lifecycleScope.launch &#123;
+    val result = withTimeout(3000) &#123;  // 3 秒超时
+        api.fetchData()
+    &#125;
+    // 超时会抛 TimeoutCancellationException
+
+    // 或者带默认值
+    val result2 = withTimeoutOrNull(3000) &#123;
+        api.fetchData()
+    &#125; ?: &quot;默认数据&quot;
+&#125;
+</code></pre>
+<h3 id="场景三：并发网络请求"><a href="#场景三：并发网络请求" class="headerlink" title="场景三：并发网络请求"></a>场景三：并发网络请求</h3><pre><code class="kotlin">lifecycleScope.launch &#123;
+    val (user, posts) = awaitAll(
+        async(Dispatchers.IO) &#123; api.getUser() &#125;,
+        async(Dispatchers.IO) &#123; api.getPosts() &#125;
+    )
+    updateUI(user, posts)
+&#125;
+</code></pre>
+<h3 id="场景四：Flow-流式数据"><a href="#场景四：Flow-流式数据" class="headerlink" title="场景四：Flow 流式数据"></a>场景四：Flow 流式数据</h3><p>Flow 是协程中的响应式流，适合处理连续的数据序列：</p>
+<pre><code class="kotlin">// 创建 Flow
+fun getMessages(): Flow&lt;Message&gt; = flow &#123;
+    while (true) &#123;
+        val msg = api.pollMessage()
+        emit(msg)       // 发射数据
+        delay(500)
+    &#125;
+&#125;
+
+// 收集 Flow
+lifecycleScope.launch &#123;
+    getMessages().collect &#123; message -&gt;
+        updateMessageList(message)
+    &#125;
+&#125;
+</code></pre>
+<p>Flow 的冷流特性意味着数据只在被收集时才产生，不会浪费资源。此外，Flow 支持丰富的操作符：</p>
+<pre><code class="kotlin">lifecycleScope.launch &#123;
+    getMessages()
+        .filter &#123; it.type == MessageType.TEXT &#125;  // 过滤
+        .map &#123; it.content.uppercase() &#125;           // 转换
+        .flowOn(Dispatchers.IO)                   // 切换上游线程
+        .catch &#123; e -&gt; emit(&quot;加载失败&quot;) &#125;           // 异常处理
+        .collect &#123; text -&gt; updateUI(text) &#125;
+&#125;
+</code></pre>
+<h3 id="场景五：防抖处理"><a href="#场景五：防抖处理" class="headerlink" title="场景五：防抖处理"></a>场景五：防抖处理</h3><pre><code class="kotlin">// 搜索框输入防抖
+class SearchViewModel : ViewModel() &#123;
+    private var searchJob: Job? = null
+
+    fun onSearchTextChanged(query: String) &#123;
+        searchJob?.cancel()  // 取消上次搜索
+        searchJob = viewModelScope.launch &#123;
+            delay(300)  // 300ms 内无新输入才真正搜索
+            val results = withContext(Dispatchers.IO) &#123;
+                api.search(query)
+            &#125;
+            _searchResults.value = results
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="场景六：重试机制"><a href="#场景六：重试机制" class="headerlink" title="场景六：重试机制"></a>场景六：重试机制</h3><pre><code class="kotlin">suspend fun &lt;T&gt; retry(
+    times: Int = 3,
+    initialDelay: Long = 1000,
+    block: suspend () -&gt; T
+): T &#123;
+    var currentDelay = initialDelay
+    repeat(times - 1) &#123;
+        try &#123;
+            return block()
+        &#125; catch (e: Exception) &#123;
+            delay(currentDelay)
+            currentDelay *= 2  // 指数退避
+        &#125;
+    &#125;
+    return block()  // 最后一次尝试
+&#125;
+
+// 使用
+val data = retry(times = 3) &#123;
+    api.fetchUnstableData()
+&#125;
+</code></pre>
+<h2 id="常见问题及解决方案"><a href="#常见问题及解决方案" class="headerlink" title="常见问题及解决方案"></a>常见问题及解决方案</h2><h3 id="1-NetworkOnMainThreadException"><a href="#1-NetworkOnMainThreadException" class="headerlink" title="1. NetworkOnMainThreadException"></a>1. NetworkOnMainThreadException</h3><p>协程不会自动切换线程！在 <code>Dispatchers.Main</code> 启动的协程做网络请求仍然会崩溃。</p>
+<p><strong>错误写法</strong>：</p>
+<pre><code class="kotlin">lifecycleScope.launch &#123;
+    api.fetchData()  // 崩溃！仍在主线程
+&#125;
+</code></pre>
+<p><strong>正确写法</strong>：</p>
+<pre><code class="kotlin">lifecycleScope.launch &#123;
+    val data = withContext(Dispatchers.IO) &#123;
+        api.fetchData()  // 正确：在 IO 线程
+    &#125;
+    updateUI(data)
+&#125;
+</code></pre>
+<h3 id="2-协程泄露"><a href="#2-协程泄露" class="headerlink" title="2. 协程泄露"></a>2. 协程泄露</h3><p>启动协程但不管理生命周期，导致协程在页面销毁后仍在执行。</p>
+<pre><code class="kotlin">// 错误：GlobalScope 不受生命周期管控
+GlobalScope.launch &#123;
+    api.fetchData()  // 页面销毁后仍在执行
+&#125;
+
+// 正确：使用生命周期作用域
+lifecycleScope.launch &#123;
+    api.fetchData()  // 页面销毁自动取消
+&#125;
+</code></pre>
+<h3 id="3-取消后执行不可取消代码"><a href="#3-取消后执行不可取消代码" class="headerlink" title="3. 取消后执行不可取消代码"></a>3. 取消后执行不可取消代码</h3><p>被取消的协程中，非挂起代码可能继续执行：</p>
+<pre><code class="kotlin">val job = scope.launch &#123;
+    try &#123;
+        while (hasMore) &#123;
+            processItem()  // 纯计算，不会检查取消
+        &#125;
+    &#125; finally &#123;
+        // 这里仍然会执行
+        cleanUp()
+    &#125;
+&#125;
+job.cancel()
+</code></pre>
+<p>解决方案：在循环中主动检查 <code>isActive</code>。</p>
+<h3 id="4-suspend-函数只能在协程内调用"><a href="#4-suspend-函数只能在协程内调用" class="headerlink" title="4. suspend 函数只能在协程内调用"></a>4. suspend 函数只能在协程内调用</h3><pre><code class="kotlin">// 编译错误：Suspend function should be called only from a coroutine
+fun onClick() &#123;
+    fetchUser()  // 错误！
+&#125;
+
+// 正确
+fun onClick() &#123;
+    lifecycleScope.launch &#123;
+        fetchUser()  // 正确
+    &#125;
+&#125;
+</code></pre>
+<h2 id="有哪些最佳实践？"><a href="#有哪些最佳实践？" class="headerlink" title="有哪些最佳实践？"></a>有哪些最佳实践？</h2><h3 id="1-用-viewModelScope-lifecycleScope，不用-GlobalScope"><a href="#1-用-viewModelScope-lifecycleScope，不用-GlobalScope" class="headerlink" title="1. 用 viewModelScope &#x2F; lifecycleScope，不用 GlobalScope"></a>1. 用 viewModelScope &#x2F; lifecycleScope，不用 GlobalScope</h3><pre><code class="kotlin">class MyViewModel : ViewModel() &#123;
+    fun loadData() &#123;
+        viewModelScope.launch &#123;  // 推荐
+            // 页面销毁自动取消
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="2-withContext-切换线程，不要让-launch-的调度器混用"><a href="#2-withContext-切换线程，不要让-launch-的调度器混用" class="headerlink" title="2. withContext 切换线程，不要让 launch 的调度器混用"></a>2. withContext 切换线程，不要让 launch 的调度器混用</h3><pre><code class="kotlin">// 推荐：外层用 Main，内部用 withContext 切换
+lifecycleScope.launch(Dispatchers.Main) &#123;
+    val data = withContext(Dispatchers.IO) &#123; api.fetch() &#125;
+    updateUI(data)
+&#125;
+
+// 不推荐：外层直接指定 IO，回主线程又得套一层
+lifecycleScope.launch(Dispatchers.IO) &#123;
+    val data = api.fetch()
+    withContext(Dispatchers.Main) &#123; updateUI(data) &#125;
+&#125;
+</code></pre>
+<h3 id="3-避免不必要的-async"><a href="#3-避免不必要的-async" class="headerlink" title="3. 避免不必要的 async"></a>3. 避免不必要的 async</h3><p>如果不需要并发，不要用 <code>async</code> → <code>await</code>，直接用 <code>withContext</code>：</p>
+<pre><code class="kotlin">// 不推荐：单任务用 async
+val result = scope.async(Dispatchers.IO) &#123; api.fetch() &#125;.await()
+
+// 推荐：单任务用 withContext
+val result = withContext(Dispatchers.IO) &#123; api.fetch() &#125;
+</code></pre>
+<h3 id="4-用-SupervisorJob-隔离异常"><a href="#4-用-SupervisorJob-隔离异常" class="headerlink" title="4. 用 SupervisorJob 隔离异常"></a>4. 用 SupervisorJob 隔离异常</h3><pre><code class="kotlin">// ViewModel 中推荐 SupervisorJob
+private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+scope.launch &#123; task1() &#125;  // task1 失败不影响 task2
+scope.launch &#123; task2() &#125;
+</code></pre>
+<h3 id="5-Flow-中使用-catch-而非-try-catch"><a href="#5-Flow-中使用-catch-而非-try-catch" class="headerlink" title="5. Flow 中使用 catch 而非 try-catch"></a>5. Flow 中使用 catch 而非 try-catch</h3><pre><code class="kotlin">// 推荐
+flow &#123;
+    emit(api.fetch())
+&#125;.catch &#123; e -&gt;
+    emit(&quot;默认值&quot;)  // Flow 内建的异常处理
+&#125;.collect &#123; ... &#125;
+
+// 不推荐（异常会取消 Flow）
+flow.collect &#123;
+    try &#123;
+        // ...
+    &#125; catch (e: Exception) &#123; ... &#125;
+&#125;
+</code></pre>
+<h3 id="6-及时释放资源"><a href="#6-及时释放资源" class="headerlink" title="6. 及时释放资源"></a>6. 及时释放资源</h3><pre><code class="kotlin">launch &#123;
+    Dispatchers.IO.use &#123;  // use 会自动清理
+        val channel = openChannel()
+        // ...
+    &#125;
+&#125;
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>协程是 Kotlin 异步编程的首选方案，核心优势：</p>
+<ul>
+<li><strong>同步写法，异步执行</strong>：<code>suspend</code> 函数让异步代码读起来像同步代码</li>
+<li><strong>轻量级</strong>：协程不是线程，创建和切换成本极低，可以开成千上万个</li>
+<li><strong>结构化并发</strong>：<code>coroutineScope</code> &#x2F; <code>supervisorScope</code> 管理父子关系，取消传播自动化</li>
+<li><strong>线程切换简单</strong>：<code>withContext</code> 一行搞定，不需要 Handler、RxJava 等工具</li>
+</ul>
+<p>记住核心口诀：<strong>launch 不管结果、async 等结果、suspend 可挂起、withContext 切线程</strong>。</p>
+<p>最后牢记三点：</p>
+<ol>
+<li>用 <code>viewModelScope</code> &#x2F; <code>lifecycleScope</code> 绑定生命周期，别用 <code>GlobalScope</code></li>
+<li>耗时操作用 <code>withContext(Dispatchers.IO)</code> 包裹，别让主线程协程执行耗时任务</li>
+<li>循环耗时计算中用 <code>isActive</code> 检查取消状态，保证协程可取消</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

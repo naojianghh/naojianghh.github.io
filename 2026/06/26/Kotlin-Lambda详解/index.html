@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Kotlin Lambda详解 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Kotlin Lambda详解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/6/26
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ffa2c4">
+                    Android
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Kotlin/" style="color: #ff7d73">
+                    Kotlin
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Lambda 表达式是 Kotlin 最强大的语言特性之一。它让代码更加简洁、函数式编程成为可能，也是集合操作、协程等高级特性的基石。本文从零开始，带你彻底掌握 Kotlin 的 Lambda。</p>
+<span id="more"></span>
+
+<h2 id="什么是-Lambda？"><a href="#什么是-Lambda？" class="headerlink" title="什么是 Lambda？"></a>什么是 Lambda？</h2><p>Lambda 本质上就是一个<strong>匿名函数</strong>——没有名字、可以直接传递的函数。它可以作为参数传给另一个函数，也可以赋值给变量，甚至可以作为一个函数的返回值。</p>
+<pre><code class="kotlin">// 普通函数
+fun add(a: Int, b: Int): Int &#123;
+    return a + b
+&#125;
+
+// 等价的 Lambda 表达式
+val add: (Int, Int) -&gt; Int = &#123; a, b -&gt; a + b &#125;
+
+// 调用方式完全相同
+add(1, 2)  // 3
+</code></pre>
+<p><strong>为什么需要 Lambda？</strong></p>
+<p>传统的面向对象语言中，想要传递一个行为，通常需要创建一个匿名内部类：</p>
+<pre><code class="kotlin">// Java 风格：繁琐的匿名内部类
+button.setOnClickListener(object : View.OnClickListener &#123;
+    override fun onClick(v: View?) &#123;
+        println(&quot;按钮被点击了&quot;)
+    &#125;
+&#125;)
+
+// Kotlin Lambda：一行搞定
+button.setOnClickListener &#123; println(&quot;按钮被点击了&quot;) &#125;
+</code></pre>
+<p>Lambda 让”传递行为”变得像”传递数据”一样简单。</p>
+<h2 id="Lambda-语法全解"><a href="#Lambda-语法全解" class="headerlink" title="Lambda 语法全解"></a>Lambda 语法全解</h2><h3 id="基本语法结构"><a href="#基本语法结构" class="headerlink" title="基本语法结构"></a>基本语法结构</h3><pre><code class="kotlin">&#123; 参数名: 参数类型 -&gt; 函数体 &#125;
+</code></pre>
+<ul>
+<li>花括号 <code>&#123;&#125;</code> 包裹整个 Lambda</li>
+<li><code>-&gt;</code> 左边是参数列表，右边是函数体</li>
+<li>最后一行自动作为返回值（不需要 <code>return</code>）</li>
+</ul>
+<pre><code class="kotlin">// 完整写法
+val sum: (Int, Int) -&gt; Int = &#123; x: Int, y: Int -&gt; x + y &#125;
+
+// 类型推断：类型声明在变量上，Lambda 内可省略类型
+val sum2: (Int, Int) -&gt; Int = &#123; x, y -&gt; x + y &#125;
+
+// 反过来：类型写在 Lambda 内，变量声明可省略
+val sum3 = &#123; x: Int, y: Int -&gt; x + y &#125;
+</code></pre>
+<h3 id="不同类型推断方式对比"><a href="#不同类型推断方式对比" class="headerlink" title="不同类型推断方式对比"></a>不同类型推断方式对比</h3><pre><code class="kotlin">// 方式一：变量声明类型，Lambda 内推断
+val add: (Int, Int) -&gt; Int = &#123; a, b -&gt; a + b &#125;
+
+// 方式二：Lambda 内声明类型，变量推断
+val add2 = &#123; a: Int, b: Int -&gt; a + b &#125;
+
+// 方式三：两者都不声明 → 编译错误！
+// val add3 = &#123; a, b -&gt; a + b &#125;  // 错误：无法推断类型
+
+// 方式四：有接收者时从上下文推断
+listOf(1, 2, 3).map &#123; it * 2 &#125;  // it 自动推断为 Int
+</code></pre>
+<h3 id="单参数简写：it"><a href="#单参数简写：it" class="headerlink" title="单参数简写：it"></a>单参数简写：it</h3><p>当 Lambda 只有一个参数时，可以省略参数声明，用 <code>it</code> 代替：</p>
+<pre><code class="kotlin">val numbers = listOf(1, 2, 3, 4, 5)
+
+// 完整写法
+numbers.filter &#123; number -&gt; number &gt; 3 &#125;
+
+// it 简写
+numbers.filter &#123; it &gt; 3 &#125;
+
+// 但参数含义不明确时不建议用 it，影响可读性
+people.filter &#123; it.age &gt; 18 &#125;  // 还行
+people.groupBy &#123; it &#125;          // 这是什么？建议用命名参数
+</code></pre>
+<h3 id="无参数-Lambda"><a href="#无参数-Lambda" class="headerlink" title="无参数 Lambda"></a>无参数 Lambda</h3><pre><code class="kotlin">// 无参数时，-&gt; 可以省略
+val sayHello: () -&gt; Unit = &#123; println(&quot;Hello&quot;) &#125;
+
+// 或者显式写出 -&gt;
+val sayHello2: () -&gt; Unit = &#123; -&gt; println(&quot;Hello&quot;) &#125;
+
+// 调用
+sayHello()
+</code></pre>
+<h3 id="多行-Lambda"><a href="#多行-Lambda" class="headerlink" title="多行 Lambda"></a>多行 Lambda</h3><pre><code class="kotlin">val calculate: (Int, Int) -&gt; Int = &#123; a, b -&gt;
+    println(&quot;计算 $a + $b&quot;)
+    val result = a + b
+    result  // 最后一行是返回值，不要写 return
+&#125;
+</code></pre>
+<h2 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h2><p>Lambda 可以赋值给变量、作为参数传递，这背后是 Kotlin 的<strong>函数类型</strong>（Function Type）机制。</p>
+<h3 id="函数类型的写法"><a href="#函数类型的写法" class="headerlink" title="函数类型的写法"></a>函数类型的写法</h3><pre><code class="kotlin">// 基础形式
+(参数类型列表) -&gt; 返回值类型
+
+// 举例
+() -&gt; Unit                    // 无参无返回值
+(Int, String) -&gt; Boolean      // 两个参数，返回 Boolean
+(Int) -&gt; (Int) -&gt; Boolean     // 返回一个函数（柯里化）
+</code></pre>
+<h3 id="声明函数类型的变量"><a href="#声明函数类型的变量" class="headerlink" title="声明函数类型的变量"></a>声明函数类型的变量</h3><pre><code class="kotlin">// 声明一个函数类型的变量
+var action: (String) -&gt; Unit = &#123; msg -&gt; println(msg) &#125;
+
+// 可以重新赋值（只要类型匹配）
+action = &#123; println(&quot;收到：$it&quot;) &#125;
+
+// 调用
+action(&quot;Hello&quot;)  // 输出：收到：Hello
+</code></pre>
+<h3 id="函数类型作为参数"><a href="#函数类型作为参数" class="headerlink" title="函数类型作为参数"></a>函数类型作为参数</h3><pre><code class="kotlin">// 接收一个 String → Int 的函数作为参数
+fun processText(text: String, transform: (String) -&gt; Int): Int &#123;
+    return transform(text)
+&#125;
+
+// 调用方式
+val length = processText(&quot;Kotlin&quot;) &#123; it.length &#125;           // 6
+val hash = processText(&quot;Kotlin&quot;) &#123; it.hashCode() &#125;          // 具体值
+val count = processText(&quot;Hello World&quot;) &#123; it.split(&quot; &quot;).size &#125; // 2
+</code></pre>
+<h3 id="函数类型作为返回值"><a href="#函数类型作为返回值" class="headerlink" title="函数类型作为返回值"></a>函数类型作为返回值</h3><pre><code class="kotlin">// 返回一个函数
+fun createMultiplier(factor: Int): (Int) -&gt; Int &#123;
+    return &#123; number -&gt; number * factor &#125;
+&#125;
+
+val double = createMultiplier(2)
+val triple = createMultiplier(3)
+
+println(double(5))  // 10
+println(triple(5))  // 15
+</code></pre>
+<h2 id="尾随-Lambda-语法"><a href="#尾随-Lambda-语法" class="headerlink" title="尾随 Lambda 语法"></a>尾随 Lambda 语法</h2><p>这是 Kotlin 最实用的语法糖之一：<strong>当函数的最后一个参数是 Lambda 时，Lambda 可以写在括号外面</strong>。</p>
+<pre><code class="kotlin">// 标准调用
+list.fold(0, &#123; acc, item -&gt; acc + item &#125;)
+
+// 尾随 Lambda：更干净
+list.fold(0) &#123; acc, item -&gt; acc + item &#125;
+</code></pre>
+<h3 id="常见场景"><a href="#常见场景" class="headerlink" title="常见场景"></a>常见场景</h3><pre><code class="kotlin">// 如果 Lambda 是唯一参数，连括号都可以省略
+list.forEach(&#123; item -&gt; println(item) &#125;)
+list.forEach &#123; println(it) &#125;  // 括号也不需要
+
+// with、apply 等作用域函数
+val user = User().apply &#123;
+    name = &quot;张三&quot;
+    age = 18
+&#125;
+
+// 协程
+scope.launch &#123;
+    delay(1000)
+    println(&quot;Hello&quot;)
+&#125;
+</code></pre>
+<h3 id="多个参数时的位置"><a href="#多个参数时的位置" class="headerlink" title="多个参数时的位置"></a>多个参数时的位置</h3><pre><code class="kotlin">fun repeat(times: Int, action: (Int) -&gt; Unit) &#123;
+    for (i in 0 until times) action(i)
+&#125;
+
+// Lambda 在前：必须用括号包裹
+repeat(&#123; println(it) &#125;, 3)  // 不推荐
+
+// Lambda 在最后：可以用尾随语法
+repeat(3) &#123; println(it) &#125;   // 推荐
+</code></pre>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p><strong>高阶函数</strong>是指接收函数作为参数，或者返回一个函数的函数。</p>
+<h3 id="map、filter、fold-等集合操作"><a href="#map、filter、fold-等集合操作" class="headerlink" title="map、filter、fold 等集合操作"></a>map、filter、fold 等集合操作</h3><p>这些是最常用的高阶函数：</p>
+<pre><code class="kotlin">val numbers = listOf(1, 2, 3, 4, 5, 6)
+
+// filter：过滤
+val evens = numbers.filter &#123; it % 2 == 0 &#125;  // [2, 4, 6]
+
+// map：转换
+val squares = numbers.map &#123; it * it &#125;  // [1, 4, 9, 16, 25, 36]
+
+// fold：累加（带初始值）
+val sum = numbers.fold(0) &#123; acc, n -&gt; acc + n &#125;  // 21
+
+// reduce：累加（无初始值，用第一个元素作为初始值）
+val sum2 = numbers.reduce &#123; acc, n -&gt; acc + n &#125;  // 21
+
+// any / all / none：条件判断
+val hasBig = numbers.any &#123; it &gt; 5 &#125;   // true
+val allSmall = numbers.all &#123; it &lt; 10 &#125; // true
+val noneBig = numbers.none &#123; it &gt; 10 &#125; // true
+</code></pre>
+<h3 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h3><pre><code class="kotlin">data class Person(val name: String, val age: Int)
+
+val people = listOf(
+    Person(&quot;张三&quot;, 18),
+    Person(&quot;李四&quot;, 25),
+    Person(&quot;王五&quot;, 30)
+)
+
+// 链式操作：找出成年人，取名字，转为大写，排序
+val result = people
+    .filter &#123; it.age &gt;= 18 &#125;
+    .map &#123; it.name.uppercase() &#125;
+    .sorted()
+// [李四, 王五, 张三]
+</code></pre>
+<h3 id="flatMap-展平映射"><a href="#flatMap-展平映射" class="headerlink" title="flatMap 展平映射"></a>flatMap 展平映射</h3><p><code>flatMap</code> 是 <code>map</code> + <code>flatten</code> 的组合：先用 <code>map</code> 把每个元素转成一个集合，再把这些小集合<strong>拍扁</strong>合并成一个大集合。</p>
+<p><strong>一个典型场景</strong>：有一批用户，要取出每个人的所有订单：</p>
+<pre><code class="kotlin">data class User(val name: String, val orders: List&lt;String&gt;)
+
+val users = listOf(
+    User(&quot;张三&quot;, listOf(&quot;订单A&quot;, &quot;订单B&quot;)),
+    User(&quot;李四&quot;, listOf(&quot;订单C&quot;)),
+    User(&quot;王五&quot;, listOf(&quot;订单D&quot;, &quot;订单E&quot;, &quot;订单F&quot;))
+)
+
+// 取出所有用户的订单，合并成一个列表
+val allOrders = users.flatMap &#123; it.orders &#125;
+// [&quot;订单A&quot;, &quot;订单B&quot;, &quot;订单C&quot;, &quot;订单D&quot;, &quot;订单E&quot;, &quot;订单F&quot;]
+</code></pre>
+<p><strong>执行过程拆解</strong>：</p>
+<pre><code class="kotlin">val nested = listOf(listOf(1, 2), listOf(3, 4), listOf(5, 6))
+
+// 第一步：map → 每个元素变为自身的平方
+nested.map &#123; subList -&gt; subList.map &#123; n -&gt; n * n &#125; &#125;
+// 结果：[[1, 4], [9, 16], [25, 36]]  ← 还是嵌套的列表
+
+// 第二步：flatMap = map + flatten，一步到位
+nested.flatMap &#123; subList -&gt; subList.map &#123; n -&gt; n * n &#125; &#125;
+// 结果：[1, 4, 9, 16, 25, 36]  ← 已拍扁
+</code></pre>
+<p><strong><code>flatMap</code> vs <code>map</code> 的区别</strong>：</p>
+<pre><code class="kotlin">val nested = listOf(listOf(1, 2), listOf(3, 4))
+
+nested.map &#123; it.map &#123; it * 2 &#125; &#125;    // [[2, 4], [6, 8]]  嵌套结构
+nested.flatMap &#123; it.map &#123; it * 2 &#125; &#125; // [2, 4, 6, 8]      扁平结构
+</code></pre>
+<h3 id="groupBy-分组"><a href="#groupBy-分组" class="headerlink" title="groupBy 分组"></a>groupBy 分组</h3><pre><code class="kotlin">val grouped = people.groupBy &#123; if (it.age &gt;= 18) &quot;成年&quot; else &quot;未成年&quot; &#125;
+// &#123;成年=[Person(张三,18), Person(李四,25), Person(王五,30)], 未成年=[]&#125;
+</code></pre>
+<h2 id="Lambda-与闭包"><a href="#Lambda-与闭包" class="headerlink" title="Lambda 与闭包"></a>Lambda 与闭包</h2><p>Lambda 可以捕获外部变量，形成<strong>闭包</strong>。在 Kotlin 中捕获的是变量引用，而不是值：</p>
+<pre><code class="kotlin">var counter = 0
+
+val increment: () -&gt; Unit = &#123; counter++ &#125;
+
+increment()
+increment()
+println(counter)  // 2 —— 外部变量被同步修改
+</code></pre>
+<h3 id="对比-Java-的差异"><a href="#对比-Java-的差异" class="headerlink" title="对比 Java 的差异"></a>对比 Java 的差异</h3><p>Java 的匿名内部类只能捕获 <code>final</code>（或 effectively final）变量：</p>
+<pre><code class="kotlin">// Kotlin：可变变量也可以捕获
+var count = 0
+val action = &#123; count++ &#125;  // 完全没问题
+
+// Java 等价的匿名内部类做不到（需要 AtomicInteger 等手段）
+</code></pre>
+<h2 id="Lambda-与-Receiver（带接收者的-Lambda）"><a href="#Lambda-与-Receiver（带接收者的-Lambda）" class="headerlink" title="Lambda 与 Receiver（带接收者的 Lambda）"></a>Lambda 与 Receiver（带接收者的 Lambda）</h2><p>这是 Kotlin 独有的强大特性。带接收者的 Lambda 可以直接访问接收者的成员，不需要 <code>it</code> 或显式引用。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code class="kotlin">接收者类型.() -&gt; 返回值类型
+</code></pre>
+<h3 id="实际应用：作用域函数"><a href="#实际应用：作用域函数" class="headerlink" title="实际应用：作用域函数"></a>实际应用：作用域函数</h3><pre><code class="kotlin">// apply：接收者是调用对象本身，返回对象自身
+val user = User().apply &#123;
+    name = &quot;张三&quot;     // 直接访问 User 的属性，不需要 user.name
+    age = 18
+&#125;
+
+// also：接收者也是调用对象，但用 it 引用
+val user2 = User().also &#123; user -&gt;
+    println(&quot;创建了用户：$&#123;user.name&#125;&quot;)
+&#125;
+
+// let：接收者是调用对象，用 it 引用，返回 Lambda 结果
+val name = user.let &#123; it.name &#125;
+
+// run：接收者是调用对象，直接访问，返回 Lambda 结果
+val greeting = user.run &#123;
+    &quot;Hello, I&#39;m $name, $age years old&quot;
+&#125;
+
+// with：非扩展函数，第一个参数是接收者
+val info = with(user) &#123;
+    &quot;name=$name, age=$age&quot;
+&#125;
+</code></pre>
+<h3 id="Type-Safe-Builder（类型安全构建器）"><a href="#Type-Safe-Builder（类型安全构建器）" class="headerlink" title="Type-Safe Builder（类型安全构建器）"></a>Type-Safe Builder（类型安全构建器）</h3><p>带接收者的 Lambda 最经典的用途是 DSL 构建：</p>
+<pre><code class="kotlin">// 构建 HTML
+html &#123;
+    head &#123;
+        title &#123; +&quot;My Page&quot; &#125;
+    &#125;
+    body &#123;
+        h1 &#123; +&quot;Welcome&quot; &#125;
+        p &#123; +&quot;This is a paragraph.&quot; &#125;
+    &#125;
+&#125;
+
+// 构建 Android 布局（Anko 风格）
+verticalLayout &#123;
+    textView &#123;
+        text = &quot;Hello&quot;
+        textSize = 16f
+    &#125;
+    button &#123;
+        text = &quot;Click Me&quot;
+        onClick &#123; showToast(&quot;Clicked!&quot;) &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>实现原理很简单：</p>
+<pre><code class="kotlin">class HTML &#123;
+    fun body(init: Body.() -&gt; Unit) &#123;
+        val body = Body()
+        body.init()  // 在 Body 的上下文中执行 Lambda
+        children.add(body)
+    &#125;
+&#125;
+
+// 调用时
+html &#123;  // this 是 HTML
+    body &#123;  // this 是 Body，可以直接调用 Body 的方法
+        // ...
+    &#125;
+&#125;
+</code></pre>
+<h2 id="SAM-转换（Single-Abstract-Method）"><a href="#SAM-转换（Single-Abstract-Method）" class="headerlink" title="SAM 转换（Single Abstract Method）"></a>SAM 转换（Single Abstract Method）</h2><p>当一个 Java 接口只有一个抽象方法时，Kotlin 可以用 Lambda 代替匿名内部类。</p>
+<pre><code class="kotlin">// Java 接口
+interface OnClickListener &#123;
+    void onClick(View v);
+&#125;
+
+// Kotlin 匿名内部类写法
+button.setOnClickListener(object : View.OnClickListener &#123;
+    override fun onClick(v: View) &#123;
+        println(&quot;clicked&quot;)
+    &#125;
+&#125;)
+
+// SAM 转换：用 Lambda 代替
+button.setOnClickListener &#123; v -&gt; println(&quot;clicked&quot;) &#125;
+
+// 更常见的：参数不用时可以省略（包括 -&gt;）
+button.setOnClickListener &#123; println(&quot;clicked&quot;) &#125;
+</code></pre>
+<blockquote>
+<p><strong>为什么 <code>v</code> 可以省略？</strong> Kotlin 的 Lambda 规则：如果参数没有被使用，可以连参数声明和 <code>-&gt;</code> 一起省略，变成无参数的 Lambda 写法。这在实际开发中非常常见——大多数点击事件都不需要用到被点击的 View。</p>
+</blockquote>
+<h3 id="SAM-转换的规则"><a href="#SAM-转换的规则" class="headerlink" title="SAM 转换的规则"></a>SAM 转换的规则</h3><pre><code class="kotlin">// 1. 必须是 Java 接口（Kotlin 接口不支持自动 SAM，但可以用 fun interface）
+// 2. 接口必须有且只有一个抽象方法
+// 3. Lambda 参数类型和返回值类型必须匹配
+
+// Runnable — 典型 SAM
+val runnable = Runnable &#123; println(&quot;running&quot;) &#125;
+
+// Callable
+val callable = Callable &#123; 42 &#125;
+</code></pre>
+<h3 id="Kotlin-的-fun-interface（函数式接口）"><a href="#Kotlin-的-fun-interface（函数式接口）" class="headerlink" title="Kotlin 的 fun interface（函数式接口）"></a>Kotlin 的 fun interface（函数式接口）</h3><p>Kotlin 1.4+ 引入了 <code>fun interface</code>，让 Kotlin 接口也支持 SAM：</p>
+<pre><code class="kotlin">fun interface Transformer&lt;T&gt; &#123;
+    fun transform(input: T): T
+&#125;
+
+// SAM 转换
+val upper: Transformer&lt;String&gt; = Transformer &#123; it.uppercase() &#125;
+println(upper.transform(&quot;hello&quot;))  // HELLO
+
+// 普通调用
+val list = listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+val mapped = list.map(Transformer &#123; it.uppercase() &#125;)
+</code></pre>
+<h2 id="集合序列与惰性求值"><a href="#集合序列与惰性求值" class="headerlink" title="集合序列与惰性求值"></a>集合序列与惰性求值</h2><p>链式调用高阶函数时，每个操作都会创建一个新的集合。序列（Sequence）可以避免这一点：</p>
+<pre><code class="kotlin">val numbers = (1..1_000_000).toList()
+
+// 急切求值：每一步都产生中间集合（内存杀手）
+numbers
+    .filter &#123; it % 2 == 0 &#125;     // 50 万个元素
+    .map &#123; it * it &#125;             // 50 万个元素
+    .take(10)                    // 取前 10 个
+
+// 惰性求值：最终只计算 20 个元素
+numbers.asSequence()
+    .filter &#123; it % 2 == 0 &#125;
+    .map &#123; it * it &#125;
+    .take(10)
+    .toList()
+</code></pre>
+<p><strong>规则</strong>：</p>
+<ul>
+<li>数据量小（&lt; 1000）：直接用集合操作，简单高效</li>
+<li>数据量大或链式操作多：优先 <code>asSequence()</code>，避免中间集合的内存开销</li>
+<li>无限序列也能处理：<code>generateSequence(0) &#123; it + 1 &#125;.take(5).toList()</code> → <code>[0, 1, 2, 3, 4]</code></li>
+</ul>
+<h2 id="常见误区与最佳实践"><a href="#常见误区与最佳实践" class="headerlink" title="常见误区与最佳实践"></a>常见误区与最佳实践</h2><h3 id="误区一：在-Lambda-中使用-return"><a href="#误区一：在-Lambda-中使用-return" class="headerlink" title="误区一：在 Lambda 中使用 return"></a>误区一：在 Lambda 中使用 return</h3><pre><code class="kotlin">// 错误：return 会直接从外层函数返回（非局部返回）
+fun processList(items: List&lt;Int&gt;) &#123;
+    items.forEach &#123;
+        if (it &lt; 0) return  // 危险！直接从 processList 返回
+        println(it)
+    &#125;
+&#125;
+
+// 正确：用标签限定返回范围
+fun processList(items: List&lt;Int&gt;) &#123;
+    items.forEach &#123;
+        if (it &lt; 0) return@forEach  // 只跳过当前元素
+        println(it)
+    &#125;
+&#125;
+</code></pre>
+<h3 id="误区二：忽略可读性，滥用-it"><a href="#误区二：忽略可读性，滥用-it" class="headerlink" title="误区二：忽略可读性，滥用 it"></a>误区二：忽略可读性，滥用 it</h3><pre><code class="kotlin">// 不推荐：不清晰
+list.map &#123; it.first &#125;.filter &#123; it.count() &gt; 3 &#125;
+
+// 推荐：命名参数
+list.map &#123; user -&gt; user.name &#125;.filter &#123; name -&gt; name.count() &gt; 3 &#125;
+</code></pre>
+<h3 id="误区三：嵌套过深"><a href="#误区三：嵌套过深" class="headerlink" title="误区三：嵌套过深"></a>误区三：嵌套过深</h3><pre><code class="kotlin">// 不推荐
+button.setOnClickListener &#123;
+    scope.launch &#123;
+        val data = withContext(Dispatchers.IO) &#123;
+            api.fetchData().also &#123; cache.save(it) &#125;
+        &#125;
+        updateUI(data)
+    &#125;
+&#125;
+
+// 推荐：提取为独立函数
+button.setOnClickListener &#123; onButtonClick() &#125;
+
+private fun onButtonClick() &#123;
+    scope.launch &#123;
+        val data = fetchAndCache()
+        updateUI(data)
+    &#125;
+&#125;
+
+private suspend fun fetchAndCache() = withContext(Dispatchers.IO) &#123;
+    api.fetchData().also &#123; cache.save(it) &#125;
+&#125;
+</code></pre>
+<h3 id="误区四：误用作用域函数"><a href="#误区四：误用作用域函数" class="headerlink" title="误区四：误用作用域函数"></a>误区四：误用作用域函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>接收者引用</th>
+<th>返回值</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>let</code></td>
+<td><code>it</code></td>
+<td>Lambda 结果</td>
+<td>可空链式调用、局部变量作用域</td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td><code>this</code></td>
+<td>Lambda 结果</td>
+<td>对象配置并计算结果</td>
+</tr>
+<tr>
+<td><code>with</code></td>
+<td><code>this</code></td>
+<td>Lambda 结果</td>
+<td>对同一对象多次操作</td>
+</tr>
+<tr>
+<td><code>apply</code></td>
+<td><code>this</code></td>
+<td>对象自身</td>
+<td>对象初始化配置</td>
+</tr>
+<tr>
+<td><code>also</code></td>
+<td><code>it</code></td>
+<td>对象自身</td>
+<td>附加操作（日志、校验等）</td>
+</tr>
+</tbody></table>
+<pre><code class="kotlin">// apply：初始化对象
+val user = User().apply &#123;
+    name = &quot;张三&quot;
+    age = 18
+&#125;
+
+// let：处理可空对象
+val length = nullableString?.let &#123; it.length &#125; ?: 0
+
+// also：附加操作
+val result = api.fetchData().also &#123; Log.d(&quot;API&quot;, &quot;返回数据：$it&quot;) &#125;
+</code></pre>
+<h2 id="实战场景"><a href="#实战场景" class="headerlink" title="实战场景"></a>实战场景</h2><h3 id="场景一：集合操作的终极组合"><a href="#场景一：集合操作的终极组合" class="headerlink" title="场景一：集合操作的终极组合"></a>场景一：集合操作的终极组合</h3><pre><code class="kotlin">data class Order(val id: Int, val product: String, val price: Double, val count: Int)
+
+val orders = listOf(
+    Order(1, &quot;键盘&quot;, 299.0, 2),
+    Order(2, &quot;鼠标&quot;, 99.0, 5),
+    Order(3, &quot;显示器&quot;, 1999.0, 1),
+    Order(4, &quot;键盘&quot;, 199.0, 3)
+)
+
+// 需求：计算所有 &quot;键盘&quot; 的总销售额
+val keyboardRevenue = orders
+    .asSequence()
+    .filter &#123; it.product == &quot;键盘&quot; &#125;
+    .map &#123; it.price * it.count &#125;
+    .sum()
+// 299*2 + 199*3 = 1195.0
+</code></pre>
+<h3 id="场景二：回调模式"><a href="#场景二：回调模式" class="headerlink" title="场景二：回调模式"></a>场景二：回调模式</h3><pre><code class="kotlin">// 定义带回调的函数
+fun fetchData(onSuccess: (String) -&gt; Unit, onError: (Throwable) -&gt; Unit) &#123;
+    try &#123;
+        val data = readFromNetwork()
+        onSuccess(data)
+    &#125; catch (e: Exception) &#123;
+        onError(e)
+    &#125;
+&#125;
+
+// 调用
+fetchData(
+    onSuccess = &#123; data -&gt; println(&quot;成功：$data&quot;) &#125;,
+    onError = &#123; e -&gt; println(&quot;失败：$&#123;e.message&#125;&quot;) &#125;
+)
+</code></pre>
+<h3 id="场景三：策略模式"><a href="#场景三：策略模式" class="headerlink" title="场景三：策略模式"></a>场景三：策略模式</h3><pre><code class="kotlin">// 不同排序策略
+val byName: Comparator&lt;Person&gt; = compareBy &#123; it.name &#125;
+val byAge: Comparator&lt;Person&gt; = compareBy &#123; it.age &#125;
+
+people.sortedWith(byAge)   // 按年龄排序
+people.sortedWith(byName)  // 按姓名排序
+
+// 组合策略
+people.sortedWith(compareBy&lt;Person&gt; &#123; it.age &#125;.thenBy &#123; it.name &#125;)
+</code></pre>
+<h3 id="场景四：高阶函数封装"><a href="#场景四：高阶函数封装" class="headerlink" title="场景四：高阶函数封装"></a>场景四：高阶函数封装</h3><pre><code class="kotlin">// 封装一个测量执行时间的工具函数
+inline fun &lt;T&gt; measureTime(tag: String = &quot;执行&quot;, block: () -&gt; T): T &#123;
+    val start = System.currentTimeMillis()
+    val result = block()
+    val duration = System.currentTimeMillis() - start
+    println(&quot;$tag 耗时：$&#123;duration&#125;ms&quot;)
+    return result
+&#125;
+
+// 使用
+val data = measureTime(&quot;网络请求&quot;) &#123;
+    api.fetchData()
+&#125;
+// 输出：网络请求 耗时：235ms
+</code></pre>
+<p>注意 <code>inline</code> 关键字：对于高阶函数，建议加上 <code>inline</code> 以避免每次调用都创建 Lambda 对象，提升性能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kotlin Lambda 的核心知识体系：</p>
+<ol>
+<li><strong>Lambda 就是匿名函数</strong>：用 <code>&#123;&#125;</code> 包裹，<code>-&gt;</code> 分隔参数和函数体，末行自动返回</li>
+<li><strong>函数类型</strong>：<code>(参数) -&gt; 返回值</code>，让函数像数据一样传递</li>
+<li><strong>尾随 Lambda</strong>：最后一个参数是 Lambda 时写在括号外，代码更清晰</li>
+<li><strong>高阶函数</strong>：<code>map</code>、<code>filter</code>、<code>fold</code>、<code>flatMap</code> 等让集合操作变得优雅</li>
+<li><strong>带接收者的 Lambda</strong>：<code>apply</code>、<code>run</code>、<code>with</code> 等作用域函数的核心机制</li>
+<li><strong>SAM 转换</strong>：Lambda 替换 Java 单方法接口的匿名内部类</li>
+<li><strong>闭包</strong>：Lambda 捕获外部变量引用，可变变量也能捕获</li>
+</ol>
+<p>记住三点：</p>
+<ul>
+<li>简单操作别怕写 Lambda，越写越顺手</li>
+<li>复杂 Lambda 提取为函数，保持代码可读性</li>
+<li>高阶函数加 <code>inline</code>，性能更好</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

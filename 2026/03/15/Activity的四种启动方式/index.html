@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Activity的四种启动方式 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Activity的四种启动方式</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/15
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Activity 是 Android 四大组件中最常用的组件，它的启动模式决定了 Activity 实例如何与任务栈交互。理解这四种启动模式是掌握 Android 导航和任务管理的关键。</p>
+<span id="more"></span>
+
+<h2 id="什么是-Activity-的启动模式？"><a href="#什么是-Activity-的启动模式？" class="headerlink" title="什么是 Activity 的启动模式？"></a>什么是 Activity 的启动模式？</h2><p>Activity 的启动模式（Launch Mode）定义了当启动一个 Activity 时，该 Activity 实例如何与当前任务栈（Task Stack）关联。Android 提供了四种启动模式，每种都有不同的实例化和复用策略。</p>
+<h2 id="为什么需要不同的启动模式？"><a href="#为什么需要不同的启动模式？" class="headerlink" title="为什么需要不同的启动模式？"></a>为什么需要不同的启动模式？</h2><ul>
+<li><strong>避免重复创建</strong>：防止同一个 Activity 被反复创建，浪费内存</li>
+<li><strong>控制返回逻辑</strong>：按返回键时能回到用户期望的页面</li>
+<li><strong>优化用户体验</strong>：让页面跳转逻辑更符合用户直觉</li>
+</ul>
+<h2 id="四种启动模式详解"><a href="#四种启动模式详解" class="headerlink" title="四种启动模式详解"></a>四种启动模式详解</h2><h3 id="1-standard（标准模式）"><a href="#1-standard（标准模式）" class="headerlink" title="1. standard（标准模式）"></a>1. standard（标准模式）</h3><p><strong>系统默认的启动模式</strong>，每次启动 Activity 都会创建一个新的实例。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>每次 <code>startActivity()</code> 都会创建新实例</li>
+<li>新实例压入启动它的任务栈顶部</li>
+<li>同一个 Activity 可以在栈中存在多个实例</li>
+</ul>
+<p><strong>配置方式</strong>：</p>
+<pre><code class="xml">&lt;!-- AndroidManifest.xml --&gt;
+&lt;activity
+    android:name=&quot;.StandardActivity&quot;
+    android:launchMode=&quot;standard&quot; /&gt;
+</code></pre>
+<p><strong>示意图</strong>：</p>
+<p>假设当前栈为 <code>[A, B]</code>，从 B 启动 standard 模式的 C 两次：</p>
+<pre><code>启动第一次C： [A, B, C1]
+启动第二次C： [A, B, C1, C2]
+</code></pre>
+<p>按返回键会依次回到 C1 → B → A。</p>
+<p><strong>适用场景</strong>：绝大多数普通页面，如详情页、列表页等。</p>
+<h3 id="2-singleTop（栈顶复用模式）"><a href="#2-singleTop（栈顶复用模式）" class="headerlink" title="2. singleTop（栈顶复用模式）"></a>2. singleTop（栈顶复用模式）</h3><p>如果目标 Activity <strong>已经在当前任务栈的栈顶</strong>，则不会创建新实例，而是调用该实例的 <code>onNewIntent()</code> 方法；如果不在栈顶，则创建新实例。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>栈顶已存在 → 复用，触发 <code>onNewIntent()</code></li>
+<li>不在栈顶 → 创建新实例</li>
+<li>可以存在多个实例（只要不都在栈顶）</li>
+</ul>
+<p><strong>配置方式</strong>：</p>
+<pre><code class="xml">&lt;activity
+    android:name=&quot;.SingleTopActivity&quot;
+    android:launchMode=&quot;singleTop&quot; /&gt;
+</code></pre>
+<p><strong>示意图</strong>：</p>
+<p>情况一：栈为 <code>[A, B, C]</code>，从 C 启动 singleTop 模式的 C：</p>
+<pre><code>启动C（已在栈顶）： [A, B, C]  ← 复用，触发onNewIntent()
+</code></pre>
+<p>情况二：栈为 <code>[A, B]</code>，从 B 启动 singleTop 模式的 C：</p>
+<pre><code>启动C（不在栈顶）： [A, B, C]  ← 创建新实例
+</code></pre>
+<pre><code class="java">// 在 singleTop 的 Activity 中接收新的 Intent
+@Override
+protected void onNewIntent(Intent intent) &#123;
+    super.onNewIntent(intent);
+    // 处理新的 Intent 数据
+    setIntent(intent);
+    String newData = intent.getStringExtra(&quot;key&quot;);
+    // 更新页面数据
+&#125;
+</code></pre>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>消息推送点击通知打开的页面</li>
+<li>搜索页面（避免重复打开）</li>
+<li>WebView 页面</li>
+</ul>
+<h3 id="3-singleTask（栈内复用模式）"><a href="#3-singleTask（栈内复用模式）" class="headerlink" title="3. singleTask（栈内复用模式）"></a>3. singleTask（栈内复用模式）</h3><p>如果目标 Activity <strong>已经在当前任务栈中存在</strong>，则将该 Activity 上面的所有 Activity 全部出栈，使其回到栈顶，并调用 <code>onNewIntent()</code>。如果不存在，则创建新实例。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>全局只有一个实例（在当前任务栈中）</li>
+<li>会把上方所有 Activity 清除出栈（clearTop 效果）</li>
+<li>默认在新的任务栈中不一定创建新栈</li>
+</ul>
+<p><strong>配置方式</strong>：</p>
+<pre><code class="xml">&lt;activity
+    android:name=&quot;.SingleTaskActivity&quot;
+    android:launchMode=&quot;singleTask&quot; /&gt;
+</code></pre>
+<p><strong>示意图</strong>：</p>
+<p>栈为 <code>[A, B, C, D]</code>，从 D 启动 singleTask 模式的 B：</p>
+<pre><code>启动前： [A, B, C, D]
+启动后： [A, B]  ← C和D被清除，B收到onNewIntent()
+</code></pre>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>应用的主页&#x2F;首页</li>
+<li>浏览器的主页</li>
+<li>需要作为入口点的页面</li>
+</ul>
+<h3 id="4-singleInstance（单实例模式）"><a href="#4-singleInstance（单实例模式）" class="headerlink" title="4. singleInstance（单实例模式）"></a>4. singleInstance（单实例模式）</h3><p><strong>最特殊的一种模式</strong>，该 Activity 会在一个<strong>全新的独立任务栈</strong>中创建，并且这个新任务栈中<strong>只能有这一个 Activity</strong>。全局唯一。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>独占一个任务栈</li>
+<li>全局只有一个实例</li>
+<li>如果已存在，直接切换到该任务栈并调用 <code>onNewIntent()</code></li>
+</ul>
+<p><strong>配置方式</strong>：</p>
+<pre><code class="xml">&lt;activity
+    android:name=&quot;.SingleInstanceActivity&quot;
+    android:launchMode=&quot;singleInstance&quot; /&gt;
+</code></pre>
+<p><strong>示意图</strong>：</p>
+<pre><code>Task1: [A, B, C]
+Task2: [X]  ← singleInstance模式，独占一个任务栈
+</code></pre>
+<p>从 C 启动 X：系统切换到 Task2，显示 X。<br>从 X 按返回键：回到 Task1 的 C。</p>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>来电铃声页面</li>
+<li>系统闹钟页面</li>
+<li>与其他应用完全隔离的页面</li>
+<li>视频全屏播放页面</li>
+</ul>
+<h2 id="四种模式对比总结"><a href="#四种模式对比总结" class="headerlink" title="四种模式对比总结"></a>四种模式对比总结</h2><table>
+<thead>
+<tr>
+<th>启动模式</th>
+<th>是否新建实例</th>
+<th>是否复用</th>
+<th>清除栈上方</th>
+<th>独立任务栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>standard</td>
+<td>总是新建</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>singleTop</td>
+<td>栈顶时复用</td>
+<td>仅栈顶</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>singleTask</td>
+<td>存在时复用</td>
+<td>栈内任一</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>singleInstance</td>
+<td>存在时复用</td>
+<td>全局唯一</td>
+<td>不适用</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<h2 id="常见问题有哪些？"><a href="#常见问题有哪些？" class="headerlink" title="常见问题有哪些？"></a>常见问题有哪些？</h2><h3 id="1-onNewIntent-什么时候被调用？"><a href="#1-onNewIntent-什么时候被调用？" class="headerlink" title="1. onNewIntent 什么时候被调用？"></a>1. onNewIntent 什么时候被调用？</h3><p><strong>问题</strong>：设置了 <code>singleTop</code> 或 <code>singleTask</code> 后，数据没有更新？</p>
+<p><strong>解决方案</strong>：<code>onNewIntent()</code> 只在 Activity 被复用时调用。第一次创建时走 <code>onCreate()</code> 的正常流程。需要同时处理两种情况：</p>
+<pre><code class="java">@Override
+protected void onCreate(Bundle savedInstanceState) &#123;
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    handleIntent(getIntent());
+&#125;
+
+@Override
+protected void onNewIntent(Intent intent) &#123;
+    super.onNewIntent(intent);
+    setIntent(intent);
+    handleIntent(intent);
+&#125;
+
+private void handleIntent(Intent intent) &#123;
+    String data = intent.getStringExtra(&quot;key&quot;);
+    // 统一处理数据更新
+&#125;
+</code></pre>
+<h3 id="2-singleTask-和-singleInstance-的区别"><a href="#2-singleTask-和-singleInstance-的区别" class="headerlink" title="2. singleTask 和 singleInstance 的区别"></a>2. singleTask 和 singleInstance 的区别</h3><p><strong>问题</strong>：什么时候用 singleTask，什么时候用 singleInstance？</p>
+<p>singleTask 和 singleInstance 的核心区别在于<strong>任务栈的隔离</strong>：</p>
+<ul>
+<li><code>singleTask</code>：在当前任务栈中保持唯一，但和同栈的其他 Activity 共享返回栈</li>
+<li><code>singleInstance</code>：完全独立的任务栈，和其他 Activity 隔离</li>
+</ul>
+<pre><code class="java">// singleTask：回到主页面，清除登录页和注册页
+// 场景：登录成功后跳转到主页
+Intent intent = new Intent(this, MainActivity.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+startActivity(intent);
+
+// singleInstance：完全隔离的页面
+// 场景：视频播放页面，不希望被其他页面干扰
+</code></pre>
+<h3 id="3-Intent-Flag-和-launchMode-的优先级"><a href="#3-Intent-Flag-和-launchMode-的优先级" class="headerlink" title="3. Intent Flag 和 launchMode 的优先级"></a>3. Intent Flag 和 launchMode 的优先级</h3><p><strong>问题</strong>：如果同时在代码里设置了 Flag，又在 Manifest 里配置了 launchMode，哪个生效？</p>
+<p><strong>解决方案</strong>：代码中通过 <code>Intent.setFlags()</code> 设置的<strong>优先级更高</strong>，会覆盖 Manifest 中的配置。</p>
+<p>常用 Flag：</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>FLAG_ACTIVITY_NEW_TASK</code></td>
+<td>在新任务栈中启动</td>
+</tr>
+<tr>
+<td><code>FLAG_ACTIVITY_SINGLE_TOP</code></td>
+<td>相当于 singleTop</td>
+</tr>
+<tr>
+<td><code>FLAG_ACTIVITY_CLEAR_TOP</code></td>
+<td>清除上方的 Activity</td>
+</tr>
+<tr>
+<td><code>FLAG_ACTIVITY_CLEAR_TASK</code></td>
+<td>启动前清空任务栈</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// 代码中覆盖为 singleTop 行为
+Intent intent = new Intent(this, DetailActivity.class);
+intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+startActivity(intent);
+</code></pre>
+<h3 id="4-如何验证启动模式的效果？"><a href="#4-如何验证启动模式的效果？" class="headerlink" title="4. 如何验证启动模式的效果？"></a>4. 如何验证启动模式的效果？</h3><p>可以通过 <code>adb</code> 命令查看当前任务栈的情况：</p>
+<pre><code class="bash"># 查看任务栈信息
+adb shell dumpsys activity activities | grep -A 5 &quot;mResumedActivity\|mFocusedActivity\|Activities=&quot;
+</code></pre>
+<p>或者在 Activity 的生命周期回调中打印日志来跟踪：</p>
+<pre><code class="java">@Override
+protected void onCreate(Bundle savedInstanceState) &#123;
+    super.onCreate(savedInstanceState);
+    Log.d(&quot;LaunchMode&quot;, &quot;onCreate: &quot; + this.getClass().getSimpleName() 
+          + &quot;, TaskId: &quot; + getTaskId() 
+          + &quot;, HashCode: &quot; + hashCode());
+&#125;
+</code></pre>
+<h2 id="有哪些最佳实践？"><a href="#有哪些最佳实践？" class="headerlink" title="有哪些最佳实践？"></a>有哪些最佳实践？</h2><h3 id="1-合理选择启动模式"><a href="#1-合理选择启动模式" class="headerlink" title="1. 合理选择启动模式"></a>1. 合理选择启动模式</h3><ul>
+<li><strong>普通页面</strong>：使用默认的 <code>standard</code></li>
+<li><strong>通知点击入口</strong>：使用 <code>singleTop</code>，避免重复打开</li>
+<li><strong>应用主页</strong>：使用 <code>singleTask</code>，确保返回时不会回退到登录页</li>
+<li><strong>独立功能页</strong>：使用 <code>singleInstance</code>，如通话、闹钟</li>
+</ul>
+<h3 id="2-设计清晰的任务栈结构"><a href="#2-设计清晰的任务栈结构" class="headerlink" title="2. 设计清晰的任务栈结构"></a>2. 设计清晰的任务栈结构</h3><pre><code>合理结构：
+[主页(singleTask)] → [列表页(standard)] → [详情页(standard)]
+
+错误结构：
+[主页] → [主页] → [主页]  ← 多个主页实例，返回体验差
+</code></pre>
+<h3 id="3-处理-onNewIntent-数据刷新"><a href="#3-处理-onNewIntent-数据刷新" class="headerlink" title="3. 处理 onNewIntent 数据刷新"></a>3. 处理 onNewIntent 数据刷新</h3><p>确保同时重写 <code>onCreate</code> 和 <code>onNewIntent</code>，避免数据不更新的问题。</p>
+<h2 id="如何验证和测试？"><a href="#如何验证和测试？" class="headerlink" title="如何验证和测试？"></a>如何验证和测试？</h2><p>一个简单的测试方案：在每个 Activity 中打印日志和 Toast。</p>
+<pre><code class="java">public class BaseActivity extends AppCompatActivity &#123;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        String info = this.getClass().getSimpleName() 
+            + &quot; | taskId=&quot; + getTaskId() 
+            + &quot; | instance=&quot; + hashCode();
+        Log.d(&quot;ActivityTest&quot;, &quot;onCreate: &quot; + info);
+        Toast.makeText(this, &quot;Created: &quot; + info, Toast.LENGTH_SHORT).show();
+    &#125;
+
+    @Override
+    protected void onNewIntent(Intent intent) &#123;
+        super.onNewIntent(intent);
+        String info = this.getClass().getSimpleName() + &quot; | onNewIntent&quot;;
+        Log.d(&quot;ActivityTest&quot;, info);
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+    &#125;
+&#125;
+</code></pre>
+<p>然后让所有 Activity 继承 <code>BaseActivity</code>，通过点击按钮触发跳转，观察日志和 Toast 输出来理解每种模式的行为。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Activity 的四种启动模式各有特点，理解它们的关键在于<strong>任务栈</strong>这个概念：</p>
+<ul>
+<li><strong>standard</strong>：来者不拒，每次都新建</li>
+<li><strong>singleTop</strong>：看栈顶，在顶上就复用</li>
+<li><strong>singleTask</strong>：查全栈，找到就把上面的清掉</li>
+<li><strong>singleInstance</strong>：搞特殊，独享一个栈</li>
+</ul>
+<p>选择合适的启动模式能让你的应用在返回逻辑、内存管理、用户体验上都更加优秀。建议实际动手写个 Demo，多点点看看效果，配合 <code>adb shell dumpsys activity</code> 观察任务栈的变化，理解会更加深刻。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+

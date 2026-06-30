@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Handler消息机制详解 | NaoJianghh</title>
+    <meta name="author" content="脑浆糊" />
+    <meta name="description" content="Welcome to My Blog" />
+    <meta name="keywords" content="学习" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="NaoJianghh" type="application/atom+xml">
+</head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>NAOJIANGHH</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;NAOJIANGHH</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Handler消息机制详解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/15
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Android/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Android
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Android/" style="color: #ff7d73">
+                    Android
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Handler 是 Android 消息机制的核心，它贯穿了 Android 开发的方方面面——UI 更新、线程通信、延时任务、框架运行都离不开它。理解 Handler 的底层原理，是进阶 Android 开发的必经之路。</p>
+<span id="more"></span>
+
+<h2 id="什么是-Handler-消息机制？"><a href="#什么是-Handler-消息机制？" class="headerlink" title="什么是 Handler 消息机制？"></a>什么是 Handler 消息机制？</h2><p>Handler 消息机制是 Android 提供的一套线程间通信方案，主要由四个角色组成：</p>
+<ul>
+<li><strong>Handler</strong>：消息的发送者和处理者</li>
+<li><strong>Message</strong>：消息的载体，包含描述信息和数据</li>
+<li><strong>MessageQueue</strong>：消息队列，以单链表结构存储消息</li>
+<li><strong>Looper</strong>：消息循环器，不断从 MessageQueue 中取出消息分发给 Handler</li>
+</ul>
+<h2 id="为什么需要-Handler-消息机制？"><a href="#为什么需要-Handler-消息机制？" class="headerlink" title="为什么需要 Handler 消息机制？"></a>为什么需要 Handler 消息机制？</h2><h3 id="1-Android-的-UI-线程限制"><a href="#1-Android-的-UI-线程限制" class="headerlink" title="1. Android 的 UI 线程限制"></a>1. Android 的 UI 线程限制</h3><p>Android 规定只有主线程才能更新 UI，子线程不能直接操作 UI 控件。Handler 提供了子线程通知主线程更新 UI 的能力。</p>
+<h3 id="2-异步任务的结果回传"><a href="#2-异步任务的结果回传" class="headerlink" title="2. 异步任务的结果回传"></a>2. 异步任务的结果回传</h3><p>网络请求、数据库操作等耗时任务在子线程完成后，需要通过 Handler 将结果传递给主线程。</p>
+<h3 id="3-延时和定时任务"><a href="#3-延时和定时任务" class="headerlink" title="3. 延时和定时任务"></a>3. 延时和定时任务</h3><p>Handler 支持发送延时消息和定时消息，实现延迟执行和周期性任务。</p>
+<h2 id="Handler-消息机制的运行流程"><a href="#Handler-消息机制的运行流程" class="headerlink" title="Handler 消息机制的运行流程"></a>Handler 消息机制的运行流程</h2><h3 id="整体架构图"><a href="#整体架构图" class="headerlink" title="整体架构图"></a>整体架构图</h3><pre><code>┌─────────────────────────────────────────────┐
+│  Thread                                     │
+│  ┌─────────┐    ┌──────────────┐            │
+│  │ Handler │───▶│ MessageQueue │            │
+│  │ (发送)   │    │  (消息队列)    │           │
+│  └─────────┘    └──────┬───────┘            │
+│       ▲                │                    │
+│       │          ┌─────▼──────┐             │
+│       │          │   Looper   │             │
+│       │          │  (循环取出)  │             │
+│       │          └─────────────┘            │
+│       │                │Message             │
+│       │          ┌─────▼──────┐             │
+│       └──────────│  Handler   │             │
+│                  │  (处理消息)  │             │
+│                  └─────────────┘             │
+└─────────────────────────────────────────────┘
+</code></pre>
+<p><strong>流程</strong>：Handler 发送 Message → MessageQueue 排队 → Looper 循环取出 → 交回给 Handler 处理。</p>
+<h2 id="如何创建和使用-Handler？"><a href="#如何创建和使用-Handler？" class="headerlink" title="如何创建和使用 Handler？"></a>如何创建和使用 Handler？</h2><h3 id="1-主线程中使用-Handler"><a href="#1-主线程中使用-Handler" class="headerlink" title="1. 主线程中使用 Handler"></a>1. 主线程中使用 Handler</h3><pre><code class="java">public class MainActivity extends AppCompatActivity &#123;
+    private static final String TAG = &quot;MainActivity&quot;;
+    
+    // 在主线程创建 Handler，默认关联主线程 Looper
+    private Handler handler = new Handler(Looper.getMainLooper()) &#123;
+        @Override
+        public void handleMessage(@NonNull Message msg) &#123;
+            switch (msg.what) &#123;
+                case 1:
+                    String text = (String) msg.obj;
+                    textView.setText(text);
+                    break;
+                case 2:
+                    Bundle data = msg.getData();
+                    String name = data.getString(&quot;name&quot;);
+                    break;
+            &#125;
+        &#125;
+    &#125;;
+
+    private void loadData() &#123;
+        new Thread(() -&gt; &#123;
+            // 模拟耗时操作
+            String result = fetchDataFromNetwork();
+            
+            // 方式一：sendMessage
+            Message msg = Message.obtain();
+            msg.what = 1;
+            msg.obj = result;
+            handler.sendMessage(msg);
+            
+            // 方式二：sendMessageDelayed 延时发送
+            handler.sendMessageDelayed(msg, 1000); // 1秒后执行
+            
+            // 方式三：post Runnable
+            handler.post(() -&gt; textView.setText(result));
+            
+            // 方式四：postDelayed
+            handler.postDelayed(() -&gt; textView.setText(result), 500);
+        &#125;).start();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="2-子线程中使用-Handler"><a href="#2-子线程中使用-Handler" class="headerlink" title="2. 子线程中使用 Handler"></a>2. 子线程中使用 Handler</h3><p>子线程默认没有 Looper，需要手动调用 <code>Looper.prepare()</code> 和 <code>Looper.loop()</code>。</p>
+<pre><code class="java">class WorkerThread extends Thread &#123;
+    private Handler workerHandler;
+
+    @Override
+    public void run() &#123;
+        // 1. 准备 Looper
+        Looper.prepare();
+        
+        // 2. 创建 Handler
+        workerHandler = new Handler(Looper.myLooper()) &#123;
+            @Override
+            public void handleMessage(@NonNull Message msg) &#123;
+                // 处理消息...
+            &#125;
+        &#125;;
+        
+        // 3. 开启消息循环（阻塞，直到 quit）
+        Looper.loop();
+    &#125;
+
+    public Handler getHandler() &#123;
+        return workerHandler;
+    &#125;
+&#125;
+
+// 使用
+WorkerThread thread = new WorkerThread();
+thread.start();
+thread.getHandler().sendEmptyMessage(1);
+</code></pre>
+<h3 id="3-使用-HandlerThread（推荐）"><a href="#3-使用-HandlerThread（推荐）" class="headerlink" title="3. 使用 HandlerThread（推荐）"></a>3. 使用 HandlerThread（推荐）</h3><pre><code class="java">// HandlerThread 自带 Looper，使用更方便
+HandlerThread handlerThread = new HandlerThread(&quot;WorkerThread&quot;);
+handlerThread.start();
+
+Handler backgroundHandler = new Handler(handlerThread.getLooper()) &#123;
+    @Override
+    public void handleMessage(@NonNull Message msg) &#123;
+        // 在后台线程处理消息
+    &#125;
+&#125;;
+
+// 发送消息
+backgroundHandler.sendEmptyMessage(1);
+
+// 退出
+handlerThread.quitSafely();
+</code></pre>
+<h2 id="深入理解-Message-消息池"><a href="#深入理解-Message-消息池" class="headerlink" title="深入理解 Message 消息池"></a>深入理解 Message 消息池</h2><h3 id="Message-的复用机制"><a href="#Message-的复用机制" class="headerlink" title="Message 的复用机制"></a>Message 的复用机制</h3><p>Handler 使用 <code>obtain()</code> 方法从消息池中获取 Message 对象，避免频繁创建对象。</p>
+<pre><code class="java">// 推荐：从消息池中获取
+Message msg = Message.obtain();
+msg.what = 1;
+handler.sendMessage(msg);
+
+// 也可以直接创建，但不推荐
+Message msg2 = new Message();  // 不推荐，浪费内存
+</code></pre>
+<h3 id="Message-属性详解"><a href="#Message-属性详解" class="headerlink" title="Message 属性详解"></a>Message 属性详解</h3><pre><code class="java">Message msg = Message.obtain();
+
+msg.what = 1;          // int 类型的消息标识
+msg.arg1 = 100;        // int 类型的参数1
+msg.arg2 = 200;        // int 类型的参数2
+msg.obj = &quot;data&quot;;      // Object 类型的数据
+msg.target = handler;  // 目标 Handler，系统自动赋值
+
+// 使用 setData 传 Bundle
+Bundle bundle = new Bundle();
+bundle.putString(&quot;key&quot;, &quot;value&quot;);
+msg.setData(bundle);
+
+// 设置异步消息（不受同步屏障影响）
+msg.setAsynchronous(true);
+
+handler.sendMessage(msg);
+</code></pre>
+<h3 id="各种-send-方法对比"><a href="#各种-send-方法对比" class="headerlink" title="各种 send 方法对比"></a>各种 send 方法对比</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sendMessage(msg)</code></td>
+<td>立即发送，添加到队尾</td>
+</tr>
+<tr>
+<td><code>sendMessageDelayed(msg, delay)</code></td>
+<td>延时发送</td>
+</tr>
+<tr>
+<td><code>sendMessageAtTime(msg, uptime)</code></td>
+<td>在指定时间点发送</td>
+</tr>
+<tr>
+<td><code>sendEmptyMessage(what)</code></td>
+<td>发送空消息</td>
+</tr>
+<tr>
+<td><code>post(runnable)</code></td>
+<td>发送 Runnable</td>
+</tr>
+<tr>
+<td><code>postDelayed(runnable, delay)</code></td>
+<td>延时发送 Runnable</td>
+</tr>
+<tr>
+<td><code>sendMessageAtFrontOfQueue(msg)</code></td>
+<td>插入队首</td>
+</tr>
+</tbody></table>
+<h2 id="MessageQueue-消息队列"><a href="#MessageQueue-消息队列" class="headerlink" title="MessageQueue 消息队列"></a>MessageQueue 消息队列</h2><h3 id="单链表结构"><a href="#单链表结构" class="headerlink" title="单链表结构"></a>单链表结构</h3><p>MessageQueue 内部使用<strong>单链表</strong>存储消息，按照时间排序。</p>
+<pre><code class="java">// MessageQueue 的 enqueueMessage 核心逻辑（简化版）
+boolean enqueueMessage(Message msg, long when) &#123;
+    synchronized (this) &#123;
+        msg.when = when;
+        Message p = mMessages;  // 链表头
+        
+        // 情况1：队列为空 或 新消息时间最早
+        if (p == null || when == 0 || when &lt; p.when) &#123;
+            msg.next = p;
+            mMessages = msg;
+        &#125; else &#123;
+            // 情况2：按时间顺序插入
+            Message prev;
+            for (;;) &#123;
+                prev = p;
+                p = p.next;
+                if (p == null || when &lt; p.when) &#123;
+                    break;
+                &#125;
+            &#125;
+            msg.next = p;
+            prev.next = msg;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="同步屏障与异步消息"><a href="#同步屏障与异步消息" class="headerlink" title="同步屏障与异步消息"></a>同步屏障与异步消息</h3><p>同步屏障可以拦截同步消息，只让异步消息通过，用于 UI 绘制的优先级提升。</p>
+<pre><code class="java">// 发送异步消息
+Message msg = Message.obtain();
+msg.setAsynchronous(true);  // 标记为异步
+handler.sendMessage(msg);
+
+// 注意：postSyncBarrier() 是 @hide 方法，普通应用不能直接调用
+// 但 ViewRootImpl 内部使用了同步屏障来优先处理 UI 绘制
+</code></pre>
+<h2 id="Looper-消息循环"><a href="#Looper-消息循环" class="headerlink" title="Looper 消息循环"></a>Looper 消息循环</h2><h3 id="Looper-的核心源码（简化版）"><a href="#Looper-的核心源码（简化版）" class="headerlink" title="Looper 的核心源码（简化版）"></a>Looper 的核心源码（简化版）</h3><pre><code class="java">// Looper.loop() 的核心逻辑
+public static void loop() &#123;
+    final Looper me = myLooper();
+    final MessageQueue queue = me.mQueue;
+    
+    for (;;) &#123;
+        Message msg = queue.next(); // 阻塞取消息
+        if (msg == null) &#123;
+            return;  // 退出循环
+        &#125;
+        
+        // 分发消息给 Handler
+        msg.target.dispatchMessage(msg);
+        
+        // 回收 Message
+        msg.recycleUnchecked();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Handler-分发消息流程"><a href="#Handler-分发消息流程" class="headerlink" title="Handler 分发消息流程"></a>Handler 分发消息流程</h3><pre><code class="java">// Handler.dispatchMessage()
+public void dispatchMessage(@NonNull Message msg) &#123;
+    if (msg.callback != null) &#123;
+        // 1. post(Runnable) 方式发送的消息
+        handleCallback(msg);
+    &#125; else &#123;
+        if (mCallback != null) &#123;
+            // 2. 通过 Callback 接口处理
+            if (mCallback.handleMessage(msg)) &#123;
+                return;
+            &#125;
+        &#125;
+        // 3. 回调 handleMessage()
+        handleMessage(msg);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>分发优先级</strong>：<code>Runnable.callback</code> &gt; <code>Handler.Callback</code> &gt; <code>handler.handleMessage()</code></p>
+<h2 id="常见问题及解决方案"><a href="#常见问题及解决方案" class="headerlink" title="常见问题及解决方案"></a>常见问题及解决方案</h2><h3 id="1-Handler-内存泄漏"><a href="#1-Handler-内存泄漏" class="headerlink" title="1. Handler 内存泄漏"></a>1. Handler 内存泄漏</h3><p><strong>问题</strong>：Handler 持有 Activity 引用，导致 Activity 无法被回收。</p>
+<p><strong>错误写法</strong>：</p>
+<pre><code class="java">// 非静态内部类会隐式持有外部类引用
+private Handler handler = new Handler() &#123;
+    @Override
+    public void handleMessage(Message msg) &#123;
+        // 处理消息...
+    &#125;
+&#125;;
+</code></pre>
+<p><strong>解决方案一：静态内部类 + 弱引用</strong>：</p>
+<pre><code class="java">public class MainActivity extends AppCompatActivity &#123;
+    private SafeHandler handler = new SafeHandler(this);
+
+    private static class SafeHandler extends Handler &#123;
+        private WeakReference&lt;MainActivity&gt; ref;
+        
+        SafeHandler(MainActivity activity) &#123;
+            ref = new WeakReference&lt;&gt;(activity);
+        &#125;
+
+        @Override
+        public void handleMessage(@NonNull Message msg) &#123;
+            MainActivity activity = ref.get();
+            if (activity != null) &#123;
+                activity.handleMsg(msg);
+            &#125;
+        &#125;
+    &#125;
+
+    @Override
+    protected void onDestroy() &#123;
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    &#125;
+&#125;
+</code></pre>
+<p><strong>解决方案二：使用官方 Lifecycle 监听</strong>：</p>
+<pre><code class="java">@Override
+protected void onDestroy() &#123;
+    super.onDestroy();
+    handler.removeCallbacksAndMessages(null);
+&#125;
+</code></pre>
+<h3 id="2-子线程没有-Looper-导致崩溃"><a href="#2-子线程没有-Looper-导致崩溃" class="headerlink" title="2. 子线程没有 Looper 导致崩溃"></a>2. 子线程没有 Looper 导致崩溃</h3><p><strong>问题</strong>：</p>
+<pre><code>Can&#39;t create handler inside thread that has not called Looper.prepare()
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<pre><code class="java">// 方式一：手动 prepare
+new Thread(() -&gt; &#123;
+    Looper.prepare();
+    Handler handler = new Handler(Looper.myLooper());
+    Looper.loop();
+&#125;).start();
+
+// 方式二：使用 HandlerThread（推荐）
+HandlerThread thread = new HandlerThread(&quot;Worker&quot;);
+thread.start();
+Handler handler = new Handler(thread.getLooper());
+</code></pre>
+<h3 id="3-消息延时不准"><a href="#3-消息延时不准" class="headerlink" title="3. 消息延时不准"></a>3. 消息延时不准</h3><p><strong>问题</strong>：<code>sendMessageDelayed</code> 的实际执行时间可能晚于预期。</p>
+<p><strong>原因</strong>：前面的消息处理时间过长，阻塞了后续消息。</p>
+<p><strong>解决方案</strong>：</p>
+<pre><code class="java">// 拆分耗时任务
+handler.post(() -&gt; &#123;
+    // 步骤1：初始化
+    doInit();
+    
+    // 继续投递下一步
+    handler.post(() -&gt; &#123;
+        // 步骤2：加载数据
+        doLoadData();
+    &#125;);
+&#125;);
+</code></pre>
+<h3 id="4-sendMessageDelayed-的延迟线程关系"><a href="#4-sendMessageDelayed-的延迟线程关系" class="headerlink" title="4. sendMessageDelayed 的延迟线程关系"></a>4. sendMessageDelayed 的延迟线程关系</h3><pre><code class="java">// Handler 在哪个线程创建，handleMessage 就在哪个线程执行
+Handler mainHandler = new Handler(Looper.getMainLooper()) &#123;
+    @Override
+    public void handleMessage(@NonNull Message msg) &#123;
+        // 这个在主线程执行！
+        // 耗时操作会卡 UI
+    &#125;
+&#125;;
+
+// 正确做法：子线程做耗时操作，Handler 只做 UI 更新
+new Thread(() -&gt; &#123;
+    String result = doHeavyWork();        // 子线程耗时操作
+    mainHandler.post(() -&gt; &#123;
+        textView.setText(result);          // 主线程更新 UI
+    &#125;);
+&#125;).start();
+</code></pre>
+<h3 id="5-IdleHandler-的使用"><a href="#5-IdleHandler-的使用" class="headerlink" title="5. IdleHandler 的使用"></a>5. IdleHandler 的使用</h3><p>当 MessageQueue 空闲时执行任务。</p>
+<pre><code class="java">Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() &#123;
+    @Override
+    public boolean queueIdle() &#123;
+        // 消息队列空闲时执行
+        // 返回 true 表示保留这个 IdleHandler，下次空闲继续执行
+        // 返回 false 表示只执行一次
+        return false;
+    &#125;
+&#125;);
+</code></pre>
+<h2 id="有哪些最佳实践？"><a href="#有哪些最佳实践？" class="headerlink" title="有哪些最佳实践？"></a>有哪些最佳实践？</h2><h3 id="1-使用-Message-obtain-而非-new-Message"><a href="#1-使用-Message-obtain-而非-new-Message" class="headerlink" title="1. 使用 Message.obtain() 而非 new Message()"></a>1. 使用 Message.obtain() 而非 new Message()</h3><pre><code class="java">// 推荐
+Message msg = Message.obtain(handler, 1, &quot;data&quot;);
+
+// 不推荐
+Message msg = new Message();
+</code></pre>
+<h3 id="2-使用-HandlerThread-处理子线程消息"><a href="#2-使用-HandlerThread-处理子线程消息" class="headerlink" title="2. 使用 HandlerThread 处理子线程消息"></a>2. 使用 HandlerThread 处理子线程消息</h3><pre><code class="java">HandlerThread thread = new HandlerThread(&quot;Background&quot;);
+thread.start();
+Handler handler = new Handler(thread.getLooper());
+// ... 使用完毕后
+thread.quitSafely();
+</code></pre>
+<h3 id="3-在-onDestroy-中移除消息"><a href="#3-在-onDestroy-中移除消息" class="headerlink" title="3. 在 onDestroy 中移除消息"></a>3. 在 onDestroy 中移除消息</h3><pre><code class="java">@Override
+protected void onDestroy() &#123;
+    super.onDestroy();
+    handler.removeCallbacksAndMessages(null);
+&#125;
+</code></pre>
+<h3 id="4-使用-sendEmptyMessage-替代简单消息"><a href="#4-使用-sendEmptyMessage-替代简单消息" class="headerlink" title="4. 使用 sendEmptyMessage 替代简单消息"></a>4. 使用 sendEmptyMessage 替代简单消息</h3><pre><code class="java">// 只用 what 标识时，直接 sendEmptyMessage
+handler.sendEmptyMessage(MSG_UPDATE_UI);
+handler.sendEmptyMessageDelayed(MSG_UPDATE_UI, 1000);
+</code></pre>
+<h3 id="5-避免在-handleMessage-中做耗时操作"><a href="#5-避免在-handleMessage-中做耗时操作" class="headerlink" title="5. 避免在 handleMessage 中做耗时操作"></a>5. 避免在 handleMessage 中做耗时操作</h3><pre><code class="java">// 错误
+handler.handleMessage(msg) -&gt; &#123;
+    // 网络请求 - 会卡 UI
+    return doNetworkRequest();
+&#125;;
+
+// 正确
+handler.handleMessage(msg) -&gt; &#123;
+    // 启子线程做耗时操作
+    new Thread(() -&gt; &#123;
+        String result = doNetworkRequest();
+        handler.sendMessage(handler.obtainMessage(1, result));
+    &#125;).start();
+&#125;;
+</code></pre>
+<h3 id="6-从子线程切回主线程"><a href="#6-从子线程切回主线程" class="headerlink" title="6. 从子线程切回主线程"></a>6. 从子线程切回主线程</h3><p>在子线程中做完耗时操作后，需要切回主线程更新 UI。三种常用方式本质相同——都是往主线程 MessageQueue 插入消息：</p>
+<pre><code class="java">// 方式一：通过 Handler（最推荐）
+Handler mainHandler = new Handler(Looper.getMainLooper());
+mainHandler.post(() -&gt; &#123;
+    textView.setText(&quot;更新 UI&quot;);
+&#125;);
+
+// 方式二：Activity.runOnUiThread
+runOnUiThread(() -&gt; &#123;
+    textView.setText(&quot;更新 UI&quot;);
+&#125;);
+
+// 方式三：View.post
+textView.post(() -&gt; &#123;
+    textView.setText(&quot;更新 UI&quot;);
+&#125;);
+</code></pre>
+<p>核心原理：<code>Looper.getMainLooper()</code> 拿到主线程 Looper，通过它创建的 Handler 发送的消息都会在主线程执行。<code>runOnUiThread</code> 和 <code>View.post</code> 内部也是基于此实现。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Handler 消息机制是 Android 开发的基石，掌握它需要理解四大组件的关系：</p>
+<ul>
+<li><strong>Handler</strong>：负责发送和处理消息，编码时直接交互的对象</li>
+<li><strong>Message</strong>：消息的载体，通过消息池复用，注意用 <code>obtain()</code></li>
+<li><strong>MessageQueue</strong>：单链表结构的消息队列，按时间排序</li>
+<li><strong>Looper</strong>：消息循环引擎，<code>loop()</code> 方法无限循环取消息分发</li>
+</ul>
+<p>记住核心口诀：<strong>Handler 发送、MessageQueue 排队、Looper 轮询、Handler 处理</strong>。消息分发的优先级是：<code>post(Runnable)</code> &gt; <code>Callback 接口</code> &gt; <code>handleMessage()</code>。</p>
+<p>最后牢记三点：</p>
+<ol>
+<li>子线程使用 Handler 前必须调用 <code>Looper.prepare()</code></li>
+<li>静态内部类 + 弱引用防止内存泄漏</li>
+<li><code>onDestroy</code> 中 <code>removeCallbacksAndMessages(null)</code> 清理消息</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 NaoJianghh
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;脑浆糊
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="naojianghh/naojianghh.github.io"
+    data-repo-id="R_kgDON0mDmw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDON0mDm84CoLx1"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+<canvas
+    id="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="/js/fireworks.min.js"></script>
+
+<canvas
+    id="background"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1"
+></canvas>
+<script src="/js/background.min.js"></script>
+</html>
+
